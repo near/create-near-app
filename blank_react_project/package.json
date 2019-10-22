@@ -1,0 +1,40 @@
+{
+  "name": "blank_react_template",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bignum": "github:MaxGraey/bignum.wasm",
+    "gh-pages": "^2.1.1",
+    "gulp": "^4.0.2",
+    "js-cookie": "^2.2.1",
+    "near-shell": "^0.10.4",
+    "nearlib": "^0.13.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build:frontend": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy:contract": "gulp build && near deploy",
+    "build": "react-scripts build && gulp build ",
+    "deploy:pages": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
