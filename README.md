@@ -13,11 +13,11 @@ In command line, run different command to build different blank project:
 Original JS app:
 
 ```bash
-near-app new path/to/your/new-awesome-app
+near-app path/to/your/new-awesome-app
 ```
 React app:
 ```bash
-near-react-app new path/to/your/new-awesome-app
+near-react-app path/to/your/new-awesome-app
 ```
 
 ## Notice
