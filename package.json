@@ -1,0 +1,11 @@
+{
+  "name": "near-app",
+  "version": "0.0.1",
+  "description": "generate new near blank different type of project",
+  "main": "index.js",
+  "repository": "https://github.com/nearprotocol/blank_template.git",
+  "author": "Yifang Ma <yifang@nearprotocol.com>",
+  "license": "MIT",
+  "keywords": ["nearprotocol", "assembly", "blockchain"],
+  "bugs": "https://github.com/nearprotocol/blank_template.git/issues"
+}
