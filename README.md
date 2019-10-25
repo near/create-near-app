@@ -4,20 +4,30 @@ This repo/package contains the blank projects for user to use with nearprotocol 
 ## Installation
 
 ```bash
-npm install -g near-app
+npm install -g create-near-app
 ```
 
 ## Usage
 
 In command line, run different command to build different blank project:
 Original JS app:
-
 ```bash
-near-app path/to/your/new-awesome-app
+create-near-app path/to/your/new-awesome-app
 ```
 React app:
 ```bash
-near-react-app path/to/your/new-awesome-app
+create-near-react-app path/to/your/new-awesome-app
+```
+
+If yarn installed:
+
+Original JS app:
+```bash
+yarn create near-app path/to/your/new-awesome-app
+```
+React app:
+```bash
+yarn create near-react-app path/to/your/new-awesome-app
 ```
 
 ## Notice
