@@ -1,5 +1,5 @@
 // Initializing contract
-async function initContract() {
+async function InitContract() {
     console.log('nearConfig', nearConfig);
 
     // Initializing connection to the NEAR DevNet.
@@ -89,6 +89,6 @@ function updateWhoSaidHi() {
 }
 
 // Loads nearlib and this contract into window scope.
-window.nearInitPromise = initContract()
+window.nearInitPromise = InitContract()
     .then(doWork)
     .catch(console.error);

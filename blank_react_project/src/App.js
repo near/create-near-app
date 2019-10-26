@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       login: false,
-      welcome: null
+      speech: null
     }
     this.signedInFlow = this.signedInFlow.bind(this);
     this.requestSignIn = this.requestSignIn.bind(this);
@@ -27,14 +27,15 @@ class App extends Component {
   }
 
   async signedInFlow() {
-    console.log("come in signin flow")
+    console.log("come in sign in flow")
     this.setState({
       login: true,
     })
-    const accountId = await this.props.wallet.getAccountId();
-    console.log(this.props.contract)
-    let res = await this.props.contract.hello({ name: accountId });
-    this.setState({ welcome: res })
+    const accountId = await this.props.wallet.getAccountId()
+    if (window.location.search.includes("account_id")) {
+      window.location.replace(window.location.origin + window.location.pathname)
+    }
+    this.props.contract.welcome({ name: accountId }).then(response => this.setState({ speech: response.text }))
   }
 
   async requestSignIn() {
@@ -58,7 +59,7 @@ class App extends Component {
     }
     this.setState({
       login: false,
-      welcome: null
+      speech: null
     })
   }
 
@@ -74,7 +75,7 @@ class App extends Component {
           <img className="logo" src={nearlogo} alt="NEAR logo" />
           <p><span role="img" aria-label="fish">🐟</span> NEAR protocol is a new blockchain focused on developer productivity and useability!<span role="img" aria-label="fish">🐟</span></p>
           <p><span role="img" aria-label="chain">⛓</span> This little react app is connected to blockchain right now. <span role="img" aria-label="chain">⛓</span></p>
-          <p style={style}>{this.state.welcome}</p>
+          <p style={style}>{this.state.speech}</p>
         </div>
         <div>
           {this.state.login ? <button onClick={this.requestSignOut}>Log out</button>
@@ -82,7 +83,7 @@ class App extends Component {
         </div>
         <div>
           <div className="logo-wrapper">
-            <img src={near} className="App-logo" alt="logo" />
+            <img src={near} className="App-logo margin-logo" alt="logo" />
             <img src={logo} className="App-logo" alt="logo" />
           </div>
           <p>
