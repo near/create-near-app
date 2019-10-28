@@ -3,11 +3,31 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    .App-header {
+      background-image: url('https://nearprotocol.com/wp-content/uploads/2019/03/illo-developers.svg');
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: white;
+      text-align: center;
+      padding:2%; 
+    }
+    .image-wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+  </style>
 </head>
-<body style="background: #fff; margin-top: 3em">
-  <div class="container">
-      <div className="image-wrapper">
-        <img className="logo" src="gray_near_logo.svg" alt="NEAR logo" />
+<body class="App-header">
+  <div>
+      <div class="image-wrapper">
+        <img style="width:33%;" src="gray_near_logo.svg" alt="NEAR logo" />
         <p><span role="img" aria-label="fish">🐟</span> NEAR protocol is a new blockchain focused on developer productivity and useability!<span role="img" aria-label="fish">🐟</span></p>
         <p><span role="img" aria-label="chain">⛓</span> This little react app is connected to blockchain right now. <span role="img" aria-label="chain">⛓</span></p>
         <p id="speech"></p>
