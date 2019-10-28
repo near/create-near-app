@@ -16,9 +16,9 @@ async function InitContract() {
     window.contract = await near.loadContract(nearConfig.contractName, { // eslint-disable-line require-atomic-updates
         // NOTE: This configuration only needed while NEAR is still in development
         // View methods are read only. They don't modify the state, but usually return some value.
-        viewMethods: ['whoSaidHi'],
+        viewMethods: ['welcome'],
         // Change methods can modify the state. But you don't receive the returned value when called.
-        changeMethods: ['sayHi'],
+        changeMethods: [],
         // Sender is the account ID to initialize transactions.
         sender: window.accountId,
     });
@@ -26,9 +26,6 @@ async function InitContract() {
 
 // Using initialized contract
 async function doWork() {
-    // Setting up refresh button
-    document.getElementById('refresh-button').addEventListener('click', updateWhoSaidHi);
-
     // Based on whether you've authorized, checking which flow we should go.
     if (!window.walletAccount.isSignedIn()) {
         signedOutFlow();
@@ -47,9 +44,7 @@ function signedOutFlow() {
             // The contract name that would be authorized to be called by the user's account.
             window.nearConfig.contractName,
             // This is the app name. It can be anything.
-            'Who was the last person to say "Hi!"?',
-            // We can also provide URLs to redirect on success and failure.
-            // The current URL is used by default.
+            'Welcome to NEAR'
         );
     });
 }
@@ -59,32 +54,13 @@ function signedInFlow() {
     // Displaying the signed in flow container.
     document.getElementById('signed-in-flow').classList.remove('d-none');
 
-    // Displaying current account name.
-    document.getElementById('account-id').innerText = window.accountId;
+    window.contract.welcome({name:window.accountId}).then(response => document.getElementById('speech').innerText = response);
 
-    // Adding an event to a say-hi button.
-    document.getElementById('say-hi').addEventListener('click', () => {
-    // We call say Hi and then update who said Hi last.
-        window.contract.sayHi().then(updateWhoSaidHi);
-    });
-
-    // Adding an event to a sing-out button.
+    // Adding an event to a sign-out button.
     document.getElementById('sign-out-button').addEventListener('click', () => {
         walletAccount.signOut();
         // Forcing redirect.
         window.location.replace(window.location.origin + window.location.pathname);
-    });
-}
-
-// Function to update who said hi
-function updateWhoSaidHi() {
-    // JavaScript tip:
-    // This is another example of how to use promises. Since this function is not async,
-    // we can't await for `contract.whoSaidHi()`, instead we attaching a callback function
-    // usin `.then()`.
-    contract.whoSaidHi().then((who) => {
-    // If the result doesn't have a value we fallback to the text
-        document.getElementById('who').innerText = who || 'Nobody (but you can be the first)';
     });
 }
 
