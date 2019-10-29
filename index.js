@@ -13,34 +13,25 @@ const exitOnError = async function(promise) {
     }
 }
 
-const reactProject = {
-  command: '$0 [projectDir]',
+const createProject = {
+  command: '$0 <projectDir>',
   desc: 'create a new blank react project',
-  builder: (yargs) => yargs
+  builder: (yargs) => yargs 
     .option('projectDir', {
       desc: 'project directory',
       type: 'string',
       required: true
     }),
-  handler: (argv) => exitOnError(react_Project(argv))
+  handler: (argv) => exitOnError(create_Project(argv))
 };
 
-const newProject = {
-  command: 'plain [projectDir]',
-  desc: 'create a new blank project',
-  builder: (yargs) => yargs
-    .option('projectDir', {
-      desc: 'project directory',
-      type: 'string',
-      required:true
-    }),
-  handler: (argv) => exitOnError(new_Project(argv))
-};
-
-const react_Project = async function(options) {
+const create_Project = async function(options) {
   // Need to wait for the copy to finish, otherwise next tasks do not find files.
   const projectDir = options.projectDir;
-  const sourceDir = __dirname + "/blank_react_project";
+  let sourceDir = __dirname + "/blank_react_project";
+  if(options.noReact){
+    sourceDir = __dirname + '/blank_project';
+  }
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceDir}).`);
   const copyDirFn = () => {
       return new Promise(resolve => {
@@ -69,40 +60,15 @@ const react_Project = async function(options) {
   console.log('Copying project files complete.');
 };
 
-const new_Project = async function(options) {
-    // Need to wait for the copy to finish, otherwise next tasks do not find files.
-    const projectDir = options.projectDir;
-    const sourceDir = __dirname + '/blank_project';
-    console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceDir}).`);
-    const copyDirFn = () => {
-        return new Promise(resolve => {
-            ncp (sourceDir, options.projectDir, response => resolve(response));
-        });};
-    await copyDirFn();  
-    let path = projectDir + "/package.json";
-    let index = projectDir.lastIndexOf("/");
-    let name = index > 0 
-              ? projectDir.slice(index+1, ) 
-              : projectDir
-    fs.readFile(path,function(err, data){
-      if (err) {
-        throw 'could not read file: ' + err;
-      }
-      let json = JSON.parse(data)
-      json["name"] = name
-      fs.writeFile(path,JSON.stringify(json, null, 4),function(err) {
-        if (err) { 
-          throw "error writing file: " + err;
-        }else {
-          console.log("wrote successfully!");
-        }
-      })
-    })
-    console.log('Copying project files complete.');
-};
-
 yargs
-  .command(newProject)
-  .command(reactProject)
+  .option('noReact',{
+    desc: 'create blank plain JS project',
+    type: 'boolean',
+    default: false
+  })
+  .alias({
+    'noReact': ['no_react']
+  })
+  .command(createProject)
   .help()
   .argv;

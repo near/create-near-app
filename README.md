@@ -20,7 +20,7 @@ create-near-app path/to/your/new-awesome-app
 ```
 Plain app:
 ```bash
-create-near-app plain path/to/your/new-awesome-app
+create-near-app --noReact(--no_react) path/to/your/new-awesome-app
 ```
 
 If yarn is installed:
@@ -31,7 +31,7 @@ yarn create near-app path/to/your/new-awesome-app
 ```
 Plain app:
 ```bash
-yarn create near-app plain path/to/your/new-awesome-app
+yarn create near-app --noReact(--no_react) path/to/your/new-awesome-app
 ```
 
 ## Caveats
