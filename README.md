@@ -13,6 +13,7 @@ npm install -g create-near-app
 ## Usage
 
 In command line, run different command to build different blank project:
+
 React JS app:
 ```bash
 create-near-app path/to/your/new-awesome-app
