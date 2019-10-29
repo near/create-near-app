@@ -13,24 +13,24 @@ npm install -g create-near-app
 ## Usage
 
 In command line, run different command to build different blank project:
-Original JS app:
+React JS app:
 ```bash
 create-near-app path/to/your/new-awesome-app
 ```
-React app:
+Plain app:
 ```bash
-create-near-react-app path/to/your/new-awesome-app
+create-near-app plain path/to/your/new-awesome-app
 ```
 
-If yarn installed:
+If yarn is installed:
 
-Original JS app:
+React JS app:
 ```bash
 yarn create near-app path/to/your/new-awesome-app
 ```
-React app:
+Plain app:
 ```bash
-yarn create near-react-app path/to/your/new-awesome-app
+yarn create near-app plain path/to/your/new-awesome-app
 ```
 
 ## Caveats
