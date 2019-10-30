@@ -29,7 +29,7 @@ const create_Project = async function(options) {
   // Need to wait for the copy to finish, otherwise next tasks do not find files.
   const projectDir = options.projectDir;
   let sourceDir = __dirname + "/blank_react_project";
-  if(options.noReact){
+  if(options.vanilla){
     sourceDir = __dirname + '/blank_project';
   }
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceDir}).`);
@@ -61,13 +61,13 @@ const create_Project = async function(options) {
 };
 
 yargs
-  .option('noReact',{
+  .option('vanilla',{
     desc: 'create blank plain JS project',
     type: 'boolean',
     default: false
   })
   .alias({
-    'noReact': ['no_react']
+    'vanilla': ['plain']
   })
   .command(createProject)
   .help()

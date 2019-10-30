@@ -2,13 +2,7 @@
 
 Create web app running on NEAR Protocol blockchain with zero configuration required.
 
-Both plain JS and React templates are available.
-
-## Installation
-
-```bash
-npm install -g create-near-app
-```
+Both plain JS and React templates are available. The default generator is for react project
 
 ## Usage
 
@@ -16,11 +10,14 @@ In command line, run different command to build different blank project:
 
 React JS app:
 ```bash
-create-near-app path/to/your/new-awesome-app
+npx create-near-app path/to/your/new-awesome-app
 ```
-Plain app:
+
+With initialization command:
+
+React JS app:
 ```bash
-create-near-app --noReact(--no_react) path/to/your/new-awesome-app
+npm init near-app path/to/your/new-awesome-app
 ```
 
 If yarn is installed:
@@ -31,7 +28,7 @@ yarn create near-app path/to/your/new-awesome-app
 ```
 Plain app:
 ```bash
-yarn create near-app --noReact(--no_react) path/to/your/new-awesome-app
+yarn create near-app --vanilla(--plain) path/to/your/new-awesome-app
 ```
 
 ## Caveats
