@@ -35,7 +35,7 @@ class App extends Component {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
-    this.props.contract.welcome({ name: accountId }).then(response => this.setState({ speech: response.text }))
+    this.props.contract.welcome({ name: accountId }).then(response => this.setState({speech: response.text}))
   }
 
   async requestSignIn() {
@@ -67,7 +67,7 @@ class App extends Component {
     let style = {
       fontSize: "1.5rem",
       color: "#0072CE",
-      textShadow: "1px 1px #D3D3D3"
+      textShadow: "1px 1px #D1CCBD"
     }
     return (
       <div className="App-header">

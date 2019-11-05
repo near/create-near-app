@@ -1,11 +1,11 @@
-const gulp = require('gulp');
-const nearUtils = require('near-shell/gulp-utils');
+const gulp = require("gulp");
+const nearUtils = require("near-shell/gulp-utils");
+const { exec } = require('child_process');
 
-function build_wasm(done){
-    nearUtils.compile('./assembly/main.ts', './out/main.wasm', done);
-}
+gulp.task("build", callback => {
+  exec('mkdir -p out', ()=>{
+    nearUtils.compile("./assembly/main.ts", "./out/main.wasm", callback);
+  })
+});
 
-const build = gulp.series(build_wasm);
-
-
-exports.default = build;
+exports.default = gulp.series(["build"])

@@ -1,19 +1,22 @@
 {
-  "name": "blank_react_project",
+  "name": "blank_react_template",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "assemblyscript-json": "github:nearprotocol/assemblyscript-json",
     "bignum": "github:MaxGraey/bignum.wasm",
     "gh-pages": "^2.1.1",
     "gulp": "^4.0.2",
     "js-cookie": "^2.2.1",
-    "near-shell": "^0.10.4",
-    "nearlib": "^0.13.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "near-runtime-ts": "^0.5.1",
+    "near-shell": "^0.12.0",
+    "nearlib": "^0.17.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-scripts": "3.1.1"
   },
   "scripts": {
+    "prestart": "gulp build && near deploy ",
     "start": "react-scripts start",
     "build:frontend": "react-scripts build",
     "test": "react-scripts test",

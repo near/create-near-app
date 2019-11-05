@@ -14,3 +14,6 @@ else
   echo "ERROR: $FILE not found."
   exit 1
 fi
+
+# remove temporary blank project
+rm  -rf tmp-project

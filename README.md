@@ -12,12 +12,20 @@ React JS app:
 ```bash
 npx create-near-app path/to/your/new-awesome-app
 ```
+Plain app:
+```bash
+npx create-near-app --vanilla(--plain) path/to/your/new-awesome-app
+```
 
 With initialization command:
 
 React JS app:
 ```bash
 npm init near-app path/to/your/new-awesome-app
+```
+Plain app:
+```bash
+npm init near-app --vanilla(--plain) path/to/your/new-awesome-app
 ```
 
 If yarn is installed:

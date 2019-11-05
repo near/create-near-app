@@ -6,7 +6,7 @@
 .pnp.js
 /out
 package-lock.json
-
+/neardev
 # testing
 /coverage
 

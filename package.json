@@ -3,6 +3,9 @@
   "version": "0.1.6",
   "description": "generate new near blank project with different type",
   "main": "index.js",
+  "scripts": {
+    "test": "./test/test_new_project.sh"
+  },
   "repository": "https://github.com/nearprotocol/blank_template.git",
   "author": "Yifang Ma <yifang@nearprotocol.com>",
   "license": "MIT",
@@ -13,8 +16,7 @@
   ],
   "bugs": "https://github.com/nearprotocol/blank_template.git/issues",
   "bin": {
-    "create-near-app": "./index.js",
-    "create-near-react-app": "./react.js"
+    "create-near-app": "./index.js"
   },
   "dependencies": {
     "ncp": "^2.0.0",

@@ -9,6 +9,12 @@
 <br />
 
 ## Template for NEAR dapps
+
+### Features
+* Create NEAR dapps with a React frontend 🐲
+* We got Gulp! 💦
+* We got Corgis? [🐶](https://corgis.nearprotocol.com) 
+
 ### Requirements
 ##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x 
 1. node and npm
@@ -21,11 +27,6 @@ npm i -g near-shell
 ```
 npm i -g yarn
 ```
-
-### Features
-* Create NEAR dapps with a React frontend 🐲
-* We got Gulp! 💦
-* We got Corgis? [🐶](https://corgis.nearprotocol.com) 
 
 ### To run on testnet
 Step 1: Create account for the contract and deploy the contract.
@@ -40,20 +41,15 @@ modify src/config.js line that sets the contractName. Set it to id from step 1.
 ```
 const CONTRACT_NAME = "contractId"; /* TODO: fill this in! */
 ```
+
 Step 3:
-deploy the smart contract, run the command:
-```
-npm run deploy:contract
-```
-Step 4:
 Finally, run the command in your terminal.
 ```
-npm intall && npm start
+npm install
+npm run(yarn) prestart
+npm run(yarn) start
 ```
-```
-yarn install && yarn start
-```
-The server that starts is for static assets and by default serves them to localhost:5000. Navigate there in your browser to see the app running!
+The server that starts is for static assets and by default serves them to localhost:3000. Navigate there in your browser to see the app running!
 
 ## To Explore
 
