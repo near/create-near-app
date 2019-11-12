@@ -1,0 +1,8 @@
+language: node_js
+node_js: 12
+env:
+  - NODE_ENV=ci
+  - NODE_ENV=ci-staging
+cache: yarn
+script:
+  - yarn test
