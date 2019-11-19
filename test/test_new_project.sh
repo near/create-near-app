@@ -15,6 +15,7 @@ else
   exit 1
 fi
 
+yarn
 yarn test
 
 # remove temporary blank project
