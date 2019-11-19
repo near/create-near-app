@@ -2,7 +2,7 @@
 set -ex
 
 # remove temporary blank project
-rm  -rf tmp-project
+rm -rf tmp-project
 
 # test generating new project in new dir
 yarn create near-app tmp-project
@@ -14,6 +14,8 @@ else
   echo "ERROR: $FILE not found."
   exit 1
 fi
+
+yarn test
 
 # remove temporary blank project
 rm  -rf tmp-project
