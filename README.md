@@ -14,7 +14,7 @@ npx create-near-app path/to/your/new-awesome-app
 ```
 Plain app:
 ```bash
-npx create-near-app --vanilla(--plain) path/to/your/new-awesome-app
+npx create-near-app --vanilla path/to/your/new-awesome-app
 ```
 
 With initialization command:
@@ -25,7 +25,7 @@ npm init near-app path/to/your/new-awesome-app
 ```
 Plain app:
 ```bash
-npm init near-app --vanilla(--plain) path/to/your/new-awesome-app
+npm init near-app --vanilla path/to/your/new-awesome-app
 ```
 
 If yarn is installed:
@@ -36,7 +36,7 @@ yarn create near-app path/to/your/new-awesome-app
 ```
 Plain app:
 ```bash
-yarn create near-app --vanilla(--plain) path/to/your/new-awesome-app
+yarn create near-app --vanilla path/to/your/new-awesome-app
 ```
 
 ## Caveats
