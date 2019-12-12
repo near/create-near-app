@@ -66,9 +66,6 @@ yargs
     type: 'boolean',
     default: false
   })
-  .alias({
-    'vanilla': ['plain']
-  })
   .command(createProject)
   .help()
   .argv;

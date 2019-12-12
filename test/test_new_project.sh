@@ -5,7 +5,7 @@ set -ex
 rm -rf tmp-project
 
 # test generating new project in new dir
-yarn create near-app tmp-project
+node index.js  tmp-project
 cd tmp-project
 FILE=package.json
 if test -f "$FILE"; then
