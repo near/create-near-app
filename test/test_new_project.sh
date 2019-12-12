@@ -2,10 +2,10 @@
 set -ex
 
 # remove temporary blank project
-rm  -rf tmp-project
+rm -rf tmp-project
 
 # test generating new project in new dir
-yarn create near-app tmp-project
+node index.js  tmp-project
 cd tmp-project
 FILE=package.json
 if test -f "$FILE"; then
@@ -14,6 +14,9 @@ else
   echo "ERROR: $FILE not found."
   exit 1
 fi
+
+yarn
+yarn test
 
 # remove temporary blank project
 rm  -rf tmp-project
