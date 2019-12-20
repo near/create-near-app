@@ -16,7 +16,7 @@
         "jest": "^24.8.0",
         "jest-environment-node": "^24.8.0",
         "near-runtime-ts": "^0.5.1",
-        "near-shell": "^0.12.0"
+        "near-shell": "^0.17.2"
     },
     "wasmStudio": {
         "name": "Hello World Example",
