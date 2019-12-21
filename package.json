@@ -23,5 +23,8 @@
   "dependencies": {
     "ncp": "^2.0.0",
     "yargs": "^15.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
   }
 }
