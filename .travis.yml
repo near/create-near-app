@@ -6,3 +6,4 @@ env:
 cache: yarn
 script:
   - yarn test
+  - yarn lint
