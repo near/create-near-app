@@ -24,6 +24,6 @@
         "icon": "typescript-lang-file-icon"
     },
     "dependencies": {
-        "serve": "^11.2.0"
+        "serve": "^11.3.0"
     }
 }
