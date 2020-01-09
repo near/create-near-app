@@ -26,8 +26,6 @@ Plain app:
 npx create-near-app --vanilla path/to/your/new-awesome-app
 ```
 
-Then go to your project and follow README.md in it.
-
 ## 2. Authorize NEAR Shell on your NEAR account
 
 You'll now want to authorize NEAR shell on your NEAR account, which will allow NEAR Shell to deploy contracts on your NEAR account's behalf \(and spend your NEAR account balance to do so\).
@@ -82,7 +80,7 @@ The last step is now to update the src/config.js to use &lt;yourcontractname&gt;
 
 ```javascript
 (function() {
-    const CONTRACT_NAME = '<yourcontractname>'; /* TODO: fill this in! */
+    const CONTRACT_NAME = 'react-template'; /* TODO: Change this to your contract's name! */
     const DEFAULT_ENV = 'development';
     ...
 })();
