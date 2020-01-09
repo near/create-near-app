@@ -8382,10 +8382,10 @@ near-runtime-ts@^0.5.1:
     bignum "github:MaxGraey/bignum.wasm"
     near-assemblyscript "^0.7.4"
 
-near-shell@^0.17.2:
-  version "0.17.2"
-  resolved "https://registry.yarnpkg.com/near-shell/-/near-shell-0.17.2.tgz#78169140eefa9e7d265f73b70f409759f7ee0fcf"
-  integrity sha512-YY8dW2rTqKxIIoOTATUBmE8UoGgYw91HZS526qIFL4z/aZU/pUODfzLIeNOTE62qzcB4bAS48A4/LDQzFarxBQ==
+near-shell@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/near-shell/-/near-shell-0.18.0.tgz#e50b02f4cf28ac38d024f65612fd0939e067b649"
+  integrity sha512-TPAS37Xq9tVpmkQtHc/xhWNt+j6zfRZEuF42dzb4A6RTKljeiPcw8XVVWmm2djcf0Zl2qYVSrSf2i+gIHsmTeQ==
   dependencies:
     bn "^1.0.5"
     bs58 "^4.0.1"
