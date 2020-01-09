@@ -8399,10 +8399,10 @@ near-shell@^0.18.0:
     update-notifier "^4.0.0"
     yargs "^15.0.1"
 
-nearlib@^0.19.1:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/nearlib/-/nearlib-0.19.1.tgz#88096067f08bcc24266f3c52046bf7c75f85a3cb"
-  integrity sha512-S/DIznzEwJK6VqMBfVMT661+Rc8w1UWKQuR6uCl6L57owgiOSLJDux7wkHXSKRvrlx2P+xCdyO9tIR2xBG32EQ==
+nearlib@^0.19.1, nearlib@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/nearlib/-/nearlib-0.19.2.tgz#1cff4a8b5931ddb746c59d8e3343100efccc76a2"
+  integrity sha512-h1sPs5D8woGKCrNTITNC/srOsbnFHH5ESZVRX4pI8TAodQ3L1N7nqMSHdojRJ1WjQyxmBCU4Y811j9aufxKK9Q==
   dependencies:
     "@types/bn.js" "^4.11.5"
     bn.js "^5.0.0"
