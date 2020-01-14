@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "assemblyscript-json": "github:nearprotocol/assemblyscript-json",
-    "bignum": "github:MaxGraey/bignum.wasm",
-    "gh-pages": "^2.2.0",
+    "gh-pages": "^2.1.1",
     "gulp": "^4.0.2",
     "js-cookie": "^2.2.1",
     "near-runtime-ts": "^0.5.2",

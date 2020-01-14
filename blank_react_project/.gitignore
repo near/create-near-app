@@ -2,20 +2,20 @@
 
 # dependencies
 package-lock.json
-/node_modules
-/.pnp
+node_modules/
+.pnp/
 .pnp.js
-/out
+out/
 
 #keys
 /neardev
 
 
 # testing
-/coverage
+coverage/
 
 # production
-/build
+build/
 
 # misc
 .DS_Store
