@@ -15,7 +15,7 @@
         "gulp": "^4.0.2",
         "jest": "^24.9.0",
         "jest-environment-node": "^24.9.0",
-        "near-runtime-ts": "^0.5.1",
+        "near-runtime-ts": "^0.5.2",
         "near-shell": "^0.18.0"
     },
     "wasmStudio": {
