@@ -9,7 +9,7 @@
     "gulp": "^4.0.2",
     "js-cookie": "^2.2.1",
     "near-runtime-ts": "^0.5.2",
-    "near-shell": "^0.18.0",
+    "near-shell": "^0.19.1",
     "nearlib": "^0.20.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
