@@ -22,8 +22,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy:contract": "gulp build && near deploy",
-    "build": "react-scripts build && gulp build ",
-    "deploy:pages": "gh-pages -d build"
+    "deploy:pages": "gh-pages -d build",
+    "deploy": "npm run deploy:contract && npm run deploy:pages",
+    "build": "react-scripts build && gulp build "
   },
   "eslintConfig": {
     "extends": "react-app"

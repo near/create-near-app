@@ -8,7 +8,8 @@
         "deploy:pages": "gh-pages -d src",
         "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
         "prestart": "gulp build && near deploy",
-        "start": "serve src"
+        "start": "serve src",
+        "test": "jest"
     },
     "devDependencies": {
         "gh-pages": "^2.2.0",

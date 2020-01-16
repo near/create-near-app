@@ -22,7 +22,7 @@ async function InitContract() {
     let acct = await new nearlib.Account(window.near.connection, window.accountId);
     window.contract = await new nearlib.Contract(acct, window.nearConfig.contractName, {
         // View methods are read only. They don't modify the state, but usually return some value.
-        viewMethods: ['welcome',],
+        viewMethods: ['welcome'],
         // Change methods can modify the state. But you don't receive the returned value when called.
         changeMethods: [],
         // Sender is the account ID to initialize transactions.

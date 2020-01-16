@@ -9,6 +9,7 @@ package-lock.json
 /neardev
 # testing
 /coverage
+tmp-project
 
 # production
 /build
