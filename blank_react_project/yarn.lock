@@ -2661,7 +2661,7 @@ asn1@~0.2.3:
   dependencies:
     safer-buffer "~2.1.0"
 
-assemblyscript-json@^0.2.0, "assemblyscript-json@github:nearprotocol/assemblyscript-json":
+assemblyscript-json@0.2.0, "assemblyscript-json@github:nearprotocol/assemblyscript-json":
   version "0.2.0"
   resolved "https://codeload.github.com/nearprotocol/assemblyscript-json/tar.gz/f276773044839b2bd3f4afe3c7a3a5b7bc79b455"
 
@@ -8373,14 +8373,13 @@ near-assemblyscript@^0.7.4:
     opencollective-postinstall "^2.0.0"
     source-map-support "^0.5.13"
 
-near-runtime-ts@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/near-runtime-ts/-/near-runtime-ts-0.5.1.tgz#d749fd6b0eb4f8bfe1b6ada7549aab7396b4d84f"
-  integrity sha512-rSX/Jbo4t04dF7raflkCoTl1bfiHy4wIwAP+NgRwI5+NEtpahbpjE3i2xL55h3mCjjEbZY0578aSLWUHjJMp6A==
+near-runtime-ts@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/near-runtime-ts/-/near-runtime-ts-0.5.2.tgz#a2dad2355a56cc9ccd1f698e19bf6087e4f68c35"
+  integrity sha512-inV+uFpT+67QuYSGLU60lEXEqKK4ukc8hbT9KBMG3HyIbuU+oK7Fh1t06mX52SFLEvWujP8P3vwBZ7BZoZR03A==
   dependencies:
-    assemblyscript-json "^0.2.0"
+    assemblyscript-json "0.2.0"
     bignum "github:MaxGraey/bignum.wasm"
-    near-assemblyscript "^0.7.4"
 
 near-shell@^0.18.0:
   version "0.18.0"
