@@ -55,9 +55,11 @@ Modify src/config.js line that sets the contractName. Set it to id from step 1.
 #### Step 3:
 Finally, run the command in your terminal.
 ```
-npm install
-npm run(yarn) prestart
-npm run(yarn) start
+npm install && npm start
+```
+with yarn:
+```
+yarn install && yarn start
 ```
 The server that starts is for static assets and by default serves them to localhost:5000. Navigate there in your browser to see the app running!
 

@@ -9,7 +9,7 @@
     "gulp": "^4.0.2",
     "js-cookie": "^2.2.1",
     "near-runtime-ts": "^0.5.2",
-    "near-shell": "^0.19.1",
+    "near-shell": "^0.20.1",
     "nearlib": "^0.20.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -24,7 +24,8 @@
     "deploy:contract": "gulp build && near deploy",
     "deploy:pages": "gh-pages -d build",
     "deploy": "npm run deploy:contract && npm run deploy:pages",
-    "build": "react-scripts build && gulp build "
+    "build": "react-scripts build && gulp build ",
+    "dev:deploy:contract": "near dev-deploy ./out/main.wasm"
   },
   "eslintConfig": {
     "extends": "react-app"

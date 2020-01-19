@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "scripts": {
         "build": "gulp build",
+        "dev:deploy:contract": "near dev-deploy ./out/main.wasm",
         "deploy:contract": "near deploy",
         "deploy:pages": "gh-pages -d src",
         "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
@@ -17,7 +18,7 @@
         "jest": "^24.9.0",
         "jest-environment-node": "^24.9.0",
         "near-runtime-ts": "^0.5.2",
-        "near-shell": "^0.19.1"
+        "near-shell": "^0.20.1"
     },
     "wasmStudio": {
         "name": "Hello World Example",
