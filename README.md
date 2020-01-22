@@ -45,4 +45,10 @@ yarn create near-app --vanilla path/to/your/new-awesome-app
 
 ## Develop your own Dapp
 
-Follow the instructions in the README.md in the project you just created and enjoy the development with NEAR. We have [documentation](https://docs.nearprotocol.com) with lots of examples. We have support at [Discord](http://near.chat) and really welcome.
+#### Simple Tip
+After create project, run ```npm run dev:deploy:contract``` to start and get familiar with features.
+
+#### Next step
+Follow the instructions in the README.md in the project you just created and enjoy the development with NEAR. 
+
+We have [documentation](https://docs.nearprotocol.com) with lots of examples. We have support at [Discord](http://near.chat) and really welcome.
