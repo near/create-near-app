@@ -18,7 +18,7 @@ function getConfig(env) {
 }
 
 async function InitContract() {
-    window.nearConfig = getConfig('development')
+    window.nearConfig = getConfig('development');
     console.log('nearConfig', nearConfig);
 
     // Initializing connection to the NEAR DevNet.
@@ -45,6 +45,6 @@ async function InitContract() {
 
 it('welcome test', async () => {
     await InitContract();
-    const message = await contract.welcome({name:"test"})
-    expect(message).toEqual({"text": "Welcome, test. Welcome to NEAR Protocol chain"})
-})
+    const message = await contract.welcome({name:'test'});
+    expect(message).toEqual({'text': 'Welcome, test. Welcome to NEAR Protocol chain'});
+});
