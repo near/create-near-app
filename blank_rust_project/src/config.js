@@ -1,5 +1,5 @@
 (function() {
-    const CONTRACT_NAME = 'nearapp'; /* TODO: fill this in! */
+    const CONTRACT_NAME = 'jane0117'; /* TODO: fill this in! */
     const DEFAULT_ENV = 'development';
 
     function getConfig(env) {
