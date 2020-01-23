@@ -1,3 +1,9 @@
 contract/res/**
 contract/target/**
-!contract/res/.gitkeep 
+!contract/res/.gitkeep
+
+#keys
+/neardev
+
+#node modules
+/node_modules
