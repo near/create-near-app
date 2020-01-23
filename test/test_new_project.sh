@@ -23,6 +23,7 @@ for command in "${commands[@]}"; do
 
     yarn
     yarn test
+    cd ..
 done
 
 # remove temporary blank project
