@@ -1,9 +1,9 @@
 {
-    "name": "awesome-project63",
-    "description": "",
+    "name": "awesome-project-rust",
+    "description": "A full stack project using rust smart contract on NEAR",
     "version": "0.0.1",
     "scripts": {
-        "build": "cd contract",
+        "build": "cd contract && ./build.sh",
         "dev:deploy:contract": "near dev-deploy --wasmFile ./contract/res/status_message.wasm",
         "deploy:contract": "near deploy --wasmFile ./contract/res/status_message.wasm",
         "deploy:pages": "gh-pages -d src",

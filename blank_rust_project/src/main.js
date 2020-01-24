@@ -16,7 +16,7 @@ async function InitContract() {
     window.contract = await near.loadContract(nearConfig.contractName, { // eslint-disable-line require-atomic-updates
         // NOTE: This configuration only needed while NEAR is still in development
         // View methods are read only. They don't modify the state, but usually return some value.
-        viewMethods: ['get_status'],
+        viewMethods: ['welcome'],
         // Change methods can modify the state. But you don't receive the returned value when called.
         changeMethods: [],
         // Sender is the account ID to initialize transactions.
@@ -54,7 +54,7 @@ function signedInFlow() {
     // Displaying the signed in flow container.
     document.getElementById('signed-in-flow').classList.remove('d-none');
 
-    window.contract.get_status({name:window.accountId}).then(response => document.getElementById('speech').innerText = response.text);
+    window.contract.welcome({account_id:window.accountId}).then(response => document.getElementById('speech').innerText = response);
 
     // Adding an event to a sign-out button.
     document.getElementById('sign-out-button').addEventListener('click', () => {

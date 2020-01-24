@@ -1,19 +1,31 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use near_bindgen::{env, near_bindgen};
+use std::collections::HashMap;
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-
 #[near_bindgen]
 #[derive(Default, BorshDeserialize, BorshSerialize)]
-pub struct Welcome {}
+pub struct Welcome {
+    records: HashMap<String, String>,
+}
 
 #[near_bindgen]
 impl Welcome {
-    pub fn welcome(&self, name: String) -> Option<String> {
-        env::log(b"log message");
-        return Some(format!("Hello {}", name));
+    pub fn set_greeting(&mut self, message: String) {
+        let account_id = env::signer_account_id();
+        self.records.insert(account_id, message);
+    }
+
+    pub fn welcome(&self, account_id: String) -> Option<String> {
+        if self.records.get(&account_id) == None {
+            env::log(b"using default message");
+            return Some(format!("Hello {}", account_id));
+        } else {
+            //return Some(format!("Hello 2 {}", account_id));
+            return Some(format!("{} {}", self.records.get(&account_id).unwrap(), account_id));
+        }
     }
 }
 
