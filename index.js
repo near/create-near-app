@@ -27,12 +27,12 @@ const createProject = {
 
 const create_Project = async function(options) {
     if (!options.vanilla && options.rust) {
-      console.log('Blank project for rust contract with react is not available yet.');
-      return;
+        console.log('Blank project for rust contract with react is not available yet.');
+        return;
     }
     const rustPiece = options.rust ? '_rust' : '';
     const reactPiece = options.vanilla ? '' : '_react';
-    const templateDir = `/blank${rustPiece}${reactPiece}_project`
+    const templateDir = `/blank${rustPiece}${reactPiece}_project`;
     // Need to wait for the copy to finish, otherwise next tasks do not find files.
     const projectDir = options.projectDir;
     let sourceDir = __dirname + templateDir;
