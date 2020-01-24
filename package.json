@@ -6,8 +6,7 @@
   "scripts": {
     "test": "./test/test_new_project.sh",
     "lint": "eslint .",
-    "fix": "eslint . --fix",
-    "postinstall": "mv near.gitignore .gitignore"
+    "fix": "eslint . --fix"
   },
   "repository": "https://github.com/nearprotocol/blank_template.git",
   "author": "Yifang Ma <yifang@nearprotocol.com>",
