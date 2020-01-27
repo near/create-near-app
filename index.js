@@ -68,7 +68,7 @@ yargs
     .option('vanilla',{
         desc: 'create blank plain JS project',
         type: 'boolean',
-        default: false
+        default: true
     })
     .option('rust',{
         desc: 'use rust for smart contract',
