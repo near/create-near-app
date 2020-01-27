@@ -10,7 +10,7 @@
 
 ## Template for NEAR dapps
 ### Requirements
-##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x 
+##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x
 1. node and npm
 2. near shell
 ```
@@ -61,7 +61,7 @@ with yarn:
 ```
 yarn install && yarn start
 ```
-The server that starts is for static assets and by default serves them to localhost:5000. Navigate there in your browser to see the app running!
+The server that starts is for static assets and by default serves them to localhost:4000. Navigate there in your browser to see the app running!
 
 ### Deploy
 Check the scripts in the package.json, for frontend and backend both, run the command:
@@ -71,6 +71,6 @@ npm run(yarn) deploy
 
 ### To Explore
 
-- `assembly/main.ts` for the contract code
+- `contract/src/lib.rs` for the contract code
 - `src/index.html` for the front-end HTML
 - `src/main.js` for the JavaScript front-end code and how to integrate contracts

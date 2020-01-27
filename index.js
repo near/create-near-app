@@ -73,7 +73,7 @@ yargs
     .option('rust',{
         desc: 'use rust for smart contract',
         type: 'boolean',
-        default: true
+        default: false
     })
     .command(createProject)
     .help()

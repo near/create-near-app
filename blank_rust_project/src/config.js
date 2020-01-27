@@ -1,5 +1,5 @@
 (function() {
-    const CONTRACT_NAME = 'jane0117'; /* TODO: fill this in! */
+    const CONTRACT_NAME = 'rust-example-contract'; /* TODO: fill this in! */
     const DEFAULT_ENV = 'development';
 
     function getConfig(env) {
