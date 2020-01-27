@@ -74,3 +74,9 @@ npm run(yarn) deploy
 - `contract/src/lib.rs` for the contract code
 - `src/index.html` for the front-end HTML
 - `src/main.js` for the JavaScript front-end code and how to integrate contracts
+
+### Testing
+To test run:
+```bash
+cargo test --package status-message -- --nocapture
+```
