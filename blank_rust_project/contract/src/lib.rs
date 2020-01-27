@@ -19,12 +19,12 @@ impl Welcome {
     }
 
     pub fn welcome(&self, account_id: String) -> Option<String> {
-        if self.records.get(&account_id) == None {
-            env::log(b"using default message");
-            return Some(format!("Hello {}", account_id));
-        } else {
-            //return Some(format!("Hello 2 {}", account_id));
-            return Some(format!("{} {}", self.records.get(&account_id).unwrap(), account_id));
+        match self.records.get(&account_id) {
+            None => {
+                env::log(b"Using default message.");
+                return Some(format!("Hello {}", account_id));
+            },
+            _ => return Some(format!("{} {}", self.records.get(&account_id).unwrap(), account_id))
         }
     }
 }
