@@ -2,9 +2,9 @@
 set -ex
 
 commands=(
-    "node index.js tmp-project --rust=false"
-    "node index.js tmp-project --vanilla --rust=false"
+    "node index.js tmp-project"
     "node index.js tmp-project --vanilla"
+    "node index.js tmp-project --vanilla --rust"
 )
 
 for command in "${commands[@]}"; do

@@ -10,13 +10,19 @@
 
 ## Template for NEAR dapps
 ### Requirements
-##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x
+##### IMPORTANT: Make sure you have the latest version of NEAR Shell, Node Version > 10.x, and latest rust.
 1. node and npm
 2. near shell
 ```
 npm i -g near-shell
 ```
-3.(optional) install yarn to build
+3. Make sure you have the latest rust
+```
+rustup update
+rustup target add wasm32-unknown-unknown
+```
+
+4.(optional) install yarn to build
 ```
 npm i -g yarn
 ```
