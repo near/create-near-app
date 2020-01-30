@@ -60,7 +60,7 @@ mod tests {
     fn set_get_message() {
         let context = get_context(vec![], false);
         testing_env!(context);
-        let mut contract = StatusMessage::default();
+        let mut contract = Welcome::default();
         contract.set_status("hello".to_string());
         assert_eq!("hello".to_string(), contract.get_status("bob_near".to_string()).unwrap());
     }
@@ -69,7 +69,7 @@ mod tests {
     fn get_nonexistent_message() {
         let context = get_context(vec![], true);
         testing_env!(context);
-        let contract = StatusMessage::default();
+        let contract = Welcome::default();
         assert_eq!(None, contract.get_status("francis.near".to_string()));
     }
 }

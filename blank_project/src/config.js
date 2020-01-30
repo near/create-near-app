@@ -30,8 +30,8 @@
             };
         case 'test':
             return {
-                networkId: 'local',
-                nodeUrl: 'http://localhost:3030',
+                networkId: 'shared-test',
+                nodeUrl: 'http://shared-test.nearprotocol.com:3030',
                 contractName: CONTRACT_NAME,
                 masterAccount: 'test.near',
             };
