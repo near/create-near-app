@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
-    "build:contract": "mkdir -p out/ && gulp && npm run build:web",
+    "build:contract": "mkdir -p out/ && gulp",
     "build:web": "parcel build src/index.html --public-url ./",
     "dev:deploy:contract": "near dev-deploy",
     "deploy:contract": "near deploy",
