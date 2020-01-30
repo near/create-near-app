@@ -28,14 +28,6 @@
                 walletUrl: 'http://localhost:4000/wallet',
                 contractName: CONTRACT_NAME,
             };
-        case 'test':
-            return {
-                networkId: 'shared-test',
-                nodeUrl: 'http://shared-test.nearprotocol.com:3030',
-                contractName: CONTRACT_NAME,
-                masterAccount: 'test.near',
-            };
-        case 'test-remote':
         case 'ci':
             return {
                 networkId: 'shared-test',
