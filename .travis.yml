@@ -2,15 +2,18 @@ language: rust
 rust:
   - stable
   - nightly
-node_js: 12
 
 env:
   - NODE_ENV=ci
   - NODE_ENV=ci-staging
 cache: yarn
 
-before_script:
+before_install:
   - rustup target add wasm32-unknown-unknown
+  - nvm install 0.12
+  - nvm use 0.12
+
+install: 
   - npm install
 
 script:
