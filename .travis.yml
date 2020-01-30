@@ -13,7 +13,6 @@ env:
   - NODE_ENV=ci-staging
 cache: yarn
 script:
-  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   - rustup target add wasm32-unknown-unknown
   - yarn test
   - yarn lint
