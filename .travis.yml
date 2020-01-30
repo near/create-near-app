@@ -1,5 +1,13 @@
-language: node_js
-node_js: 12
+matrix:
+  include:
+    language: node_js
+    node_js: 12
+  include:
+    language: rust
+    rust:
+      - stable
+      - nightly
+
 env:
   - NODE_ENV=ci
   - NODE_ENV=ci-staging
