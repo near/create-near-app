@@ -11,6 +11,7 @@ cache: yarn
 
 before_script:
   - rustup target add wasm32-unknown-unknown
+  - npm install
 
 script:
   - yarn test
