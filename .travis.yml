@@ -1,18 +1,17 @@
-jobs:
-  include:
-    language: node_js
-    node_js: 12
-  include:
-    language: rust
-    rust:
-      - stable
-      - nightly
+language: rust
+rust:
+  - stable
+  - nightly
+node_js: 12
 
 env:
   - NODE_ENV=ci
   - NODE_ENV=ci-staging
 cache: yarn
-script:
+
+before_script:
   - rustup target add wasm32-unknown-unknown
+
+script:
   - yarn test
   - yarn lint
