@@ -5,13 +5,16 @@ package-lock.json
 /node_modules
 /.pnp
 .pnp.js
+
+# build
 /out
 
 # testing
 /coverage
 
 # production
-/build
+/dist
+/.cache
 
 # misc
 .DS_Store

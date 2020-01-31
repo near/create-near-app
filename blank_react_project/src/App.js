@@ -46,14 +46,13 @@ class App extends Component {
     )
   }
 
-  requestSignOut = () => {
+  requestSignOut() {
     this.props.wallet.signOut();
     setTimeout(this.signedOutFlow, 500);
     console.log("after sign out", this.props.wallet.isSignedIn())
   }
 
-
-  signedOutFlow = () => {
+  signedOutFlow() {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }

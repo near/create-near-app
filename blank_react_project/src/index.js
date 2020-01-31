@@ -5,8 +5,8 @@ import getConfig from './config.js';
 import * as nearlib from 'nearlib';
 
 // Initializing contract
-async function InitContract() {
-    window.nearConfig = getConfig('development')
+async function initContract() {
+    window.nearConfig = getConfig(process.env.NODE_ENV || 'development')
     console.log("nearConfig", window.nearConfig);
 
     // Initializing connection to the NEAR DevNet.
@@ -30,8 +30,8 @@ async function InitContract() {
     });
 }
 
-window.nearInitPromise = InitContract().then(() => {
-    ReactDOM.render(<App contract={window.contract} wallet={window.walletAccount}/>,
-      document.getElementById('root')
-    );
-  }).catch(console.error)
+window.nearInitPromise = initContract().then(() => {
+  ReactDOM.render(<App contract={window.contract} wallet={window.walletAccount} />,
+    document.getElementById('root')
+  );
+}).catch(console.error)

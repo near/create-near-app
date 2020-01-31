@@ -1,6 +1,5 @@
 {
   "name": "near-blank-project",
-  "description": "",
   "version": "0.0.1",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
