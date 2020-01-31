@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || 'react-template'; /* TODO: fill this in!*/
+const CONTRACT_NAME = process.env.CONTRACT_NAME ||'nearapp'; /* TODO: fill this in! */
 
 function getConfig(env) {
     switch (env) {
@@ -29,13 +29,6 @@ function getConfig(env) {
             contractName: CONTRACT_NAME,
         };
     case 'test':
-        return {
-            networkId: 'local',
-            nodeUrl: 'http://localhost:3030',
-            contractName: CONTRACT_NAME,
-            masterAccount: 'test.near',
-        };
-    case 'test-remote':
     case 'ci':
         return {
             networkId: 'shared-test',
