@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let loggedIn = window.walletAccount.isSignedIn();
+    let loggedIn = this.props.wallet.isSignedIn();
     if (loggedIn) {
       this.signedInFlow();
     } else {
