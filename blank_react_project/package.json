@@ -23,7 +23,7 @@
     "jest": "^25.1.0",
     "jest-environment-node": "^24.9.0",
     "near-bindgen-as": "^1.2.0",
-    "near-runtime-ts": "^0.5.2",
+    "near-runtime-ts": "^0.5.3",
     "near-shell": "^0.20.1",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
