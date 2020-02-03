@@ -21,7 +21,7 @@
     "gh-pages": "^2.2.0",
     "gulp": "^4.0.2",
     "jest": "^25.1.0",
-    "jest-environment-node": "^24.9.0",
+    "jest-environment-node": "^25.1.0",
     "near-bindgen-as": "^1.2.0",
     "near-runtime-ts": "^0.5.3",
     "near-shell": "^0.20.1",
