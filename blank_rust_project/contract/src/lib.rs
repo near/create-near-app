@@ -61,8 +61,8 @@ mod tests {
         let context = get_context(vec![], false);
         testing_env!(context);
         let mut contract = Welcome::default();
-        contract.set_status("hello".to_string());
-        assert_eq!("hello".to_string(), contract.get_status("bob_near".to_string()).unwrap());
+        contract.set_greeting("howdy".to_string());
+        assert_eq!("howdy bob_near".to_string(), contract.welcome("bob_near".to_string()).unwrap());
     }
 
     #[test]
@@ -70,6 +70,6 @@ mod tests {
         let context = get_context(vec![], true);
         testing_env!(context);
         let contract = Welcome::default();
-        assert_eq!(None, contract.get_status("francis.near".to_string()));
+        assert_eq!("Hello francis.near".to_string(), contract.welcome("francis.near".to_string()).unwrap());
     }
 }
