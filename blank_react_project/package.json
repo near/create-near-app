@@ -1,5 +1,5 @@
 {
-  "name": "blank_react_template",
+  "name": "near-blank-project",
   "version": "0.1.0",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
