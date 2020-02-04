@@ -1,3 +1,11 @@
+import "regenerator-runtime/runtime";
+
+import * as nearlib from "nearlib"
+import getConfig from "./config"
+
+let nearConfig = getConfig(process.env.NODE_ENV || "development");
+window.nearConfig = nearConfig;
+
 // Initializing contract
 async function InitContract() {
     console.log('nearConfig', nearConfig);
