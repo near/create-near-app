@@ -11,22 +11,40 @@
 ## Template for NEAR dapps
 ### Requirements
 ##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x 
-1. node and npm
-2. near shell
+
+1. [Node.js](https://nodejs.org/en/download/package-manager/)
+2. (optional) near-shell
+
 ```
 npm i -g near-shell
 ```
-3.(optional) install yarn to build
+3. (optional) yarn
 ```
 npm i -g yarn
 ```
 ### To run on NEAR testnet
-#### Step 1: Create account for the contract and deploy the contract.
+
+```bash
+npm install && npm start
+```
+
+with yarn:
+
+```bash
+yarn && yarn start
+```
+
+The server that starts is for static assets and by default serves them to http://localhost:1234. Navigate there in your browser to see the app running!
+
+### Deploy
+
+#### Step 1: Create account for the contract
+
 You'll now want to authorize NEAR shell on your NEAR account, which will allow NEAR Shell to deploy contracts on your NEAR account's behalf \(and spend your NEAR account balance to do so\).
 
 Type the command `near login` which should return a url:
 
-```bash
+```
 Please navigate to this url and follow the instructions to log in:
 https://wallet.nearprotocol.com/login/?title=NEAR+Shell&public_key={publicKey}
 ```
@@ -43,31 +61,32 @@ Once you have entered your account ID, it will display the following message:
 This message is not an error, it just means that it will create a public key for you.
 
 #### Step 2:
-Modify src/config.js line that sets the contractName. Set it to id from step 1.
+
+Modify `src/config.js` line that sets the account name of the contract. Set it to the account id from step 1.
+
+NOTE: When you use [create-near-app](https://github.com/nearprotocol/create-near-app) to create the project it'll infer and pre-populate name of contract based on project folder name.
+
 ```javascript
-(function() {
-    const CONTRACT_NAME = 'react-template'; /* TODO: Change this to your contract's name! */
-    const DEFAULT_ENV = 'development';
-    ...
-})();
+const CONTRACT_NAME = 'react-template'; /* TODO: Change this to your contract's name! */
+const DEFAULT_ENV = 'development';
+...
 ```
 
 #### Step 3:
-Finally, run the command in your terminal.
-```
-npm install && npm start
-```
-with yarn:
-```
-yarn install && yarn start
-```
-The server that starts is for static assets and by default serves them to localhost:5000. Navigate there in your browser to see the app running!
 
-### Deploy
 Check the scripts in the package.json, for frontend and backend both, run the command:
+
 ```bash
-npm run(yarn) deploy
+npm run deploy
 ```
+
+with yarn:
+
+```bash
+yarn deploy
+```
+
+NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resulting website on GitHub pages. It'll only work if project already has repository set up on GitHub. Feel free to modify `deploy:pages` script in `package.json` to deploy elsewhere.
 
 ### To Explore
 
