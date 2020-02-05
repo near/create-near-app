@@ -38,6 +38,18 @@ The server that starts is for static assets and by default serves them to http:/
 
 NOTE: Both contract and client-side code will auto-reload once you change source files.
 
+### To run tests
+
+```bash
+npm test
+```
+
+with yarn:
+
+```bash
+yarn test
+```
+
 ### Deploy
 
 #### Step 1: Create account for the contract
@@ -95,3 +107,4 @@ NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resul
 - `assembly/main.ts` for the contract code
 - `src/index.html` for the front-end HTML
 - `src/main.js` for the JavaScript front-end code and how to integrate contracts
+- `src/main.test.js` for the JavaScript integration tests of smart contract
