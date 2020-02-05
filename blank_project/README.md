@@ -25,16 +25,18 @@ npm i -g yarn
 ### To run on NEAR testnet
 
 ```bash
-npm install && npm start
+npm install && npm dev
 ```
 
 with yarn:
 
 ```bash
-yarn && yarn start
+yarn && yarn dev
 ```
 
 The server that starts is for static assets and by default serves them to http://localhost:1234. Navigate there in your browser to see the app running!
+
+NOTE: Both contract and client-side code will auto-reload once you change source files.
 
 ### Deploy
 
