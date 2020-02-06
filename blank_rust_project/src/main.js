@@ -62,7 +62,7 @@ function signedInFlow() {
     // Displaying the signed in flow container.
     document.getElementById('signed-in-flow').classList.remove('d-none');
 
-    window.contract.welcome({account_id:window.accountId}).then(response => document.getElementById('speech').innerText = response);
+    window.contract.welcome({account_id:window.accountId}).then(response => document.getElementById('speech').innerText = response.text);
 
     // Adding an event to a sign-out button.
     document.getElementById('sign-out-button').addEventListener('click', () => {
