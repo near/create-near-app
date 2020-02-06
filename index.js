@@ -28,17 +28,17 @@ const createProject = {
 };
 
 const renameFile = async function(oldPath, newPath) {
-  return new Promise((resolve, reject) => {
-    fs.rename(oldPath, newPath, (err) => {
-        if (err) {
-            console.error(err);
-            return reject(err);
-        }
-        console.log(`Renamed ${oldPath} to ${newPath}`);
-        resolve()
-    });    
-  });
-}
+    return new Promise((resolve, reject) => {
+        fs.rename(oldPath, newPath, (err) => {
+            if (err) {
+                console.error(err);
+                return reject(err);
+            }
+            console.log(`Renamed ${oldPath} to ${newPath}`);
+            resolve();
+        });    
+    });
+};
 
 const doCreateProject = async function(options) {
     if (!options.vanilla && options.rust) {
