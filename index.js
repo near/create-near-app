@@ -59,6 +59,17 @@ const doCreateProject = async function(options) {
         to: projectName
     });
 
+    // copy contract
+    const contractTargetDir = `${projectDir}/${options.rust? 'contract' : 'assembly'}`;
+    const contractSourceDir = `${__dirname}/contract/${options.rust? 'rust' : 'asc'}`;
+    console.log(`Copying contract files to new project directory (${contractTargetDir}) from source (${contractSourceDir}).`);
+    const copyContractDirFn = () => {
+        return new Promise(resolve => {
+            ncp(contractSourceDir, contractTargetDir, response => resolve(response));
+        });
+    };
+    await copyContractDirFn();
+
     console.log('Copying project files complete.');
 };
 
