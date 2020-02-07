@@ -35,7 +35,7 @@ class App extends Component {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
-    this.props.contract.welcome({ name: accountId }).then(response => this.setState({speech: response.text}))
+    this.props.contract.welcome({ account_id: accountId }).then(response => this.setState({speech: response.text}))
   }
 
   async requestSignIn() {

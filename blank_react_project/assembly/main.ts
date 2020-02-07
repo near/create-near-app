@@ -5,11 +5,11 @@ import { TextMessage } from "./model";
 
 const NAME = ". Welcome to NEAR Protocol chain"
 
-export function welcome(name: string): TextMessage {
+export function welcome(account_id: string): TextMessage {
   logging.log("simple welcome test");
   let message = new TextMessage()
   const s = printString(NAME);
-  message.text = "Welcome, " + name + s;
+  message.text = "Welcome, " + account_id + s;
   return message;
 }
 
