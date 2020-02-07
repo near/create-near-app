@@ -41,7 +41,7 @@ NOTE: Both contract and client-side code will auto-reload once you change source
 ### To run tests
 
 ```bash
-npm test
+npm run test
 ```
 
 with yarn:
