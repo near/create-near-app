@@ -11,9 +11,9 @@
 * Whatever frontend build tools you prefer. We provide React template by default.
   * By default, `gulp` is used for compiling.  Check it out [here](https://gulpjs.com/). \(You shouldn't need to do any config for gulp specifically\).
 
-## Create a new project
+## Create New Assembly project
 
-Choose either the React JS template or vanilla one
+Choose either the React JS or vanilla template
 
 #### React JS app:
 ```bash
@@ -42,6 +42,23 @@ with yarn:
 ```bash
 yarn create near-app --vanilla path/to/your/new-awesome-app
 ```
+
+## Create New Rust project
+
+Provide vanilla template with smart contract in Rust
+```bash
+npm init near-app --vanilla --rust path/to/your/new-awesome-app
+```
+with npx:
+
+```bash
+npx create-near-app --vanilla --rust path/to/your/new-awesome-app
+```
+with yarn:
+```bash
+yarn create near-app --vanilla --rust path/to/your/new-awesome-app
+```
+
 
 ## Develop your own Dapp
 
