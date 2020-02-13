@@ -21,6 +21,7 @@
     "create-near-app": "./index.js"
   },
   "dependencies": {
+    "markdown-snippet-injector": "^0.2.4",
     "ncp": "^2.0.0",
     "replace-in-files": "^2.0.3",
     "yargs": "^15.0.2"

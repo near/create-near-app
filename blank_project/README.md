@@ -12,6 +12,7 @@
 ### Requirements
 ##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x 
 
+## For front-end
 1. [Node.js](https://nodejs.org/en/download/package-manager/)
 2. (optional) near-shell
 
@@ -37,6 +38,10 @@ yarn && yarn dev
 The server that starts is for static assets and by default serves them to http://localhost:1234. Navigate there in your browser to see the app running!
 
 NOTE: Both contract and client-side code will auto-reload once you change source files.
+
+## For smart contract
+<snippet id='contract-requirements'/>
+
 
 ### To run tests
 
@@ -104,7 +109,7 @@ NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resul
 
 ### To Explore
 
-- `assembly/main.ts` for the contract code
+- <snippet id='contract-source'/> for the contract code
 - `src/index.html` for the front-end HTML
 - `src/main.js` for the JavaScript front-end code and how to integrate contracts
 - `src/main.test.js` for the JavaScript integration tests of smart contract

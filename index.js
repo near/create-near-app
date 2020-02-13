@@ -70,6 +70,21 @@ const doCreateProject = async function(options) {
     };
     await copyContractDirFn();
 
+    console.log('Generating documentation');
+    const { exec } = require("child_process");
+
+    exec("mdinject --root=./contract/asc --docsroot=./tmp-p --sourceext='.ts|.js|.xml' --targetext='.md|.txt' -w", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+});
+
+
     console.log('Copying project files complete.');
 };
 
