@@ -1,6 +1,6 @@
 /*
  * This is an example of a Rust smart contract that greets the account that calls it.
- * Since account id's on NEAR human-readable, this contract might return "Hello near-friend"
+ * Since account id's on NEAR human-readable, this contract might return "Hello near_friend"
  * The two functions "set_greeting" and "welcome" change state and return state.
  * Methods that access state are included in the "viewMethods" array in main.js
  * Similarly, methods that change state are included in the "changeMethods" array.
