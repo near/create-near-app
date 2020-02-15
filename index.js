@@ -3,6 +3,7 @@ const yargs = require('yargs');
 const { basename, resolve } = require('path');
 const replaceInFiles = require('replace-in-files');
 const ncp = require('ncp').ncp;
+const fs = require('fs');
 ncp.limit = 16;
 
 const exitOnError = async function(promise) {
@@ -24,6 +25,19 @@ const createProject = {
             required: true
         }),
     handler: (argv) => exitOnError(doCreateProject(argv))
+};
+
+const renameFile = async function(oldPath, newPath) {
+    return new Promise((resolve, reject) => {
+        fs.rename(oldPath, newPath, (err) => {
+            if (err) {
+                console.error(err);
+                return reject(err);
+            }
+            console.log(`Renamed ${oldPath} to ${newPath}`);
+            resolve();
+        });    
+    });
 };
 
 const doCreateProject = async function(options) {
@@ -70,6 +84,7 @@ const doCreateProject = async function(options) {
     };
     await copyContractDirFn();
 
+    await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`);
     console.log('Copying project files complete.');
 };
 
