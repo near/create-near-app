@@ -1,71 +1,46 @@
-## Requirements
+create-near-app
+===============
 
-**IMPORTANT: Make sure you have the latest version of NEAR Shell and Node**
-
-* `npm` \(Get it [here](https://www.npmjs.com/get-npm)\)
-* `node version 10.x`\(Get it [here](https://nodejs.org/en/download)\)
-* `near-shell`  The NEAR cli tool.
-  * Install with`npm i -g near-shell`
-  * Check out the commands [here](https://github.com/nearprotocol/near-shell)
-  * remember to always update to the latest version
-* Whatever frontend build tools you prefer. We provide React template by default.
-  * By default, `gulp` is used for compiling.  Check it out [here](https://gulpjs.com/). \(You shouldn't need to do any config for gulp specifically\).
-
-## Create New Assembly project
-
-Choose either the React JS or vanilla template
-
-#### React JS app:
-```bash
-npm init near-app path/to/your/new-awesome-app
-```
-with npx:
-
-```bash
-npx create-near-app path/to/your/new-awesome-app
-```
-with yarn:
-```bash
-yarn create near-app path/to/your/new-awesome-app
-```
-
-#### Plain app:
-```bash
-npm init near-app --vanilla path/to/your/new-awesome-app
-```
-with npx:
-
-```bash
-npx create-near-app --vanilla path/to/your/new-awesome-app
-```
-with yarn:
-```bash
-yarn create near-app --vanilla path/to/your/new-awesome-app
-```
-
-## Create New Rust project
-
-Provide vanilla template with smart contract in Rust
-```bash
-npm init near-app --vanilla --rust path/to/your/new-awesome-app
-```
-with npx:
-
-```bash
-npx create-near-app --vanilla --rust path/to/your/new-awesome-app
-```
-with yarn:
-```bash
-yarn create near-app --vanilla --rust path/to/your/new-awesome-app
-```
+Quickly build apps backed by the [NEAR](https://nearprotocol.com) blockchain
 
 
-## Develop your own Dapp
+Prerequisites
+=============
 
-#### Simple Tip
-After create project, run ```npm run dev:deploy:contract``` to start and get familiar with features.
+Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we have tested most with version `12.x`
 
-#### Next step
-Follow the instructions in the README.md in the project you just created and enjoy the development with NEAR. 
 
-We have [documentation](https://docs.nearprotocol.com) with lots of examples. We have support at [Discord](http://near.chat) and really welcome.
+Getting Started
+===============
+
+You can configure two main aspects of your new NEAR project:
+
+* frontend: do you want a **vanilla JavaScript** stack or **React**?
+* backend: do you want your contracts to be written in **Rust** or **AssemblyScript** (a dialect of TypeScript)?
+
+| command                                                | frontend   | backend        |
+| ------------------------------------------------------ | ---------- | -------------- |
+| `npx create-near-app new-awesome-app`                  | React      | AssemblyScript |
+| `npx create-near-app --vanilla new-awesome-app`        | vanilla JS | AssemblyScript |
+| `npx create-near-app --rust new-awesome-app`           | React      | Rust           |
+| `npx create-near-app --vanilla --rust new-awesome-app` | vanilla JS | Rust           |
+
+
+Develop your own Dapp
+=====================
+
+Simple Tip
+----------
+
+After creating a project, run `npm run dev:deploy:contract` to start and get familiar with features
+
+Next step
+---------
+
+Follow the instructions in the README.md in the project you just created! 🚀
+
+
+Getting Help
+============
+
+Check out our [documentation](https://docs.nearprotocol.com) or chat with us on [Discord](http://near.chat). We'd love to hear from you!
