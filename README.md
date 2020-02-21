@@ -7,7 +7,7 @@ Quickly build apps backed by the [NEAR](https://nearprotocol.com) blockchain
 Prerequisites
 =============
 
-Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we have tested most with version `12.x`
+Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `10.16+`.
 
 
 Getting Started
