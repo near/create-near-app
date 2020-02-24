@@ -22,15 +22,15 @@
     "gulp": "^4.0.2",
     "jest": "^25.1.0",
     "jest-environment-node": "^25.1.0",
-    "near-bindgen-as": "^1.2.0",
-    "near-runtime-ts": "^0.6.0",
-    "near-shell": "^0.20.1",
+    "near-bindgen-as": "~1.2.0",
+    "near-runtime-ts": "~0.6.0",
+    "near-shell": "~0.20.1",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
     "react-test-renderer": "^16.12.0"
   },
   "dependencies": {
-    "nearlib": "^0.21.0",
+    "nearlib": "~0.21.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "regenerator-runtime": "^0.13.3"
