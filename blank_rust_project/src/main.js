@@ -82,8 +82,9 @@ async function setGreeting() {
     getGreeting();
 }
 
-function getGreeting() {
-    window.contract.welcome({account_id:window.accountId}).then(response => document.getElementById('speech').innerText = response.text);
+async function getGreeting() {
+    const response = await window.contract.welcome({account_id:window.accountId});
+    document.getElementById('speech').innerText = response.text;
 }
 
 // Loads nearlib and this contract into window scope.
