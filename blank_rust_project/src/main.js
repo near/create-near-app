@@ -71,7 +71,7 @@ function signedInFlow() {
         window.location.replace(window.location.origin + window.location.pathname);
     });
 
-    // Adding an event to a sign-out button.
+    // Adding an event to change greeting button.
     document.getElementById('change-greeting').addEventListener('click', () => {
         setGreeting();
     });
