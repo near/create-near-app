@@ -53,7 +53,16 @@ impl Welcome {
     }
 }
 
-// the rest of this file involves testing
+/*
+ * The rest of this file holds the inline tests for the code above
+ * 
+ * Rust allows you to include tests with your code
+ * see more here: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
+ *
+ * To test run:
+ * cargo test --package status-message -- --nocapture
+ *
+ */
 #[cfg(not(target_arch = "wasm32"))]
 #[cfg(test)]
 mod tests {
