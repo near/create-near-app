@@ -62,7 +62,7 @@ function signedInFlow() {
     // Displaying the signed in flow container.
     document.getElementById('signed-in-flow').classList.remove('d-none');
 
-    getGreeting();
+    welcome();
 
     // Adding an event to a sign-out button.
     document.getElementById('sign-out-button').addEventListener('click', () => {
@@ -79,10 +79,10 @@ function signedInFlow() {
 
 async function setGreeting() {
     await window.contract.set_greeting({message:'Howdy'});
-    getGreeting();
+    welcome();
 }
 
-async function getGreeting() {
+async function welcome() {
     const response = await window.contract.welcome({account_id:window.accountId});
     document.getElementById('speech').innerText = response.text;
 }
