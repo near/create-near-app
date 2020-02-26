@@ -19,6 +19,12 @@ export function welcome(account_id: string): TextMessage {
   // It is also returned to the caller
   logging.log("simple welcome test");
   let message = new TextMessage();
-  message.text = "Welcome, " + account_id + NAME;
+  const s = printString(NAME);
+  message.text = "Welcome, " + account_id + s;
   return message;
+}
+
+// demonstrates a simple function called by a smart contract 
+function printString(s: string): string {
+  return s;
 }
