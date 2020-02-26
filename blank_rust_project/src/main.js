@@ -26,7 +26,7 @@ async function InitContract() {
         // View methods are read only. They don't modify the state, but usually return some value.
         viewMethods: ['welcome'],
         // Change methods can modify the state. But you don't receive the returned value when called.
-        changeMethods: [],
+        changeMethods: ['set_greeting'],
         // Sender is the account ID to initialize transactions.
         sender: window.accountId,
     });
@@ -62,7 +62,7 @@ function signedInFlow() {
     // Displaying the signed in flow container.
     document.getElementById('signed-in-flow').classList.remove('d-none');
 
-    window.contract.welcome({account_id:window.accountId}).then(response => document.getElementById('speech').innerText = response.text);
+    welcome();
 
     // Adding an event to a sign-out button.
     document.getElementById('sign-out-button').addEventListener('click', () => {
@@ -70,6 +70,21 @@ function signedInFlow() {
         // Forcing redirect.
         window.location.replace(window.location.origin + window.location.pathname);
     });
+
+    // Adding an event to change greeting button.
+    document.getElementById('change-greeting').addEventListener('click', () => {
+        setGreeting();
+    });
+}
+
+async function setGreeting() {
+    await window.contract.set_greeting({message:'Howdy'});
+    welcome();
+}
+
+async function welcome() {
+    const response = await window.contract.welcome({account_id:window.accountId});
+    document.getElementById('speech').innerText = response.text;
 }
 
 // Loads nearlib and this contract into window scope.
