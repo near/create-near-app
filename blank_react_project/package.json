@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "nearlib": "^0.21.0",
-    "react": "^16.12.0",
+    "react": "^16.13.0",
     "react-dom": "^16.12.0",
     "regenerator-runtime": "^0.13.3"
   },
