@@ -15,6 +15,6 @@ beforeAll(async function () {
 });
 
 it('welcome test', async () => {
-    const message = await contract.welcome({account_id:"test"})
-    expect(message).toEqual({"text": "Welcome, test. Welcome to NEAR Protocol chain"})
+    const message = await contract.welcome({account_id:"test"});
+    expect(message).toEqual({"text": "Hello test"});
 })
