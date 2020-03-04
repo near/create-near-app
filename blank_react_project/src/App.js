@@ -60,7 +60,6 @@ class App extends Component {
   }
 
   async changeGreeting() {
-    console.log(this);
     await this.props.contract.setGreeting({ message: 'howdy' });
     await this.welcome();
   }

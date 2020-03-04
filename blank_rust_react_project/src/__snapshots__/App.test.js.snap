@@ -53,11 +53,18 @@ exports[`renders without crashing 1`] = `
     />
   </div>
   <div>
-    <button
-      onClick={[Function]}
-    >
-      Log out
-    </button>
+    <div>
+      <button
+        onClick={[Function]}
+      >
+        Log out
+      </button>
+      <button
+        onClick={[Function]}
+      >
+        Change greeting
+      </button>
+    </div>
   </div>
   <div>
     <div
