@@ -41,11 +41,6 @@ const renameFile = async function(oldPath, newPath) {
 };
 
 const doCreateProject = async function(options) {
-    if (!options.vanilla && options.rust) {
-        console.log('Blank project for rust contract with react is not available yet.');
-        return;
-    }
-
     const rustPiece = options.rust ? '_rust' : '';
     const reactPiece = options.vanilla ? '' : '_react';
     const templateDir = `/blank${rustPiece}${reactPiece}_project`;
