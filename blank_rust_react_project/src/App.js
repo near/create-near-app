@@ -16,6 +16,7 @@ class App extends Component {
     this.requestSignIn = this.requestSignIn.bind(this);
     this.requestSignOut = this.requestSignOut.bind(this);
     this.signedOutFlow = this.signedOutFlow.bind(this);
+    this.changeGreeting = this.changeGreeting.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +37,12 @@ class App extends Component {
     if (window.location.search.includes("account_id")) {
       window.location.replace(window.location.origin + window.location.pathname)
     }
-    this.props.contract.welcome({ account_id: accountId }).then(response => this.setState({speech: response.text}))
+    await this.welcome();
+  }
+
+  async welcome() {
+    const response = await this.props.contract.welcome({ account_id: accountId });
+    this.setState({speech: response.text});
   }
 
   async requestSignIn() {
@@ -51,6 +57,11 @@ class App extends Component {
     this.props.wallet.signOut();
     setTimeout(this.signedOutFlow, 500);
     console.log("after sign out", this.props.wallet.isSignedIn())
+  }
+
+  async changeGreeting() {
+    await this.props.contract.set_greeting({ message: 'howdy' });
+    await this.welcome();
   }
 
   signedOutFlow() {
@@ -78,7 +89,11 @@ class App extends Component {
           <p style={style}>{this.state.speech}</p>
         </div>
         <div>
-          {this.state.login ? <button onClick={this.requestSignOut}>Log out</button>
+          {this.state.login ? 
+            <div>
+              <button onClick={this.requestSignOut}>Log out</button>
+              <button onClick={this.changeGreeting}>Change greeting</button>
+            </div>
             : <button onClick={this.requestSignIn}>Log in with NEAR</button>}
         </div>
         <div>
