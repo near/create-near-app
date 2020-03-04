@@ -32,7 +32,7 @@ Develop your own Dapp
 Simple Tip
 ----------
 
-After creating a project, run `npm run dev:deploy:contract` to start and get familiar with features
+After creating a project, run `npm run dev && npm run dev:deploy:contract` to start and get familiar with features
 
 Next step
 ---------
