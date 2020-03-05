@@ -29,14 +29,6 @@ You can configure two main aspects of your new NEAR project:
 Develop your own Dapp
 =====================
 
-Simple Tip
-----------
-
-After creating a project, run `npm run dev && npm run dev:deploy:contract` to start and get familiar with features
-
-Next step
----------
-
 Follow the instructions in the README.md in the project you just created! 🚀
 
 
