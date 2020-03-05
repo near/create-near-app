@@ -30,7 +30,7 @@
     "react-test-renderer": "^16.13.0"
   },
   "dependencies": {
-    "nearlib": "^0.21.0",
+    "nearlib": "^0.22.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "regenerator-runtime": "^0.13.3"
