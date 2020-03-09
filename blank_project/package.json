@@ -26,7 +26,7 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
-    "nearlib": "^0.21.0",
+    "nearlib": "^0.22.0",
     "regenerator-runtime": "^0.13.3"
   }
 }
