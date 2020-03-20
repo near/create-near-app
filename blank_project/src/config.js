@@ -10,15 +10,23 @@ function getConfig(env) {
             nodeUrl: 'https://rpc.nearprotocol.com',
             contractName: CONTRACT_NAME,
             walletUrl: 'https://wallet.nearprotocol.com',
-            helperUrl: 'https://near-contract-helper.onrender.com',
+            helperUrl: 'https://helper.nearprotocol.com',
         };
-    case 'staging':
+    case 'devnet':
         return {
-            networkId: 'staging',
-            nodeUrl: 'https://staging-rpc.nearprotocol.com/',
+            networkId: 'devnet',
+            nodeUrl: 'https://rpc.devnet.nearprotocol.com',
             contractName: CONTRACT_NAME,
-            walletUrl: 'https://near-wallet-staging.onrender.com',
-            helperUrl: 'https://near-contract-helper-staging.onrender.com',
+            walletUrl: 'https://wallet.devnet.nearprotocol.com',
+            helperUrl: 'https://helper.devnet.nearprotocol.com',
+        };
+    case 'betanet':
+        return {
+            networkId: 'betanet',
+            nodeUrl: 'https://rpc.betanet.nearprotocol.com',
+            contractName: CONTRACT_NAME,
+            walletUrl: 'https://wallet.betanet.nearprotocol.com',
+            helperUrl: 'https://helper.betanet.nearprotocol.com',
         };
     case 'local':
         return {
@@ -29,6 +37,13 @@ function getConfig(env) {
             contractName: CONTRACT_NAME,
         };
     case 'test':
+        return {
+            networkId: 'local',
+            nodeUrl: 'http://localhost:3030',
+            contractName: CONTRACT_NAME,
+            masterAccount: 'test.near',
+        };
+    case 'test-remote':
     case 'ci':
         return {
             networkId: 'shared-test',
@@ -42,13 +57,6 @@ function getConfig(env) {
             nodeUrl: 'http://staging-shared-test.nearprotocol.com:3030',
             contractName: CONTRACT_NAME,
             masterAccount: 'test.near',
-        };
-    case 'tatooine':
-        return {
-            networkId: 'tatooine',
-            nodeUrl: 'https://rpc.tatooine.nearprotocol.com',
-            contractName: CONTRACT_NAME,
-            walletUrl: 'https://wallet.tatooine.nearprotocol.com',
         };
     default:
         throw Error(`Unconfigured environment '${env}'. Can be configured in src/config.js.`);
