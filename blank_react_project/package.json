@@ -9,9 +9,9 @@
     "deploy:contract": "near deploy",
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
-    "prestart": "node ./scripts/near-shell-check && npm run build:contract && npm run dev:deploy:contract",
+    "prestart": "npm run build:contract && npm run dev:deploy:contract && node ./scripts/near-shell-check",
     "start": "env-cmd -f ./neardev/dev-account.env parcel src/index.html",
-    "dev": "nodemon --watch assembly -e ts --exec 'npm run start'",
+    "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
     "test": "npm run build:contract && jest test --env=near-shell/test_environment --runInBand"
   },
   "devDependencies": {
