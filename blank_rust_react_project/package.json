@@ -9,8 +9,8 @@
     "deploy:contract": "near deploy --wasmFile ./contract/res/status_message.wasm",
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
-    "prestart": "npm run build:contract && npm run dev:deploy:contract",
-    "start": "CONTRACT_NAME=$(cat neardev/dev-account) parcel src/index.html",
+    "prestart": "node ./scripts/near-shell-check && npm run build:contract && npm run dev:deploy:contract",
+    "start": "env-cmd -f ./neardev/dev-account.env parcel src/index.html",
     "dev": "nodemon --watch assembly -e ts --exec 'npm run start'",
     "test": "cd contract && cargo test --package status-message -- --nocapture"
   },
@@ -25,7 +25,8 @@
     "near-shell": "^0.20.1",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
-    "react-test-renderer": "^16.13.0"
+    "react-test-renderer": "^16.13.0",
+    "env-cmd": "^10.1.0"
   },
   "dependencies": {
     "nearlib": "^0.21.0",
