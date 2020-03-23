@@ -27,7 +27,7 @@
     "near-shell": "^0.20.1",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
-    "react-test-renderer": "^16.13.0"
+    "react-test-renderer": "^16.13.1"
   },
   "dependencies": {
     "nearlib": "^0.22.0",
