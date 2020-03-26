@@ -52,8 +52,14 @@ const doCreateProject = async function(options) {
     console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`);
     // Need to wait for the copy to finish, otherwise next tasks do not find files.
     const copyDirFn = (source, dest) => {
-        return new Promise(resolve => {
-            ncp(source, dest, response => resolve(response));
+        return new Promise((resolve, reject) => {
+            ncp(source, dest, (err) => {
+                if (err) {
+                    console.error(`Error copying ${source} to ${dest}`, err);
+                    return reject(err);
+                }
+                resolve();
+            });
         });
     };
     await copyDirFn(sourceTemplateDir, projectDir);
