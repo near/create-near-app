@@ -46,24 +46,18 @@ const doCreateProject = async function(options) {
     const templateDir = `/blank${rustPiece}${reactPiece}_project`;
     const projectDir = options.projectDir;
     const sourceTemplateDir = __dirname + templateDir;
-    const projectScriptsDir = `${options.projectDir}/scripts`;
-    const sourceScriptsDir = `${__dirname}/scripts`;
 
     console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`);
     // Need to wait for the copy to finish, otherwise next tasks do not find files.
     const copyDirFn = (source, dest) => {
         return new Promise((resolve, reject) => {
             ncp(source, dest, (err) => {
-                if (err) {
-                    console.error(`Error copying ${source} to ${dest}`, err);
-                    return reject(err);
-                }
+                if (err) return reject(err);
                 resolve();
             });
         });
     };
     await copyDirFn(sourceTemplateDir, projectDir);
-    await copyDirFn(sourceScriptsDir, projectScriptsDir);
 
     let projectName = basename(resolve(projectDir));
 
