@@ -2,7 +2,10 @@ language: rust
 rust:
   - stable
   - nightly
-
+os:
+  - linux
+  - osx
+  - windows
 env:
   - NODE_ENV=ci
   - NODE_ENV=ci-staging
@@ -14,7 +17,7 @@ before_install:
   - nvm use 12
   - npm install -g yarn
 
-install: 
+install:
   - yarn install
 
 script:
