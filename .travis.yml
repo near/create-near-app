@@ -4,6 +4,7 @@ node_js:
 env:
   - NODE_ENV=ci
   - NODE_ENV=ci-staging
+  - YARN_GPG=no
 os:
   - linux
   - osx
