@@ -4,7 +4,6 @@ node_js:
 env:
   - NODE_ENV=ci
   - NODE_ENV=ci-staging
-cache: yarn
 os:
   - linux
   - osx
@@ -17,5 +16,5 @@ before_install:
   - export PATH="$HOME/.cargo/bin:$PATH"
   - rustup target add wasm32-unknown-unknown
 script:
-  - yarn test
-  - yarn lint
+  - npm run test
+  - npm run lint

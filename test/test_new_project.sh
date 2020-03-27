@@ -23,8 +23,8 @@ for command in "${commands[@]}"; do
       exit 1
     fi
 
-    yarn
-    yarn test
+    npm install
+    npm run test
     cd ..
 done
 
