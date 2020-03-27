@@ -4,6 +4,7 @@ set -ex
 commands=(
     "node index.js tmp-project"
     "node index.js tmp-project --vanilla"
+    "node index.js tmp-project --rust"
     "node index.js tmp-project --vanilla --rust"
 )
 
