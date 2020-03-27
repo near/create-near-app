@@ -2,9 +2,8 @@ language: node_js
 node_js:
   - 12.0
 env:
-  - NODE_ENV=ci
-  - NODE_ENV=ci-staging
-  - YARN_GPG=no
+  - NODE_ENV=ci YARN_GPG=no
+  - NODE_ENV=ci-staging YARN_GPG=no
 os:
   - linux
   - osx
