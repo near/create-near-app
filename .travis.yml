@@ -16,6 +16,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then HOME="/c/Users/travis"; fi
   - export PATH="$HOME/.cargo/bin:$PATH"
   - rustup target add wasm32-unknown-unknown
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then YARN_GPG=no; fi
   - npm install -g yarn
 install:
   - yarn install
