@@ -1,12 +1,12 @@
 const shell = require('shelljs');
 
-shell.config.fatal = true
+shell.config.fatal = true;
 
 const commands = [
-    "node index.js tmp-project",
-    "node index.js tmp-project --vanilla",
-    "node index.js tmp-project --rust",
-    "node index.js tmp-project --vanilla --rust"
+    'node index.js tmp-project',
+    'node index.js tmp-project --vanilla',
+    'node index.js tmp-project --rust',
+    'node index.js tmp-project --vanilla --rust'
 ];
 
 for (let i = 0; i < commands.length; i++) {
