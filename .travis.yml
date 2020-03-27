@@ -9,11 +9,12 @@ os:
   - linux
   - osx
   - windows
+git:
+  autocrlf: false
 before_install:
   - curl https://sh.rustup.rs -sSf -m 60 | sh -s -- -y -v --default-toolchain stable
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then HOME="/c/Users/travis"; fi
   - export PATH="$HOME/.cargo/bin:$PATH"
-  - git config --global core.autocrlf false
   - rustup target add wasm32-unknown-unknown
   - npm install -g yarn
 install:
