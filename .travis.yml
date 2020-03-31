@@ -2,21 +2,19 @@ language: rust
 rust:
   - stable
   - nightly
-
+os:
+  - linux
+  - osx
+  - windows
 env:
-  - NODE_ENV=ci
-  - NODE_ENV=ci-staging
-cache: yarn
-
+  - NODE_ENV=ci YARN_GPG=no
+  - NODE_ENV=ci-staging YARN_GPG=no
+cache: cargo
 before_install:
   - rustup target add wasm32-unknown-unknown
-  - nvm install 12
-  - nvm use 12
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then HOME="/c/Users/travis" && export NVS_HOME=$ProgramData/nvs && git clone --single-branch https://github.com/jasongin/nvs $NVS_HOME && source $NVS_HOME/nvs.sh && nvs --version && nvs add 12 && nvs use 12; fi
+  - if [[ ! "$TRAVIS_OS_NAME" == "windows" ]]; then nvm install 12 && nvm use 12; fi
   - npm install -g yarn
-
-install:
-  - yarn install
-
 script:
   - yarn test
   - yarn lint
