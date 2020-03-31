@@ -14,7 +14,7 @@ before_install:
   - nvm use 12
   - npm install -g yarn
 
-install: 
+install:
   - yarn install
 
 script:

@@ -4,7 +4,7 @@
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "scripts": {
-    "test": "./test/test_new_project.sh",
+    "test": "node ./test/test-new-project.js",
     "lint": "eslint .",
     "fix": "eslint . --fix"
   },
@@ -30,7 +30,8 @@
     "yargs": "^15.0.2"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "shelljs": "^0.8.3"
   },
   "engines": {
     "node": ">=12"

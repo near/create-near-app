@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
-    "build:contract": "cd contract && ./build.sh",
+    "build:contract": "node ./contract/build",
     "build:web": "parcel build src/index.html --public-url ./",
     "dev:deploy:contract": "near dev-deploy --wasmFile ./contract/res/status_message.wasm",
     "deploy:contract": "near deploy --wasmFile ./contract/res/status_message.wasm",
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
     "prestart": "npm run build:contract && npm run dev:deploy:contract",
-    "start": "CONTRACT_NAME=$(cat neardev/dev-account) parcel src/index.html",
-    "dev": "nodemon --watch assembly -e ts --exec 'npm run start'",
+    "start": "env-cmd -f ./neardev/dev-account.env parcel src/index.html",
+    "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
     "test": "cd contract && cargo test --package status-message -- --nocapture"
   },
   "devDependencies": {
@@ -22,10 +22,12 @@
     "gulp": "^4.0.2",
     "jest": "^25.1.0",
     "jest-environment-node": "^25.1.0",
-    "near-shell": "^0.20.1",
+    "near-shell": "^0.20.2",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
-    "react-test-renderer": "^16.13.0"
+    "react-test-renderer": "^16.13.0",
+    "env-cmd": "^10.1.0",
+    "shelljs": "^0.8.3"
   },
   "dependencies": {
     "nearlib": "^0.21.0",
