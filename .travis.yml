@@ -16,6 +16,8 @@ before_install:
   - if [[ ! "$TRAVIS_OS_NAME" == "windows" ]]; then nvm install 12 && nvm use 12; fi
   - npm install -g yarn
   - yarn
+git:
+  autocrlf: false
 script:
   - yarn test
   - yarn lint
