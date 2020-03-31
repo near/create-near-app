@@ -12,7 +12,7 @@
     "prestart": "npm run build:contract && npm run dev:deploy:contract",
     "start": "env-cmd -f ./neardev/dev-account.env parcel src/index.html",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
-    "test": "npm run build:contract && jest test --env=near-shell/test_environment --runInBand"
+    "test": "asp && npm run build:contract && jest test"
   },
   "devDependencies": {
     "assemblyscript": "^0.9.4",
@@ -28,5 +28,13 @@
   "dependencies": {
     "nearlib": "^0.22.0",
     "regenerator-runtime": "^0.13.5"
+  },
+  "jest": {
+    "testEnvironment": "near-shell/test_environment",
+    "testPathIgnorePatterns": [
+      "<rootDir>/assembly/",
+      "<rootDir>/node_modules/"
+    ],
+    "runInBand": true
   }
 }
