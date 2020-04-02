@@ -28,6 +28,7 @@
     "cross-spawn": "^7.0.1",
     "ncp": "^2.0.0",
     "replace-in-files": "^2.0.3",
+    "which": "^2.0.2",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
