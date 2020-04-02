@@ -1,0 +1,5 @@
+tasks:
+  - init: yarn install
+github:
+  prebuilds:
+    addBadge: true
