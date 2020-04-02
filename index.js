@@ -3,8 +3,10 @@ const yargs = require('yargs');
 const { basename, resolve } = require('path');
 const replaceInFiles = require('replace-in-files');
 const ncp = require('ncp').ncp;
-const fs = require('fs');
 ncp.limit = 16;
+const fs = require('fs');
+const spawn = require('cross-spawn');
+const chalk = require('chalk');
 
 const exitOnError = async function(promise) {
     try {
@@ -83,7 +85,34 @@ const doCreateProject = async function(options) {
     await copyContractDirFn();
 
     await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`);
-    console.log('Copying project files complete.');
+    console.log('Copying project files complete.\n');
+
+    console.log('Installing project dependencies...')
+    spawn.sync('yarn', ['install'], { cwd: projectDir, stdio: 'inherit' });
+
+    console.log(chalk`
+Success! Created ${projectDir}
+Inside that directory, you can run several commands:
+
+  {bold yarn dev}
+    Starts the development server. Both contract and client-side code will
+    auto-reload once you change source files.
+
+  {bold yarn test}
+    Starts the test runner.
+
+  {bold yarn deploy}
+    Deploys contract in permanent location (as configured in {bold src/config.js}).
+    Also deploys web frontend using GitHub Pages.
+    Consult with {bold README.md} for details on how to deploy.
+
+We suggest that you begin by typing:
+
+  {bold cd ${projectDir}}
+  {bold yarn dev}
+
+Happy hacking!
+`);
 };
 
 yargs
