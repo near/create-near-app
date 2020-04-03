@@ -1,5 +1,6 @@
 create-near-app
 ===============
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/nearprotocol/create-near-app) 
 
 Quickly build apps backed by the [NEAR](https://nearprotocol.com) blockchain
 
