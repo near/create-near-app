@@ -1,6 +1,7 @@
 const shell = require('shelljs');
 
 shell.config.fatal = true;
+shell.config.verbose = true;
 
 const commands = [
     'node index.js tmp-project',
