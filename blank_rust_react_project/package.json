@@ -20,7 +20,7 @@
     "babel-jest": "^25.1.0",
     "gh-pages": "^2.2.0",
     "gulp": "^4.0.2",
-    "jest": "^25.1.0",
+    "jest": "^25.2.7",
     "jest-environment-node": "^25.1.0",
     "near-shell": "^0.20.2",
     "nodemon": "^2.0.2",
