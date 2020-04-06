@@ -3,8 +3,11 @@ const yargs = require('yargs');
 const { basename, resolve } = require('path');
 const replaceInFiles = require('replace-in-files');
 const ncp = require('ncp').ncp;
-const fs = require('fs');
 ncp.limit = 16;
+const fs = require('fs');
+const spawn = require('cross-spawn');
+const chalk = require('chalk');
+const which = require('which');
 
 const exitOnError = async function(promise) {
     try {
@@ -83,7 +86,41 @@ const doCreateProject = async function(options) {
     await copyContractDirFn();
 
     await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`);
-    console.log('Copying project files complete.');
+    console.log('Copying project files complete.\n');
+
+    const hasNpm = await which('npm', { nothrow: true });
+    const hasYarn = false;//await which('yarn', { nothrow: true });
+
+    if (hasNpm || hasYarn) {
+        console.log('Installing project dependencies...');
+        spawn.sync(hasYarn ? 'yarn' : 'npm', ['install'], { cwd: projectDir, stdio: 'inherit' });
+    }
+
+    const runCommand = hasYarn ? 'yarn' : 'npm run';
+
+    console.log(chalk`
+Success! Created ${projectDir}
+Inside that directory, you can run several commands:
+
+  {bold ${runCommand} dev}
+    Starts the development server. Both contract and client-side code will
+    auto-reload once you change source files.
+
+  {bold ${runCommand} test}
+    Starts the test runner.
+
+  {bold ${runCommand} deploy}
+    Deploys contract in permanent location (as configured in {bold src/config.js}).
+    Also deploys web frontend using GitHub Pages.
+    Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
+
+We suggest that you begin by typing:
+
+  {bold cd ${projectDir}}
+  {bold ${runCommand} dev}
+
+Happy hacking!
+`);
 };
 
 yargs
