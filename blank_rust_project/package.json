@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "nearlib": "^0.22.0",
-    "regenerator-runtime": "^0.13.3"
+    "regenerator-runtime": "^0.13.5"
   }
 }
