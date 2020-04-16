@@ -25,6 +25,7 @@
     "create-near-app": "./index.js"
   },
   "dependencies": {
+    "chalk": "^4.0.0",
     "cross-spawn": "^7.0.1",
     "ncp": "^2.0.0",
     "replace-in-files": "^2.0.3",
