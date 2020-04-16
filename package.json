@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "fix": "eslint . --fix"
   },
-  "repository": "https://github.com/nearprotocol/blank_template.git",
+  "repository": "https://github.com/nearprotocol/create-near-app.git",
   "author": "Yifang Ma <yifang@nearprotocol.com>",
   "license": "MIT",
   "keywords": [
@@ -20,7 +20,7 @@
     "smart-contract",
     "blockchain"
   ],
-  "bugs": "https://github.com/nearprotocol/blank_template.git/issues",
+  "bugs": "https://github.com/nearprotocol/create-near-app/issues",
   "bin": {
     "create-near-app": "./index.js"
   },
