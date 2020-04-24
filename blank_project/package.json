@@ -20,7 +20,7 @@
     "jest": "^25.3.0",
     "jest-environment-node": "^25.3.0",
     "near-sdk-as": "^0.1.5",
-    "near-shell": "^0.20.8",
+    "near-shell": "^0.20.9",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
     "env-cmd": "^10.1.0"
