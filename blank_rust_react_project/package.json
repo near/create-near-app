@@ -22,7 +22,7 @@
     "gulp": "^4.0.2",
     "jest": "^25.3.0",
     "jest-environment-node": "^25.4.0",
-    "near-shell": "^0.20.8",
+    "near-shell": "^0.20.9",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
     "react-test-renderer": "^16.13.1",
