@@ -89,7 +89,7 @@ const doCreateProject = async function(options) {
     console.log('Copying project files complete.\n');
 
     const hasNpm = await which('npm', { nothrow: true });
-    const hasYarn = false;//await which('yarn', { nothrow: true });
+    const hasYarn = await which('yarn', { nothrow: true });
 
     if (hasNpm || hasYarn) {
         console.log('Installing project dependencies...');

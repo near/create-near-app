@@ -1,6 +1,6 @@
 {
   "name": "create-near-app",
-  "version": "0.8.0",
+  "version": "0.9.1",
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "fix": "eslint . --fix"
   },
-  "repository": "https://github.com/nearprotocol/blank_template.git",
+  "repository": "https://github.com/nearprotocol/create-near-app.git",
   "author": "Yifang Ma <yifang@nearprotocol.com>",
   "license": "MIT",
   "keywords": [
@@ -20,11 +20,12 @@
     "smart-contract",
     "blockchain"
   ],
-  "bugs": "https://github.com/nearprotocol/blank_template.git/issues",
+  "bugs": "https://github.com/nearprotocol/create-near-app/issues",
   "bin": {
     "create-near-app": "./index.js"
   },
   "dependencies": {
+    "chalk": "^4.0.0",
     "cross-spawn": "^7.0.1",
     "ncp": "^2.0.0",
     "replace-in-files": "^2.0.3",

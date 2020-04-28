@@ -21,7 +21,7 @@
     "gh-pages": "^2.2.0",
     "gulp": "^4.0.2",
     "jest": "^25.3.0",
-    "jest-environment-node": "^25.3.0",
+    "jest-environment-node": "^25.4.0",
     "near-shell": "^0.20.8",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
@@ -30,7 +30,7 @@
     "shelljs": "^0.8.3"
   },
   "dependencies": {
-    "nearlib": "^0.22.0",
+    "near-api-js": "^0.23.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.5"

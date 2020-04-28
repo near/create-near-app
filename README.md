@@ -37,3 +37,9 @@ Getting Help
 ============
 
 Check out our [documentation](https://docs.nearprotocol.com) or chat with us on [Discord](http://near.chat). We'd love to hear from you!
+
+License
+=======
+
+This repository is distributed under the terms of both the MIT license and the Apache License (Version 2.0).
+See [LICENSE](LICENSE) and [LICENSE-APACHE](LICENSE-APACHE) for details.

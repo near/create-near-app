@@ -17,7 +17,7 @@
   "devDependencies": {
     "gh-pages": "^2.2.0",
     "gulp": "^4.0.2",
-    "jest": "^25.3.0",
+    "jest": "^25.4.0",
     "jest-environment-node": "^25.3.0",
     "near-shell": "^0.20.8",
     "nodemon": "^2.0.3",
@@ -26,7 +26,7 @@
     "shelljs": "^0.8.3"
   },
   "dependencies": {
-    "nearlib": "^0.22.0",
+    "near-api-js": "^0.23.2",
     "regenerator-runtime": "^0.13.5"
   }
 }

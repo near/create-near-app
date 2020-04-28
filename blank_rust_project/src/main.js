@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
 
-import * as nearlib from "nearlib"
+import * as nearlib from "near-api-js"
 import getConfig from "./config"
 
 let nearConfig = getConfig(process.env.NODE_ENV || "development");

@@ -17,16 +17,16 @@
   "devDependencies": {
     "assemblyscript": "^0.9.4",
     "gh-pages": "^2.2.0",
-    "jest": "^25.3.0",
+    "jest": "^25.4.0",
     "jest-environment-node": "^25.3.0",
-    "near-sdk-as": "^0.1.5",
-    "near-shell": "^0.20.6",
+    "near-sdk-as": "^0.2.1",
+    "near-shell": "^0.20.9",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
     "env-cmd": "^10.1.0"
   },
   "dependencies": {
-    "nearlib": "^0.22.0",
+    "near-api-js": "^0.23.2",
     "regenerator-runtime": "^0.13.5"
   },
   "jest": {

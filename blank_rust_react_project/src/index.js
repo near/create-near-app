@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import getConfig from './config.js';
-import * as nearlib from 'nearlib';
+import * as nearlib from 'near-api-js';
 
 // Initializing contract
 async function initContract() {
