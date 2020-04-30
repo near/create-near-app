@@ -37,7 +37,6 @@ function getConfig(env) {
             contractName: CONTRACT_NAME,
         };
     case 'test':
-    case 'test-remote':
     case 'ci':
         return {
             networkId: 'shared-test',
@@ -45,10 +44,10 @@ function getConfig(env) {
             contractName: CONTRACT_NAME,
             masterAccount: 'test.near',
         };
-    case 'ci-staging':
+    case 'ci-betanet':
         return {
             networkId: 'shared-test-staging',
-            nodeUrl: 'http://staging-shared-test.nearprotocol.com:3030',
+            nodeUrl: 'http://rpc.ci-betanet.nearprotocol.com',
             contractName: CONTRACT_NAME,
             masterAccount: 'test.near',
         };

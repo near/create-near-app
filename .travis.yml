@@ -7,7 +7,7 @@ os:
   - windows
 env:
   - NODE_ENV=ci YARN_GPG=no
-  - NODE_ENV=ci-staging YARN_GPG=no
+  - NODE_ENV=ci-betanet YARN_GPG=no
 cache: cargo
 before_install:
   - rustup target add wasm32-unknown-unknown
