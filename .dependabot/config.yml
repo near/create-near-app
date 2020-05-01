@@ -1,9 +1,42 @@
 version: 1
 update_configs:
-  # Keep package.json (& lockfiles) up to date as soon as
-  # new versions are published to the npm registry
   - package_manager: "javascript"
     directory: "/"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+  - package_manager: "javascript"
+    directory: "/blank_project"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+  - package_manager: "javascript"
+    directory: "/blank_react_project"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+  - package_manager: "javascript"
+    directory: "/blank_rust_project"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+  - package_manager: "javascript"
+    directory: "/blank_rust_react_project"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+  - package_manager: "rust:cargo"
+    directory: "/contract/rust"
     update_schedule: "live"
     automerged_updates:
       - match:
