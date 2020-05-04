@@ -17,7 +17,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "babel-jest": "^25.5.1",
+    "babel-jest": "^26.0.0",
     "gh-pages": "^2.2.0",
     "gulp": "^4.0.2",
     "jest": "^25.5.1",
