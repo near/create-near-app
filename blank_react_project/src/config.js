@@ -4,29 +4,38 @@ function getConfig(env) {
     switch (env) {
 
     case 'production':
+    case 'mainnet':
+        return {
+            networkId: 'mainnet',
+            nodeUrl: 'https://rpc.mainnet.near.org',
+            contractName: CONTRACT_NAME,
+            walletUrl: 'https://wallet.mainnet.near.org',
+            helperUrl: 'https://helper.mainnet.near.org',
+        };
     case 'development':
+    case 'testnet':
         return {
             networkId: 'default',
-            nodeUrl: 'https://rpc.nearprotocol.com',
+            nodeUrl: 'https://rpc.testnet.near.org',
             contractName: CONTRACT_NAME,
-            walletUrl: 'https://wallet.nearprotocol.com',
-            helperUrl: 'https://helper.nearprotocol.com',
+            walletUrl: 'https://wallet.testnet.near.org',
+            helperUrl: 'https://helper.testnet.near.org',
         };
     case 'devnet':
         return {
             networkId: 'devnet',
-            nodeUrl: 'https://rpc.devnet.nearprotocol.com',
+            nodeUrl: 'https://rpc.devnet.near.org',
             contractName: CONTRACT_NAME,
-            walletUrl: 'https://wallet.devnet.nearprotocol.com',
-            helperUrl: 'https://helper.devnet.nearprotocol.com',
+            walletUrl: 'https://wallet.devnet.near.org',
+            helperUrl: 'https://helper.devnet.near.org',
         };
     case 'betanet':
         return {
             networkId: 'betanet',
-            nodeUrl: 'https://rpc.betanet.nearprotocol.com',
+            nodeUrl: 'https://rpc.betanet.near.org',
             contractName: CONTRACT_NAME,
-            walletUrl: 'https://wallet.betanet.nearprotocol.com',
-            helperUrl: 'https://helper.betanet.nearprotocol.com',
+            walletUrl: 'https://wallet.betanet.near.org',
+            helperUrl: 'https://helper.betanet.near.org',
         };
     case 'local':
         return {
@@ -40,14 +49,14 @@ function getConfig(env) {
     case 'ci':
         return {
             networkId: 'shared-test',
-            nodeUrl: 'http://shared-test.nearprotocol.com:3030',
+            nodeUrl: 'https://rpc.ci-testnet.near.org',
             contractName: CONTRACT_NAME,
             masterAccount: 'test.near',
         };
     case 'ci-betanet':
         return {
             networkId: 'shared-test-staging',
-            nodeUrl: 'http://rpc.ci-betanet.nearprotocol.com',
+            nodeUrl: 'https://rpc.ci-betanet.near.org',
             contractName: CONTRACT_NAME,
             masterAccount: 'test.near',
         };
