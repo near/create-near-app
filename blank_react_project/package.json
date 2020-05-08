@@ -30,7 +30,7 @@
     "env-cmd": "^10.1.0"
   },
   "dependencies": {
-    "near-api-js": "^0.23.2",
+    "near-api-js": "^0.24.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.5"
