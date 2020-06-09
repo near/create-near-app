@@ -36,25 +36,25 @@ dependencies = [
 
 [[package]]
 name = "borsh"
-version = "0.6.1"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "borsh-derive 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "borsh-derive 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "borsh-derive"
-version = "0.6.1"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "borsh-derive-internal 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "borsh-schema-derive-internal 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "borsh-derive-internal 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "borsh-schema-derive-internal 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 1.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "borsh-derive-internal"
-version = "0.6.1"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 1.0.10 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -64,7 +64,7 @@ dependencies = [
 
 [[package]]
 name = "borsh-schema-derive-internal"
-version = "0.6.1"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 1.0.10 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -181,7 +181,7 @@ version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "base64 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "borsh 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "borsh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "bs58 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "near-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "near-sdk-macros 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -216,7 +216,7 @@ name = "near-vm-errors"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "borsh 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "borsh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "near-rpc-error-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.110 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -357,7 +357,7 @@ dependencies = [
 name = "status-message"
 version = "0.1.0"
 dependencies = [
- "borsh 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "borsh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "near-sdk 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.110 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.54 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -420,10 +420,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum base64 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b41b7ea54a0c9d92199de89e20e58d49f02f8e699814ef3fdf266f6f748d15c7"
 "checksum block-buffer 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)" = "c0940dc441f31689269e10ac70eb1002a3a1d3ad1390e030043662eb7fe4688b"
 "checksum block-padding 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "fa79dedbb091f449f1f39e53edf88d5dbe95f895dae6135a8d7b881fb5af73f5"
-"checksum borsh 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "2f9dada4c07fa726bc195503048581e7b1719407f7fbef82741f7b149d3921b3"
-"checksum borsh-derive 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "47c6bed3dd7695230e85bd51b6a4e4e4dc7550c1974a79c11e98a8a055211a61"
-"checksum borsh-derive-internal 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "d34f80970434cd6524ae676b277d024b87dd93ecdd3f53bf470d61730dc6cb80"
-"checksum borsh-schema-derive-internal 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "b3b93230d3769ea99ac75a8a7fee2a229defbc56fe8816c9cde8ed78c848aa33"
+"checksum borsh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "c7769f8f6fdc6ac7617bbc8bc7ef9dc263cd459d99d21cf2ab4afc3bc8d7d70d"
+"checksum borsh-derive 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "d2689a82a5fe57f9e71997b16bea340da338c7fb8db400b8d9d55b59010540d8"
+"checksum borsh-derive-internal 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "39b621f19e9891a34f679034fa2238260e27c0eddfe2804e9fb282061cf9b294"
+"checksum borsh-schema-derive-internal 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "befebdb9e223ae4528b3d597dbbfb5c68566822d2a3de3e260f235360773ba29"
 "checksum bs58 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b170cd256a3f9fa6b9edae3e44a7dfdfc77e8124dbc3e2612d75f9c3e2396dae"
 "checksum byte-tools 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
 "checksum byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)" = "a7c3dd8985a7111efc5c80b44e23ecdd8c007de8ade3b96595387e812b957cf5"
