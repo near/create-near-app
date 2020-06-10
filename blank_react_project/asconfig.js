@@ -4,9 +4,9 @@ compile("assembly/main.ts", // input file
         "out/main.wasm",    // output file
         [
         //   "-O1",          // Optional arguments
-        "--debug",
+        // "--debug",        // Add debug names to binary
         "--measure",         // Shows compiler runtime
-        "--validate"         // Validate the generated wasm module
         ], {
-          verbose: true     // Output the cli args passed to asc
+          verbose: true,     // Output the cli args passed to asc
+          // wat: true // Output wat file
         });
