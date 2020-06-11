@@ -177,21 +177,21 @@ dependencies = [
 
 [[package]]
 name = "near-sdk"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "base64 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "borsh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "bs58 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "near-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "near-sdk-macros 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "near-sdk-macros 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "near-vm-logic 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.111 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "near-sdk-core"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "Inflector 0.11.4 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -202,10 +202,10 @@ dependencies = [
 
 [[package]]
 name = "near-sdk-macros"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "near-sdk-core 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "near-sdk-core 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "proc-macro2 1.0.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 1.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -358,7 +358,7 @@ name = "status-message"
 version = "0.1.0"
 dependencies = [
  "borsh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "near-sdk 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "near-sdk 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.111 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.55 (registry+https://github.com/rust-lang/crates.io-index)",
  "wee_alloc 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -439,9 +439,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum near-rpc-error-core 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ffa8dbf8437a28ac40fcb85859ab0d0b8385013935b000c7a51ae79631dd74d9"
 "checksum near-rpc-error-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "0c6111d713e90c7c551dee937f4a06cb9ea2672243455a4454cc7566387ba2d9"
 "checksum near-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "8f4992274c8acb33fa1246715d3aafbce5688ae82243c779b561f8eaff1bb6f1"
-"checksum near-sdk 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)" = "980ce98a632c83485c9b1fa4375d30201923030800faea6f827dba1a90e818ae"
-"checksum near-sdk-core 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5c359be0aa77a0627867a8240348c5f56f986734f1ba8219d774386ba9d496e1"
-"checksum near-sdk-macros 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)" = "f6b6c63ec77601c3c6b74f1773192bb4dd8aa8e1426ab19ddf37af9d1e9d80d2"
+"checksum near-sdk 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "81319d4d44283f63467e4f02b6209297b10643c7aeb62e2ee41e0c31b43e2375"
+"checksum near-sdk-core 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1f3767fc2a61e6577f1336e06d6962a6c61fc39299573b8a25696fd09ce96ffb"
+"checksum near-sdk-macros 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "27c06b45c56028b0e1241b2196397d449091665f3f08d543415373505df5e05f"
 "checksum near-vm-errors 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "386c2c07ef37ae52ad43860ef69c6322bbc1e610ae0c08c1d7f5ff56f4c28e6a"
 "checksum near-vm-logic 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)" = "a6da6c80d3428f45248577820bfc943b8261a6f11d6721037e5c3f43484047cd"
 "checksum num-bigint 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)" = "090c7f9998ee0ff65aa5b723e4009f7b217707f1fb5ea551329cc4d6231fb304"
