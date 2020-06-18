@@ -1,6 +1,7 @@
 {
   "name": "near-blank-project",
   "version": "0.0.1",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
     "build:contract": "node ./contract/build",
