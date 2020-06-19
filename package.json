@@ -10,7 +10,7 @@
   },
   "repository": "https://github.com/nearprotocol/create-near-app.git",
   "author": "Yifang Ma <yifang@nearprotocol.com>",
-  "license": "MIT",
+  "license": "(MIT AND Apache-2.0)",
   "keywords": [
     "nearprotocol",
     "near-protocol",
