@@ -9,7 +9,7 @@ async function initContract() {
     window.nearConfig = getConfig(process.env.NODE_ENV || 'development')
     console.log("nearConfig", window.nearConfig);
 
-    // Initializing connection to the NEAR DevNet.
+    // Initializing connection to the NEAR testnet.
     window.near = await nearlib.connect(Object.assign({ deps: { keyStore: new nearlib.keyStores.BrowserLocalStorageKeyStore() } }, window.nearConfig));
     
     // Needed to access wallet login

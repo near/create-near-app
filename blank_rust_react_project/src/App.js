@@ -112,9 +112,9 @@ class App extends Component {
           >
             Learn React
           </a>
-          <p><span role="img" aria-label="net">🕸</span> <a className="App-link" href="https://nearprotocol.com">NEAR Website</a> <span role="img" aria-label="net">🕸</span>
+          <p><span role="img" aria-label="net">🕸</span> <a className="App-link" href="https://near.org">NEAR Website</a> <span role="img" aria-label="net">🕸</span>
           </p>
-          <p><span role="img" aria-label="book">📚</span><a className="App-link" href="https://docs.nearprotocol.com"> Learn from NEAR Documentation</a> <span role="img" aria-label="book">📚</span>
+          <p><span role="img" aria-label="book">📚</span><a className="App-link" href="https://docs.near.org"> Learn from NEAR Documentation</a> <span role="img" aria-label="book">📚</span>
           </p>
         </div>
       </div>

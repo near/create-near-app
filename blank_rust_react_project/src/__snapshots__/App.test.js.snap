@@ -106,7 +106,7 @@ exports[`renders without crashing 1`] = `
        
       <a
         className="App-link"
-        href="https://nearprotocol.com"
+        href="https://near.org"
       >
         NEAR Website
       </a>
@@ -127,7 +127,7 @@ exports[`renders without crashing 1`] = `
       </span>
       <a
         className="App-link"
-        href="https://docs.nearprotocol.com"
+        href="https://docs.near.org"
       >
          Learn from NEAR Documentation
       </a>
