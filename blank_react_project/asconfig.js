@@ -6,7 +6,6 @@ compile("assembly/main.ts", // input file
         //   "-O1",          // Optional arguments
         "--debug",
         "--measure",         // Shows compiler runtime
-        "--validate"         // Validate the generated wasm module
         ], {
           verbose: true     // Output the cli args passed to asc
         });
