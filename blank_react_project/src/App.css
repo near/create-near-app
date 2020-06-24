@@ -1,3 +1,16 @@
+@import url('https://use.typekit.net/pqx2pko.css');
+
+@font-face {
+  font-family: BwSeidoRound;
+  src: url(./fonts/BwSeidoRound500.eot);
+  src: url(./fonts/BwSeidoRound500.eot?#iefix) format("embedded-opentype"),
+  url(./fonts/BwSeidoRound500.woff2) format("woff2"),
+  url(./fonts/BwSeidoRound500.woff) format("woff"),
+  url(./fonts/BwSeidoRound500.ttf) format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 .App-header {
   background-image: url('https://near.org/wp-content/uploads/2019/03/illo-developers.svg');
   min-height: 100vh;
@@ -5,10 +18,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: white;
   text-align: center;
-  padding:2%; 
+  padding:2%;
 }
 
 .App-link {
@@ -49,9 +62,24 @@
   width: 33%;
 }
 
+p, button, a {
+  font-family: BwSeidoRound;
+}
+
+a:hover {
+  color: #0072CE;
+}
+
+a:visited {
+  color: #8FD6BD;
+}
+
 p {
   color: #25282A;
-  font-family: sans-serif;
+}
+
+code {
+  font-size: 1.5rem;
 }
 
 button {
@@ -59,6 +87,8 @@ button {
   color: #0072CE;
   border-radius: 10px;
   border: 3px solid #0072CE;
+  margin: 0 10px;
+  font-size: 1.1rem;
 }
 
 button:hover {
