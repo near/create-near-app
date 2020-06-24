@@ -9,7 +9,7 @@
     "fix": "eslint . --fix"
   },
   "repository": "https://github.com/nearprotocol/create-near-app.git",
-  "author": "Yifang Ma <yifang@nearprotocol.com>",
+  "author": "Yifang Ma <yifang@near.org>",
   "license": "(MIT AND Apache-2.0)",
   "keywords": [
     "nearprotocol",

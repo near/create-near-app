@@ -2,7 +2,7 @@ create-near-app
 ===============
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/nearprotocol/create-near-app) 
 
-Quickly build apps backed by the [NEAR](https://nearprotocol.com) blockchain
+Quickly build apps backed by the [NEAR](https://near.org) blockchain
 
 
 Prerequisites
@@ -36,7 +36,7 @@ Follow the instructions in the README.md in the project you just created! 🚀
 Getting Help
 ============
 
-Check out our [documentation](https://docs.nearprotocol.com) or chat with us on [Discord](http://near.chat). We'd love to hear from you!
+Check out our [documentation](https://docs.near.org) or chat with us on [Discord](http://near.chat). We'd love to hear from you!
 
 License
 =======
