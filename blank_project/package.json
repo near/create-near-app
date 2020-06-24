@@ -13,7 +13,7 @@
     "prestart": "npm run build:contract && npm run dev:deploy:contract",
     "start": "env-cmd -f ./neardev/dev-account.env parcel src/index.html",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
-    "test": "asp && npm run build:contract && jest test --runInBand"
+    "test": "asp --nologo && npm run build:contract && jest test --runInBand"
   },
   "devDependencies": {
     "gh-pages": "^3.0.0",

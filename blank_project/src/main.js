@@ -1,96 +1,80 @@
-import "regenerator-runtime/runtime";
+import 'regenerator-runtime/runtime'
 
-import * as nearlib from "near-api-js"
-import getConfig from "./config"
+import { initContract, login, logout, onSubmit } from './utils'
 
-let nearConfig = getConfig(process.env.NODE_ENV || "development");
-window.nearConfig = nearConfig;
-const nearGreetings = ['Hello', 'Aloha', 'Bonjour'];
-let nearGreetingIndex = 0;
+// global variable used throughout
+let currentGreeting
 
-// Initializing contract
-async function InitContract() {
-  console.log('nearConfig', nearConfig);
+document.querySelector('form').onsubmit = async (event) => {
+  // fire frontend-agnostic submit behavior, including data persistence
+  // look in utils.js to see how this updates data on-chain!
+  await onSubmit(event)
 
-  // Initializing connection to the NEAR testnet.
-  window.near = await nearlib.connect(Object.assign({ deps: { keyStore: new nearlib.keyStores.BrowserLocalStorageKeyStore() } }, nearConfig));
+  // update the greeting in the UI
+  await fetchGreeting()
 
-  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
-  // is hosted at https://wallet.testnet.near.org
-  window.walletAccount = new nearlib.WalletAccount(window.near);
+  // show notification
+  document.querySelector('[data-behavior=notification]').style.display = 'block';
 
-  // Getting the Account ID. If unauthorized yet, it's just empty string.
-  window.accountId = window.walletAccount.getAccountId();
-
-  // Initializing our contract APIs by contract name and configuration.
-  window.contract = await near.loadContract(nearConfig.contractName, { // eslint-disable-line require-atomic-updates
-    // NOTE: This configuration only needed while NEAR is still in development
-    // View methods are read only. They don't modify the state, but usually return some value.
-    viewMethods: ['welcome'],
-    // Change methods can modify the state. But you don't receive the returned value when called.
-    changeMethods: ['setGreeting'],
-    // Sender is the account ID to initialize transactions.
-    sender: window.accountId,
-  });
+  // remove notification again after css animation completes
+  // this allows it to be shown again next time the form is submitted
+  setTimeout(() => {
+    document.querySelector('[data-behavior=notification]').style.display = 'none';
+  }, 11000)
 }
 
-// Using initialized contract
-async function doWork() {
-  // Based on whether you've authorized, checking which flow we should go.
-  if (!window.walletAccount.isSignedIn()) {
-    signedOutFlow();
+document.querySelector('input#greeting').oninput = (event) => {
+  const submitButton = document.querySelector('form button')
+  if (event.target.value !== currentGreeting) {
+    submitButton.disabled = false
   } else {
-    signedInFlow();
+    submitButton.disabled = true
   }
 }
 
-// Function that initializes the signIn button using WalletAccount
+document.querySelector('#sign-in-button').onclick = login
+document.querySelector('#sign-out-button').onclick = logout
+
+// Display the signed-out-flow container
 function signedOutFlow() {
-  // Displaying the signed out flow container.
-  document.getElementById('signed-out-flow').classList.remove('d-none');
-  // Adding an event to a sing-in button.
-  document.getElementById('sign-in-button').addEventListener('click', () => {
-    window.walletAccount.requestSignIn(
-      // The contract name that would be authorized to be called by the user's account.
-      window.nearConfig.contractName,
-      // This is the app name. It can be anything.
-      'Welcome to NEAR'
-    );
-  });
+  document.querySelector('#signed-out-flow').style.display = 'block'
 }
 
-// Main function for the signed-in flow (already authorized by the wallet).
+// Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
-  // Displaying the signed in flow container.
-  document.getElementById('signed-in-flow').classList.remove('d-none');
+  document.querySelector('#signed-in-flow').style.display = 'block'
 
-  welcome();
+  document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
+    el.innerText = window.accountId
+  })
 
-  // Adding an event to a sign-out button.
-  document.getElementById('sign-out-button').addEventListener('click', () => {
-    walletAccount.signOut();
-    // Forcing redirect.
-    window.location.replace(window.location.origin + window.location.pathname);
-  });
+  // populate links in the notification box
+  const accountLink = document.querySelector('[data-behavior=notification] a:nth-of-type(1)')
+  accountLink.href = accountLink.href + window.accountId
+  accountLink.innerText = '@' + window.accountId
+  const contractLink = document.querySelector('[data-behavior=notification] a:nth-of-type(2)')
+  contractLink.href = contractLink.href + window.contract.contractId
+  contractLink.innerText = '@' + window.contract.contractId
 
-  // Adding an event to change greeting button.
-  document.getElementById('change-greeting').addEventListener('click', () => {
-    setGreeting();
-  });
+  fetchGreeting()
 }
 
-async function setGreeting() {
-    nearGreetingIndex = (nearGreetingIndex + 1) % nearGreetings.length;
-    await window.contract.setGreeting({message: nearGreetings[nearGreetingIndex]});
-    welcome();
+// update global currentGreeting variable; update DOM with it
+async function fetchGreeting() {
+  currentGreeting = await contract.getGreeting({ accountId: window.accountId })
+  document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
+    // set divs, spans, etc
+    el.innerText = currentGreeting
+
+    // set input elements
+    el.value = currentGreeting
+  })
 }
 
-async function welcome() {
-  const response = await window.contract.welcome({account_id:window.accountId});
-  document.getElementById('speech').innerText = response.text;
-}
-
-// Loads nearlib and this contract into window scope.
-window.nearInitPromise = InitContract()
-  .then(doWork)
-  .catch(console.error);
+// `nearInitPromise` gets called on page load
+window.nearInitPromise = initContract()
+  .then(() => {
+    if (window.walletConnection.isSignedIn()) signedInFlow()
+    else signedOutFlow()
+  })
+  .catch(console.error)

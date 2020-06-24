@@ -76,14 +76,13 @@ const doCreateProject = async function(options) {
 
     // copy contract
     const contractTargetDir = `${projectDir}/${options.rust? 'contract' : 'assembly'}`;
-    const contractSourceDir = `${__dirname}/contract/${options.rust? 'rust' : 'asc'}`;
+    const contractSourceDir = `${__dirname}/common/${options.rust? 'rust' : 'asc'}`;
     console.log(`Copying contract files to new project directory (${contractTargetDir}) from source (${contractSourceDir}).`);
-    const copyContractDirFn = () => {
-        return new Promise(resolve => {
-            ncp(contractSourceDir, contractTargetDir, response => resolve(response));
-        });
-    };
-    await copyContractDirFn();
+    await ncp(contractSourceDir, contractTargetDir);
+
+    // copy common frontend files
+    await ncp(`${__dirname}/common/frontend`, `${projectDir}/src`);
+    await ncp(`${__dirname}/common/assets`, `${projectDir}/src/assets`);
 
     await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`);
     console.log('Copying project files complete.\n');

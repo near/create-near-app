@@ -2,81 +2,105 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <style>
-    .App-header {
-      background-image: url('https://near.org/wp-content/uploads/2019/03/illo-developers.svg');
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      color: #25282A;
-      text-align: center;
-      padding:2%;
-    }
-    .image-wrapper {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-      pointer-events: none;
-    }
-
-    .margin-logo {
-      margin: 20px;
-    }
-
-    @keyframes App-logo-spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    button {
-      padding: 5px;
-      color: #0072CE;
-      border-radius: 10px;
-      border: 3px solid #0072CE;
-    }
-
-    button:hover {
-      cursor: pointer;
-      color: white;
-      background: #0072CE;
-    }
-
-    .speech {
-      font-size: 1.5rem;
-      color: #0072CE;
-      text-shadow: 1px 1px #D1CCBD;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./assets/favicon.ico" />
+  <link rel="apple-touch-icon" href="./assets/favicon.ico" />
+  <title>Welcome to NEAR</title>
+  <link rel="stylesheet" href="global.css">
 </head>
-<body class="App-header">
-  <div>
-    <div class="image-wrapper">
-      <img style="width:33%;" src="assets/gray_near_logo.svg" alt="NEAR logo" />
-      <p><span role="img" aria-label="fish">🐟</span> NEAR protocol is a new blockchain focused on developer productivity and useability!<span role="img" aria-label="fish">🐟</span></p>
-      <p><span role="img" aria-label="chain">⛓</span> This little app is connected to blockchain right now. <span role="img" aria-label="chain">⛓</span></p>
-      <img src="assets/near.svg" class="App-logo margin-logo" alt="logo" />
-      <p id="speech" class="speech"></p>
-    </div>
-    <div id="signed-out-flow" class="d-none">
-      <button id="sign-in-button" >Sign-in with NEAR</button>
-    </div>
-    <div id="signed-in-flow" class="d-none">
-      <button id="sign-out-button" >Sign-out</button>
-      <button id="change-greeting">Change greeting</button>
-    </div> 
+<body>
+  <main id="signed-out-flow" style="display: none">
+    <h1>Welcome to NEAR!</h1>
+    <p>
+      To make use of the NEAR blockchain, you need to sign in. The button
+      below will sign you in using NEAR Wallet.
+    </p>
+    <p>
+      By default, when your app runs in "development" mode, it connects
+      to a test network ("testnet") wallet. This works just like the main
+      network ("mainnet") wallet, but the NEAR Tokens on testnet aren't
+      convertible to other currencies – they're just for testing!
+    </p>
+    <p>
+      Go ahead and click the button below to try it out:
+    </p>
+    <p style="text-align: center; margin-top: 2.5em">
+      <button id="sign-in-button">Sign in</button>
+    </p>
+  </main>
+
+  <div id="signed-in-flow" style="display: none">
+    <a style="float: right" href="#" id="sign-out-button">Sign out</a>
+    <main>
+      <h1>
+        <label
+          for="greeting"
+          data-behavior="greeting"
+          style="color: var(--secondary); border-bottom: 2px solid var(--secondary);"
+        >
+        </label>
+        <span data-behavior="account-id"></span>!
+      </h1>
+      <form>
+        <fieldset id="fieldset">
+          <label
+            for="greeting"
+            style="display: block; color: var(--gray); margin-bottom: 0.5em"
+          >
+            Change greeting
+          </label>
+          <div style="display: flex">
+            <input
+              style="flex: 1"
+              autocomplete="off"
+              id="greeting"
+              data-behavior="greeting"
+            />
+            <button disabled style="border-radius: 0 5px 5px 0">Save</button>
+          </div>
+        </fieldset>
+      </form>
+      <p>
+        Look at that! A Hello World app! This greeting is stored on the NEAR blockchain. Check it out:
+      </p>
+      <ol>
+        <li>
+          Look in <code>src/main.js</code> and <code>src/utils.js</code> – you'll see <code>getGreeting</code>
+          and <code>setGreeting</code> being called on <code>contract</code>.
+          What's this?
+        </li>
+        <li>
+          Ultimately, this <code>contract</code> code is defined in
+          <code>assembly/main.ts</code> – this is the source code for your
+          <a target="_blank" href="https://docs.near.org/docs/roles/developer/contracts/intro">smart contract</a>.
+        </li>
+        <li>
+          When you run <code>yarn dev</code>, the code in
+          <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You
+          can see how this happens by looking in <code>package.json</code> at the
+          <code>scripts</code> section to find the <code>dev</code> command.
+        </li>
+      </ol>
+      <hr>
+      <p>
+        To keep learning, check out
+        <a target="_blank" href="https://docs.near.org">the NEAR docs</a>
+        or look through some
+        <a target="_blank" href="https://examples.near.org">example apps</a>.
+      </p>
+    </main>
   </div>
+
+  <aside data-behavior="notification" style="display: none">
+    <a target="_blank" href="https://explorer.testnet.near.org/accounts/"></a>
+    called method: 'setGreeting' in contract:
+    <a target="_blank" href="https://explorer.testnet.near.org/accounts/"></a>
+    <footer>
+      <div>✔ Succeeded</div>
+      <div>Just now</div>
+    </footer>
+  </aside>
+
   <script src="./main.js"></script>
 </body>
 </html>
