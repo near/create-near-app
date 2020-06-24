@@ -94,3 +94,7 @@ NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resul
 - `src/App.js` for the main React component
 - `src/main.test.js` for the JavaScript integration tests of smart contract
 - `src/App.test.js` for the main React component tests
+
+### Troubleshooting
+
+On Windows, if you're seeing an error containing `EPERM` it may be relatd to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.

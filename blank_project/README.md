@@ -92,3 +92,7 @@ NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resul
 - `src/index.html` for the front-end HTML
 - `src/main.js` for the JavaScript front-end code and how to integrate contracts
 - `src/main.test.js` for the JavaScript integration tests of smart contract
+
+### Troubleshooting
+
+On Windows, if you're seeing an error containing `EPERM` it may be relatd to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
