@@ -8,6 +8,8 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.greetings = ['hello', 'aloha', 'bonjour'];
+    this.greetingIndex = 0;
     this.state = {
       login: false,
       speech: null
@@ -60,7 +62,8 @@ class App extends Component {
   }
 
   async changeGreeting() {
-    await this.props.contract.set_greeting({ message: 'howdy' });
+    this.greetingIndex = (this.greetingIndex + 1) % 3;
+    await this.props.contract.set_greeting({ message: this.greetings[this.greetingIndex] });
     await this.welcome();
   }
 
