@@ -97,4 +97,4 @@ NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resul
 
 ### Troubleshooting
 
-On Windows, if you're seeing an error containing `EPERM` it may be relatd to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
+On Windows, if you're seeing an error containing `EPERM` it may be related to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
