@@ -1,31 +1,42 @@
 {
   "name": "create-near-app",
-  "version": "0.6.0",
+  "version": "0.9.3",
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "scripts": {
-    "test": "./test/test_new_project.sh",
+    "test": "node ./test/test-new-project.js",
     "lint": "eslint .",
     "fix": "eslint . --fix"
   },
-  "repository": "https://github.com/nearprotocol/blank_template.git",
-  "author": "Yifang Ma <yifang@nearprotocol.com>",
-  "license": "MIT",
+  "repository": "https://github.com/nearprotocol/create-near-app.git",
+  "author": "Yifang Ma <yifang@near.org>",
+  "license": "(MIT AND Apache-2.0)",
   "keywords": [
     "nearprotocol",
-    "assembly",
+    "near-protocol",
+    "assemblyscript",
+    "rust",
+    "react",
+    "smart-contract",
     "blockchain"
   ],
-  "bugs": "https://github.com/nearprotocol/blank_template.git/issues",
+  "bugs": "https://github.com/nearprotocol/create-near-app/issues",
   "bin": {
     "create-near-app": "./index.js"
   },
   "dependencies": {
+    "chalk": "^4.0.0",
+    "cross-spawn": "^7.0.1",
     "ncp": "^2.0.0",
     "replace-in-files": "^2.0.3",
+    "which": "^2.0.2",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^7.0.0",
+    "shelljs": "^0.8.3"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }

@@ -9,7 +9,7 @@
 
 // To conserve gas, efficient serialization is achieved through Borsh (http://borsh.io/)
 use borsh::{BorshDeserialize, BorshSerialize};
-use near_bindgen::{env, near_bindgen};
+use near_sdk::{env, near_bindgen};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -63,12 +63,11 @@ impl Welcome {
  * cargo test --package status-message -- --nocapture
  *
  */
-#[cfg(not(target_arch = "wasm32"))]
 #[cfg(test)]
 mod tests {
     use super::*;
-    use near_bindgen::MockedBlockchain;
-    use near_bindgen::{testing_env, VMContext};
+    use near_sdk::MockedBlockchain;
+    use near_sdk::{testing_env, VMContext};
 
     // mock the context for testing, notice "signer_account_id" that was accessed above from env::
     fn get_context(input: Vec<u8>, is_view: bool) -> VMContext {
@@ -88,6 +87,7 @@ mod tests {
             random_seed: vec![0, 1, 2],
             is_view,
             output_data_receivers: vec![],
+            epoch_height: 19,
         }
     }
 

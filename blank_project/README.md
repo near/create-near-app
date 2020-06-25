@@ -2,7 +2,7 @@
 <br />
 
 <p>
-<img src="https://nearprotocol.com/wp-content/themes/near-19/assets/img/logo.svg?t=1553011311" width="240">
+<img src="https://near.org/wp-content/themes/near-19/assets/img/logo.svg?t=1553011311" width="240">
 </p>
 
 <br />
@@ -56,23 +56,7 @@ yarn test
 
 You'll now want to authorize NEAR shell on your NEAR account, which will allow NEAR Shell to deploy contracts on your NEAR account's behalf \(and spend your NEAR account balance to do so\).
 
-Type the command `near login` which should return a url:
-
-```
-Please navigate to this url and follow the instructions to log in:
-https://wallet.nearprotocol.com/login/?title=NEAR+Shell&public_key={publicKey}
-```
-
-From there enter in your terminal the same account ID that you authorized:
-
-`Please enter the accountId that you logged in with: <asdfasdf>`
-
-Once you have entered your account ID, it will display the following message:
-
-`Missing public key for <asdfasdf> in default`
-`Logged in with masternode24`
-
-This message is not an error, it just means that it will create a public key for you.
+Type the command `near login` which opens a webpage at NEAR Wallet. Follow the instructions there and it will create a key for you, stored in the `/neardev` directory.
 
 #### Step 2:
 
@@ -108,3 +92,7 @@ NOTE: This uses [gh-pages](https://github.com/tschaub/gh-pages) to publish resul
 - `src/index.html` for the front-end HTML
 - `src/main.js` for the JavaScript front-end code and how to integrate contracts
 - `src/main.test.js` for the JavaScript integration tests of smart contract
+
+### Troubleshooting
+
+On Windows, if you're seeing an error containing `EPERM` it may be related to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.

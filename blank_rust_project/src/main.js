@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
 
-import * as nearlib from "nearlib"
+import * as nearlib from "near-api-js"
 import getConfig from "./config"
 
 let nearConfig = getConfig(process.env.NODE_ENV || "development");
@@ -10,11 +10,11 @@ window.nearConfig = nearConfig;
 async function InitContract() {
     console.log('nearConfig', nearConfig);
 
-    // Initializing connection to the NEAR DevNet.
+    // Initializing connection to the NEAR testnet.
     window.near = await nearlib.connect(Object.assign({ deps: { keyStore: new nearlib.keyStores.BrowserLocalStorageKeyStore() } }, nearConfig));
 
-    // Initializing Wallet based Account. It can work with NEAR DevNet wallet that
-    // is hosted at https://wallet.nearprotocol.com
+    // Initializing Wallet based Account. It can work with NEAR testnet wallet that
+    // is hosted at https://wallet.testnet.near.org
     window.walletAccount = new nearlib.WalletAccount(window.near);
 
     // Getting the Account ID. If unauthorized yet, it's just empty string.
@@ -26,7 +26,7 @@ async function InitContract() {
         // View methods are read only. They don't modify the state, but usually return some value.
         viewMethods: ['welcome'],
         // Change methods can modify the state. But you don't receive the returned value when called.
-        changeMethods: [],
+        changeMethods: ['set_greeting'],
         // Sender is the account ID to initialize transactions.
         sender: window.accountId,
     });
@@ -62,7 +62,7 @@ function signedInFlow() {
     // Displaying the signed in flow container.
     document.getElementById('signed-in-flow').classList.remove('d-none');
 
-    window.contract.welcome({account_id:window.accountId}).then(response => document.getElementById('speech').innerText = response.text);
+    welcome();
 
     // Adding an event to a sign-out button.
     document.getElementById('sign-out-button').addEventListener('click', () => {
@@ -70,6 +70,21 @@ function signedInFlow() {
         // Forcing redirect.
         window.location.replace(window.location.origin + window.location.pathname);
     });
+
+    // Adding an event to change greeting button.
+    document.getElementById('change-greeting').addEventListener('click', () => {
+        setGreeting();
+    });
+}
+
+async function setGreeting() {
+    await window.contract.set_greeting({message:'Howdy'});
+    welcome();
+}
+
+async function welcome() {
+    const response = await window.contract.welcome({account_id:window.accountId});
+    document.getElementById('speech').innerText = response.text;
 }
 
 // Loads nearlib and this contract into window scope.
