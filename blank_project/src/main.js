@@ -5,6 +5,8 @@ import getConfig from "./config"
 
 let nearConfig = getConfig(process.env.NODE_ENV || "development");
 window.nearConfig = nearConfig;
+const nearGreetings = ['Hello', 'Aloha', 'Bonjour'];
+let nearGreetingIndex = 0;
 
 // Initializing contract
 async function InitContract() {
@@ -78,8 +80,9 @@ function signedInFlow() {
 }
 
 async function setGreeting() {
-  await window.contract.setGreeting({message:'Howdy'});
-  welcome();
+    nearGreetingIndex = (nearGreetingIndex + 1) % nearGreetings.length;
+    await window.contract.setGreeting({message: nearGreetings[nearGreetingIndex]});
+    welcome();
 }
 
 async function welcome() {
