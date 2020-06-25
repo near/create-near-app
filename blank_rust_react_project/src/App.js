@@ -5,11 +5,12 @@ import nearlogo from './assets/gray_near_logo.svg';
 import near from './assets/near.svg';
 import './App.css';
 
+const greetings = ['hello', 'aloha', 'bonjour'];
+let greetingIndex = 0;
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.greetings = ['hello', 'aloha', 'bonjour'];
-    this.greetingIndex = 0;
     this.state = {
       login: false,
       speech: null
@@ -62,8 +63,8 @@ class App extends Component {
   }
 
   async changeGreeting() {
-    this.greetingIndex = (this.greetingIndex + 1) % 3;
-    await this.props.contract.set_greeting({ message: this.greetings[this.greetingIndex] });
+    greetingIndex = (greetingIndex + 1) % greetings.length;
+    await this.props.contract.set_greeting({ message: greetings[greetingIndex] });
     await this.welcome();
   }
 
