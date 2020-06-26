@@ -23,6 +23,7 @@ npm i -g near-shell
 npm i -g yarn
 ```
 4. rust
+
 Follow instructions for installing [rust] here https://docs.near.org/docs/roles/developer/contracts/near-sdk-rs#pre-requisites
 ### To run on NEAR testnet
 
