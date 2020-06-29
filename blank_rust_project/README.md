@@ -25,7 +25,7 @@ npm i -g yarn
 ### To run on NEAR testnet
 
 ```bash
-npm install && npm dev
+npm install && npm run dev
 ```
 
 with yarn:
