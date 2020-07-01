@@ -44,9 +44,8 @@ const renameFile = async function(oldPath, newPath) {
 };
 
 const doCreateProject = async function(options) {
-    const rustPiece = options.rust ? '_rust' : '';
-    const reactPiece = options.vanilla ? '' : '_react';
-    const templateDir = `/blank${rustPiece}${reactPiece}_project`;
+    const contractLang = options.rust ? 'rust' : 'asc';
+    const templateDir = `/templates/${options.vanilla ? 'vanilla' : 'react'}`;
     const projectDir = options.projectDir;
     const sourceTemplateDir = __dirname + templateDir;
 
@@ -62,8 +61,21 @@ const doCreateProject = async function(options) {
     };
     await copyDirFn(sourceTemplateDir, projectDir);
 
-    let projectName = basename(resolve(projectDir));
+    // copy contract
+    const contractTargetDir = `${projectDir}/${options.rust? 'contract' : 'assembly'}`;
+    const contractSourceDir = `${__dirname}/common/contracts/${contractLang}`;
+    console.log(`Copying contract files to new project directory (${contractTargetDir}) from source (${contractSourceDir}).`);
+    await copyDirFn(contractSourceDir, contractTargetDir);
 
+    // copy common frontend files
+    await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`);
+
+    // use correct package.json; delete the other(s)
+    await copyDirFn(`${projectDir}/packagejsons/${contractLang}/package.json`, `${projectDir}/package.json`);
+    fs.rmdirSync(`${projectDir}/packagejsons`, { recursive: true });
+
+    // update package name
+    let projectName = basename(resolve(projectDir));
     await replaceInFiles({
         files: [
             // NOTE: These can use globs if necessary later
@@ -74,16 +86,12 @@ const doCreateProject = async function(options) {
         to: projectName
     });
 
-    // copy contract
-    const contractTargetDir = `${projectDir}/${options.rust? 'contract' : 'assembly'}`;
-    const contractSourceDir = `${__dirname}/contract/${options.rust? 'rust' : 'asc'}`;
-    console.log(`Copying contract files to new project directory (${contractTargetDir}) from source (${contractSourceDir}).`);
-    const copyContractDirFn = () => {
-        return new Promise(resolve => {
-            ncp(contractSourceDir, contractTargetDir, response => resolve(response));
-        });
-    };
-    await copyContractDirFn();
+    if (options.rust) {
+        await replaceInFiles({ files: `${projectDir}/src/*`, from: /getGreeting/g, to: 'get_greeting' });
+        await replaceInFiles({ files: `${projectDir}/src/*`, from: /setGreeting/g, to: 'set_greeting' });
+        await replaceInFiles({ files: `${projectDir}/src/*`, from: /assembly\/main.ts/, to: 'contract/src/lib.rs' });
+        await replaceInFiles({ files: `${projectDir}/src/*`, from: /accountId:/g, to: 'account_id:' });
+    }
 
     await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`);
     console.log('Copying project files complete.\n');
