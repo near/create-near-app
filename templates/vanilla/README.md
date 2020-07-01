@@ -11,6 +11,7 @@
 ## Template for NEAR dapps
 ### Requirements
 ##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 10.x 
+**Note**: if using Node version 13 please be advised that you will need version >= 13.7.0
 
 1. [Node.js](https://nodejs.org/en/download/package-manager/)
 2. (optional) near-shell

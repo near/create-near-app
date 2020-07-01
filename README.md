@@ -9,6 +9,7 @@ Prerequisites
 =============
 
 Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `12+`.
+**Note**: if using Node version 13 please be advised that you will need version >= 13.7.0
 
 
 Getting Started
