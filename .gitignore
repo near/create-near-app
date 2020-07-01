@@ -16,7 +16,6 @@ tmp-project
 # production
 /build
 /common/contracts/rust/target
-/common/contracts/rust/res
 /common/contracts/out
 
 # misc
