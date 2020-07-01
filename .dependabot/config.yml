@@ -8,35 +8,35 @@ update_configs:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/blank_project"
+    directory: "/templates/vanilla/packagejsons/asc"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/blank_react_project"
+    directory: "/templates/vanilla/packagejsons/rust"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/blank_rust_project"
+    directory: "/templates/react/packagejsons/asc"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/blank_rust_react_project"
+    directory: "/templates/react/packagejsons/rust"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "rust:cargo"
-    directory: "/contract/rust"
+    directory: "/common/contracts/rust"
     update_schedule: "live"
     automerged_updates:
       - match:
