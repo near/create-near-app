@@ -1,0 +1,7 @@
+templates/*/assembly
+templates/*/contract
+templates/*/package.json
+templates/*/src/assets
+templates/*/src/config.js
+templates/*/src/global.css
+templates/*/src/utils.js
