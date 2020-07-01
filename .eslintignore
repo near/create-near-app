@@ -1,5 +1,3 @@
-blank_project
-blank_react_project
-blank_rust_project
-blank_rust_react_project
+common/frontend
+templates
 tmp-project
