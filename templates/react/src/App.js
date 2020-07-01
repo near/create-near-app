@@ -3,6 +3,9 @@ import React from 'react'
 import { login, logout, onSubmit } from './utils'
 import './global.css'
 
+import getConfig from './config'
+const { networkId } = getConfig(process.env.NODE_ENV || 'development')
+
 export default function App() {
   // use React Hooks to store greeting in component state
   const [greeting, setGreeting] = React.useState()
@@ -149,7 +152,7 @@ export default function App() {
 
 // this component gets rendered by App after the form is submitted
 function Notification() {
-  const urlPrefix = 'https://explorer.testnet.near.org/accounts'
+  const urlPrefix = `https://explorer.${networkId}.near.org/accounts`
   return (
     <aside>
       <a target="_blank" href={`${urlPrefix}/${window.accountId}`}>

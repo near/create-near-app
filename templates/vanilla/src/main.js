@@ -2,6 +2,9 @@ import 'regenerator-runtime/runtime'
 
 import { initContract, login, logout, onSubmit } from './utils'
 
+import getConfig from './config'
+const { networkId } = getConfig(process.env.NODE_ENV || 'development')
+
 // global variable used throughout
 let currentGreeting
 
@@ -55,6 +58,10 @@ function signedInFlow() {
   const contractLink = document.querySelector('[data-behavior=notification] a:nth-of-type(2)')
   contractLink.href = contractLink.href + window.contract.contractId
   contractLink.innerText = '@' + window.contract.contractId
+
+  // update with selected networkId
+  accountLink.href = accountLink.href.replace('testnet', networkId)
+  contractLink.href = contractLink.href.replace('testnet', networkId)
 
   fetchGreeting()
 }
