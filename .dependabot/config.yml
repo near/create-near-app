@@ -8,7 +8,7 @@ update_configs:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/templates/vanilla/packagejsons/asc"
+    directory: "/templates/vanilla/packagejsons/assemblyscript"
     update_schedule: "live"
     automerged_updates:
       - match:
@@ -22,7 +22,7 @@ update_configs:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/templates/react/packagejsons/asc"
+    directory: "/templates/react/packagejsons/assemblyscript"
     update_schedule: "live"
     automerged_updates:
       - match:

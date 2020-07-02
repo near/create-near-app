@@ -5,9 +5,9 @@ shell.config.verbose = true;
 
 const commands = [
     'node index.js tmp-project',
-    'node index.js tmp-project --vanilla',
-    'node index.js tmp-project --rust',
-    'node index.js tmp-project --vanilla --rust'
+    'node index.js tmp-project --frontend=react',
+    'node index.js tmp-project --contract=rust',
+    'node index.js tmp-project --frontend=react --contract=rust'
 ];
 
 for (let i = 0; i < commands.length; i++) {

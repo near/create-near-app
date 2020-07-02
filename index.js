@@ -11,27 +11,6 @@ const which = require('which');
 const sh = require('shelljs');
 const path = require('path');
 
-const exitOnError = async function(promise) {
-    try {
-        await promise;
-    } catch (e) {
-        console.log('Error: ', e);
-        process.exit(1);
-    }
-};
-
-const createProject = {
-    command: '$0 <projectDir>',
-    desc: 'create a new blank react project',
-    builder: (yargs) => yargs
-        .option('projectDir', {
-            desc: 'project directory',
-            type: 'string',
-            required: true
-        }),
-    handler: (argv) => exitOnError(doCreateProject(argv))
-};
-
 const renameFile = async function(oldPath, newPath) {
     return new Promise((resolve, reject) => {
         fs.rename(oldPath, newPath, (err) => {
@@ -45,10 +24,8 @@ const renameFile = async function(oldPath, newPath) {
     });
 };
 
-const doCreateProject = async function(options) {
-    const contractLang = options.rust ? 'rust' : 'asc';
-    const templateDir = `/templates/${options.vanilla ? 'vanilla' : 'react'}`;
-    const projectDir = options.projectDir;
+const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
+    const templateDir = `/templates/${frontend}`;
     const sourceTemplateDir = __dirname + templateDir;
 
     console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`);
@@ -82,7 +59,7 @@ const doCreateProject = async function(options) {
         }
     });
 
-    if (options['very-verbose']) {
+    if (veryVerbose) {
         console.log('Copied:');
         copied.forEach(f => console.log('  ' + f));
         console.log('Skipped:');
@@ -90,8 +67,10 @@ const doCreateProject = async function(options) {
     }
 
     // copy contract
-    const contractTargetDir = `${projectDir}/${options.rust? 'contract' : 'assembly'}`;
-    const contractSourceDir = `${__dirname}/common/contracts/${contractLang}`;
+    const contractTargetDir = `${projectDir}/${
+        { rust: 'contract', assemblyscript: 'assembly' }[contract]
+    }`;
+    const contractSourceDir = `${__dirname}/common/contracts/${contract}`;
     console.log(`Copying contract files to new project directory (${contractTargetDir}) from source (${contractSourceDir}).`);
     await copyDirFn(contractSourceDir, contractTargetDir);
 
@@ -99,7 +78,7 @@ const doCreateProject = async function(options) {
     await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`);
 
     // use correct package.json; delete the other(s)
-    await copyDirFn(`${sourceTemplateDir}/packagejsons/${contractLang}/package.json`, `${projectDir}/package.json`);
+    await copyDirFn(`${sourceTemplateDir}/packagejsons/${contract}/package.json`, `${projectDir}/package.json`);
 
     // update package name
     let projectName = basename(resolve(projectDir));
@@ -113,7 +92,7 @@ const doCreateProject = async function(options) {
         to: projectName
     });
 
-    if (options.rust) {
+    if (contract === 'rust') {
         await replaceInFiles({ files: `${projectDir}/src/*`, from: /getGreeting/g, to: 'get_greeting' });
         await replaceInFiles({ files: `${projectDir}/src/*`, from: /setGreeting/g, to: 'set_greeting' });
         await replaceInFiles({ files: `${projectDir}/src/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' });
@@ -158,16 +137,19 @@ Happy hacking!
 `);
 };
 
-yargs
-    .option('vanilla',{
-        desc: 'create blank plain JS project',
-        type: 'boolean',
-        default: false
+const opts = yargs
+    .usage('$0 <projectDir>', 'Create a new NEAR project')
+    // BUG: does not work; https://github.com/yargs/yargs/issues/1331
+    .example('$0 new-app', 'Create a project called "new-app"')
+    .option('frontend', {
+        desc: 'template to use',
+        choices: ['vanilla', 'react'],
+        default: 'vanilla',
     })
-    .option('rust',{
-        desc: 'use rust for smart contract',
-        type: 'boolean',
-        default: false
+    .option('contract', {
+        desc: 'language for smart contract',
+        choices: ['assemblyscript', 'rust'],
+        default: 'assemblyscript'
     })
     .option('very-verbose', {
         desc: 'turn on very verbose logging',
@@ -175,6 +157,7 @@ yargs
         default: false,
         hidden: true,
     })
-    .command(createProject)
     .help()
     .argv;
+
+createProject(opts);
