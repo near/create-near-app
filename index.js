@@ -66,15 +66,13 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
         skipped.forEach(f => console.log('  ' + f));
     }
 
-    // copy contract
+    // copy common files
+    const contractSourceDir = `${__dirname}/common/contracts/${contract}`;
     const contractTargetDir = `${projectDir}/${
         { rust: 'contract', assemblyscript: 'assembly' }[contract]
     }`;
-    const contractSourceDir = `${__dirname}/common/contracts/${contract}`;
-    console.log(`Copying contract files to new project directory (${contractTargetDir}) from source (${contractSourceDir}).`);
     await copyDirFn(contractSourceDir, contractTargetDir);
-
-    // copy common frontend files
+    await sh.mv(`${contractTargetDir}/README.md`, projectDir);
     await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`);
 
     // use correct package.json; delete the other(s)
@@ -85,10 +83,11 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
     await replaceInFiles({
         files: [
             // NOTE: These can use globs if necessary later
+            `${projectDir}/README.md`,
             `${projectDir}/package.json`,
             `${projectDir}/src/config.js`,
         ],
-        from: 'near-blank-project',
+        from: /near-blank-project/g,
         to: projectName
     });
 
@@ -104,6 +103,10 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
 
     const hasNpm = await which('npm', { nothrow: true });
     const hasYarn = await which('yarn', { nothrow: true });
+
+    if (hasYarn) {
+        await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' });
+    }
 
     if (hasNpm || hasYarn) {
         console.log('Installing project dependencies...');
@@ -160,4 +163,11 @@ const opts = yargs
     .help()
     .argv;
 
-createProject(opts);
+createProject(opts).catch(e => {
+    // work around silly node error:
+    //   (node:56892) [DEP0018] DeprecationWarning: Unhandled promise rejections
+    //   are deprecated. In the future, promise rejections that are not handled
+    //   will terminate the Node.js process with a non-zero exit code.
+    console.error('Error:', e);
+    process.exit(1);
+});
