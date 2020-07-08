@@ -8,6 +8,8 @@ const fs = require('fs');
 const spawn = require('cross-spawn');
 const chalk = require('chalk');
 const which = require('which');
+const sh = require('shelljs');
+const path = require('path');
 
 const exitOnError = async function(promise) {
     try {
@@ -39,7 +41,7 @@ const renameFile = async function(oldPath, newPath) {
             }
             console.log(`Renamed ${oldPath} to ${newPath}`);
             resolve();
-        });    
+        });
     });
 };
 
@@ -51,15 +53,41 @@ const doCreateProject = async function(options) {
 
     console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`);
     // Need to wait for the copy to finish, otherwise next tasks do not find files.
-    const copyDirFn = (source, dest) => {
+    const copyDirFn = (source, dest, opts = {}) => {
         return new Promise((resolve, reject) => {
-            ncp(source, dest, (err) => {
+            ncp(source, dest, opts, (err) => {
                 if (err) return reject(err);
                 resolve();
             });
         });
     };
-    await copyDirFn(sourceTemplateDir, projectDir);
+
+    // our frontend templates are set up with symlinks for easy development,
+    // developing right in these directories also results in build artifacts;
+    // we don't want to copy these
+    const filesToSkip = [
+        'package.json',
+        path.join(sourceTemplateDir, 'node_modules'),
+        path.join(sourceTemplateDir, 'contract'),
+        path.join(sourceTemplateDir, 'assembly'),
+        ...sh.ls(`${__dirname}/common/frontend`).map(f => path.join('src', f))
+    ];
+    const copied = [];
+    const skipped = [];
+    await copyDirFn(sourceTemplateDir, projectDir, {
+        filter: filename => {
+            const shouldCopy = !filesToSkip.find(f => filename.includes(f));
+            shouldCopy ? copied.push(filename) : skipped.push(filename);
+            return !filesToSkip.find(f => filename.includes(f));
+        }
+    });
+
+    if (options['very-verbose']) {
+        console.log('Copied:');
+        copied.forEach(f => console.log('  ' + f));
+        console.log('Skipped:');
+        skipped.forEach(f => console.log('  ' + f));
+    }
 
     // copy contract
     const contractTargetDir = `${projectDir}/${options.rust? 'contract' : 'assembly'}`;
@@ -71,8 +99,7 @@ const doCreateProject = async function(options) {
     await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`);
 
     // use correct package.json; delete the other(s)
-    await copyDirFn(`${projectDir}/packagejsons/${contractLang}/package.json`, `${projectDir}/package.json`);
-    fs.rmdirSync(`${projectDir}/packagejsons`, { recursive: true });
+    await copyDirFn(`${sourceTemplateDir}/packagejsons/${contractLang}/package.json`, `${projectDir}/package.json`);
 
     // update package name
     let projectName = basename(resolve(projectDir));
@@ -141,6 +168,12 @@ yargs
         desc: 'use rust for smart contract',
         type: 'boolean',
         default: false
+    })
+    .option('very-verbose', {
+        desc: 'turn on very verbose logging',
+        type: 'boolean',
+        default: false,
+        hidden: true,
     })
     .command(createProject)
     .help()

@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "generate new near blank project with different type",
   "main": "index.js",
+  "files": [
+      "/common",
+      "/templates"
+  ],
   "scripts": {
     "test": "node ./test/test-new-project.js",
     "lint": "eslint .",
@@ -29,12 +33,12 @@
     "cross-spawn": "^7.0.1",
     "ncp": "^2.0.0",
     "replace-in-files": "^2.0.3",
+    "shelljs": "^0.8.3",
     "which": "^2.0.2",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.0.0",
-    "shelljs": "^0.8.3"
+    "eslint": "^7.0.0"
   },
   "engines": {
     "node": ">=12"

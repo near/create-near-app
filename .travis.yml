@@ -17,6 +17,7 @@ before_install:
   - yarn
 git:
   autocrlf: false
+  symlinks: true
 script:
   - yarn test
   - yarn lint
