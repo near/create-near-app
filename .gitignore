@@ -26,6 +26,7 @@ tmp-project
 .env.production.local
 .idea
 /templates/**/yarn.lock
+/templates/*/neardev/dev-account*
 
 npm-debug.log*
 yarn-debug.log*
