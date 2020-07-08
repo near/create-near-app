@@ -116,7 +116,7 @@ const doCreateProject = async function(options) {
     if (options.rust) {
         await replaceInFiles({ files: `${projectDir}/src/*`, from: /getGreeting/g, to: 'get_greeting' });
         await replaceInFiles({ files: `${projectDir}/src/*`, from: /setGreeting/g, to: 'set_greeting' });
-        await replaceInFiles({ files: `${projectDir}/src/*`, from: /assembly\/main.ts/, to: 'contract/src/lib.rs' });
+        await replaceInFiles({ files: `${projectDir}/src/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' });
         await replaceInFiles({ files: `${projectDir}/src/*`, from: /accountId:/g, to: 'account_id:' });
     }
 
