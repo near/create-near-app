@@ -1,11 +1,11 @@
 {
   "name": "create-near-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "files": [
-      "/common",
-      "/templates"
+    "/common",
+    "/templates"
   ],
   "scripts": {
     "test": "node ./test/test-new-project.js",
