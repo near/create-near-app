@@ -45,7 +45,7 @@ Contributing
 
 To make changes to `create-near-app` itself:
 
-* clone the repository
+* clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
 * in your terminal, enter one of the folders inside `templates`, such as `templates/vanilla`
 * now you can run `yarn` to install dependencies and `yarn dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
