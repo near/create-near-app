@@ -11,7 +11,7 @@
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
     "prestart": "npm run build:contract && npm run dev:deploy:contract",
-    "start": "env-cmd -f ./neardev/dev-account.env echo 'Starting the app... It will automatically open in your browser when ready' && parcel src/index.html --open",
+    "start": "env-cmd -f ./neardev/dev-account.env echo 'The app is starting! It will automatically open in your browser when ready.' && parcel src/index.html --open",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
     "test": "(cd contract && cargo test --package status-message -- --nocapture && cd ..) && npm run build:contract && jest test --runInBand"
   },
