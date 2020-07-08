@@ -1,44 +1,32 @@
-version: 1
-update_configs:
-  - package_manager: "javascript"
-    directory: "/"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-    directory: "/templates/vanilla/packagejsons/asc"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-    directory: "/templates/vanilla/packagejsons/rust"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-    directory: "/templates/react/packagejsons/asc"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-    directory: "/templates/react/packagejsons/rust"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "rust:cargo"
-    directory: "/common/contracts/rust"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/templates/react/packagejsons/rust"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: cargo
+  directory: "contract/rust"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/templates/react/packagejsons/asc"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/templates/vanilla/packagejsons/rust"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/templates/vanilla/packagejsons/asc"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
