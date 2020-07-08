@@ -8,10 +8,15 @@ const { networkId } = getConfig(process.env.NODE_ENV || 'development')
 // global variable used throughout
 let currentGreeting
 
+const submitButton = document.querySelector('form button')
+
 document.querySelector('form').onsubmit = async (event) => {
   // fire frontend-agnostic submit behavior, including data persistence
   // look in utils.js to see how this updates data on-chain!
   await onSubmit(event)
+
+  // disable the save button, since it now matches the persisted value
+  submitButton.disabled = true
 
   // update the greeting in the UI
   await fetchGreeting()
@@ -27,7 +32,6 @@ document.querySelector('form').onsubmit = async (event) => {
 }
 
 document.querySelector('input#greeting').oninput = (event) => {
-  const submitButton = document.querySelector('form button')
   if (event.target.value !== currentGreeting) {
     submitButton.disabled = false
   } else {

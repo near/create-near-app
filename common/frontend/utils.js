@@ -35,17 +35,23 @@ export async function onSubmit(event) {
   // disable the form while the value gets updated on-chain
   fieldset.disabled = true
 
-  // make an update call to the smart contract
-  await contract.setGreeting({
-    // pass the value that the user entered in the greeting field
-    message: greeting.value
-  })
-
-  // re-enable the form
-  fieldset.disabled = false
-
-  // disable the save button, since it now matches the persisted value
-  document.querySelector('form button').disabled = true
+  try {
+    // make an update call to the smart contract
+    await contract.setGreeting({
+      // pass the value that the user entered in the greeting field
+      message: greeting.value
+    })
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    );
+    throw e;
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+    fieldset.disabled = false
+  }
 }
 
 export function logout() {
