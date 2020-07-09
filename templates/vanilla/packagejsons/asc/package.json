@@ -26,7 +26,7 @@
     "env-cmd": "^10.1.0"
   },
   "dependencies": {
-    "near-api-js": "^0.26.0",
+    "near-api-js": "^0.27.0",
     "regenerator-runtime": "^0.13.5"
   },
   "jest": {
