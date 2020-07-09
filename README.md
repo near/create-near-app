@@ -27,6 +27,10 @@ You can configure two main aspects of your new NEAR project:
 | `npx create-near-app --rust new-awesome-app`           | React      | Rust           |
 | `npx create-near-app --vanilla --rust new-awesome-app` | vanilla JS | Rust           |
 
+You can also use **yarn** instead of `npx`:
+
+    yarn create near-app [options] new-awesome-app
+
 
 Develop your own Dapp
 =====================
