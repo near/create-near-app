@@ -9,7 +9,7 @@ Quick Start
 
 To run this project locally:
 
-1. Prerequisites: Make sure you've installed [Node.js] ≥ 12 and [Rust with correct target][Rust]
+1. Prerequisites: Make sure you've installed [Node.js] ≥ 12
 2. Install dependencies: `npm install`
 3. Run the local development server: `npm run dev` (see `package.json` for a
    full list of `scripts` you can run with `npm`)
@@ -22,7 +22,7 @@ Go ahead and play with the app and the code. As you make code changes, the app w
 Exploring The Code
 ==================
 
-1. The "backend" code lives in the `/contract` folder. This code gets deployed to
+1. The "backend" code lives in the `/assembly` folder. This code gets deployed to
    the NEAR blockchain when you run `npm run deploy:contract`. This sort of
    code-that-runs-on-a-blockchain is called a "smart contract" – [learn more
    about NEAR smart contracts][smart contract docs].
@@ -30,7 +30,7 @@ Exploring The Code
    place to start exploring. Note that it loads in `/src/index.js`, where you
    can learn how the frontend connects to the NEAR blockchain.
 3. Tests: there are different kinds of tests for the frontend and the smart
-   contract. The smart contract code gets tested with [cargo], and the frontend
+   contract. The smart contract code gets tested with [asp], and the frontend
    code gets tested with [jest]. You can run both of these at once with `npm
    run test`.
 
@@ -96,10 +96,9 @@ On Windows, if you're seeing an error containing `EPERM` it may be related to sp
 
   [create-near-app]: https://github.com/near/create-near-app
   [Node.js]: https://nodejs.org
-  [Rust]: https://github.com/near/near-sdk-rs#pre-requisites
   [React]: https://reactjs.org
   [smart contract docs]: https://docs.near.org/docs/roles/developer/contracts/intro
-  [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
+  [asp]: https://www.npmjs.com/package/@as-pect/cli
   [jest]: https://jestjs.io/
   [NEAR accounts]: https://docs.near.org/docs/concepts/account
   [NEAR Wallet]: https://wallet.testnet.near.org/
