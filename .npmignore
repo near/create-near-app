@@ -1,3 +1,4 @@
+templates/*/.cache
 templates/*/assembly
 templates/*/contract
 templates/*/package.json
