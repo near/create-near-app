@@ -95,7 +95,7 @@ On Windows, if you're seeing an error containing `EPERM` it may be related to sp
 
 
   [create-near-app]: https://github.com/near/create-near-app
-  [Node.js]: https://nodejs.org
+  [Node.js]: https://nodejs.org/en/download/package-manager/
   [React]: https://reactjs.org
   [smart contract docs]: https://docs.near.org/docs/roles/developer/contracts/intro
   [asp]: https://www.npmjs.com/package/@as-pect/cli
