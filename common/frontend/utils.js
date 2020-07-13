@@ -61,10 +61,9 @@ export function logout() {
 }
 
 export function login() {
-  window.walletConnection.requestSignIn(
-    // The contract name that would be authorized to be called by the user's account.
-    nearConfig.contractName,
-    // This is the app name. It can be anything.
-    'Welcome to NEAR'
-  )
+  // Allow the current app to make calls to the specified contract on the
+  // user's behalf.
+  // This works by creating a new access key for the user's account and storing
+  // the private key in localStorage.
+  window.walletConnection.requestSignIn(nearConfig.contractName)
 }
