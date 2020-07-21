@@ -13,7 +13,7 @@
     "prestart": "npm run build:contract && npm run dev:deploy:contract",
     "start": "echo The app is starting! It will automatically open in your browser when ready && env-cmd -f ./neardev/dev-account.env parcel src/index.html --open",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
-    "test": "(cd contract && cargo test --package status-message -- --nocapture && cd ..) && npm run build:contract && jest test --runInBand"
+    "test": "(cd contract && cargo test -- --nocapture && cd ..) && npm run build:contract && jest test --runInBand"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.9.5",
