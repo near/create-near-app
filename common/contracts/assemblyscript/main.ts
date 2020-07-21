@@ -1,7 +1,7 @@
 // smart contract source code, written in AssemblyScript
 // for more info: https://docs.near.org/docs/roles/developer/contracts/assemblyscript
 
-import { context, storage } from "near-sdk-as";
+import { Context, storage } from "near-sdk-as";
 
 const DEFAULT_MESSAGE = "Hello"
 
@@ -10,5 +10,5 @@ export function getGreeting(accountId: string): string | null {
 }
 
 export function setGreeting(message: string): void {
-  storage.set(context.sender, message);
+  storage.set(Context.sender, message);
 }
