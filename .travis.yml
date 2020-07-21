@@ -19,5 +19,18 @@ git:
   autocrlf: false
   symlinks: true
 script:
-  - yarn lint
   - yarn test
+stages:
+  - lint
+  - test
+
+jobs:
+  include:
+    - stage: lint
+      os: linux
+      env: NODE_ENV=ci YARN_GPG=no
+      script:
+        - npx commitlint-travis
+        - yarn lint
+
+    - stage: test

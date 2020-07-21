@@ -54,6 +54,17 @@ To make changes to `create-near-app` itself:
 * in your terminal, enter one of the folders inside `templates`, such as `templates/vanilla`
 * now you can run `yarn` to install dependencies and `yarn dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
+If you want to deploy a new version, you will need two prerequisites:
+
+1. Get write-access to [the GitHub repository](https://github.com/near/near-api-js)
+2. Get publish-access to [the NPM package](https://www.npmjs.com/package/near-api-js)
+
+Then run one script:
+
+    yarn release
+
+Since we use `commitlint` to ensure that all commits follow [the Conventional Commit spec](https://www.conventionalcommits.org/), our `release` script is able to automatically bump version numbers and update the CHANGELOG based on commit history.
+
 
 License
 =======
