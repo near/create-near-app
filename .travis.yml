@@ -19,5 +19,5 @@ git:
   autocrlf: false
   symlinks: true
 script:
-  - yarn test
   - yarn lint
+  - yarn test
