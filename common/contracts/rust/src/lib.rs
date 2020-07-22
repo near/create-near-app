@@ -12,7 +12,8 @@
  */
 
 // To conserve gas, efficient serialization is achieved through Borsh (http://borsh.io/)
-use borsh::{BorshDeserialize, BorshSerialize};
+use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
+use near_sdk::wee_alloc;
 use near_sdk::{env, near_bindgen};
 use std::collections::HashMap;
 
