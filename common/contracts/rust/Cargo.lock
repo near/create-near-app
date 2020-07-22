@@ -130,6 +130,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "greeter"
+version = "0.1.0"
+dependencies = [
+ "borsh",
+ "near-sdk",
+ "serde",
+ "serde_json",
+ "wee_alloc",
+]
+
+[[package]]
 name = "indexmap"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -393,17 +404,6 @@ dependencies = [
  "digest",
  "keccak",
  "opaque-debug",
-]
-
-[[package]]
-name = "status-message"
-version = "0.1.0"
-dependencies = [
- "borsh",
- "near-sdk",
- "serde",
- "serde_json",
- "wee_alloc",
 ]
 
 [[package]]
