@@ -1,3 +1,4 @@
+common/contracts/rust/target
 templates/*/.cache
 templates/*/assembly
 templates/*/contract
