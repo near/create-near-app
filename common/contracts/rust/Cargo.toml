@@ -8,11 +8,7 @@ edition = "2018"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-serde = { version = "*", features = ["derive"] }
-serde_json = "*"
-borsh = "*"
-near-sdk = "0.11.0"
-wee_alloc = { version = "0.4.5", default-features = false, features = [] }
+near-sdk = "1.0.0"
 
 [profile.release]
 codegen-units = 1
