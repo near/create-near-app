@@ -1,4 +1,4 @@
-common/contracts/rust/target/target
+common/contracts/rust/target
 common/contracts/out
 templates/*/.cache
 templates/*/assembly
