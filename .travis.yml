@@ -5,12 +5,14 @@ os:
   - linux
   - osx
   - windows
-env:
-  - NODE_ENV=ci YARN_GPG=no
-  - NODE_ENV=ci-betanet YARN_GPG=no
 cache: cargo
+env:
+  - CONTRACT=assemblyscript FRONTEND=vanilla NEAR_ENV=ci YARN_GPG=no
+  - CONTRACT=assemblyscript FRONTEND=react NEAR_ENV=ci YARN_GPG=no
+  - CONTRACT=rust FRONTEND=vanilla NEAR_ENV=ci YARN_GPG=no
+  - CONTRACT=rust FRONTEND=react NEAR_ENV=ci YARN_GPG=no
 before_install:
-  - rustup target add wasm32-unknown-unknown
+  - if [[ "$CONTRACT" == "rust" ]]; then rustup target add wasm32-unknown-unknown; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then HOME="/c/Users/travis" && export NVS_HOME=$ProgramData/nvs && git clone --single-branch https://github.com/jasongin/nvs $NVS_HOME && source $NVS_HOME/nvs.sh && nvs --version && nvs add 12 && nvs use 12; fi
   - if [[ ! "$TRAVIS_OS_NAME" == "windows" ]]; then nvm install 12 && nvm use 12; fi
   - npm install -g yarn
@@ -20,6 +22,7 @@ git:
   symlinks: true
 script:
   - yarn test
+
 stages:
   - lint
   - test
@@ -28,9 +31,7 @@ jobs:
   include:
     - stage: lint
       os: linux
-      env: NODE_ENV=ci YARN_GPG=no
+      env:
       script:
         - npx commitlint-travis
         - yarn lint
-
-    - stage: test
