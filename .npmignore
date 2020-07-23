@@ -1,7 +1,5 @@
-common/contracts/rust/target/debug/
-common/contracts/rust/target/release/
-common/contracts/rust/target/rls/
-common/contracts/rust/target/wasm32-unknown-unknown/
+common/contracts/rust/target/target
+common/contracts/out
 templates/*/.cache
 templates/*/assembly
 templates/*/contract
