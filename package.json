@@ -25,7 +25,7 @@
     "smart-contract",
     "blockchain"
   ],
-  "bugs": "https://github.com/nearprotocol/create-near-app/issues",
+  "bugs": "https://github.com/near/create-near-app/issues",
   "bin": {
     "create-near-app": "./index.js"
   },
