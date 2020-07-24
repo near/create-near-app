@@ -22,8 +22,6 @@ rules:
     - warn
     - never
   no-console: off
-  # TODO: use button for <a href="">; ignoring for now
-  jsx-a11y/anchor-is-valid: 0
 globals:
   Cookies: true
   Headers: true

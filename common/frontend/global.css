@@ -39,14 +39,19 @@ h1 {
   text-align: center;
 }
 
-a {
+a,
+.link {
   color: var(--primary);
   text-decoration: none;
 }
-a:hover, a:focus {
+a:hover,
+a:focus,
+.link:hover,
+.link:focus {
   text-decoration: underline;
 }
-a:active {
+a:active,
+.link:active {
   color: var(--secondary);
 }
 
@@ -69,6 +74,12 @@ button:hover, button:focus {
 }
 button:active {
   box-shadow: 0 0 10em rgba(0, 0, 0, 0.1) inset;
+}
+button.link {
+  background: none;
+  border: none;
+  box-shadow: none;
+  display: inline;
 }
 [disabled] button, button[disabled] {
   box-shadow: none;

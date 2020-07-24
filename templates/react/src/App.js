@@ -65,7 +65,9 @@ export default function App() {
   return (
     // use React Fragment, <>, to avoid wrapping elements in unnecessary divs
     <>
-      <a style={{ float: 'right' }} href="#" onClick={logout}>Sign out</a>
+      <button className="link" style={{ float: 'right' }} onClick={logout}>
+        Sign out
+      </button>
       <main>
         <h1>
           <label
