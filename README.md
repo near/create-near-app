@@ -54,16 +54,40 @@ To make changes to `create-near-app` itself:
 * in your terminal, enter one of the folders inside `templates`, such as `templates/vanilla`
 * now you can run `yarn` to install dependencies and `yarn dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
+
+about commit messages
+---------------------
+
+`create-near-app` uses semantic versioning and auto-generates nice release notes & a changelog all based off of the commits. We do this by enforcing [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). In general the pattern mostly looks like this:
+
+    type(scope?): subject  #scope is optional; multiple scopes are supported (current delimiter options: "/", "\" and ",")
+
+Real world examples can look like this:
+
+    chore: run tests on travis ci
+
+    fix(server): send cors headers
+
+    feat(blog): add comment section
+
+If your change should show up in release notes as a feature, use `feat:`. If it should show up as a fix, use `fix:`. Otherwise, you probably want `refactor:` or `chore:`. [More info](https://github.com/conventional-changelog/commitlint/#what-is-commitlint)
+
+
+Deploy
+------
+
 If you want to deploy a new version, you will need two prerequisites:
 
-1. Get write-access to [the GitHub repository](https://github.com/near/near-api-js)
-2. Get publish-access to [the NPM package](https://www.npmjs.com/package/near-api-js)
+1. Get publish-access to [the NPM package](https://www.npmjs.com/package/near-api-js)
+2. Get write-access to [the GitHub repository](https://github.com/near/near-api-js)
+3. Obtain a [personal access token](https://gitlab.com/profile/personal_access_tokens) (it only needs the "repo" scope).
+4. Make sure the token is [available as an environment variable](https://github.com/release-it/release-it/blob/master/docs/environment-variables.md) called `GITHUB_TOKEN`
 
 Then run one script:
 
     yarn release
 
-Since we use `commitlint` to ensure that all commits follow [the Conventional Commit spec](https://www.conventionalcommits.org/), our `release` script is able to automatically bump version numbers and update the CHANGELOG based on commit history.
+Or just `release-it`
 
 
 License
