@@ -14,10 +14,10 @@ beforeAll(async function () {
     signOut() {
     },
     isSignedIn() {
-      return true;
+      return true
     },
     getAccountId() {
-      return window.accountId;
+      return window.accountId
     }
   }
 })

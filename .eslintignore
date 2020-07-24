@@ -1,3 +1,2 @@
-common/frontend
-templates
-tmp-project
+dist
+node_modules

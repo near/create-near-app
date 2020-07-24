@@ -46,8 +46,8 @@ export async function onSubmit(event) {
       'Something went wrong! ' +
       'Maybe you need to sign out and back in? ' +
       'Check your browser console for more info.'
-    );
-    throw e;
+    )
+    throw e
   } finally {
     // re-enable the form, whether the call succeeded or failed
     fieldset.disabled = false

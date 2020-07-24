@@ -136,13 +136,13 @@ export default function App() {
             Look in <code>src/App.js</code> and <code>src/utils.js</code> – you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
           </li>
           <li>
-            Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target="_blank" href="https://docs.near.org/docs/roles/developer/contracts/intro">smart contract</a>.</li>
+            Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target="_blank" rel="noreferrer" href="https://docs.near.org/docs/roles/developer/contracts/intro">smart contract</a>.</li>
           <li>
             When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
         </ol>
         <hr />
         <p>
-          To keep learning, check out <a target="_blank" href="https://docs.near.org">the NEAR docs</a> or look through some <a target="_blank" href="https://examples.near.org">example apps</a>.
+          To keep learning, check out <a target="_blank" rel="noreferrer" href="https://docs.near.org">the NEAR docs</a> or look through some <a target="_blank" rel="noreferrer" href="https://examples.near.org">example apps</a>.
         </p>
       </main>
       {showNotification && <Notification />}
@@ -155,13 +155,13 @@ function Notification() {
   const urlPrefix = `https://explorer.${networkId}.near.org/accounts`
   return (
     <aside>
-      <a target="_blank" href={`${urlPrefix}/${window.accountId}`}>
+      <a target="_blank" rel="noreferrer" href={`${urlPrefix}/${window.accountId}`}>
         {window.accountId}
       </a>
       {' '/* React trims whitespace around tags; insert literal space character when needed */}
       called method: 'setGreeting' in contract:
       {' '}
-      <a target="_blank" href={`${urlPrefix}/${window.contract.contractId}`}>
+      <a target="_blank" rel="noreferrer" href={`${urlPrefix}/${window.contract.contractId}`}>
         {window.contract.contractId}
       </a>
       <footer>
