@@ -11,7 +11,8 @@
     "test": "node ./test/test-new-project.js",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "release": "standard-version"
+    "version": "standard-version",
+    "release": "np"
   },
   "repository": "https://github.com/near/create-near-app.git",
   "author": "Yifang Ma <yifang@near.org>",
@@ -44,6 +45,7 @@
     "@commitlint/travis-cli": "^9.1.1",
     "eslint": "^7.0.0",
     "husky": "^4.2.5",
+    "np": "^6.3.2",
     "standard-version": "^8.0.2"
   },
   "engines": {
