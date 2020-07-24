@@ -11,8 +11,7 @@
     "test": "node ./test/test-new-project.js",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "version": "standard-version",
-    "release": "np"
+    "release": "release-it"
   },
   "repository": "https://github.com/near/create-near-app.git",
   "author": "Yifang Ma <yifang@near.org>",
@@ -43,10 +42,10 @@
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
     "@commitlint/travis-cli": "^9.1.1",
+    "@release-it/conventional-changelog": "^1.1.4",
     "eslint": "^7.0.0",
     "husky": "^4.2.5",
-    "np": "^6.3.2",
-    "standard-version": "^8.0.2"
+    "release-it": "^13.6.5"
   },
   "engines": {
     "node": ">=12"
@@ -54,6 +53,19 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
     }
   }
 }
