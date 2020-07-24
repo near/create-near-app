@@ -2,35 +2,42 @@ env:
   es6: true
   node: true
   jest: true
-extends: 'eslint:recommended'
+extends: 
+  - eslint:recommended
+  - react-app
 parserOptions:
   ecmaVersion: 2018
+  sourceType: module
 rules:
   indent:
-    - error
-    - 4
+    - warn
+    - 2
   linebreak-style:
-    - error
+    - warn
     - unix
   quotes:
-    - error
+    - warn
     - single
   semi:
-    - error
-    - always
+    - warn
+    - never
   no-console: off
+  # TODO: use button for <a href="">; ignoring for now
+  jsx-a11y/anchor-is-valid: 0
 globals:
-  jasmine: true
-  window: true
-  fetch: true
-  Headers: true
-  document: true
   Cookies: true
+  Headers: true
+  alert: true
+  contract: true
+  document: true
+  fetch: true
+  jasmine: true
+  near: true
   nearConfig: true
   nearlib: true
-  near: true
-  walletAccount: true
-  contract: true
   testSettings: true
-
-
+  walletAccount: true
+  window: true
+settings:
+  react:
+    version: latest

@@ -22,12 +22,12 @@ document.querySelector('form').onsubmit = async (event) => {
   await fetchGreeting()
 
   // show notification
-  document.querySelector('[data-behavior=notification]').style.display = 'block';
+  document.querySelector('[data-behavior=notification]').style.display = 'block'
 
   // remove notification again after css animation completes
   // this allows it to be shown again next time the form is submitted
   setTimeout(() => {
-    document.querySelector('[data-behavior=notification]').style.display = 'none';
+    document.querySelector('[data-behavior=notification]').style.display = 'none'
   }, 11000)
 }
 

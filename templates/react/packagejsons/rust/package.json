@@ -35,9 +35,6 @@
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.5"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
