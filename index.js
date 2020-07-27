@@ -44,6 +44,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   // we don't want to copy these
   const filesToSkip = [
     'package.json',
+    'packagejsons',
     path.join(sourceTemplateDir, 'node_modules'),
     path.join(sourceTemplateDir, 'contract'),
     path.join(sourceTemplateDir, 'assembly'),
