@@ -66,6 +66,14 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "body-max-line-length": [0]
+    }
+  },
   "release-it": {
     "git": {
       "commitMessage": "chore: release v${version}"
