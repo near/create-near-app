@@ -55,6 +55,7 @@
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "2.x",
     "husky": "^4.2.5",
+    "near-sdk-as": "^1.0.0-3",
     "release-it": "^13.6.5",
     "typescript": "^3.9.7"
   },
