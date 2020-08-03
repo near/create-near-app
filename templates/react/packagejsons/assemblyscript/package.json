@@ -25,7 +25,7 @@
     "jest": "^26.0.1",
     "jest-environment-node": "^26.0.0",
     "near-sdk-as": "^0.5.0",
-    "near-shell": "^0.24.9",
+    "near-cli": "^1.0.1",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
     "react-test-renderer": "^16.13.1"
@@ -44,7 +44,7 @@
     "setupFiles": [
       "<rootDir>/src/jest.init.js"
     ],
-    "testEnvironment": "near-shell/test_environment",
+    "testEnvironment": "near-cli/test_environment",
     "testPathIgnorePatterns": [
       "<rootDir>/assembly/",
       "<rootDir>/node_modules/"
