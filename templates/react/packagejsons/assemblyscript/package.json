@@ -31,7 +31,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "dependencies": {
-    "near-api-js": "^0.27.0",
+    "near-api-js": "^0.29.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.5"
