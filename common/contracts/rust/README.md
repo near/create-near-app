@@ -41,12 +41,12 @@ Deploy
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. When you run `npm run dev`, your smart contract gets deployed to the live NEAR TestNet with a throwaway account. When you're ready to make it permanent, here's how.
 
 
-Step 0: Install near-shell (optional)
+Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-shell] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `npm install`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `npm install`, but for best ergonomics you may want to install it globally:
 
-    npm install --global near-shell
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all `near` commands with `npx`
 
@@ -58,7 +58,7 @@ Step 1: Create an account for the contract
 
 Each account on NEAR can have at most one contract deployed to it. If you've already created an account such as `your-name.testnet`, you can deploy your contract to `near-blank-project.your-name.testnet`. Assuming you've already created an account on [NEAR Wallet], here's how to create `near-blank-project.your-name.testnet`:
 
-1. Authorize NEAR shell, following the commands it gives you:
+1. Authorize NEAR CLI, following the commands it gives you:
 
       near login
 
@@ -103,5 +103,5 @@ On Windows, if you're seeing an error containing `EPERM` it may be related to sp
   [jest]: https://jestjs.io/
   [NEAR accounts]: https://docs.near.org/docs/concepts/account
   [NEAR Wallet]: https://wallet.testnet.near.org/
-  [near-shell]: https://github.com/near/near-shell
+  [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
