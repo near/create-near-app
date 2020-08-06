@@ -21,7 +21,7 @@
     "gh-pages": "^3.0.0",
     "jest": "^26.0.1",
     "jest-environment-node": "^26.0.0",
-    "near-sdk-as": "^1.0.0-4",
+    "near-sdk-as": "^1.0.1",
     "near-shell": "^0.24.9",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4"
