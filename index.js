@@ -142,6 +142,7 @@ Happy hacking!
 }
 
 const opts = yargs
+  .strict()
   .usage('$0 <projectDir>', 'Create a new NEAR project')
 // BUG: does not work; https://github.com/yargs/yargs/issues/1331
   .example('$0 new-app', 'Create a project called "new-app"')
