@@ -102,9 +102,10 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
   console.log('Copying project files complete.\n')
 
-  const hasNpm = await which('npm', { nothrow: true })
-  const hasYarn = await which('yarn', { nothrow: true })
-
+  const hasNpm = which.sync('npm', { nothrow: true })
+  const hasYarn = which.sync('yarn', { nothrow: true })
+  //console.log('hasYarn:' + hasYarn + ' hasNmp:' + hasNpm)
+  
   if (hasYarn) {
     await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
   }
