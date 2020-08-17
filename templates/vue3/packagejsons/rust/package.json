@@ -5,30 +5,37 @@
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
     "build:contract": "node ./contract/build",
-    "build:web": "parcel build src/index.html --public-url ./",
+    "build:web": "node copy-dev-account.js && vue-cli-service build",
     "dev:deploy:contract": "near dev-deploy",
     "deploy:contract": "near deploy",
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
     "prestart": "npm run build:contract && npm run dev:deploy:contract",
-    "start": "echo The app is starting! It will automatically open in your browser when ready && env-cmd -f ./neardev/dev-account.env parcel src/index.html --open",
+    "start": "echo The app is starting! It will automatically open in your browser when ready && npm run serve",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
-    "test": "(cd contract && cargo test -- --nocapture && cd ..) && npm run build:contract && jest test --runInBand"
-  },
-  "devDependencies": {
-    "gh-pages": "^3.0.0",
-    "jest": "^26.0.1",
-    "jest-environment-node": "^26.0.0",
-    "near-cli": "^1.0.1",
-    "nodemon": "^2.0.3",
-    "parcel-bundler": "^1.12.4",
-    "env-cmd": "^10.1.0",
-    "shelljs": "^0.8.4"
-  },
-  "dependencies": {
-    "near-api-js": "^0.29.0",
-    "regenerator-runtime": "^0.13.5"
-  },
+    "test": "(cd contract && cargo test -- --nocapture && cd ..) && npm run build:contract && jest test --runInBand",
+    "serve": "node copy-dev-account.js && vue-cli-service serve",
+    "lint": "vue-cli-service lint"
+},
+"devDependencies": {
+  "@vue/cli-plugin-babel": "~4.5.0",
+  "@vue/cli-plugin-eslint": "~4.5.0",
+  "@vue/cli-service": "~4.5.0",
+  "vue-template-compiler": "^2.6.11"
+  "eslint": "^7.7.0",
+  "gh-pages": "^3.0.0",
+  "jest": "^26.0.1",
+  "jest-environment-node": "^26.0.0",
+  "near-cli": "^1.0.1",
+  "nodemon": "^2.0.3",
+  "env-cmd": "^10.1.0",
+  "shelljs": "^0.8.4",
+},
+"dependencies": {
+  "near-api-js": "^0.29.0",
+  "regenerator-runtime": "^0.13.5",
+  "vue": "^2.6.11"
+},
   "jest": {
     "testEnvironment": "near-cli/test_environment",
     "testPathIgnorePatterns": [
