@@ -6,6 +6,7 @@ node_modules
 /.pnp
 .pnp.js
 /out
+/tmp-project
 out
 package-lock.json
 /neardev
