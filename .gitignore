@@ -2,9 +2,11 @@
 
 # dependencies
 /node_modules
+node_modules
 /.pnp
 .pnp.js
 /out
+out
 package-lock.json
 /neardev
 # testing

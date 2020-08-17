@@ -9,8 +9,10 @@ cache: cargo
 env:
   - CONTRACT=assemblyscript FRONTEND=vanilla NEAR_ENV=ci YARN_GPG=no
   - CONTRACT=assemblyscript FRONTEND=react NEAR_ENV=ci YARN_GPG=no
+  - CONTRACT=assemblyscript FRONTEND=vue3 NEAR_ENV=ci YARN_GPG=no
   - CONTRACT=rust FRONTEND=vanilla NEAR_ENV=ci YARN_GPG=no
   - CONTRACT=rust FRONTEND=react NEAR_ENV=ci YARN_GPG=no
+  - CONTRACT=rust FRONTEND=vue3 NEAR_ENV=ci YARN_GPG=no
 before_install:
   - if [[ "$CONTRACT" == "rust" ]]; then rustup target add wasm32-unknown-unknown; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then HOME="/c/Users/travis" && export NVS_HOME=$ProgramData/nvs && git clone --single-branch https://github.com/jasongin/nvs $NVS_HOME && source $NVS_HOME/nvs.sh && nvs --version && nvs add 12 && nvs use 12; fi
