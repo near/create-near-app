@@ -149,7 +149,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react'],
+    choices: ['vanilla', 'react', 'vue3'],
     default: 'vanilla',
   })
   .option('contract', {

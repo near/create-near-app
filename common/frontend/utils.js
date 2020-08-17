@@ -37,7 +37,7 @@ export async function onSubmit(event) {
 
   try {
     // make an update call to the smart contract
-    await contract.setGreeting({
+    await window.contract.setGreeting({
       // pass the value that the user entered in the greeting field
       message: greeting.value
     })
