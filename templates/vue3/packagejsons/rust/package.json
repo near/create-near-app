@@ -29,7 +29,7 @@
   "near-cli": "^1.0.1",
   "nodemon": "^2.0.3",
   "env-cmd": "^10.1.0",
-  "shelljs": "^0.8.4",
+  "shelljs": "^0.8.4"
 },
 "dependencies": {
   "near-api-js": "^0.29.0",

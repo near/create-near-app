@@ -54,6 +54,7 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "2.x",
+    "eslint-plugin-vue": "^6.2.2",
     "husky": "^4.2.5",
     "release-it": "^13.6.5",
     "typescript": "^3.9.7"
@@ -71,7 +72,9 @@
       "@commitlint/config-conventional"
     ],
     "rules": {
-      "body-max-line-length": [0]
+      "body-max-line-length": [
+        0
+      ]
     }
   },
   "release-it": {
