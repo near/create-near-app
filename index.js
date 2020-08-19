@@ -87,6 +87,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
       `${projectDir}/README.md`,
       `${projectDir}/package.json`,
       `${projectDir}/src/config.js`,
+      `${projectDir}/src/App.vue`,
     ],
     from: /near-blank-project/g,
     to: projectName
@@ -149,7 +150,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react', 'vue3'],
+    choices: ['vanilla', 'react', 'vue'],
     default: 'vanilla',
   })
   .option('contract', {
