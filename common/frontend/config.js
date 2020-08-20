@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || process.env.VUE_APP_CONTRACT_NAME || 'near-blank-project'
+const CONTRACT_NAME = process.env.CONTRACT_NAME || 'near-blank-project'
 
 function getConfig(env) {
   switch (env) {
