@@ -6,10 +6,11 @@ Vue.config.productionTip = false
 import { initContract } from './utils'
 
 window.nearInitPromise = initContract()
-    .then(() => {
+  .then(() => {
 
-        new Vue({
-            render: h => h(App),
-        }).$mount('#app')
+    new Vue({
+      render: h => h(App),
+    }).$mount('#app')
 
-    })
+  })
+  
