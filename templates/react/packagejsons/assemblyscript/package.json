@@ -4,16 +4,17 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
-    "build:contract": "node asconfig.js",
+    "build:contract": "asb",
+    "build:contract:debug": "asb --target debug",
     "build:web": "parcel build src/index.html --public-url ./",
     "dev:deploy:contract": "near dev-deploy",
     "deploy:contract": "near deploy",
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
-    "prestart": "npm run build:contract && npm run dev:deploy:contract",
+    "prestart": "npm run build:contract:debug && npm run dev:deploy:contract",
     "start": "echo The app is starting! It will automatically open in your browser when ready && env-cmd -f ./neardev/dev-account.env parcel src/index.html --open",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
-    "test": "asp --nologo && npm run build:contract && jest test --runInBand"
+    "test": "npm run build:contract:debug && asp --nologo && jest test --runInBand"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
@@ -24,7 +25,7 @@
     "gh-pages": "^3.0.0",
     "jest": "^26.0.1",
     "jest-environment-node": "^26.0.0",
-    "near-sdk-as": "^0.5.0",
+    "near-sdk-as": "^1.0.1",
     "near-cli": "^1.0.1",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",

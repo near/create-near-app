@@ -56,7 +56,7 @@
     "eslint-plugin-react-hooks": "2.x",
     "husky": "^4.2.5",
     "release-it": "^13.6.5",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.2"
   },
   "engines": {
     "node": ">=12"
@@ -71,7 +71,9 @@
       "@commitlint/config-conventional"
     ],
     "rules": {
-      "body-max-line-length": [0]
+      "body-max-line-length": [
+        0
+      ]
     }
   },
   "release-it": {
