@@ -1,0 +1,35 @@
+button.link {
+  float: right;
+}
+
+main.signed-in {
+  h1 label {
+    color: var(--secondary);
+    border-bottom: 2px solid var(--secondary);
+  }
+
+  form fieldset {
+    label {
+      display: block;
+      color: var(--gray);
+      margin-bottom: 0.5em;
+    }
+
+    > div {
+      display: flex;
+      input[type=text] {
+        flex-grow: 1;
+      }
+      button {
+        border-radius: 0 5px 5px 0;
+      }
+    }
+  }
+}
+
+main.signed-out {
+  p:last-of-type {
+    text-align: center;
+    margin-top: 2.5em;
+  }
+}

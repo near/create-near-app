@@ -87,6 +87,9 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
       `${projectDir}/README.md`,
       `${projectDir}/package.json`,
       `${projectDir}/src/config.js`,
+      `${projectDir}/angular.json`,
+      `${projectDir}/karma.conf.js`,
+      `${projectDir}/set-contract-name.ts`,
     ],
     from: /near-blank-project/g,
     to: projectName
@@ -105,7 +108,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   const hasNpm = which.sync('npm', { nothrow: true })
   const hasYarn = which.sync('yarn', { nothrow: true })
   //console.log('hasYarn:' + hasYarn + ' hasNmp:' + hasNpm)
-  
+
   if (hasYarn) {
     await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
   }
@@ -149,7 +152,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react'],
+    choices: ['vanilla', 'react', 'angular'],
     default: 'vanilla',
   })
   .option('contract', {
