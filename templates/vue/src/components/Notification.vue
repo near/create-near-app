@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="notification">
     <aside>
       <a target="_blank" rel="noreferrer" v-bind:href="urlPrefix + '/' + accountId">{{ accountId }}</a>
@@ -27,14 +27,14 @@ export default {
   },
   computed: {
     urlPrefix() {
-      return "https://explorer." + this.networkId + ".near.org/accounts";
+      return "https://explorer." + this.networkId + ".near.org/accounts"
     },
     accountId() {
-      return window.accountId;
+      return window.accountId
     },
     contractId() {
-      return window.contract?.contractId;
+      return window.contract? window.contractId: null
     },
   },
-};
+}
 </script>

@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div>
     <button class="link" style="float: right" v-on:click="logout">Sign out</button>
     <main>
@@ -83,16 +83,16 @@
 </template>
 
 <script>
-import { onSubmit, logout } from "../utils";
+import { onSubmit, logout } from "../utils"
 
-import Notification from "./Notification.vue";
+import Notification from "./Notification.vue"
 
 export default {
   name: "SignedIn",
 
   beforeMount() {
     if (this.isSignedIn) {
-      this.retrieveSavedGreeting();
+      this.retrieveSavedGreeting()
     }
   },
 
@@ -105,18 +105,18 @@ export default {
       savedGreeting: "",
       newGreeting: "",
       notificationVisible: false,
-    };
+    }
   },
 
   computed: {
     isSignedIn() {
-      return window.walletConnection?.isSignedIn();
+      return window.walletConnection? window.walletConnection.isSignedIn(): false
     },
     accountId() {
-      return window.accountId;
+      return window.accountId
     },
     networkId() {
-      return window.networkId;
+      return window.networkId
     },
   },
 
@@ -126,29 +126,29 @@ export default {
       window.contract
         .getGreeting({ accountId: window.accountId })
         .then((greetingFromContract) => {
-          this.savedGreeting = greetingFromContract;
-          this.newGreeting = greetingFromContract;
-        });
+          this.savedGreeting = greetingFromContract
+          this.newGreeting = greetingFromContract
+        })
     },
 
     saveGreeting: async function (event) {
       // fire frontend-agnostic submit behavior, including data persistence
       // look in utils.js to see how this updates data on-chain!
-      await onSubmit(event); //gets data directly from HTML elements
+      await onSubmit(event) //gets data directly from HTML elements
 
       // update upper `greeting` message with persisted value
-      this.savedGreeting = this.newGreeting;
+      this.savedGreeting = this.newGreeting
 
-      this.notificationVisible = true; //show new notification
+      this.notificationVisible = true //show new notification
 
       // remove Notification again after css animation completes
       // this allows it to be shown again next time the form is submitted
       setTimeout(() => {
-        this.notificationVisible = false;
-      }, 11000);
+        this.notificationVisible = false
+      }, 11000)
     },
 
     logout: logout,
   },
-};
+}
 </script>

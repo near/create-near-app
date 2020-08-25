@@ -1,26 +1,25 @@
 <template>
   <div id="root">
-      <SignedOut v-show="!isSignedIn" />
-      <SignedIn v-show="isSignedIn" />
+    <SignedOut v-show="!isSignedIn" />
+    <SignedIn v-show="isSignedIn" />
   </div>
 </template>
 
 <script>
-import getConfig from "./config";
-const nearConfig = getConfig(process.env.NODE_ENV || "development");
+import "./global.css"
+import getConfig from "./config"
+import SignedOut from "./components/SignedOut.vue"
+import SignedIn from "./components/SignedIn.vue"
+
+const nearConfig = getConfig(process.env.NODE_ENV || "development")
 console.log(
   `networkId:${nearConfig.networkId} CONTRACT_NAME:${nearConfig.contractName}`
-);
-window.networkId = nearConfig.networkId;
-
-import "./global.css";
-
-import SignedOut from "./components/SignedOut.vue";
-import SignedIn from "./components/SignedIn.vue";
+)
+window.networkId = nearConfig.networkId
 
 export default {
   created() {
-    document.title = "near-blank-project";
+    document.title = "near-blank-project"
   },
   name: "App",
   components: {
@@ -30,9 +29,9 @@ export default {
 
   computed: {
     isSignedIn() {
-      return window.walletConnection.isSignedIn();
+      return window.walletConnection.isSignedIn()
     },
   },
-};
+}
 </script>
 

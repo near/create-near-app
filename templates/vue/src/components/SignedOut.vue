@@ -19,16 +19,16 @@
 </template>
 
 <script>
-import { login } from "../utils";
+import { login } from "../utils"
 
 export default {
   name: "SignedOut",
 
   methods: {
     login() {
-      console.log("calling utils.login");
-      login();
+      console.log("calling utils.login")
+      login()
     },
   },
-};
+}
 </script>
