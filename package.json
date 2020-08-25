@@ -11,7 +11,6 @@
     "test": "node ./test/test-new-project.js",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "prerelease": "rm -rf $(cat .npmignore)",
     "release": "release-it"
   },
   "repository": "https://github.com/near/create-near-app.git",
