@@ -142,37 +142,34 @@ export default {
       this.$refs.fieldset.disabled = true
 
       try {
-
+        
         // make an update call to the smart contract
         await window.contract.setGreeting({
           // pass the new greeting
           message: this.newGreeting,
         })
-
-        // update savedGreeting with persisted value
-        this.savedGreeting = this.newGreeting
-
-        this.notificationVisible = true //show new notification
-
-        // remove Notification again after css animation completes
-        // this allows it to be shown again next time the form is submitted
-        setTimeout(() => {
-          this.notificationVisible = false
-        }, 11000)
-
-      } 
-      catch (e) {
+      } catch (e) {
         alert(
           "Something went wrong! " +
             "Maybe you need to sign out and back in? " +
             "Check your browser console for more info."
         )
-        throw e
-      } 
-      finally {
+        throw e //re-throw
+      } finally {
         // re-enable the form, whether the call succeeded or failed
         this.$refs.fieldset.disabled = false
       }
+
+      // update savedGreeting with persisted value
+      this.savedGreeting = this.newGreeting
+
+      this.notificationVisible = true //show new notification
+
+      // remove Notification again after css animation completes
+      // this allows it to be shown again next time the form is submitted
+      setTimeout(() => {
+        this.notificationVisible = false
+      }, 11000)
 
     },
 
