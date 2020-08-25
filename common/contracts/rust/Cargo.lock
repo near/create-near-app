@@ -218,9 +218,9 @@ dependencies = [
 
 [[package]]
 name = "near-sdk"
-version = "1.0.1"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de9875f531c50e68ea51cffd746e316707424228bded88badb342cb49e193734"
+checksum = "963610ae7ce6729de19c8fe0da230f878bf3a04de022aa2045ff7c5fa2b13095"
 dependencies = [
  "base64",
  "borsh",
@@ -235,9 +235,9 @@ dependencies = [
 
 [[package]]
 name = "near-sdk-core"
-version = "1.0.1"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a4783da5b8ea0367679073fb5b3e2d53c1ef73bb10decb04ea0ccfac45bb7c4"
+checksum = "1552953310b5d7a6caaba67b0d65799c773c90fe5a06443fc55b0ace77e96eb5"
 dependencies = [
  "Inflector",
  "proc-macro2",
@@ -247,9 +247,9 @@ dependencies = [
 
 [[package]]
 name = "near-sdk-macros"
-version = "1.0.1"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "130137987fbeab27a4aa1887e87976449004e51ab4f652be74a56153f30f45f0"
+checksum = "c36b52b39323ee871f222243e20c7bbeb3dfe677d397baa32853e91229cd88bd"
 dependencies = [
  "near-sdk-core",
  "proc-macro2",
