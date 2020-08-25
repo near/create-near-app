@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime'
 
-import { initContract, login, logout, onSubmit } from './utils'
+import { initContract, login, logout } from './utils'
 
 import getConfig from './config'
 const { networkId } = getConfig(process.env.NODE_ENV || 'development')
@@ -11,9 +11,31 @@ let currentGreeting
 const submitButton = document.querySelector('form button')
 
 document.querySelector('form').onsubmit = async (event) => {
-  // fire frontend-agnostic submit behavior, including data persistence
-  // look in utils.js to see how this updates data on-chain!
-  await onSubmit(event)
+  event.preventDefault()
+
+  // get elements from the form using their id attribute
+  const { fieldset, greeting } = event.target.elements
+
+  // disable the form while the value gets updated on-chain
+  fieldset.disabled = true
+
+  try {
+    // make an update call to the smart contract
+    await window.contract.setGreeting({
+      // pass the value that the user entered in the greeting field
+      message: greeting.value
+    })
+  } catch (e) {
+    alert(
+      'Something went wrong! ' +
+      'Maybe you need to sign out and back in? ' +
+      'Check your browser console for more info.'
+    )
+    throw e
+  } finally {
+    // re-enable the form, whether the call succeeded or failed
+    fieldset.disabled = false
+  }
 
   // disable the save button, since it now matches the persisted value
   submitButton.disabled = true
