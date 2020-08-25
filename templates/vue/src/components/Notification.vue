@@ -24,6 +24,7 @@ export default {
   props: {
     networkId: String,
     msg: String,
+    contractId: String,
   },
   computed: {
     urlPrefix() {
@@ -31,10 +32,7 @@ export default {
     },
     accountId() {
       return window.accountId
-    },
-    contractId() {
-      return window.contract? window.contractId: null
-    },
-  },
+    }
+  }
 }
 </script>

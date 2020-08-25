@@ -10,7 +10,7 @@
         {{ accountId }}
       </h1>
       <form v-on:submit.prevent="saveGreeting">
-        <fieldset id="fieldset">
+        <fieldset ref="fieldset">
           <label
             for="greeting"
             style="display:block; color:var(--gray);margin-bottom:0.5em;"
@@ -77,13 +77,14 @@
       ref="notification"
       :networkId="networkId"
       :msg="'called method: setGreeting'"
+      :contractId="contractId"
       :visible="false"
     />
   </div>
 </template>
 
 <script>
-import { onSubmit, logout } from "../utils"
+import { logout } from "../utils"
 
 import Notification from "./Notification.vue"
 
@@ -115,6 +116,9 @@ export default {
     accountId() {
       return window.accountId
     },
+    contractId() {
+      return window.contract? window.contract.contractId: null
+    },
     networkId() {
       return window.networkId
     },
@@ -132,20 +136,44 @@ export default {
     },
 
     saveGreeting: async function (event) {
-      // fire frontend-agnostic submit behavior, including data persistence
-      // look in utils.js to see how this updates data on-chain!
-      await onSubmit(event) //gets data directly from HTML elements
+      // fired on form submit button used to update the greeting
 
-      // update upper `greeting` message with persisted value
-      this.savedGreeting = this.newGreeting
+      // disable the form while the value gets updated on-chain
+      this.$refs.fieldset.disabled = true
 
-      this.notificationVisible = true //show new notification
+      try {
 
-      // remove Notification again after css animation completes
-      // this allows it to be shown again next time the form is submitted
-      setTimeout(() => {
-        this.notificationVisible = false
-      }, 11000)
+        // make an update call to the smart contract
+        await window.contract.setGreeting({
+          // pass the new greeting
+          message: this.newGreeting,
+        })
+
+        // update savedGreeting with persisted value
+        this.savedGreeting = this.newGreeting
+
+        this.notificationVisible = true //show new notification
+
+        // remove Notification again after css animation completes
+        // this allows it to be shown again next time the form is submitted
+        setTimeout(() => {
+          this.notificationVisible = false
+        }, 11000)
+
+      } 
+      catch (e) {
+        alert(
+          "Something went wrong! " +
+            "Maybe you need to sign out and back in? " +
+            "Check your browser console for more info."
+        )
+        throw e
+      } 
+      finally {
+        // re-enable the form, whether the call succeeded or failed
+        this.$refs.fieldset.disabled = false
+      }
+
     },
 
     logout: logout,
