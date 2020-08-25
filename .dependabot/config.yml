@@ -35,6 +35,20 @@ update_configs:
       - match:
           dependency_type: "development"
           update_type: "all"
+  - package_manager: "javascript"
+    directory: "/templates/vue/packagejsons/assemblyscript"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+  - package_manager: "javascript"
+    directory: "/templates/vue/packagejsons/rust"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
   - package_manager: "rust:cargo"
     directory: "/common/contracts/rust"
     update_schedule: "live"
