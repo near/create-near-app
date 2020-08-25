@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import SignedOut from '@/components/SignedOut.vue'
+import SignedOut from 'components/SignedOut.vue'
 
 
 describe('SignedOut.vue Test', () => {

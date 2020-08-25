@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
-import SignedIn from '@/components/SignedIn.vue'
-import Notification from '@/components/Notification.vue'
+import SignedIn from 'components/SignedIn.vue'
+import Notification from 'components/Notification.vue'
 
 
 describe('SignedIn.vue Test', () => {

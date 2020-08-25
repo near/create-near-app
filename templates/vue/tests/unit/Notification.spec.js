@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Notification from '@/components/Notification.vue'
+import Notification from 'components/Notification.vue'
 
 
 describe('Notification.vue Test', () => {
