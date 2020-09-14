@@ -36,7 +36,7 @@
     "replace-in-files": "^2.0.3",
     "shelljs": "^0.8.3",
     "which": "^2.0.2",
-    "yargs": "^15.0.2"
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
