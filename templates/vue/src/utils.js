@@ -3,6 +3,8 @@ import getConfig from './config'
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development')
 
+console.log(nearConfig)
+
 // Initialize contract & set global variables
 export async function initContract() {
   // Initialize connection to the NEAR testnet
@@ -22,36 +24,6 @@ export async function initContract() {
     // Change methods can modify the state. But you don't receive the returned value when called.
     changeMethods: ['setGreeting'],
   })
-}
-
-// attached to the form used to update the greeting
-// in utils because it works with a vanilla JS or a React approach
-export async function onSubmit(event) {
-  event.preventDefault()
-
-  // get elements from the form using their id attribute
-  const { fieldset, greeting } = event.target.elements
-
-  // disable the form while the value gets updated on-chain
-  fieldset.disabled = true
-
-  try {
-    // make an update call to the smart contract
-    await contract.setGreeting({
-      // pass the value that the user entered in the greeting field
-      message: greeting.value
-    })
-  } catch (e) {
-    alert(
-      'Something went wrong! ' +
-      'Maybe you need to sign out and back in? ' +
-      'Check your browser console for more info.'
-    )
-    throw e
-  } finally {
-    // re-enable the form, whether the call succeeded or failed
-    fieldset.disabled = false
-  }
 }
 
 export function logout() {

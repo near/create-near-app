@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime'
 import React from 'react'
-import { login, logout, onSubmit } from './utils'
+import { login, logout } from './utils'
 import './global.css'
 
 import getConfig from './config'
@@ -83,12 +83,34 @@ export default function App() {
           {window.accountId}!
         </h1>
         <form onSubmit={async event => {
-          // hold onto new user-entered value from React's SynthenticEvent for use after `await` call
-          const newGreeting = event.target.elements.greeting.value
+          event.preventDefault()
 
-          // fire frontend-agnostic submit behavior, including data persistence
-          // look in utils.js to see how this updates data on-chain!
-          await onSubmit(event)
+          // get elements from the form using their id attribute
+          const { fieldset, greeting } = event.target.elements
+
+          // hold onto new user-entered value from React's SynthenticEvent for use after `await` call
+          const newGreeting = greeting.value
+
+          // disable the form while the value gets updated on-chain
+          fieldset.disabled = true
+
+          try {
+            // make an update call to the smart contract
+            await window.contract.setGreeting({
+              // pass the value that the user entered in the greeting field
+              message: newGreeting
+            })
+          } catch (e) {
+            alert(
+              'Something went wrong! ' +
+              'Maybe you need to sign out and back in? ' +
+              'Check your browser console for more info.'
+            )
+            throw e
+          } finally {
+            // re-enable the form, whether the call succeeded or failed
+            fieldset.disabled = false
+          }
 
           // update local `greeting` variable to match persisted value
           setGreeting(newGreeting)
