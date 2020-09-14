@@ -1,17 +1,6 @@
-import { CONTRACT_NAME } from './contract-name';
+const CONTRACT_NAME = require('./contract-name')
 
-interface NetworkConfig {
-  networkId: string;
-  nodeUrl: string;
-  contractName: string;
-  walletUrl?: string;
-  helperUrl?: string;
-  explorerUrl?: string;
-  keyPath?: string;
-  masterAccount?: string;
-}
-
-export default function getConfig(env: string): NetworkConfig {
+function getConfig(env) {
   switch (env) {
     case 'production':
     case 'mainnet':
@@ -69,3 +58,5 @@ export default function getConfig(env: string): NetworkConfig {
       throw Error(`Unconfigured environment '${env}'. Can be configured in src/config.js.`)
   }
 }
+
+module.exports = getConfig

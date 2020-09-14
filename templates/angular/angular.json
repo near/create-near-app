@@ -7,7 +7,6 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "changeDetection": "OnPush",
           "style": "scss"
         }
       },
@@ -57,25 +56,9 @@
               "buildOptimizer": true,
               "budgets": [
                 {
-                  "type": "bundle",
-                  "name": "polyfills",
-                  "baseline": "150kb",
-                  "maximumWarning": "50kb",
-                  "maximumError": "100kb"
-                },
-                {
-                  "type": "bundle",
-                  "name": "styles",
-                  "baseline": "280kb",
-                  "maximumWarning": "50kb",
-                  "maximumError": "100kb"
-                },
-                {
-                  "type": "bundle",
-                  "name": "main",
-                  "baseline": "1024kb",
-                  "maximumWarning": "100kb",
-                  "maximumError": "1024kb"
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -89,7 +72,8 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "near-blank-project:build"
+            "browserTarget": "near-blank-project:build",
+            "port": 8080
           },
           "configurations": {
             "production": {
@@ -124,9 +108,8 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "eslintConfig": ".eslintrc.js",
             "tsConfig": [
               "tsconfig.app.json",
               "tsconfig.spec.json"
