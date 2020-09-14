@@ -1,7 +1,7 @@
 import { Contract, WalletConnection } from 'near-api-js'
 
 interface MyContract extends Contract {
-  setGreeting(message: string): void
+  setGreeting(value: { message: string }): void
   getGreeting(value: { accountId: string }): string | null
 }
 

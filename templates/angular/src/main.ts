@@ -10,6 +10,6 @@ if (environment.production) {
 }
 
 window.nearInitPromise = initContract()
-  .then(() =>
+  .then(() => {
     platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err))
-  )
+  })
