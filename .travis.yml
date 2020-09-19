@@ -26,7 +26,6 @@ git:
   symlinks: true
 script:
   - yarn test
-
 stages:
   - lint
   - test
