@@ -35,7 +35,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "gh-pages": "^3.0.0",
     "near-cli": "^1.0.1",
-    "near-sdk-as": "^1.0.1",
+    "near-sdk-as": "^2.0.0",
     "nodemon": "^2.0.4",
     "vue-template-compiler": "^2.6.11"
   },
