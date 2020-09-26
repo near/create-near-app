@@ -33,7 +33,7 @@
     "chalk": "^4.0.0",
     "cross-spawn": "^7.0.1",
     "ncp": "^2.0.0",
-    "replace-in-files": "^2.0.3",
+    "replace-in-files": "^3.0.0",
     "shelljs": "^0.8.3",
     "which": "^2.0.2",
     "yargs": "^16.0.3"
