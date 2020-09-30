@@ -4,17 +4,25 @@
 </ng-container>
 
 <ng-template #signedInTemplate>
-  <button class="link" (click)="logout()">Sign out</button>
-  <main class="signed-in">
+  <button [ngStyle]="{ float: 'right' }" (click)="logout()">Sign out</button>
+  <main>
     <h1>
-      <label [innerHTML]="greeting"></label>
+      <label [ngStyle]="{
+        color: 'var(--secondary)',
+        borderBottom: '2px solid var(--secondary)'
+      }" [innerHTML]="greeting"></label>
       {{ accountId }}
     </h1>
     <form (ngSubmit)="onSubmit($event)">
       <fieldset id="fieldset">
-        <label for="greeting">Change greeting</label>
-        <div>
+        <label for="greeting" [ngStyle]="{
+          display: 'block',
+          color: 'var(--gray)',
+          marginBottom: '0.5em'
+        }">Change greeting</label>
+        <div [ngStyle]="{ display: 'flex' }">
           <input
+            [ngStyle]="{ flexGrow: 1 }"
             type="text"
             id="greeting"
             name="greeting"
@@ -23,7 +31,7 @@
             [defaultValue]="greeting"
             required
           />
-          <button type="submit" [disabled]="buttonDisabled">Save</button>
+          <button [ngStyle]="{ borderRadius: '0 5px 5px 0' }" type="submit" [disabled]="buttonDisabled">Save</button>
         </div>
       </fieldset>
     </form>
@@ -57,7 +65,7 @@
 </ng-template>
 
 <ng-template #signedOutTemplate>
-  <main class="signed-out">
+  <main>
     <h1>Welcome to NEAR!</h1>
     <p>
       To make use of the NEAR blockchain, you need to sign in. The button
@@ -72,10 +80,8 @@
     <p>
       Go ahead and click the button below to try it out:
     </p>
-    <p>
+    <p [ngStyle]="{ textAlign: 'center', marginTop: '2.5em' }">
       <button type="button" (click)="login()">Sign in</button>
     </p>
   </main>
 </ng-template>
-
-

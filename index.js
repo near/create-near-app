@@ -100,12 +100,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /getGreeting/g, to: 'get_greeting' })
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /setGreeting/g, to: 'set_greeting' })
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' })
-
-    if (frontend === 'angular') {
-      await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
-    } else {
-      await replaceInFiles({ files: `${projectDir}/src/*`, from: /accountId:/g, to: 'account_id:' })
-    }
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
   }
 
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)

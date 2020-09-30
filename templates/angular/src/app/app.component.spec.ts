@@ -58,7 +58,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy()
   })
 
-  describe('signedIn', () => {
+  describe('signedOut', () => {
     it('should display welcome message', () => {
       const compiled = fixture.nativeElement
       const h1 = compiled.querySelector('main h1')
@@ -75,7 +75,7 @@ describe('AppComponent', () => {
     })
   })
 
-  describe('signedOut', () => {
+  describe('signedIn', () => {
     beforeEach(async () => {
       spyOn(spyWindow.walletConnection, 'isSignedIn').and.returnValue(true)
       spyOn(spyWindow.walletConnection, 'getAccountId').and.returnValue('test.near')
@@ -91,7 +91,7 @@ describe('AppComponent', () => {
     })
 
     it('should call the `logout` method on `Sign out` action', () => {
-      const btn = fixture.debugElement.query(By.css('button.link'))
+      const btn = fixture.debugElement.queryAll(By.css('button')).find(el => el.nativeElement.textContent === 'Sign out')
       const spyLogout = spyOn(app, 'logout')
       btn.triggerEventHandler('click', null)
 
