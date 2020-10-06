@@ -67,7 +67,7 @@ describe('AppComponent', () => {
     })
 
     it('should call the `login` method on `Sign in` action', () => {
-      const btn = fixture.debugElement.query(By.css('button'))
+      const btn = fixture.debugElement.queryAll(By.css('button')).find(el => el.nativeElement.textContent === 'Sign in')
       const spyLogin = spyOn(app, 'login')
       btn.triggerEventHandler('click', null)
 
