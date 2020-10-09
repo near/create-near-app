@@ -88,16 +88,19 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
       `${projectDir}/package.json`,
       `${projectDir}/src/config.js`,
       `${projectDir}/src/App.vue`,
+      `${projectDir}/angular.json`,
+      `${projectDir}/karma.conf.js`,
+      `${projectDir}/set-contract-name.js`,
     ],
     from: /near-blank-project/g,
     to: projectName
   })
 
   if (contract === 'rust') {
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /getGreeting/g, to: 'get_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /setGreeting/g, to: 'set_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' })
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /accountId:/g, to: 'account_id:' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /getGreeting/g, to: 'get_greeting' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /setGreeting/g, to: 'set_greeting' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
   }
 
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
@@ -106,7 +109,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   const hasNpm = which.sync('npm', { nothrow: true })
   const hasYarn = which.sync('yarn', { nothrow: true })
   //console.log('hasYarn:' + hasYarn + ' hasNmp:' + hasNpm)
-  
+
   if (hasYarn) {
     await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
   }
@@ -150,7 +153,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react', 'vue'],
+    choices: ['vanilla', 'react', 'vue', 'angular'],
     default: 'vanilla',
   })
   .option('contract', {
