@@ -8,61 +8,40 @@ update_configs:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/templates/vanilla/packagejsons/assemblyscript"
+    directory: "/templates/vanilla"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/templates/vanilla/packagejsons/rust"
+    directory: "/templates/react"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/templates/react/packagejsons/assemblyscript"
+    directory: "/templates/vue"
     update_schedule: "live"
     automerged_updates:
       - match:
           dependency_type: "development"
           update_type: "all"
   - package_manager: "javascript"
-    directory: "/templates/react/packagejsons/rust"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-    directory: "/templates/vue/packagejsons/assemblyscript"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-    directory: "/templates/vue/packagejsons/rust"
-    update_schedule: "live"
-    automerged_updates:
-      - match:
-          dependency_type: "development"
-          update_type: "all"
-  - package_manager: "javascript"
-      directory: "/templates/angular/packagejsons/assemblyscript"
+      directory: "/templates/angular"
       update_schedule: "live"
       automerged_updates:
         - match:
             dependency_type: "development"
             update_type: "all"
   - package_manager: "javascript"
-      directory: "/templates/angular/packagejsons/rust"
-      update_schedule: "live"
-      automerged_updates:
-        - match:
-            dependency_type: "development"
-            update_type: "all"
+    directory: "/common/contracts/assemblyscript"
+    update_schedule: "live"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
   - package_manager: "rust:cargo"
     directory: "/common/contracts/rust"
     update_schedule: "live"
