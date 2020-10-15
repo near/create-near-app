@@ -1,5 +1,7 @@
 const shell = require('shelljs')
 
+const TEST_PROJECT = '../create-near-app-test-project'
+
 shell.config.fatal = true
 shell.config.verbose = true
 
@@ -30,15 +32,15 @@ const frontends = process.env.FRONTEND
   : ['vanilla', 'react', 'vue', 'angular']
 
 const commands = contracts.map(c => frontends.map(f => (
-  `node index.js tmp-project --contract=${c} --frontend=${f}`
+  `node index.js ${TEST_PROJECT} --contract=${c} --frontend=${f}`
 ))).flat()
 
 commands.forEach(command => {
   // remove temporary blank project
-  shell.rm('-rf', 'tmp-project')
+  shell.rm('-rf', TEST_PROJECT)
   // test generating new project in new dir
   shell.exec(command)
-  shell.cd('tmp-project')
+  shell.cd(TEST_PROJECT)
   shell.env.FILE = 'package.json'
   if (!shell.test('-e', shell.env.FILE)) {
     shell.echo(`Couldn't find ${shell.env.FILE}`)
@@ -47,8 +49,8 @@ commands.forEach(command => {
 
   shell.exec('npm install')
   shell.exec('npm run test')
-  shell.cd('..')
+  shell.cd('-')
 })
 
 // remove temporary blank project
-shell.rm('-rf', 'tmp-project')
+shell.rm('-rf', TEST_PROJECT)
