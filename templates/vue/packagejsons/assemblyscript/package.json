@@ -20,7 +20,7 @@
     "lint": "eslint . --ext .js --ext .vue --fix"
   },
   "dependencies": {
-    "near-api-js": "^0.30.0",
+    "near-api-js": "^0.31.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },
