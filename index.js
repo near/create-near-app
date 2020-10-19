@@ -43,11 +43,8 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   // developing right in these directories also results in build artifacts;
   // we don't want to copy these
   const filesToSkip = [
-    'package.json',
-    'packagejsons',
     path.join(sourceTemplateDir, 'node_modules'),
     path.join(sourceTemplateDir, 'contract'),
-    path.join(sourceTemplateDir, 'assembly'),
     ...sh.ls(`${__dirname}/common/frontend`).map(f => path.join('src', f))
   ]
   const copied = []
@@ -69,15 +66,8 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
 
   // copy common files
   const contractSourceDir = `${__dirname}/common/contracts/${contract}`
-  const contractTargetDir = `${projectDir}/${
-    { rust: 'contract', assemblyscript: 'assembly' }[contract]
-  }`
-  await copyDirFn(contractSourceDir, contractTargetDir)
-  await sh.mv(`${contractTargetDir}/README.md`, projectDir)
+  await copyDirFn(contractSourceDir, `${projectDir}/contract`)
   await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`)
-
-  // use correct package.json; delete the other(s)
-  await copyDirFn(`${sourceTemplateDir}/packagejsons/${contract}/package.json`, `${projectDir}/package.json`)
 
   // update package name
   let projectName = basename(resolve(projectDir))
@@ -86,6 +76,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
       // NOTE: These can use globs if necessary later
       `${projectDir}/README.md`,
       `${projectDir}/package.json`,
+      `${projectDir}/contract/README.md`,
       `${projectDir}/src/config.js`,
       `${projectDir}/src/App.vue`,
       `${projectDir}/angular.json`,
@@ -99,7 +90,6 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   if (contract === 'rust') {
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /getGreeting/g, to: 'get_greeting' })
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /setGreeting/g, to: 'set_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' })
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
   }
 
