@@ -44,6 +44,8 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   // we don't want to copy these
   const filesToSkip = [
     path.join(sourceTemplateDir, 'node_modules'),
+    path.join(sourceTemplateDir, 'yarn.lock'),
+    path.join(sourceTemplateDir, 'package-lock.json'),
     path.join(sourceTemplateDir, 'contract'),
     ...sh.ls(`${__dirname}/common/frontend`).map(f => path.join('src', f))
   ]
