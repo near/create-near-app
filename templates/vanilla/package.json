@@ -17,18 +17,18 @@
     "test": "npm run build:contract:debug && node contract/test && jest test --runInBand"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0",
-    "gh-pages": "^3.0.0",
-    "jest": "^26.0.1",
-    "jest-environment-node": "^26.0.0",
-    "near-cli": "^1.0.1",
-    "nodemon": "^2.0.3",
-    "parcel-bundler": "^1.12.4",
-    "shelljs": "^0.8.4"
+    "env-cmd": "~10.1.0",
+    "gh-pages": "~3.1.0",
+    "jest": "~26.6.2",
+    "jest-environment-node": "~26.6.2",
+    "near-cli": "~1.2.0",
+    "nodemon": "~2.0.3",
+    "parcel-bundler": "~1.12.4",
+    "shelljs": "~0.8.4"
   },
   "dependencies": {
-    "near-api-js": "^0.31.0",
-    "regenerator-runtime": "^0.13.5"
+    "near-api-js": "~0.31.0",
+    "regenerator-runtime": "~0.13.5"
   },
   "jest": {
     "testEnvironment": "near-cli/test_environment",
