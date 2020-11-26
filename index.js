@@ -24,52 +24,63 @@ const renameFile = async function(oldPath, newPath) {
   })
 }
 
+// Wrap `ncp` tool to wait for the copy to finish when using `await`
+// Allow passing `skip` variable to skip copying an array of filenames
+function copyDir (source, dest, { skip, veryVerbose } = {}) {
+  return new Promise((resolve, reject) => {
+    const copied = []
+    const skipped = []
+    const filter = skip && function (filename) {
+      const shouldCopy = !skip.find(f => filename.includes(f))
+      shouldCopy ? copied.push(filename) : skipped.push(filename)
+      return !skip.find(f => filename.includes(f))
+    }
+
+    ncp(source, dest, { filter }, (err) => {
+      if (err) return reject(err)
+
+      if (veryVerbose) {
+        console.log('Copied:')
+        copied.forEach(f => console.log('  ' + f))
+        console.log('Skipped:')
+        skipped.forEach(f => console.log('  ' + f))
+      }
+
+      resolve()
+    })
+  })
+}
+
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
 
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`)
-  // Need to wait for the copy to finish, otherwise next tasks do not find files.
-  const copyDirFn = (source, dest, opts = {}) => {
-    return new Promise((resolve, reject) => {
-      ncp(source, dest, opts, (err) => {
-        if (err) return reject(err)
-        resolve()
-      })
-    })
-  }
 
-  // our frontend templates are set up with symlinks for easy development,
-  // developing right in these directories also results in build artifacts;
-  // we don't want to copy these
-  const filesToSkip = [
+  await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: [
+    // our frontend templates are set up with symlinks for easy development,
+    // developing right in these directories also results in build artifacts;
+    // we don't want to copy these
+    path.join(sourceTemplateDir, '.cache'),
+    path.join(sourceTemplateDir, 'dist'),
+    path.join(sourceTemplateDir, 'out'),
     path.join(sourceTemplateDir, 'node_modules'),
     path.join(sourceTemplateDir, 'yarn.lock'),
     path.join(sourceTemplateDir, 'package-lock.json'),
     path.join(sourceTemplateDir, 'contract'),
     ...sh.ls(`${__dirname}/common/frontend`).map(f => path.join('src', f))
-  ]
-  const copied = []
-  const skipped = []
-  await copyDirFn(sourceTemplateDir, projectDir, {
-    filter: filename => {
-      const shouldCopy = !filesToSkip.find(f => filename.includes(f))
-      shouldCopy ? copied.push(filename) : skipped.push(filename)
-      return !filesToSkip.find(f => filename.includes(f))
-    }
-  })
+  ]})
 
-  if (veryVerbose) {
-    console.log('Copied:')
-    copied.forEach(f => console.log('  ' + f))
-    console.log('Skipped:')
-    skipped.forEach(f => console.log('  ' + f))
-  }
 
   // copy common files
+  await copyDir(`${__dirname}/common/frontend`, `${projectDir}/src`)
   const contractSourceDir = `${__dirname}/common/contracts/${contract}`
-  await copyDirFn(contractSourceDir, `${projectDir}/contract`)
-  await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`)
+  await copyDir(contractSourceDir, `${projectDir}/contract`, { veryVerbose, skip: [
+    // as above, skip rapid-development build artifacts
+    path.join(contractSourceDir, 'node_modules'),
+    path.join(contractSourceDir, 'yarn.lock'),
+    path.join(contractSourceDir, 'package-lock.json'),
+  ]})
 
   // update package name
   let projectName = basename(resolve(projectDir))
