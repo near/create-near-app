@@ -38,7 +38,7 @@ if (verbose) console.log(`  build command:    ${buildCmd}`)
 if (verbose) console.log(`  output file: ${path.resolve(outFile)}`)
 
 if (verbose) console.log('  Installing dependencies')
-sh.exec('npm install')
+sh.exec('npm install --legacy-peer-deps')
 
 sh.exec(buildCmd)
 
