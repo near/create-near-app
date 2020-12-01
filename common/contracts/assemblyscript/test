@@ -5,4 +5,4 @@ const sh = require('shelljs')
 sh.fatal = true // same as "set -e"
 sh.cd(__dirname)
 
-sh.exec('./node_modules/.bin/asp --nologo')
+sh.exec('npx asp --nologo')
