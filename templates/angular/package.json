@@ -52,7 +52,7 @@
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "~1.5.0",
     "karma-spec-reporter": "~0.0.32",
-    "near-cli": "~1.1.0",
+    "near-cli": "~1.4.0",
     "nodemon": "~2.0.4",
     "protractor": "~7.0.0",
     "puppeteer": "~5.5.0",
