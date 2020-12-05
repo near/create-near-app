@@ -104,6 +104,8 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /getGreeting/g, to: 'get_greeting' })
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /setGreeting/g, to: 'set_greeting' })
     await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
+    await replaceInFiles({ files: `${projectDir}/package.json`, from: 'cd contract && npm run test', to: 'cd contract && cargo test -- --nocapture' })
+    await replaceInFiles({ files: `${projectDir}/package.json`, from: 'watch contract -e ts', to: 'watch contract/src -e rs' })
   }
 
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
@@ -120,6 +122,9 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   if (hasNpm || hasYarn) {
     console.log('Installing project dependencies...')
     spawn.sync(hasYarn ? 'yarn' : 'npm', ['install'], { cwd: projectDir, stdio: 'inherit' })
+    if (contract === 'assemblyscript') {
+      spawn.sync('npm', ['install', '--legacy-peer-deps'], { cwd: `${projectDir}/contract`, stdio: 'inherit' })
+    }
   }
 
   const runCommand = hasYarn ? 'yarn' : 'npm run'

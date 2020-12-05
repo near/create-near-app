@@ -1,8 +1,0 @@
-#!/usr/bin/env node
-
-const sh = require('shelljs')
-
-sh.fatal = true // same as "set -e"
-sh.cd(__dirname)
-
-sh.exec('cargo test -- --nocapture')

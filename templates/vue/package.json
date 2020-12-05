@@ -4,8 +4,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
-    "build:contract": "node contract/compile -v",
-    "build:contract:debug": "node contract/compile -v --debug",
+    "build:contract": "node contract/compile.js",
+    "build:contract:debug": "node contract/compile.js --debug",
     "build:web": "node copy-dev-account.js && vue-cli-service build",
     "dev:deploy:contract": "near dev-deploy",
     "deploy:contract": "near deploy",
@@ -13,9 +13,9 @@
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
     "prestart": "npm run build:contract:debug && npm run dev:deploy:contract",
     "start": "echo The app is starting! It will automatically open in your browser when ready && npm run serve",
-    "dev": "nodemon --watch contract --ignore \"contract/package*.json\" --exec \"npm run start\"",
+    "dev": "nodemon --watch contract -e ts --exec \"npm run start\"",
     "test:web": "vue-cli-service test:unit",
-    "test": "npm run build:contract:debug && node contract/test && vue-cli-service test:unit",
+    "test": "npm run build:contract:debug && cd contract && npm run test && cd .. && vue-cli-service test:unit",
     "serve": "node copy-dev-account.js && vue-cli-service serve --open",
     "lint": "eslint . --ext .js --ext .vue --fix"
   },
