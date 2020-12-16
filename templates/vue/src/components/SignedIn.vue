@@ -36,7 +36,7 @@
         <li>
           Ultimately, this
           <code>contract</code> code is defined in
-          <code>assembly/main.ts</code>
+          <code>contract/assembly/index.ts</code>
           - this is the source code for your
           <a
             target="_blank"
@@ -48,7 +48,7 @@
           When you run
           <code>npm run dev</code> or
           <code>yarn dev</code>, the code in
-          <code>assembly/main.ts</code>
+          <code>contract/assembly/index.ts</code>
           gets deployed to the NEAR testnet. You can see how this happens by looking in
           <code>package.json</code>
           at the
