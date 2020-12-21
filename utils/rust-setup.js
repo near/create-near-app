@@ -7,20 +7,27 @@ const installRustupScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rus
 const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
 
 function isRustupInstalled() {
-    return sh.exec('rustup --version &> /dev/null').code == 0;
+    console.log(chalk`Checking {bold rustup}...`);
+    const result = sh.exec('rustup --version &> /dev/null').code == 0;
+    console.log('rustup ', result ? 'installed' : 'not installed');
+    return result;
 }
 
 function isWasmTargetInstalled() {
+    console.log(chalk`Checking if {bold wasm32-unknown-unknown} build target added...`);
     if (!isRustupInstalled()) {
         return false;
     }
     const installedTargets = sh.exec('rustup target list --installed').stdout;
-    return installedTargets.includes('wasm32-unknown-unknown');
+    const result = installedTargets.includes('wasm32-unknown-unknown');
+    console.log(chalk`{bold wasm32-unknown-unknown} target `, result ? 'already added' : 'is not added');
+    return result;
 }
 
 function installRustup() {
     console.log(chalk`Installing {bold rustup}...`);
     sh.exec(installRustupScript);
+    sh.exec('source ~/.cargo/env'); // add rust to PATH
 }
 
 function addWasm32Target() {
@@ -57,18 +64,17 @@ We can run the following command to do it:
     
 Continue with installation (y/n)?: `;
 
-const isUnix = os.platform() != 'win32';
-const contract = 'rust';
-
-if (contract == 'rust' && isUnix) {
-    if (isUnix) {
+function setupRustAndWasm32Target() {
+    if (os.platform() != 'win32') {
         if (!isRustupInstalled()) {
             askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
         }
         if (isRustupInstalled() && !isWasmTargetInstalled()) {
             askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
         }
-    } else {
-        console.log("TODO: add Windows support");
     }
 }
+
+module.exports = {
+    setupRustAndWasm32Target,
+};

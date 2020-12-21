@@ -10,6 +10,7 @@ const chalk = require('chalk')
 const which = require('which')
 const sh = require('shelljs')
 const path = require('path')
+const rustSetup = require('./utils/rust-setup');
 
 const renameFile = async function(oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -117,6 +118,11 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
 
   if (hasYarn) {
     await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
+  }
+
+  // setup rust
+  if (contract == 'rust') {
+    rustSetup.setupRustAndWasm32Target();
   }
 
   if (hasNpm || hasYarn) {
