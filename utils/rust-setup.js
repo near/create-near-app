@@ -27,7 +27,7 @@ function isWasmTargetInstalled() {
 function installRustup() {
     console.log(chalk`Installing {bold rustup}...`);
     sh.exec(installRustupScript);
-    sh.exec('source ~/.cargo/env'); // add rust to PATH
+    sh.exec('source $HOME/.cargo/env'); // add rust to PATH
 }
 
 function addWasm32Target() {
@@ -35,11 +35,11 @@ function addWasm32Target() {
     sh.exec(addWasm32TargetScript);
 }
 
-function askYesNoQuestionAndRunFunction(question, functionToRun) {
+function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
     for (let attempt = 0; attempt < 4; attempt++) {
         const answer = reader.question(question);
         if (answer.toLowerCase() == 'y' || answer === '') {
-            functionToRun();
+            if (functionToRun) functionToRun();
             return;
         }
         else if (answer.toLowerCase() == 'n') {
@@ -49,7 +49,7 @@ function askYesNoQuestionAndRunFunction(question, functionToRun) {
 }
 
 const installRustupQuestion = chalk`
-To build Rust smart contracts you need to install {bold rustup}: the Rust toolchain installer.
+In order to work with {bold rust} smart contracts we recoment you to install {bold rustup}: the Rust toolchain installer.
 We can run the following command to do it:
         
     {bold ${installRustupScript}}
@@ -64,14 +64,39 @@ We can run the following command to do it:
     
 Continue with installation (y/n)?: `;
 
+const rustupWindowsInstalationInstructions = chalk`
+In order to work with {bold rust} smart contracts we recoment you to install {bold rustup}: the Rust toolchain installer.
+    1. Go to https://rustup.rs
+    2. Download {bold rustup-init.exe}
+    3. Install it on your system
+
+Press {bold Enter} to continue project creation.
+`;
+
+const wasm32WindowsTargetInstalationInstruction = chalk`
+In NEAR, smart contracts compile down to .wasm files. After {bold rustup} installation run the following command to add {bold wasm32-unknown-unknowm} target
+    
+    {bold ${addWasm32Target}}
+
+Press {bold Enter} to continue project creation.
+`;
+
 function setupRustAndWasm32Target() {
-    if (os.platform() != 'win32') {
-        if (!isRustupInstalled()) {
-            askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
+    try {
+        if (os.platform() != 'win32') {
+            if (!isRustupInstalled()) {
+                askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
+            }
+            if (isRustupInstalled() && !isWasmTargetInstalled()) {
+                askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
+            }
+        } else {
+            //TODO: check if rustup is installed
+            askYesNoQuestionAndRunFunction(rustupWindowsInstalationInstructions);
+            askYesNoQuestionAndRunFunction(wasm32WindowsTargetInstalationInstruction);
         }
-        if (isRustupInstalled() && !isWasmTargetInstalled()) {
-            askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
-        }
+    } catch (e) {
+        console.log(chalk`Failed to run {bold rust}} setup script`, e);
     }
 }
 
