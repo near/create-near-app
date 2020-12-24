@@ -3,36 +3,49 @@ const reader = require("readline-sync");
 const os = require('os');
 const sh = require('shelljs')
 
-const installRustupScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y";
+// script from https://rustup.rs/ with auto-accept flag "-y"
+const installRustupUnixScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y";
 const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
+const isUnix = os.platform() != 'win32';
 
 function isRustupInstalled() {
-    console.log(chalk`Checking {bold rustup}...`);
-    const result = sh.exec('rustup --version &> /dev/null').code == 0;
-    console.log('rustup ', result ? 'installed' : 'not installed');
-    return result;
-}
-
-function isWasmTargetInstalled() {
-    console.log(chalk`Checking if {bold wasm32-unknown-unknown} build target added...`);
-    if (!isRustupInstalled()) {
-        return false;
+    console.log(chalk`Checking if {bold rustup} is installed...`);
+    let isInstalled = false;
+    if (isUnix) {
+        isInstalled = sh.exec('rustup --version &> /dev/null').code == 0;
+    } else {
+        //TODO: check in powershell
     }
-    const installedTargets = sh.exec('rustup target list --installed').stdout;
-    const result = installedTargets.includes('wasm32-unknown-unknown');
-    console.log(chalk`{bold wasm32-unknown-unknown} target `, result ? 'already added' : 'is not added');
-    return result;
+    console.log(chalk`{bold rustup} is`, isInstalled ? 'installed' : 'not installed');
+    return isInstalled;
 }
 
-function installRustup() {
+function isWasmTargetAdded() {
+    let addedTargets = "";
+    if (isUnix) {
+        addedTargets = sh.exec('rustup target list --installed').stdout;
+    } else {
+        // TODO: check in power shell
+    }
+    const isWasmTargetAdded = addedTargets.includes('wasm32-unknown-unknown');
+    console.log(chalk`{bold wasm32-unknown-unknown} target `, isWasmTargetAdded ? 'already added' : 'is not added');
+    return isWasmTargetAdded;
+}
+
+function installRustupOnUnix() {
     console.log(chalk`Installing {bold rustup}...`);
-    sh.exec(installRustupScript);
-    sh.exec('source $HOME/.cargo/env'); // add rust to PATH
+    sh.exec(installRustupUnixScript);
+    // update PATH
+    sh.exec('source $HOME/.cargo/env');
 }
 
 function addWasm32Target() {
     console.log(chalk`Adding {bold wasm32-unknown-unknown} target...`);
-    sh.exec(addWasm32TargetScript);
+    if (isUnix) {
+        sh.exec(addWasm32TargetScript);
+    } else {
+        //TODO: add in power shell
+    }
 }
 
 function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
@@ -48,55 +61,53 @@ function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
     }
 }
 
-const installRustupQuestion = chalk`
-In order to work with {bold rust} smart contracts we recoment you to install {bold rustup}: the Rust toolchain installer.
+const installRustupDisclaimer = chalk`In order to work with {bold rust} smart contracts we recomend you to install {bold rustup}: the Rust toolchain installer.`;
+const addWasm32TargetDisclaimer = chalk`To build Rust smart contracts you need to add {bold WebAssembly} compiler target to Rust toolchain.`;
+
+const installRustupQuestionUnix = chalk`
+${installRustupDisclaimer}
 We can run the following command to do it:
         
-    {bold ${installRustupScript}}
+    {bold ${installRustupUnixScript}}
         
-Continue with installation (y/n)?: `;
-
-const addWasm32TragetQuestion = chalk`
-To build Rust smart contracts you need to add WebAssembly compiler target to Rust toolchain.
-We can run the following command to do it:
-
-    {bold ${addWasm32TargetScript}}
-    
 Continue with installation (y/n)?: `;
 
 const rustupWindowsInstalationInstructions = chalk`
-In order to work with {bold rust} smart contracts we recoment you to install {bold rustup}: the Rust toolchain installer.
+${installRustupDisclaimer}
     1. Go to https://rustup.rs
     2. Download {bold rustup-init.exe}
     3. Install it on your system
 
-Press {bold Enter} to continue project creation.
-`;
+Press {bold Enter} to continue project creation.`;
 
-const wasm32WindowsTargetInstalationInstruction = chalk`
-In NEAR, smart contracts compile down to .wasm files. After {bold rustup} installation run the following command to add {bold wasm32-unknown-unknowm} target
-    
-    {bold ${addWasm32Target}}
+const addWasm32TragetQuestion = chalk`
+${addWasm32TargetDisclaimer}
+We can run the following command to do it:
 
-Press {bold Enter} to continue project creation.
-`;
+    {bold ${addWasm32TargetScript}}
+
+Continue with installation (y/n)?:`;
 
 function setupRustAndWasm32Target() {
     try {
-        if (os.platform() != 'win32') {
-            if (!isRustupInstalled()) {
-                askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
-            }
-            if (isRustupInstalled() && !isWasmTargetInstalled()) {
+        if (isRustupInstalled()) {
+            if (isWasmTargetAdded()) {
+                return;
+            } else {
                 askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
             }
         } else {
-            //TODO: check if rustup is installed
-            askYesNoQuestionAndRunFunction(rustupWindowsInstalationInstructions);
-            askYesNoQuestionAndRunFunction(wasm32WindowsTargetInstalationInstruction);
+            if (isUnix) {
+                askYesNoQuestionAndRunFunction(installRustupQuestionUnix, installRustupOnUnix);
+            } else {
+                askYesNoQuestionAndRunFunction(rustupWindowsInstalationInstructions);
+            }
+            //TODO: check rustup is awailable after instalation
+            //TODO: add disclaimer about path?
+            askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
         }
     } catch (e) {
-        console.log(chalk`Failed to run {bold rust}} setup script`, e);
+        console.log(chalk`Failed to run {bold rust} setup script`, e);
     }
 }
 
