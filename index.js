@@ -153,6 +153,7 @@ Inside that directory, you can run several commands:
     Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
 
 We suggest that you begin by typing:`);
+
   if (wasRustupInstalled) {
     console.log(chalk`
     {bold source $HOME/.cargo/env}
@@ -161,10 +162,11 @@ We suggest that you begin by typing:`);
   } else {
     console.log(chalk`
     {bold cd ${projectDir}}
-    {bold ${runCommand} dev}
-
-Happy hacking!`);
+    {bold ${runCommand} dev}`);
   }
+
+  console.log(chalk`
+Happy hacking!`);
 }
 
 const opts = yargs

@@ -5,8 +5,10 @@ const sh = require('shelljs');
 
 // script from https://rustup.rs/ with auto-accept flag "-y"
 const installRustupScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y";
-/* We should update PATH in the same script because every new Bash scripts are executed is a separate shell */
-const addWasm32TargetScript = "source $HOME/.cargo/env && rustup target add wasm32-unknown-unknown";
+const updatePath = 'source $HOME/.cargo/env';
+const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
+// We should update PATH in the same script because every new Bash scripts are executed is a separate shell
+const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32TargetScript;
 
 const isUnix = os.platform() != 'win32';
 
@@ -31,7 +33,7 @@ function installRustup() {
 
 function addWasm32Target() {
     console.log(chalk`Adding {bold wasm32-unknown-unknown} target...`);
-    sh.exec(addWasm32TargetScript);
+    sh.exec(updatePathAndAddWasm32TargetScript);
 }
 
 function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
@@ -63,7 +65,7 @@ const addWasm32TragetQuestion = chalk`
 ${addWasm32TargetDisclaimer}
 We can run the following command to do it:
 
-    {bold ${addWasm32TargetScript}}
+    {bold ${updatePathAndAddWasm32TargetScript}}
 
 Continue with installation (y/n)?:`;
 
