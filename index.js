@@ -121,8 +121,9 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   }
 
   // setup rust
+  let wasRustupInstalled = false;
   if (contract == 'rust') {
-    rustSetup.setupRustAndWasm32Target();
+    wasRustupInstalled = rustSetup.setupRustAndWasm32Target();
   }
 
   if (hasNpm || hasYarn) {
@@ -151,13 +152,19 @@ Inside that directory, you can run several commands:
     Also deploys web frontend using GitHub Pages.
     Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
 
-We suggest that you begin by typing:
+We suggest that you begin by typing:`);
+  if (wasRustupInstalled) {
+    console.log(chalk`
+    {bold source $HOME/.cargo/env}
+    {bold cd ${projectDir}}
+    {bold ${runCommand} dev}`);
+  } else {
+    console.log(chalk`
+    {bold cd ${projectDir}}
+    {bold ${runCommand} dev}
 
-  {bold cd ${projectDir}}
-  {bold ${runCommand} dev}
-
-Happy hacking!
-`)
+Happy hacking!`);
+  }
 }
 
 const opts = yargs

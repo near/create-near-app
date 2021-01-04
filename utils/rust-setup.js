@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const reader = require("readline-sync");
 const os = require('os');
-const sh = require('shelljs')
+const sh = require('shelljs');
 
 // script from https://rustup.rs/ with auto-accept flag "-y"
 const installRustupScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y";
@@ -39,12 +39,13 @@ function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
         const answer = reader.question(question);
         if (answer.toLowerCase() == 'y' || answer === '') {
             if (functionToRun) functionToRun();
-            return;
+            return true;
         }
         else if (answer.toLowerCase() == 'n') {
-            return;
+            return false;
         }
     }
+    return false;
 }
 
 const installRustupDisclaimer = chalk`In order to work with {bold rust} smart contracts we recomend you to install {bold rustup}: the Rust toolchain installer.`;
@@ -83,17 +84,18 @@ function setupRustAndWasm32Target() {
     try {
         if (isUnix) {
             if (isRustupInstalled()) {
-                if (isWasmTargetAdded()) {
-                    return;
-                } else {
+                if (!isWasmTargetAdded()) {
                     askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
                 }
+                return false;
             } else {
-                askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
+                const isAnswerPositive = askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
                 askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
+                return isAnswerPositive;
             }
         } else {
             askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstalationInstructions);
+            return false;
         }
     } catch (e) {
         console.log(chalk`Failed to run {bold rust} setup script`, e);
