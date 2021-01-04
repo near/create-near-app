@@ -5,7 +5,9 @@ const sh = require('shelljs')
 
 // script from https://rustup.rs/ with auto-accept flag "-y"
 const installRustupScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y";
-const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
+/* We should update PATH in the same script because every new Bash scripts are executed is a separate shell */
+const addWasm32TargetScript = "source $HOME/.cargo/env && rustup target add wasm32-unknown-unknown";
+
 const isUnix = os.platform() != 'win32';
 
 function isRustupInstalled() {
@@ -22,11 +24,9 @@ function isWasmTargetAdded() {
     return isWasmTargetAdded;
 }
 
-function installRustupOnUnix() {
+function installRustup() {
     console.log(chalk`Installing {bold rustup}...`);
     sh.exec(installRustupScript);
-    // update PATH
-    sh.exec('source $HOME/.cargo/env');
 }
 
 function addWasm32Target() {
@@ -53,9 +53,9 @@ const addWasm32TargetDisclaimer = chalk`To build Rust smart contracts you need t
 const installRustupQuestion = chalk`
 ${installRustupDisclaimer}
 We can run the following command to do it:
-        
+
     {bold ${installRustupScript}}
-        
+
 Continue with installation (y/n)?: `;
 
 const addWasm32TragetQuestion = chalk`
@@ -89,7 +89,7 @@ function setupRustAndWasm32Target() {
                     askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
                 }
             } else {
-                askYesNoQuestionAndRunFunction(installRustupQuestion, installRustupOnUnix);
+                askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
                 askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
             }
         } else {
@@ -99,8 +99,6 @@ function setupRustAndWasm32Target() {
         console.log(chalk`Failed to run {bold rust} setup script`, e);
     }
 }
-
-
 
 module.exports = {
     setupRustAndWasm32Target,
