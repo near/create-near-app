@@ -7,7 +7,7 @@ const sh = require('shelljs');
 const installRustupScript = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y";
 const updatePath = 'source $HOME/.cargo/env';
 const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
-// We should update PATH in the same script because every new Bash scripts are executed is a separate shell
+// We should update PATH in the same script because every new Bash scripts are executed in a separate shell
 const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32TargetScript;
 
 const isUnix = os.platform() != 'win32';
