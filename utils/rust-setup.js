@@ -10,7 +10,7 @@ const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
 // We should update PATH in the same script because every new Bash scripts are executed in a separate shell
 const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32TargetScript;
 
-const isUnix = os.platform() != 'win32';
+const isWindows = os.platform() == 'win32'
 
 function isRustupInstalled() {
     console.log(chalk`Checking if {bold rustup} is installed...`);
@@ -39,12 +39,12 @@ function addWasm32Target() {
 function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
     for (let attempt = 0; attempt < 4; attempt++) {
         const answer = reader.question(question);
+        if (answer.toLowerCase() == 'n') {
+            return false;
+        }
         if (answer.toLowerCase() == 'y' || answer === '') {
             if (functionToRun) functionToRun();
             return true;
-        }
-        else if (answer.toLowerCase() == 'n') {
-            return false;
         }
     }
     return false;
@@ -84,21 +84,18 @@ Press {bold Enter} to continue project creation.`;
 
 function setupRustAndWasm32Target() {
     try {
-        if (isUnix) {
-            if (isRustupInstalled()) {
-                if (!isWasmTargetAdded()) {
-                    askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
-                }
-                return false;
-            } else {
-                const isAnswerPositive = askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
-                askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
-                return isAnswerPositive;
-            }
-        } else {
+        let wasRustupInstalled = false;
+        if (isWindows) {
             askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstalationInstructions);
             return false;
         }
+        if (!isRustupInstalled()) {
+            wasRustupInstalled = askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
+        }
+        if (!isWasmTargetAdded()) {
+            askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
+        }
+        return wasRustupInstalled;
     } catch (e) {
         console.log(chalk`Failed to run {bold rust} setup script`, e);
     }
