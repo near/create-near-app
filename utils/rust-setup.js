@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-const reader = require("readline-sync");
 const os = require('os');
+const readline = require('readline');
 const sh = require('shelljs');
 
 // script from https://rustup.rs/ with auto-accept flag "-y"
@@ -36,16 +36,32 @@ function addWasm32Target() {
     sh.exec(updatePathAndAddWasm32TargetScript);
 }
 
-function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
-    for (let attempt = 0; attempt < 4; attempt++) {
-        const answer = reader.question(question);
-        if (answer.toLowerCase() == 'n') {
-            return false;
+async function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    try {
+        for (let attempt = 0; attempt < 4; attempt++) {
+            const answer = await new Promise((resolve) => {
+                rl.question(question, async (userInput) => {
+                    userInput = userInput.toLowerCase();
+                    if (userInput == 'y' || userInput == '') {
+                        if (functionToRun) functionToRun();
+                        resolve(true);
+                    }
+                    if (userInput == 'n') {
+                        resolve(false);
+                    }
+                    resolve(undefined);
+                });
+            });
+            if (answer !== undefined) {
+                return answer;
+            }
         }
-        if (answer.toLowerCase() == 'y' || answer === '') {
-            if (functionToRun) functionToRun();
-            return true;
-        }
+    } finally {
+        rl.close();
     }
     return false;
 }
@@ -65,7 +81,7 @@ const addWasm32TragetQuestion = chalk`
 ${addWasm32TargetDisclaimer}
 We can run the following command to do it:
 
-    {bold ${updatePathAndAddWasm32TargetScript}}
+    {bold ${addWasm32TargetScript}}
 
 Continue with installation (y/n)?:`;
 
@@ -82,18 +98,18 @@ Run the following command to do it:
 
 Press {bold Enter} to continue project creation.`;
 
-function setupRustAndWasm32Target() {
+async function setupRustAndWasm32Target() {
     try {
         let wasRustupInstalled = false;
         if (isWindows) {
-            askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstalationInstructions);
+            await askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstalationInstructions);
             return false;
         }
         if (!isRustupInstalled()) {
-            wasRustupInstalled = askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
+            wasRustupInstalled = await askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
         }
         if (!isWasmTargetAdded()) {
-            askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
+            await askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
         }
         return wasRustupInstalled;
     } catch (e) {
