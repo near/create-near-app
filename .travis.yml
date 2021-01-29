@@ -3,7 +3,7 @@ rust:
   - stable
 os:
   - linux
-  - osx
+  # - osx
   - windows
 cache: cargo
 env:
