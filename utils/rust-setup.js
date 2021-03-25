@@ -71,8 +71,7 @@ const installRustupDisclaimer = chalk`In order to work with {bold rust} smart co
 const addWasm32TargetDisclaimer = chalk`To build Rust smart contracts you need to add {bold WebAssembly} compiler target to Rust toolchain.`;
 
 const installRustupQuestion = chalk`
-${installRustupDisclaimer}
-We can run the following command to do it:
+${installRustupDisclaimer} We can run the following command to do it for you:
 
     {bold ${installRustupScript}}
 
