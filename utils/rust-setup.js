@@ -92,6 +92,7 @@ ${installRustupDisclaimer}
     3. Install it on your system
 
 ${addWasm32TargetDisclaimer}
+
 Run the following command to do it:
 
     {bold ${addWasm32TargetScript}}
