@@ -77,7 +77,7 @@ We can run the following command to do it:
 
 Continue with installation (y/n)?: `;
 
-const addWasm32TragetQuestion = chalk`
+const addWasm32TargetQuestion = chalk`
 ${addWasm32TargetDisclaimer}
 We can run the following command to do it:
 
