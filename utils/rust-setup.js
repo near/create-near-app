@@ -75,7 +75,7 @@ We can run the following command to do it:
 
     {bold ${installRustupScript}}
 
-Continue with installation (y/n)?: `;
+Continue with installation (Y/n)?: `;
 
 const addWasm32TargetQuestion = chalk`
 ${addWasm32TargetDisclaimer}
