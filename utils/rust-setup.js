@@ -101,11 +101,11 @@ Press {bold Enter} to continue project creation.`;
 
 async function setupRustAndWasm32Target() {
     try {
-        let wasRustupInstalled = false;
         if (isWindows) {
             await askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstallationInstructions);
             return false;
         }
+        let wasRustupInstalled = false;
         if (!isRustupInstalled()) {
             wasRustupInstalled = await askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
         }
