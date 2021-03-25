@@ -109,7 +109,7 @@ async function setupRustAndWasm32Target() {
             wasRustupInstalled = await askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
         }
         if (!isWasmTargetAdded()) {
-            await askYesNoQuestionAndRunFunction(addWasm32TragetQuestion, addWasm32Target);
+            await askYesNoQuestionAndRunFunction(addWasm32TargetQuestion, addWasm32Target);
         }
         return wasRustupInstalled;
     } catch (e) {
