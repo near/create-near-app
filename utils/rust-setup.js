@@ -66,7 +66,7 @@ async function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
     return false;
 }
 
-const installRustupDisclaimer = chalk`In order to work with {bold rust} smart contracts we recomend you to install {bold rustup}: the Rust toolchain installer.`;
+const installRustupDisclaimer = chalk`In order to work with {bold rust} smart contracts we recommend you install {bold rustup}, the Rust toolchain installer.`;
 const addWasm32TargetDisclaimer = chalk`To build Rust smart contracts you need to add {bold WebAssembly} compiler target to Rust toolchain.`;
 
 const installRustupQuestion = chalk`
