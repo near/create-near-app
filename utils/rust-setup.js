@@ -85,7 +85,7 @@ We can run the following command to do it:
 
 Continue with installation (y/n)?:`;
 
-const rustupAndWasm32WindowsInstalationInstructions = chalk`
+const rustupAndWasm32WindowsInstallationInstructions = chalk`
 ${installRustupDisclaimer}
     1. Go to https://rustup.rs
     2. Download {bold rustup-init.exe}
