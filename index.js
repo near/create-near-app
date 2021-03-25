@@ -24,60 +24,63 @@ const renameFile = async function(oldPath, newPath) {
   })
 }
 
+// Wrap `ncp` tool to wait for the copy to finish when using `await`
+// Allow passing `skip` variable to skip copying an array of filenames
+function copyDir (source, dest, { skip, veryVerbose } = {}) {
+  return new Promise((resolve, reject) => {
+    const copied = []
+    const skipped = []
+    const filter = skip && function (filename) {
+      const shouldCopy = !skip.find(f => filename.includes(f))
+      shouldCopy ? copied.push(filename) : skipped.push(filename)
+      return !skip.find(f => filename.includes(f))
+    }
+
+    ncp(source, dest, { filter }, (err) => {
+      if (err) return reject(err)
+
+      if (veryVerbose) {
+        console.log('Copied:')
+        copied.forEach(f => console.log('  ' + f))
+        console.log('Skipped:')
+        skipped.forEach(f => console.log('  ' + f))
+      }
+
+      resolve()
+    })
+  })
+}
+
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
 
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`)
-  // Need to wait for the copy to finish, otherwise next tasks do not find files.
-  const copyDirFn = (source, dest, opts = {}) => {
-    return new Promise((resolve, reject) => {
-      ncp(source, dest, opts, (err) => {
-        if (err) return reject(err)
-        resolve()
-      })
-    })
-  }
 
-  // our frontend templates are set up with symlinks for easy development,
-  // developing right in these directories also results in build artifacts;
-  // we don't want to copy these
-  const filesToSkip = [
-    'package.json',
-    'packagejsons',
+  await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: [
+    // our frontend templates are set up with symlinks for easy development,
+    // developing right in these directories also results in build artifacts;
+    // we don't want to copy these
+    path.join(sourceTemplateDir, '.cache'),
+    path.join(sourceTemplateDir, 'dist'),
+    path.join(sourceTemplateDir, 'out'),
     path.join(sourceTemplateDir, 'node_modules'),
+    path.join(sourceTemplateDir, 'yarn.lock'),
+    path.join(sourceTemplateDir, 'package-lock.json'),
     path.join(sourceTemplateDir, 'contract'),
-    path.join(sourceTemplateDir, 'assembly'),
     ...sh.ls(`${__dirname}/common/frontend`).map(f => path.join('src', f))
-  ]
-  const copied = []
-  const skipped = []
-  await copyDirFn(sourceTemplateDir, projectDir, {
-    filter: filename => {
-      const shouldCopy = !filesToSkip.find(f => filename.includes(f))
-      shouldCopy ? copied.push(filename) : skipped.push(filename)
-      return !filesToSkip.find(f => filename.includes(f))
-    }
-  })
+  ]})
 
-  if (veryVerbose) {
-    console.log('Copied:')
-    copied.forEach(f => console.log('  ' + f))
-    console.log('Skipped:')
-    skipped.forEach(f => console.log('  ' + f))
-  }
 
   // copy common files
+  await copyDir(`${__dirname}/common/frontend`, `${projectDir}/src`)
   const contractSourceDir = `${__dirname}/common/contracts/${contract}`
-  const contractTargetDir = `${projectDir}/${
-    { rust: 'contract', assemblyscript: 'assembly' }[contract]
-  }`
-  await copyDirFn(contractSourceDir, contractTargetDir)
-  await sh.mv(`${contractTargetDir}/README.md`, projectDir)
-  await copyDirFn(`${__dirname}/common/frontend`, `${projectDir}/src`)
-
-  // use correct package.json; delete the other(s)
-  await copyDirFn(`${sourceTemplateDir}/packagejsons/${contract}/package.json`, `${projectDir}/package.json`)
+  await copyDir(contractSourceDir, `${projectDir}/contract`, { veryVerbose, skip: [
+    // as above, skip rapid-development build artifacts
+    path.join(contractSourceDir, 'node_modules'),
+    path.join(contractSourceDir, 'yarn.lock'),
+    path.join(contractSourceDir, 'package-lock.json'),
+  ]})
 
   // update package name
   let projectName = basename(resolve(projectDir))
@@ -86,17 +89,23 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
       // NOTE: These can use globs if necessary later
       `${projectDir}/README.md`,
       `${projectDir}/package.json`,
+      `${projectDir}/contract/README.md`,
       `${projectDir}/src/config.js`,
+      `${projectDir}/src/App.vue`,
+      `${projectDir}/angular.json`,
+      `${projectDir}/karma.conf.js`,
+      `${projectDir}/set-contract-name.js`,
     ],
     from: /near-blank-project/g,
     to: projectName
   })
 
   if (contract === 'rust') {
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /getGreeting/g, to: 'get_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /setGreeting/g, to: 'set_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /assembly\/main.ts/g, to: 'contract/src/lib.rs' })
-    await replaceInFiles({ files: `${projectDir}/src/*`, from: /accountId:/g, to: 'account_id:' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /getGreeting/g, to: 'get_greeting' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /setGreeting/g, to: 'set_greeting' })
+    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
+    await replaceInFiles({ files: `${projectDir}/package.json`, from: 'cd contract && npm run test', to: 'cd contract && cargo test -- --nocapture' })
+    await replaceInFiles({ files: `${projectDir}/package.json`, from: 'watch contract -e ts', to: 'watch contract/src -e rs' })
   }
 
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
@@ -105,7 +114,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   const hasNpm = which.sync('npm', { nothrow: true })
   const hasYarn = which.sync('yarn', { nothrow: true })
   //console.log('hasYarn:' + hasYarn + ' hasNmp:' + hasNpm)
-  
+
   if (hasYarn) {
     await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
   }
@@ -113,6 +122,9 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   if (hasNpm || hasYarn) {
     console.log('Installing project dependencies...')
     spawn.sync(hasYarn ? 'yarn' : 'npm', ['install'], { cwd: projectDir, stdio: 'inherit' })
+    if (contract === 'assemblyscript') {
+      spawn.sync('npm', ['install', '--legacy-peer-deps'], { cwd: `${projectDir}/contract`, stdio: 'inherit' })
+    }
   }
 
   const runCommand = hasYarn ? 'yarn' : 'npm run'
@@ -149,7 +161,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react'],
+    choices: ['vanilla', 'react', 'vue', 'angular'],
     default: 'vanilla',
   })
   .option('contract', {

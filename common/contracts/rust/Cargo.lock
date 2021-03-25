@@ -208,9 +208,9 @@ dependencies = [
 
 [[package]]
 name = "near-runtime-fees"
-version = "1.0.0"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f9d21fc1e813f9ee1cd1b6c9ef51de044bad1515f76d4d10228310cfcbab769d"
+checksum = "8d11ba7681bd6669ae735af9771191251c6996b2ff30483ca1fde37a6bbf25b0"
 dependencies = [
  "num-rational",
  "serde",
@@ -218,9 +218,9 @@ dependencies = [
 
 [[package]]
 name = "near-sdk"
-version = "1.0.0"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9029864061ff35b166072d9f407d91da4c76cfd0a190913fa5576148c6b0be45"
+checksum = "e7247d658c51447ea3cd6e86ea55131cf85d17a40f844fc22a0699346ba2fd93"
 dependencies = [
  "base64",
  "borsh",
@@ -235,9 +235,9 @@ dependencies = [
 
 [[package]]
 name = "near-sdk-core"
-version = "1.0.0"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2e3adcdcb947537027bf3ac8b3e89079abab8b1ecef257debaf5352d97157756"
+checksum = "1d058a4b835f5b8bb9783cc5acb27ba13f1810e546c020f4bac28a9093f64012"
 dependencies = [
  "Inflector",
  "proc-macro2",
@@ -247,9 +247,9 @@ dependencies = [
 
 [[package]]
 name = "near-sdk-macros"
-version = "1.0.0"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aca63d45c527d8053d42ecc747fb1fb73555350f1b0e0fb1e7f76ed2fabd6266"
+checksum = "320be357d10a590c270c7f77658e9fb0503a4a1d1d1a49ec3ed9570be864230b"
 dependencies = [
  "near-sdk-core",
  "proc-macro2",
@@ -259,9 +259,9 @@ dependencies = [
 
 [[package]]
 name = "near-vm-errors"
-version = "1.0.0"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "edcd99bfd53a61a5a10989ea492f9648bd4392c6cbf16cbf7b9c1d284ae73f97"
+checksum = "d195c45caa46fc6cb0a3c3c623219c3bf5dcfa367ec9266313ff560d115c1d95"
 dependencies = [
  "borsh",
  "near-rpc-error-macro",
@@ -270,9 +270,9 @@ dependencies = [
 
 [[package]]
 name = "near-vm-logic"
-version = "1.0.0"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b9685dae19123fba499b4e98f44b800b5d9494a8afd3b3717a8eef775123f6b"
+checksum = "e5701ec6de5426f5528c5a97e2b690c60b9ffcb01d31d5482999fdc56ab16a05"
 dependencies = [
  "base64",
  "bs58",
@@ -335,9 +335,9 @@ checksum = "2839e79665f131bdb5782e51f2c6c9599c133c6098982a54c794358bf432529c"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.19"
+version = "1.0.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04f5f085b5d71e2188cb8271e5da0161ad52c3f227a661a3c135fdf28e258b12"
+checksum = "1e0704ee1a7e00d7bb417d0770ea303c1bccbabf0ef1667dae92b5967f5f8a71"
 dependencies = [
  "unicode-xid",
 ]
@@ -416,9 +416,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.35"
+version = "1.0.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb7f4c519df8c117855e19dd8cc851e89eb746fe7a73f0157e0d95fdec5369b0"
+checksum = "4211ce9909eb971f111059df92c45640aad50a619cf55cd76476be803c4c68e6"
 dependencies = [
  "proc-macro2",
  "quote",
