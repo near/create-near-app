@@ -83,7 +83,7 @@ We can run the following command to do it:
 
     {bold ${addWasm32TargetScript}}
 
-Continue with installation (y/n)?:`;
+Continue with installation (Y/n)?: `;
 
 const rustupAndWasm32WindowsInstallationInstructions = chalk`
 ${installRustupDisclaimer}
