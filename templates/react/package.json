@@ -17,25 +17,28 @@
     "test": "npm run build:contract:debug && cd contract && npm run test && cd .. && jest test --runInBand"
   },
   "devDependencies": {
-    "@babel/core": "~7.12.3",
-    "@babel/preset-env": "~7.12.1",
+    "@babel/core": "~7.13.1",
+    "@babel/preset-env": "~7.13.5",
     "@babel/preset-react": "~7.12.5",
     "babel-jest": "~26.6.2",
     "env-cmd": "~10.1.0",
     "gh-pages": "~3.1.0",
     "jest": "~26.6.2",
     "jest-environment-node": "~26.6.2",
-    "near-cli": "~1.4.0",
+    "near-cli": "~1.5.3",
     "nodemon": "~2.0.3",
     "parcel-bundler": "~1.12.4",
     "react-test-renderer": "~17.0.1",
     "shelljs": "~0.8.4"
   },
   "dependencies": {
-    "near-api-js": "~0.35.0",
+    "near-api-js": "~0.39.0",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
     "regenerator-runtime": "~0.13.5"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.13.8"
   },
   "jest": {
     "moduleNameMapper": {
