@@ -15,11 +15,12 @@ const isWindows = os.platform() === 'win32'
 function isRustupInstalled() {
     console.log(chalk`Checking if {bold rustup} is installed...`);
     const isInstalled = sh.exec('rustup --version &> /dev/null').code === 0;
-    console.log(chalk`{bold rustup} is`, isInstalled ? 'installed' : 'not installed');
+    console.log(chalk`{bold rustup} is`, isInstalled ? 'installed\n' : 'not installed\n');
     return isInstalled;
 }
 
 function isWasmTargetAdded() {
+    console.log(chalk`Checking installed {bold Rust targets}..`);
     const addedTargets = sh.exec('rustup target list --installed').stdout;
     const isWasmTargetAdded = addedTargets.includes('wasm32-unknown-unknown');
     console.log(chalk`{bold wasm32-unknown-unknown} target `, isWasmTargetAdded ? 'already added' : 'is not added');
