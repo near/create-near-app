@@ -10,11 +10,11 @@ const addWasm32TargetScript = "rustup target add wasm32-unknown-unknown";
 // We should update PATH in the same script because every new Bash scripts are executed in a separate shell
 const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32TargetScript;
 
-const isWindows = os.platform() == 'win32'
+const isWindows = os.platform() === 'win32'
 
 function isRustupInstalled() {
     console.log(chalk`Checking if {bold rustup} is installed...`);
-    const isInstalled = sh.exec('rustup --version &> /dev/null').code == 0;
+    const isInstalled = sh.exec('rustup --version &> /dev/null').code === 0;
     console.log(chalk`{bold rustup} is`, isInstalled ? 'installed' : 'not installed');
     return isInstalled;
 }
@@ -46,11 +46,11 @@ async function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
             const answer = await new Promise((resolve) => {
                 rl.question(question, async (userInput) => {
                     userInput = userInput.toLowerCase();
-                    if (userInput == 'y' || userInput == '') {
+                    if (userInput === 'y' || userInput === '') {
                         if (functionToRun) functionToRun();
                         resolve(true);
                     }
-                    if (userInput == 'n') {
+                    if (userInput === 'n') {
                         resolve(false);
                     }
                     resolve(undefined);

@@ -122,7 +122,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
 
   // setup rust
   let wasRustupInstalled = false;
-  if (contract == 'rust') {
+  if (contract === 'rust') {
     wasRustupInstalled = await rustSetup.setupRustAndWasm32Target();
   }
 
