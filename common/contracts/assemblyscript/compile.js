@@ -44,7 +44,7 @@ if (code === 0 && calledFromDir !== __dirname) {
   sh.mkdir('-p', linkDir)
   sh.rm('-f', link)
   const linkPath = path.relative(linkDir, outFile)
-  //copy-update instead of linking .- sometimes linking does not work on windows
+  //fix #831: copy-update instead of linking .- sometimes sh.ln does not work on windows
   //sh.ln('-s', linkPath, link)
   sh.cp("-u",outFile,link)
   
