@@ -13,57 +13,57 @@ const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32Target
 const isWindows = os.platform() === 'win32'
 
 function isRustupInstalled() {
-    console.log(chalk`Checking if {bold rustup} is installed...`);
-    const isInstalled = sh.exec('rustup --version &> /dev/null').code === 0;
-    console.log(chalk`{bold rustup} is`, isInstalled ? 'installed\n' : 'not installed\n');
-    return isInstalled;
+  console.log(chalk`Checking if {bold rustup} is installed...`);
+  const isInstalled = sh.exec('rustup --version &> /dev/null').code === 0;
+  console.log(chalk`{bold rustup} is`, isInstalled ? 'installed\n' : 'not installed\n');
+  return isInstalled;
 }
 
 function isWasmTargetAdded() {
-    console.log(chalk`Checking installed {bold Rust targets}..`);
-    const addedTargets = sh.exec('rustup target list --installed').stdout;
-    const isWasmTargetAdded = addedTargets.includes('wasm32-unknown-unknown');
-    console.log(chalk`{bold wasm32-unknown-unknown} target `, isWasmTargetAdded ? 'already added' : 'is not added');
-    return isWasmTargetAdded;
+  console.log(chalk`Checking installed {bold Rust targets}..`);
+  const addedTargets = sh.exec('rustup target list --installed').stdout;
+  const isWasmTargetAdded = addedTargets.includes('wasm32-unknown-unknown');
+  console.log(chalk`{bold wasm32-unknown-unknown} target `, isWasmTargetAdded ? 'already added' : 'is not added');
+  return isWasmTargetAdded;
 }
 
 function installRustup() {
-    console.log(chalk`Installing {bold rustup}...`);
-    sh.exec(installRustupScript);
+  console.log(chalk`Installing {bold rustup}...`);
+  sh.exec(installRustupScript);
 }
 
 function addWasm32Target() {
-    console.log(chalk`Adding {bold wasm32-unknown-unknown} target...`);
-    sh.exec(updatePathAndAddWasm32TargetScript);
+  console.log(chalk`Adding {bold wasm32-unknown-unknown} target...`);
+  sh.exec(updatePathAndAddWasm32TargetScript);
 }
 
 async function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
-    try {
-        for (let attempt = 0; attempt < 4; attempt++) {
-            const answer = await new Promise((resolve) => {
-                rl.question(question, (userInput) => {
-                    if (['y', 'Y', ''].includes(userInput)) {
-                        if (functionToRun) functionToRun();
-                        resolve(true);
-                    }
-                    if (userInput === 'n') {
-                        resolve(false);
-                    }
-                    resolve(undefined);
-                });
-            });
-            if (answer !== undefined) {
-                return answer;
-            }
-        }
-    } finally {
-        rl.close();
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+  try {
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const answer = await new Promise((resolve) => {
+        rl.question(question, (userInput) => {
+          if (['y', 'Y', ''].includes(userInput)) {
+            if (functionToRun) functionToRun();
+            resolve(true);
+          }
+          if (userInput === 'n') {
+            resolve(false);
+          }
+          resolve(undefined);
+        });
+      });
+      if (answer !== undefined) {
+        return answer;
+      }
     }
-    return false;
+  } finally {
+    rl.close();
+  }
+  return false;
 }
 
 const installRustupDisclaimer = chalk`In order to work with {bold rust} smart contracts we recommend you install {bold rustup}, the Rust toolchain installer.`;
@@ -98,24 +98,24 @@ Run the following command to do it:
 Press {bold Enter} to continue project creation.`;
 
 async function setupRustAndWasm32Target() {
-    try {
-        if (isWindows) {
-            await askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstallationInstructions);
-            return false;
-        }
-        let wasRustupInstalled = false;
-        if (!isRustupInstalled()) {
-            wasRustupInstalled = await askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
-        }
-        if (!isWasmTargetAdded()) {
-            await askYesNoQuestionAndRunFunction(addWasm32TargetQuestion, addWasm32Target);
-        }
-        return wasRustupInstalled;
-    } catch (e) {
-        console.log(chalk`Failed to run {bold rust} setup script`, e);
+  try {
+    if (isWindows) {
+      await askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstallationInstructions);
+      return false;
     }
+    let wasRustupInstalled = false;
+    if (!isRustupInstalled()) {
+      wasRustupInstalled = await askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup);
+    }
+    if (!isWasmTargetAdded()) {
+      await askYesNoQuestionAndRunFunction(addWasm32TargetQuestion, addWasm32Target);
+    }
+    return wasRustupInstalled;
+  } catch (e) {
+    console.log(chalk`Failed to run {bold rust} setup script`, e);
+  }
 }
 
 module.exports = {
-    setupRustAndWasm32Target,
+  setupRustAndWasm32Target,
 };
