@@ -46,8 +46,7 @@ async function askYesNoQuestionAndRunFunction(question, functionToRun = null) {
         for (let attempt = 0; attempt < 4; attempt++) {
             const answer = await new Promise((resolve) => {
                 rl.question(question, (userInput) => {
-                    userInput = userInput.toLowerCase();
-                    if (userInput === 'y' || userInput === '') {
+                    if (['y', 'Y', ''].includes(userInput)) {
                         if (functionToRun) functionToRun();
                         resolve(true);
                     }
