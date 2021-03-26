@@ -10,6 +10,7 @@ const chalk = require('chalk')
 const which = require('which')
 const sh = require('shelljs')
 const path = require('path')
+const rustSetup = require('./utils/rust-setup');
 
 const renameFile = async function(oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -119,6 +120,12 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
     await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
   }
 
+  // setup rust
+  let wasRustupInstalled = false;
+  if (contract === 'rust') {
+    wasRustupInstalled = await rustSetup.setupRustAndWasm32Target();
+  }
+
   if (hasNpm || hasYarn) {
     console.log('Installing project dependencies...')
     spawn.sync(hasYarn ? 'yarn' : 'npm', ['install'], { cwd: projectDir, stdio: 'inherit' })
@@ -145,13 +152,21 @@ Inside that directory, you can run several commands:
     Also deploys web frontend using GitHub Pages.
     Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
 
-We suggest that you begin by typing:
+We suggest that you begin by typing:`);
 
-  {bold cd ${projectDir}}
-  {bold ${runCommand} dev}
+  if (wasRustupInstalled) {
+    console.log(chalk`
+    {bold source $HOME/.cargo/env}
+    {bold cd ${projectDir}}
+    {bold ${runCommand} dev}`);
+  } else {
+    console.log(chalk`
+    {bold cd ${projectDir}}
+    {bold ${runCommand} dev}`);
+  }
 
-Happy hacking!
-`)
+  console.log(chalk`
+Happy hacking!`);
 }
 
 const opts = yargs
