@@ -14,7 +14,7 @@
 // To conserve gas, efficient serialization is achieved through Borsh (http://borsh.io/)
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::wee_alloc;
-use near_sdk::{env, near_bindgen};
+use near_sdk::{env, near_bindgen, PanicOnDefault};
 use near_sdk::collections::LookupMap;
 
 #[global_allocator]
@@ -23,15 +23,9 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 // Structs in Rust are similar to other languages, and may include impl keyword as shown below
 // Note: the names of the structs are not important when calling the smart contract, but the function names are
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
+#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Welcome {
     records: LookupMap<String, String>,
-}
-
-impl Default for Welcome {
-  fn default() -> Self {
-      env::panic(b"Contract should be initialized before usage")
-  }
 }
 
 #[near_bindgen]
