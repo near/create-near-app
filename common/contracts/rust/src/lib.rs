@@ -30,6 +30,14 @@ pub struct Welcome {
 
 #[near_bindgen]
 impl Welcome {
+    #[init]
+    pub fn new() -> Self {
+      let this = Self {
+        records: LookupMap::new(b"a".to_vec()),
+      };
+      this
+    }
+
     pub fn set_greeting(&mut self, message: String) {
         let account_id = env::signer_account_id();
 
@@ -93,7 +101,7 @@ mod tests {
     fn set_then_get_greeting() {
         let context = get_context(vec![], false);
         testing_env!(context);
-        let mut contract = Welcome::default();
+        let mut contract = Welcome::new();
         contract.set_greeting("howdy".to_string());
         assert_eq!(
             "howdy".to_string(),
@@ -105,7 +113,7 @@ mod tests {
     fn get_default_greeting() {
         let context = get_context(vec![], true);
         testing_env!(context);
-        let contract = Welcome::default();
+        let contract = Welcome::new();
         // this test did not call set_greeting so should return the default "Hello" greeting
         assert_eq!(
             "Hello".to_string(),
