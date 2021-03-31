@@ -13,31 +13,29 @@
 
 // To conserve gas, efficient serialization is achieved through Borsh (http://borsh.io/)
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::wee_alloc;
-use near_sdk::{env, near_bindgen, PanicOnDefault};
+use near_sdk::{env, near_bindgen, setup_alloc};
 use near_sdk::collections::LookupMap;
 
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+setup_alloc!();
 
 // Structs in Rust are similar to other languages, and may include impl keyword as shown below
 // Note: the names of the structs are not important when calling the smart contract, but the function names are
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
+#[derive(BorshDeserialize, BorshSerialize)]
 pub struct Welcome {
     records: LookupMap<String, String>,
 }
 
+impl Default for Welcome {
+  fn default() -> Self {
+    Self {
+      records: LookupMap::new(b"a".to_vec()),
+    }
+  }
+}
+
 #[near_bindgen]
 impl Welcome {
-    #[init]
-    pub fn new() -> Self {
-      let this = Self {
-        records: LookupMap::new(b"a".to_vec()),
-      };
-      this
-    }
-
     pub fn set_greeting(&mut self, message: String) {
         let account_id = env::signer_account_id();
 
@@ -101,7 +99,7 @@ mod tests {
     fn set_then_get_greeting() {
         let context = get_context(vec![], false);
         testing_env!(context);
-        let mut contract = Welcome::new();
+        let mut contract = Welcome::default();
         contract.set_greeting("howdy".to_string());
         assert_eq!(
             "howdy".to_string(),
@@ -113,7 +111,7 @@ mod tests {
     fn get_default_greeting() {
         let context = get_context(vec![], true);
         testing_env!(context);
-        let contract = Welcome::new();
+        let contract = Welcome::default();
         // this test did not call set_greeting so should return the default "Hello" greeting
         assert_eq!(
             "Hello".to_string(),
