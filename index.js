@@ -10,7 +10,7 @@ const chalk = require('chalk')
 const which = require('which')
 const sh = require('shelljs')
 const path = require('path')
-const rustSetup = require('./utils/rust-setup');
+const rustSetup = require('./utils/rust-setup')
 
 const renameFile = async function(oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -121,9 +121,9 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   }
 
   // setup rust
-  let wasRustupInstalled = false;
+  let wasRustupInstalled = false
   if (contract === 'rust') {
-    wasRustupInstalled = await rustSetup.setupRustAndWasm32Target();
+    wasRustupInstalled = await rustSetup.setupRustAndWasm32Target()
   }
 
   if (hasNpm || hasYarn) {
@@ -152,21 +152,21 @@ Inside that directory, you can run several commands:
     Also deploys web frontend using GitHub Pages.
     Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
 
-We suggest that you begin by typing:`);
+We suggest that you begin by typing:`)
 
   if (wasRustupInstalled) {
     console.log(chalk`
     {bold source $HOME/.cargo/env}
     {bold cd ${projectDir}}
-    {bold ${runCommand} dev}`);
+    {bold ${runCommand} dev}`)
   } else {
     console.log(chalk`
     {bold cd ${projectDir}}
-    {bold ${runCommand} dev}`);
+    {bold ${runCommand} dev}`)
   }
 
   console.log(chalk`
-Happy hacking!`);
+Happy hacking!`)
 }
 
 const opts = yargs
