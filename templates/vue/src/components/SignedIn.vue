@@ -41,7 +41,7 @@
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://docs.near.org/docs/roles/developer/contracts/intro"
+            href="https://docs.near.org/docs/develop/contracts/overview"
           >smart contract</a>.
         </li>
         <li>

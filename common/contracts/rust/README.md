@@ -20,7 +20,7 @@ Exploring The Code
    can see any debug info you print to the console.
 
 
-  [smart contract]: https://docs.near.org/docs/roles/developer/contracts/intro
+  [smart contract]: https://docs.near.org/docs/develop/contracts/overview
   [Rust]: https://www.rust-lang.org/
   [create-near-app]: https://github.com/near/create-near-app
   [correct target]: https://github.com/near/near-sdk-rs#pre-requisites

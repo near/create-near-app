@@ -8,7 +8,7 @@
  *    defaulting to "Hello"
  *
  * Learn more about writing NEAR smart contracts with AssemblyScript:
- * https://docs.near.org/docs/roles/developer/contracts/assemblyscript
+ * https://docs.near.org/docs/develop/contracts/as/intro
  *
  */
 
@@ -22,7 +22,7 @@ export function getGreeting(accountId: string): string | null {
   // This uses raw `storage.get`, a low-level way to interact with on-chain
   // storage for simple contracts.
   // If you have something more complex, check out persistent collections:
-  // https://docs.near.org/docs/roles/developer/contracts/assemblyscript#imports
+  // https://docs.near.org/docs/concepts/data-storage#assemblyscript-collection-types
   return storage.get<string>(accountId, DEFAULT_MESSAGE)
 }
 
