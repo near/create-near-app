@@ -36,5 +36,5 @@ jobs:
       os: linux
       env:
       script:
-        - npx commitlint-travis
+        # - npx commitlint-travis
         - yarn lint
