@@ -1534,10 +1534,10 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-flowtype@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-5.2.0.tgz#a4bef5dc18f9b2bdb41569a4ab05d73805a3d261"
-  integrity sha512-z7ULdTxuhlRJcEe1MVljePXricuPOrsWfScRXFhNzVD5dmTHWjIF57AxD0e7AbEoLSbjSsaA5S+hCg43WvpXJQ==
+eslint-plugin-flowtype@5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-5.7.0.tgz#1fe68f9cd16e35bf30e09d4ebacf9cfbfe7a41a4"
+  integrity sha512-6Oa0D6kq3PGwJvivrLNSgeiPN/ftPkRvhbeHWoXUEGQ+ZugerSJvoMDSCc9dZa4R691b/eLXpx8dyMSZM1Tc4w==
   dependencies:
     lodash "^4.17.15"
     string-natural-compare "^3.0.1"
@@ -1601,9 +1601,9 @@ eslint-plugin-react@7.x:
     string.prototype.matchall "^4.0.2"
 
 eslint-plugin-vue@^7.0.0:
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.7.0.tgz#a90df4595e670821bf243bd2750ededdb74948b8"
-  integrity sha512-mYz4bpLGv5jx6YG/GvKkqbGSfV7uma2u1P3mLA41Q5vQl8W1MeuTneB8tfsLq6xxxesFubcrOC0BZBJ5R+eaCQ==
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.9.0.tgz#f8e83a2a908f4c43fc8304f5401d4ff671f3d560"
+  integrity sha512-2Q0qQp5+5h+pZvJKCbG1/jCRUYrdgAz5BYKGyTlp2NU8mx09u3Hp7PsH6d5qef6ojuPoCXMnrbbDxeoplihrSw==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
@@ -4162,9 +4162,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@^4.0.2:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
-  integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
 
 uglify-js@^3.1.4:
   version "3.13.0"
