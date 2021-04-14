@@ -29,7 +29,7 @@
     "@angular/router": "~10.1.0",
     "near-api-js": "~0.36.3",
     "rxjs": "~6.6.3",
-    "tslib": "~2.0.0",
+    "tslib": "~2.2.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
