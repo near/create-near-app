@@ -1,0 +1,14 @@
+name: Tests
+on: push
+jobs:
+  tests:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn test
