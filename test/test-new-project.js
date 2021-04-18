@@ -32,7 +32,7 @@ const frontends = process.env.FRONTEND
   : ['vanilla', 'react', 'vue', 'angular']
 
 const commands = contracts.map(c => frontends.map(f => (
-  `node index.js ${TEST_PROJECT} --contract=${c} --frontend=${f}`
+  `yes | node index.js ${TEST_PROJECT} --contract=${c} --frontend=${f}`
 ))).flat()
 
 commands.forEach(command => {
