@@ -5,7 +5,7 @@ const sh = require('shelljs')
 
 // script from https://rustup.rs/ with auto-accept flag "-y"
 const installRustupScript = 'curl --proto \'=https\' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y'
-const updatePath = 'source $HOME/.cargo/env'
+const updatePath = '. $HOME/.cargo/env'
 const addWasm32TargetScript = 'rustup target add wasm32-unknown-unknown'
 // We should update PATH in the same script because every new Bash scripts are executed in a separate shell
 const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32TargetScript
