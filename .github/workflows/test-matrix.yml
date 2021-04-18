@@ -5,10 +5,16 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
+        contract: [assemblyscript, rust]
+        frontend: ['vanilla', 'react', 'vue', 'angular']
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
       run: yarn
     - name: Run tests
+      env:
+        CONTRACT: ${{ matrix.contract }}
+        FRONTEND: ${{ matrix.frontend }}
+        NEAR_ENV: ci 
       run: yarn test
