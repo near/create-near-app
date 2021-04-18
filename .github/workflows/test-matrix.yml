@@ -17,4 +17,5 @@ jobs:
         CONTRACT: ${{ matrix.contract }}
         FRONTEND: ${{ matrix.frontend }}
         NEAR_ENV: ci 
+        IS_GITHUB_ACTION: true
       run: yarn test

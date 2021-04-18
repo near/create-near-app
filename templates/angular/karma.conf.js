@@ -33,7 +33,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: [process.env.TRAVIS ? 'ChromeHeadlessNoSandbox' : 'Chrome'],
+    browsers: [process.env.IS_GITHUB_ACTION ? 'ChromeHeadlessNoSandbox' : 'Chrome'],
     singleRun: !config.buildWebpack.options.watch,
     restartOnFileChange: true
   })
