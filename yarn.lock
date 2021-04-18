@@ -115,7 +115,7 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@commitlint/cli@^12.0.0", "@commitlint/cli@^12.0.1":
+"@commitlint/cli@^12.0.0":
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-12.0.1.tgz#8960e34e8f1aed8b2ea50f223ee817fdf2264ffb"
   integrity sha512-V+cMYNHJOr40XT9Kvz3Vrz1Eh7QE1rjQrUbifawDAqcOrBJFuoXwU2SAcRtYFCSqFy9EhbreQGhZFs8dYb90KA==
@@ -245,14 +245,6 @@
   integrity sha512-rHdgt7U24GEau2/9i2vEAbksxkBRiVjHj5ECFL5dd0AJOIvaK++vMg4EF/ME0X/1yd9qVTHTNOl2Q4tTFK7VBQ==
   dependencies:
     find-up "^5.0.0"
-
-"@commitlint/travis-cli@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@commitlint/travis-cli/-/travis-cli-12.0.1.tgz#6aa6b373a9a665909b6866bb84cf87568830da4d"
-  integrity sha512-QJaQa4R8AFArf9zzJ6l+9E3NzIcIL7H5+3V1ZarFqCCPairEgYCJhOUV7aIhGKRm2HoOkuna0cmuocfIt9S2ZQ==
-  dependencies:
-    "@commitlint/cli" "^12.0.1"
-    execa "^5.0.0"
 
 "@commitlint/types@^12.0.1":
   version "12.0.1"
@@ -1730,7 +1722,7 @@ esutils@^2.0.2:
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
-execa@5.0.0, execa@^5.0.0:
+execa@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/execa/-/execa-5.0.0.tgz#4029b0007998a841fbd1032e5f4de86a3c1e3376"
   integrity sha512-ov6w/2LCiuyO4RLYGdpFGjkcs0wMTgGE8PrkTHikeUy5iJekXyPIKUjifk5CsE0pt7sMCrMZ3YNqoCj6idQOnQ==

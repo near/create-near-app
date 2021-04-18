@@ -64,7 +64,7 @@ about commit messages
 
 Real world examples can look like this:
 
-    chore: run tests on travis ci
+    chore: run tests with GitHub Actions
 
     fix(server): send cors headers
 
