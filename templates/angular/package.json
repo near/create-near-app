@@ -30,7 +30,7 @@
     "near-api-js": "~0.36.3",
     "rxjs": "~6.6.3",
     "tslib": "~2.2.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~11.1.1",
