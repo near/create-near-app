@@ -43,8 +43,10 @@ if (code === 0 && calledFromDir !== __dirname) {
   const outFile = `./build/${debug ? 'debug' : 'release'}/${packageName}.wasm`
   sh.mkdir('-p', linkDir)
   sh.rm('-f', link)
-  const linkPath = path.relative(linkDir, outFile)
-  sh.ln('-s', linkPath, link)
+  //fixes #831: copy-update instead of linking .- sometimes sh.ln does not work on Windows
+  //const linkPath = path.relative(linkDir, outFile)
+  //sh.ln('-s', linkPath, link)
+  sh.cp("-u",outFile,link)
 }
 
 // exit script with the same code as the build command
