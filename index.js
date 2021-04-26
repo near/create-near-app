@@ -11,6 +11,7 @@ const which = require('which')
 const sh = require('shelljs')
 const path = require('path')
 const rustSetup = require('./utils/rust-setup')
+const mixpanel =require('./tracking')
 
 const renameFile = async function(oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -164,6 +165,8 @@ We suggest that you begin by typing:`)
     {bold cd ${projectDir}}
     {bold ${runCommand} dev}`)
   }
+
+  mixpanel.track(frontend, contract)
 
   console.log(chalk`
 Happy hacking!`)

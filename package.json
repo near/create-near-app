@@ -33,6 +33,7 @@
   "dependencies": {
     "chalk": "^4.0.0",
     "cross-spawn": "^7.0.1",
+    "mixpanel": "^0.13.0",
     "ncp": "^2.0.0",
     "os": "^0.1.1",
     "replace-in-files": "^3.0.0",
