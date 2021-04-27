@@ -56,6 +56,7 @@ function copyDir (source, dest, { skip, veryVerbose } = {}) {
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
+  mixpanel.track(frontend, contract)
 
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`)
 
@@ -165,8 +166,6 @@ We suggest that you begin by typing:`)
     {bold cd ${projectDir}}
     {bold ${runCommand} dev}`)
   }
-
-  mixpanel.track(frontend, contract)
 
   console.log(chalk`
 Happy hacking!`)
