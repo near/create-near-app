@@ -6,8 +6,7 @@ const mixpanel = require('mixpanel').init(MIXPANEL_TOKEN);
 const track = async (frontendType, contractType) => {
     try {
         console.log(chalk`
-NEAR will collect the type of UI and contract to improve developer experience. But NEAR will never send private information.
-        `)
+NEAR collects basic information on the type of commands used to improve developer experiences. All data are anonymous, therefore, no personal information that could identify you will be shared.        `)
         const mixPanelProperties = {
             frontend: frontendType,
             contract: contractType,
