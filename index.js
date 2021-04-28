@@ -11,6 +11,7 @@ const which = require('which')
 const sh = require('shelljs')
 const path = require('path')
 const rustSetup = require('./utils/rust-setup')
+const mixpanel =require('./tracking')
 
 const renameFile = async function(oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -55,6 +56,7 @@ function copyDir (source, dest, { skip, veryVerbose } = {}) {
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
+  mixpanel.track(frontend, contract)
 
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`)
 
