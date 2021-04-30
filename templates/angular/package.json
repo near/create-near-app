@@ -27,7 +27,7 @@
     "@angular/platform-browser": "~11.2.11",
     "@angular/platform-browser-dynamic": "~11.2.11",
     "@angular/router": "~11.2.11",
-    "near-api-js": "~0.39.0",
+    "near-api-js": "~0.40.0",
     "rxjs": "~6.6.3",
     "tslib": "~2.2.0",
     "zone.js": "~0.11.4"
