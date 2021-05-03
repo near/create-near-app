@@ -56,8 +56,10 @@ function copyDir (source, dest, { skip, veryVerbose } = {}) {
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
-  mixpanel.track(frontend, contract)
-
+  if(!process.env.IS_GITHUB_ACTION){
+    mixpanel.track(frontend, contract)
+  }
+  
   console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`)
 
   await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: [
