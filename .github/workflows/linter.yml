@@ -1,7 +1,6 @@
+name: Linter
 on:
   push:
-  pull_request:
-
 jobs:
   eslint:
     name: eslint
