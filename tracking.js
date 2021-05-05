@@ -4,6 +4,11 @@ const chalk = require('chalk')
 const mixpanel = require('mixpanel').init(MIXPANEL_TOKEN)
 
 const track = async (frontendType, contractType) => {
+  // prevents logging from CI
+  if (process.env.IS_GITHUB_ACTION) { 
+    console.log('Mixpanel logging is skipped in CI env')
+    return
+  }
   try {
     console.log(chalk`
 NEAR collects basic information on the type of commands used to improve developer experiences. All data are anonymous, therefore, no personal information that could identify you will be shared.        `)
