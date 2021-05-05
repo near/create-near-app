@@ -11,7 +11,7 @@ const which = require('which')
 const sh = require('shelljs')
 const path = require('path')
 const rustSetup = require('./utils/rust-setup')
-const mixpanel =require('./tracking')
+const mixpanel =require('./utils/tracking')
 
 const renameFile = async function(oldPath, newPath) {
   return new Promise((resolve, reject) => {
