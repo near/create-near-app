@@ -8,4 +8,4 @@ jobs:
     - name: Install modules
       run: yarn
     - name: Run ESLint
-      run: yarn lint
+      run: yarn lint --max-warnings 0

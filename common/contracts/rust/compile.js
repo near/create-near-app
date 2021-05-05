@@ -10,7 +10,6 @@
 // makes it easy to use *NIX-style scripting (which works on Linux distros,
 // macOS, and Unix systems) on Windows as well.
 const sh = require('shelljs')
-const path = require('path')
 
 // Figure out which directory the user called this script from, which we'll use
 // later to set up the symlink.
@@ -47,9 +46,7 @@ if (code === 0 && calledFromDir !== __dirname) {
   sh.mkdir('-p', linkDir)
   sh.rm('-f', link)
   //fixes #831: copy-update instead of linking .- sometimes sh.ln does not work on Windows
-  //const linkPath = path.relative(linkDir, outFile)
-  //sh.ln('-s', linkPath, link)
-  sh.cp("-u",outFile,link)
+  sh.cp('-u',outFile,link)
 }
 
 // exit script with the same code as the build command
