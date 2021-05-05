@@ -10,7 +10,7 @@
 // makes it easy to use *NIX-style scripting (which works on Linux distros,
 // macOS, and Unix systems) on Windows as well.
 const sh = require('shelljs')
-const path = require('path')
+// const path = require('path')
 
 // Figure out which directory the user called this script from, which we'll use
 // later to set up the symlink.
