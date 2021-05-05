@@ -1,13 +1,11 @@
 name: Linter
 on: push
 jobs:
-  eslint:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '12'
     - name: Install modules
       run: yarn
-    - uses: reviewdog/action-eslint@v1
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx
