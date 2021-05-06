@@ -4,9 +4,9 @@
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "files": [
-    "/common",
-    "/templates",
-    "/utils"
+    "common",
+    "templates",
+    "utils"
   ],
   "scripts": {
     "test": "node ./test/test-new-project.js",
