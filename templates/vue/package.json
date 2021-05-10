@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "core-js": "~3.12.1",
-    "near-api-js": "~0.40.0",
+    "near-api-js": "~0.41.0",
     "vue": "~2.6.11"
   },
   "devDependencies": {
