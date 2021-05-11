@@ -27,7 +27,7 @@
     "shelljs": "~0.8.4"
   },
   "dependencies": {
-    "near-api-js": "~0.40.0",
+    "near-api-js": "~0.41.0",
     "regenerator-runtime": "~0.13.5"
   },
   "jest": {
