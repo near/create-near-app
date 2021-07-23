@@ -5,10 +5,10 @@ authors = ["Near Inc <hello@near.org>"]
 edition = "2018"
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib"]
 
 [dependencies]
-near-sdk = "3.1.0"
+near-sdk = "4.0.0-pre.1"
 
 [profile.release]
 codegen-units = 1
