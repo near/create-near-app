@@ -44,7 +44,7 @@ impl Welcome {
     }
 
     pub fn get_greeting(&self, account_id: AccountId) -> String {
-        self.records.get(&account_id).unwrap_or("Hello".to_string())
+        self.records.get(&account_id).unwrap_or_else(|| "Hello".to_string())
     }
 }
 
