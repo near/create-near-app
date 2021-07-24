@@ -69,8 +69,8 @@ mod tests {
         let mut contract = Welcome::default();
         contract.set_greeting("howdy".to_string());
 
-        // The testing environment is initialized by default, so can just retrieve using `env`,
-        // which is also available in tests.
+        // The testing environment is initialized by default, so can just retrieve the signer
+        // account id using `env`, which is also available in tests.
         assert_eq!(
             "howdy".to_string(),
             contract.get_greeting(env::signer_account_id())
