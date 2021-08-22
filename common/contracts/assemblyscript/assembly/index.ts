@@ -23,7 +23,7 @@ export function getGreeting(accountId: string): string | null {
   // storage for simple contracts.
   // If you have something more complex, check out persistent collections:
   // https://docs.near.org/docs/concepts/data-storage#assemblyscript-collection-types
-  return storage.get(accountId, DEFAULT_MESSAGE)
+  return storage.get<string>(accountId, DEFAULT_MESSAGE)
 }
 
 export function setGreeting(message: string): void {
