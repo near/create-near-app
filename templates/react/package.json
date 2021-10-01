@@ -32,7 +32,7 @@
     "shelljs": "~0.8.4"
   },
   "dependencies": {
-    "near-api-js": "~0.41.0",
+    "near-api-js": "~0.43.1",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
     "regenerator-runtime": "~0.13.5"
