@@ -54,8 +54,8 @@ function copyDir (source, dest, { skip, veryVerbose } = {}) {
 }
 
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
-  if (frontend == "angular") {
-    console.log(chalk`{yellow Angular frontend is deprecated. You can choose vanilla, react or vue.}`);
+  if (frontend === 'angular') {
+    console.log(chalk`{yellow Angular frontend is deprecated. You can choose vanilla, react or vue.}`)
   }
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
