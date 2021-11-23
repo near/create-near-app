@@ -1,0 +1,19 @@
+[package]
+name = "greeter"
+version = "0.1.0"
+authors = ["Near Inc <hello@near.org>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = "=3.1.0"
+
+[profile.release]
+codegen-units=24
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+overflow-checks = true

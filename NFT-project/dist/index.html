@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.df682a99.ico">
+  <link rel="apple-touch-icon" href="/favicon.df682a99.ico">
+  <title>Welcome to NEAR</title>
+  <link rel="stylesheet" href="/global.e50bbfba.css">
+<script src="/global.e50bbfba.js"></script></head>
+<body>
+  <main id="signed-out-flow" style="display: none">
+    <h1>Welcome to NEAR!</h1>
+    <p>
+      To make use of the NEAR blockchain, you need to sign in. The button
+      below will sign you in using NEAR Wallet.
+    </p>
+    <p style="text-align: center; margin-top: 2.5em">
+      <button id="sign-in-button">Sign in</button>
+    </p>
+  </main>
+
+  <div id="signed-in-flow" style="display: none">
+    <p style="margin-top: 0;">Greeting
+    <span data-behavior="account-id"></span>!
+    <button class="link" style="float: right" id="sign-out-button">
+      Sign out
+    </button>
+    </p>
+    <main>
+      <form>
+        <fieldset id="fieldset">
+          <label for="greeting" style="display: block; color: var(--white); margin-bottom: 0.5em">
+            Thank you for visiting my page. I want to give you this lovely bunny.
+          </label>
+          <img style="display: block; max-width: 25em;" src="https://bafkreihrqxdfhu4bn4l2uvh52tjfepbfn2henu4zfuwca6c4mzus62phg4.ipfs.dweb.link/">
+          <div style="display: flex">
+            <button style="border-radius: 5px">Get a gift!</button>
+          </div>
+        </fieldset>
+      </form>
+      <hr>
+      <p>
+    </p></main>
+  </div>
+
+  <aside data-behavior="notification" style="display: none">
+    <a target="_blank" href="https://explorer.testnet.near.org/accounts/"></a>
+    You've just minted:
+    <a target="_blank" href="https://explorer.testnet.near.org/accounts/"></a>
+    <br>Check your collectibles: <a target="_blank" href="https://wallet.testnet.near.org/?tab=collectibles">HERE</a>
+    <footer>
+      <div>✔ Succeeded</div>
+      <div>Just now</div>
+    </footer>
+  </aside>
+
+  <script src="/src.e31bb0bc.js"></script>
+</body>
+</html>
