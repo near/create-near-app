@@ -48,13 +48,6 @@ function getConfig(env) {
         contractName: CONTRACT_NAME,
         masterAccount: 'test.near',
       }
-    case 'ci-betanet':
-      return {
-        networkId: 'shared-test-staging',
-        nodeUrl: 'https://rpc.ci-betanet.near.org',
-        contractName: CONTRACT_NAME,
-        masterAccount: 'test.near',
-      }
     default:
       throw Error(`Unconfigured environment '${env}'. Can be configured in src/config.js.`)
   }
