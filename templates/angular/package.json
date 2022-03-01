@@ -58,6 +58,6 @@
     "puppeteer": "~9.1.1",
     "shelljs": "~0.8.4",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.5"
+    "typescript": "~4.1.6"
   }
 }
