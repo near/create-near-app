@@ -32,7 +32,7 @@
     "@vue/test-utils": "~1.2.0",
     "env-cmd": "~10.1.0",
     "eslint": "~7.26.0",
-    "eslint-plugin-vue": "~7.9.0",
+    "eslint-plugin-vue": "~8.6.0",
     "gh-pages": "~3.1.0",
     "near-cli": "~2.1.1",
     "nodemon": "~2.0.4",
