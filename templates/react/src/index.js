@@ -1,13 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-import { initContract } from './utils'
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { initContract } from "./utils";
+
+const container = document.querySelector("#root");
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 window.nearInitPromise = initContract()
   .then(() => {
-    ReactDOM.render(
-      <App />,
-      document.querySelector('#root')
-    )
+    <App />;
+    root.render(<App tab="home" />);
   })
-  .catch(console.error)
+  .catch(console.error);
