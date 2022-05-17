@@ -1,9 +1,11 @@
-import { setGreeting } from '..'
-import { storage, Context } from 'near-sdk-as'
+import { set_greeting, get_greeting } from '..'
 
 describe('Greeting ', () => {
-  it('should be set and read', () => {
-    setGreeting('hello world')
-    storage.get<string>(Context.sender)
+  it('should get the default greeting', () => {
+    expect(get_greeting()).toBe("Hello")
+  })
+  it('should change the greeting', () => {
+    set_greeting('howdy')
+    expect(get_greeting()).toBe('howdy')
   })
 })

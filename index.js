@@ -54,9 +54,6 @@ function copyDir (source, dest, { skip, veryVerbose } = {}) {
 }
 
 const createProject = async function({ contract, frontend, projectDir, veryVerbose }) {
-  if (frontend === 'angular') {
-    console.log(chalk`{yellow Angular frontend is deprecated. You can choose vanilla, react or vue.}`)
-  }
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
   mixpanel.track(frontend, contract)
@@ -74,12 +71,10 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
     path.join(sourceTemplateDir, 'yarn.lock'),
     path.join(sourceTemplateDir, 'package-lock.json'),
     path.join(sourceTemplateDir, 'contract'),
-    ...sh.ls(`${__dirname}/common/frontend`).map(f => path.join('src', f))
   ]})
 
 
   // copy common files
-  await copyDir(`${__dirname}/common/frontend`, `${projectDir}/src`)
   const contractSourceDir = `${__dirname}/common/contracts/${contract}`
   await copyDir(contractSourceDir, `${projectDir}/contract`, { veryVerbose, skip: [
     // as above, skip rapid-development build artifacts
@@ -96,9 +91,7 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
       `${projectDir}/README.md`,
       `${projectDir}/package.json`,
       `${projectDir}/contract/README.md`,
-      `${projectDir}/src/config.js`,
-      `${projectDir}/src/App.vue`,
-      `${projectDir}/angular.json`,
+      `${projectDir}/frontend/config.js`,
       `${projectDir}/karma.conf.js`,
       `${projectDir}/set-contract-name.js`,
     ],
@@ -107,11 +100,12 @@ const createProject = async function({ contract, frontend, projectDir, veryVerbo
   })
 
   if (contract === 'rust') {
-    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /getGreeting/g, to: 'get_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /setGreeting/g, to: 'set_greeting' })
-    await replaceInFiles({ files: `${projectDir}/src/**/*`, from: /{ accountId:/g, to: '{ account_id:' })
-    await replaceInFiles({ files: `${projectDir}/package.json`, from: 'cd contract && npm run test', to: 'cd contract && cargo test -- --nocapture' })
-    await replaceInFiles({ files: `${projectDir}/package.json`, from: 'watch contract -e ts', to: 'watch contract/src -e rs' })
+    await replaceInFiles({ files: `${projectDir}/package.json`,
+                           from: 'cd contract && npm run build && mkdir -p ../out && rm -f ./out/greeter.wasm && cp ./build/release/greeter.wasm ../out/main.wasm',
+                           to: 'mkdir -p out && cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release && rm -f ./out/main.wasm && cp ./target/wasm32-unknown-unknown/release/greeter.wasm ../out/main.wasm' })
+    await replaceInFiles({ files: `${projectDir}/package.json`,
+                           from: '"test:unit": "cd contract && npm i && npm run test"',
+                           to: '"test:unit": "cd contract && cargo test"' })
   }
 
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
@@ -153,7 +147,7 @@ Inside that directory, you can run several commands:
     Starts the test runner.
 
   {bold ${runCommand} deploy}
-    Deploys contract in permanent location (as configured in {bold src/config.js}).
+    Deploys contract in permanent location (as configured in {bold frontend/config.js}).
     Also deploys web frontend using GitHub Pages.
     Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
 
@@ -181,7 +175,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react', 'vue', 'angular'],
+    choices: ['vanilla', 'react'],
     default: 'vanilla',
   })
   .option('contract', {
