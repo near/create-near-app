@@ -170,7 +170,7 @@ const opts = yargs
   .option('contract', {
     desc: 'language for smart contract',
     choices: ['assemblyscript', 'rust'],
-    default: 'assemblyscript'
+    default: 'rust'
   })
   .option('very-verbose', {
     desc: 'turn on very verbose logging',
