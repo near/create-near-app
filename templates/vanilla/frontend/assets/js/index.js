@@ -59,6 +59,7 @@ function flow(){
 // Display the signed-out-flow container
 function signedOutFlow() {
   document.querySelector('#signed-out-flow').style.display = 'block'
+  fetchGreeting()
 }
 
 // Displaying the signed in flow container and fill in account-specific data

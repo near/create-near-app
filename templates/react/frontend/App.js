@@ -21,15 +21,11 @@ export default function App() {
   // Learn more: https://reactjs.org/docs/hooks-intro.html
   React.useEffect(
     () => {
-      // in this case, we only care to query the contract when signed in
-      if (window.walletConnection.isSignedIn()) {
-
-        // get_greeting is in near/utils.js
-        get_greeting()
-        .then(greetingFromContract => {
-          setGreeting(greetingFromContract)
-        })
-      }
+      // get_greeting is in near/utils.js
+      get_greeting()
+      .then(greetingFromContract => {
+        setGreeting(greetingFromContract)
+      })
     },
 
     // The second argument to useEffect tells React when to re-run the effect
@@ -42,19 +38,27 @@ export default function App() {
   if (!window.walletConnection.isSignedIn()) {
     return (
       <main>
-        <h1>Welcome to NEAR!</h1>
+        <h1>
+          <label
+            htmlFor="greeting"
+            style={{
+              color: 'var(--secondary)',
+              borderBottom: '2px solid var(--secondary)'
+            }}
+          >
+            {greeting}
+          </label>
+          ! Welcome to NEAR!
+        </h1>
         <p>
-          To make use of the NEAR blockchain, you need to sign in. The button
-          below will sign you in using NEAR Wallet.
+        Your contract is storing a greeting message in the NEAR blockchain. To
+        change it you need to sign in using the NEAR Wallet. It is very simple,
+        just use the button below.
         </p>
         <p>
-          By default, when your app runs in "development" mode, it connects
-          to a test network ("testnet") wallet. This works just like the main
-          network ("mainnet") wallet, but the NEAR Tokens on testnet aren't
-          convertible to other currencies – they're just for testing!
-        </p>
-        <p>
-          Go ahead and click the button below to try it out:
+        Do not worry, this app runs in the test network ("testnet"). It works
+        just like the main network ("mainnet"), but using NEAR Tokens that are
+        only for testing!
         </p>
         <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
           <button onClick={login}>Sign in</button>
