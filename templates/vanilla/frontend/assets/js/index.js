@@ -45,8 +45,8 @@ async function fetchGreeting() {
 
 // `nearInitPromise` gets called on page load
 window.nearInitPromise = initContract()
-                        .then(flow)
-                        .catch(console.error)
+  .then(flow)
+  .catch(console.error)
 
 function flow(){
   if (window.walletConnection.isSignedIn()){

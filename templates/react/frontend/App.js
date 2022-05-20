@@ -23,9 +23,9 @@ export default function App() {
     () => {
       // get_greeting is in near/utils.js
       get_greeting()
-      .then(greetingFromContract => {
-        setGreeting(greetingFromContract)
-      })
+        .then(greetingFromContract => {
+          setGreeting(greetingFromContract)
+        })
     },
 
     // The second argument to useEffect tells React when to re-run the effect

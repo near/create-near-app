@@ -47,5 +47,5 @@ export async function set_greeting(message){
 
 export async function get_greeting(){
   let greeting = await window.contract.get_greeting()
-  return greeting;
+  return greeting
 }
