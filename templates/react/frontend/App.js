@@ -47,8 +47,8 @@ export default function App() {
             }}
           >
             {greeting}
-          </label>
-          ! Welcome to NEAR!
+          </label>!
+          Welcome to NEAR!
         </h1>
         <p>
         Your contract is storing a greeting message in the NEAR blockchain. To
