@@ -135,11 +135,6 @@ Inside that directory, you can run several commands:
   {bold ${runCommand} test}
     Starts the test runner.
 
-  {bold ${runCommand} deploy}
-    Deploys contract in permanent location (as configured in {bold frontend/config.js}).
-    Also deploys web frontend using GitHub Pages.
-    Consult with {bold README.md} for details on how to deploy and {bold package.json} for full list of commands.
-
 We suggest that you begin by typing:`)
 
   if (wasRustupInstalled) {
