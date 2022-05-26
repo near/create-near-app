@@ -4,7 +4,7 @@
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "files": [
-    "common",
+    "contracts",
     "templates",
     "utils"
   ],
