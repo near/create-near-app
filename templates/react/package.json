@@ -16,7 +16,7 @@
         "test:integration:rs": "cd integration-tests/rs && cargo run --example integration-tests"
   },
   "devDependencies": {
-    "@babel/core": "~7.17.12",
+    "@babel/core": "~7.18.2",
     "@babel/preset-env": "~7.17.12",
     "@babel/preset-react": "~7.17.12",
     "ava": "^4.2.0",
