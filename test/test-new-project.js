@@ -15,10 +15,10 @@ if (![undefined, 'assemblyscript', 'rust'].includes(process.env.CONTRACT)) {
   process.exit(1)
 }
 
-if (![undefined, 'react', 'vanilla', 'vue', 'angular'].includes(process.env.FRONTEND)) {
+if (![undefined, 'react', 'vanilla'].includes(process.env.FRONTEND)) {
   console.error(
     `Unknown FRONTEND template '${process.env.FRONTEND}'; ` +
-        'use \'react\', \'vanilla\', \'vue\' or \'angular\''
+        'use \'react\' or \'vanilla\''
   )
   process.exit(1)
 }
@@ -29,7 +29,7 @@ const contracts = process.env.CONTRACT
 
 const frontends = process.env.FRONTEND
   ? [process.env.FRONTEND]
-  : ['vanilla', 'react', 'vue', 'angular']
+  : ['vanilla', 'react']
 
 const commands = contracts.map(c => frontends.map(f => (
   `yes | node index.js ${TEST_PROJECT} --contract=${c} --frontend=${f}`
