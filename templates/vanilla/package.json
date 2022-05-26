@@ -1,40 +1,34 @@
 {
-  "name": "near-blank-project",
-  "version": "0.0.1",
-  "license": "UNLICENSED",
+  "name": "greeter",
+  "version": "1.0.0",
+  "license": "(MIT AND Apache-2.0)",
   "scripts": {
     "build": "npm run build:contract && npm run build:web",
-    "build:contract": "node contract/compile.js",
-    "build:contract:debug": "node contract/compile.js --debug",
-    "build:web": "parcel build src/index.html --public-url ./",
-    "dev:deploy:contract": "near dev-deploy",
-    "deploy:contract": "near deploy",
-    "deploy:pages": "gh-pages -d dist/",
-    "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
-    "prestart": "npm run build:contract:debug && npm run dev:deploy:contract",
-    "start": "echo The app is starting! It will automatically open in your browser when ready && env-cmd -f ./neardev/dev-account.env parcel src/index.html --open",
+      "build:contract": "cd contract && npm run build && mkdir -p ../out && rm -f ./out/main.wasm && cp ./build/release/greeter.wasm ../out/main.wasm",
+      "build:web": "parcel build frontend/index.html --public-url ./",
+    "deploy": "npm run build && near dev-deploy",
+    "start": "npm run deploy && echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open",
     "dev": "nodemon --watch contract -e ts --exec \"npm run start\"",
-    "test": "npm run build:contract:debug && cd contract && npm run test && cd .. && jest test --runInBand"
+    "test": "npm run build && npm run test:unit && npm run test:integration",
+      "test:unit": "cd contract && npm i && npm run test",
+      "test:integration": "npm run test:integration:ts && npm run test:integration:rs",
+        "test:integration:ts": "ava --verbose",
+        "test:integration:rs": "cd integration-tests/rs && cargo run --example integration-tests"
   },
   "devDependencies": {
-    "env-cmd": "~10.1.0",
-    "gh-pages": "~3.1.0",
-    "jest": "~26.6.2",
-    "jest-environment-node": "~26.6.2",
-    "near-cli": "~2.1.1",
-    "nodemon": "~2.0.3",
-    "parcel-bundler": "~1.12.4",
-    "shelljs": "~0.8.4"
+    "env-cmd": "^10.1.0",
+    "near-cli": "^3.2.0",
+    "nodemon": "~2.0.16",
+    "parcel": "^2.5.0",
+    "ava": "^4.2.0",
+    "near-workspaces": "^2.0.0",
+    "typescript": "^4.6.4",
+    "process": "^0.11.10",
+    "ts-node": "^10.7.0"
   },
   "dependencies": {
-    "near-api-js": "~0.43.1",
-    "regenerator-runtime": "~0.13.5"
-  },
-  "jest": {
-    "testEnvironment": "near-cli/test_environment",
-    "testPathIgnorePatterns": [
-      "<rootDir>/contract/",
-      "<rootDir>/node_modules/"
-    ]
+    "near-api-js": "^0.44.2",
+    "near-sdk-as": "^3.2.3",
+    "regenerator-runtime": "~0.13.9"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "name": "greeter",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "build": "asb",
+    "test": "asp --nologo"
+  },
+  "dependencies": {
+    "near-sdk-as": "^3.2.3"
+  }
+}
