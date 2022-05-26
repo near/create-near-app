@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "scripts": {
-    "build": "cd contract && npm run build && mkdir -p ../out && rm -f ./out/greeter.wasm && cp ./build/release/greeter.wasm ../out/main.wasm",
+    "build": "npm run build:contract && npm run build:web",
+      "build:contract": "cd contract && npm run build && mkdir -p ../out && rm -f ./out/main.wasm && cp ./build/release/greeter.wasm ../out/main.wasm",
+      "build:web": "parcel build frontend/index.html --public-url ./",
     "deploy": "npm run build && near dev-deploy",
     "start": "npm run deploy && echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open",
     "dev": "nodemon --watch contract -e ts --exec \"npm run start\"",

@@ -87,7 +87,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   if (contract === 'rust') {
     await replaceInFiles({
       files: `${projectDir}/package.json`,
-      from: 'cd contract && npm run build && mkdir -p ../out && rm -f ./out/greeter.wasm && cp ./build/release/greeter.wasm ../out/main.wasm',
+      from: 'cd contract && npm run build && mkdir -p ../out && rm -f ./out/main.wasm && cp ./build/release/greeter.wasm ../out/main.wasm',
       to: 'mkdir -p out && cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release && rm -f ./out/main.wasm && cp ./target/wasm32-unknown-unknown/release/greeter.wasm ../out/main.wasm'
     })
     await replaceInFiles({
