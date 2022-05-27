@@ -4,6 +4,7 @@ const replaceInFiles = require('replace-in-files')
 const ncp = require('ncp').ncp
 ncp.limit = 16
 const fs = require('fs')
+const os = require('os')
 const spawn = require('cross-spawn')
 const chalk = require('chalk')
 const which = require('which')
