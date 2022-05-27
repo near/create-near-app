@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-const yargs = require('yargs')
-const replaceInFiles = require('replace-in-files')
-const ncp = require('ncp').ncp
-ncp.limit = 16
 const fs = require('fs')
 const os = require('os')
+const path = require('path')
+const yargs = require('yargs')
+
+const replaceInFiles = require('replace-in-files')
 const spawn = require('cross-spawn')
 const chalk = require('chalk')
 const which = require('which')
-const path = require('path')
+const ncp = require('ncp').ncp
+ncp.limit = 16
+
 const rustSetup = require('./utils/rust-setup')
 const mixpanel = require('./utils/tracking')
 
@@ -19,7 +21,6 @@ const renameFile = async function (oldPath, newPath) {
         console.error(err)
         return reject(err)
       }
-      console.log(`Renamed ${oldPath} to ${newPath}`)
       resolve()
     })
   })
@@ -53,44 +54,32 @@ function copyDir(source, dest, { skip, veryVerbose } = {}) {
 }
 
 const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
-  const isWindows = os.platform() === 'win32'
-  if( isWindows ){
-    console.log('Sorry, create-near-app is not compatible with Windows. Please consider using Windows Subsystem for Linux')
+  if (os.platform() === 'win32') {
+    console.log('Sorry, create-near-app is not compatible with Windows. Please consider using Windows Subsystem for Linux.\n')
     return
   }
-
-  const templateDir = `/templates/${frontend}`
-  const sourceTemplateDir = __dirname + templateDir
+  // track used options
   mixpanel.track(frontend, contract)
 
-  console.log(`Creating project using a ${contract} contract, and a ${frontend} frontend.`)
+  console.log(chalk`Creating {bold ${projectDir}} with a contract in {bold ${contract}}, and a frontend using {bold ${frontend} js}.`)
+  console.log(`Remember that you can change these settings using the --frontend and --contract flags. \n`)
 
-  await copyDir(sourceTemplateDir, projectDir, {
-    veryVerbose, skip: [
-      // our frontend templates are set up with symlinks for easy development,
-      // developing right in these directories also results in build artifacts;
-      // we don't want to copy these
-      path.join(sourceTemplateDir, '.cache'),
-      path.join(sourceTemplateDir, 'dist'),
-      path.join(sourceTemplateDir, 'out'),
-      path.join(sourceTemplateDir, 'node_modules'),
-      path.join(sourceTemplateDir, 'yarn.lock'),
-      path.join(sourceTemplateDir, 'package-lock.json'),
-      path.join(sourceTemplateDir, 'contract'),
-    ]
-  })
+  // skip rapid-development build artifacts and symlinks
+  const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json', 'contract', 'integration-tests']
+
+  // copy frontend
+  const sourceTemplateDir = __dirname + `/templates/${frontend}`
+  await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
+
+  // copy tests
+  const sourceTestDir = __dirname + `/integration-tests`
+  await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
 
   // copy contract files
   const contractSourceDir = `${__dirname}/contracts/${contract}`
-  await copyDir(contractSourceDir, `${projectDir}/contract`, {
-    veryVerbose, skip: [
-      // as above, skip rapid-development build artifacts
-      path.join(contractSourceDir, 'node_modules'),
-      path.join(contractSourceDir, 'yarn.lock'),
-      path.join(contractSourceDir, 'package-lock.json'),
-    ]
-  })
+  await copyDir(contractSourceDir, `${projectDir}/contract`, { veryVerbose, skip: skip.map(f => path.join(contractSourceDir, f)) })
 
+  // changes in package.json for rust
   if (contract === 'rust') {
     await replaceInFiles({
       files: `${projectDir}/package.json`,
@@ -104,8 +93,10 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
     })
   }
 
+  // add .gitignore
   await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
-  console.log('Copying project files complete.\n')
+
+  console.log('Project created! Lets set it up.\n')
 
   const hasNpm = which.sync('npm', { nothrow: true })
   const hasYarn = which.sync('yarn', { nothrow: true })
@@ -131,6 +122,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
 
   const runCommand = hasYarn ? 'yarn' : 'npm run'
 
+  // print success message
   console.log(chalk`
 Success! Created ${projectDir}
 Inside that directory, you can run several commands:
