@@ -1,5 +1,4 @@
 const chalk = require('chalk')
-const os = require('os')
 const readline = require('readline')
 const sh = require('shelljs')
 
