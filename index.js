@@ -55,7 +55,7 @@ function copyDir(source, dest, { skip, veryVerbose } = {}) {
 const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
   const isWindows = os.platform() === 'win32'
   if( isWindows ){
-    console.log(`Sorry, create-near-app is not compatible with Windows. Please consider using Windows Subsystem for Linux`)
+    console.log('Sorry, create-near-app is not compatible with Windows. Please consider using Windows Subsystem for Linux')
     return
   }
 
