@@ -9,7 +9,7 @@
     "deploy": "npm run build && near dev-deploy",
     "start": "npm run deploy && echo The app is starting! It will automatically open in your browser when ready && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open",
     "dev": "nodemon --watch contract -e ts --exec \"npm run start\"",
-    "test": "npm run build && npm run test:unit && npm run test:integration",
+    "test": "npm run build:contract && npm run test:unit && npm run test:integration",
       "test:unit": "cd contract && npm i && npm run test",
       "test:integration": "npm run test:integration:ts && npm run test:integration:rs",
         "test:integration:ts": "cd integration-tests/ts && npm run test",
