@@ -12,19 +12,19 @@
     "test": "npm run build && npm run test:unit && npm run test:integration",
       "test:unit": "cd contract && npm i && npm run test",
       "test:integration": "npm run test:integration:ts && npm run test:integration:rs",
-        "test:integration:ts": "ava --verbose",
+        "test:integration:ts": "cd integration-tests/ts && npm run test",
         "test:integration:rs": "cd integration-tests/rs && cargo run --example integration-tests"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "near-cli": "^3.2.0",
+    "near-cli": "^3.3.0",
     "nodemon": "~2.0.16",
-    "parcel": "^2.5.0",
+    "parcel": "^2.6.0",
     "ava": "^4.2.0",
     "near-workspaces": "^2.0.0",
-    "typescript": "^4.6.4",
+    "typescript": "^4.7.2",
     "process": "^0.11.10",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.8.0"
   },
   "dependencies": {
     "near-api-js": "^0.44.2",

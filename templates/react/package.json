@@ -12,23 +12,23 @@
     "test": "npm run build && npm run test:unit && npm run test:integration",
       "test:unit": "cd contract && npm i && npm run test",
       "test:integration": "npm run test:integration:ts && npm run test:integration:rs",
-        "test:integration:ts": "ava --verbose",
+        "test:integration:ts": "cd integration-tests/ts && npm run test",
         "test:integration:rs": "cd integration-tests/rs && cargo run --example integration-tests"
   },
   "devDependencies": {
-    "@babel/core": "~7.17.12",
-    "@babel/preset-env": "~7.17.12",
+    "@babel/core": "~7.18.2",
+    "@babel/preset-env": "~7.18.2",
     "@babel/preset-react": "~7.17.12",
     "ava": "^4.2.0",
     "env-cmd": "~10.1.0",
-    "near-cli": "~3.2.0",
+    "near-cli": "~3.3.0",
     "near-workspaces": "^2.0.0",
     "nodemon": "~2.0.16",
-    "parcel": "^2.5.0",
+    "parcel": "^2.6.0",
     "process": "^0.11.10",
     "react-test-renderer": "~18.1.0",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4"
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
   },
   "dependencies": {
     "near-api-js": "~0.44.2",
@@ -39,20 +39,6 @@
   },
   "resolutions": {
     "@babel/preset-env": "7.13.8"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/src/__mocks__/fileMock.js"
-    },
-    "setupFiles": [
-      "<rootDir>/src/jest.init.js"
-    ],
-    "testEnvironment": "near-cli/test_environment",
-    "testPathIgnorePatterns": [
-      "<rootDir>/contract/",
-      "<rootDir>/node_modules/"
-    ]
   },
   "browserslist": {
     "production": [
