@@ -52,11 +52,17 @@ function copyDir(source, dest, { skip, veryVerbose } = {}) {
 }
 
 const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
+  const isWindows = os.platform() === 'win32'
+  if( isWindows ){
+    console.log(`Sorry, create-near-app is not compatible with Windows. Please consider using Windows Subsystem for Linux`)
+    return
+  }
+
   const templateDir = `/templates/${frontend}`
   const sourceTemplateDir = __dirname + templateDir
   mixpanel.track(frontend, contract)
 
-  console.log(`Copying files to new project directory (${projectDir}) from template source (${sourceTemplateDir}).`)
+  console.log(`Creating project using a ${contract} contract, and a ${frontend} frontend.`)
 
   await copyDir(sourceTemplateDir, projectDir, {
     veryVerbose, skip: [
