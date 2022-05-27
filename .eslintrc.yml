@@ -38,4 +38,4 @@ globals:
   window: true
 settings:
   react:
-    version: latest
+    version: detect

@@ -62,7 +62,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   mixpanel.track(frontend, contract)
 
   console.log(chalk`Creating {bold ${projectDir}} with a contract in {bold ${contract}}, and a frontend using {bold ${frontend} js}.`)
-  console.log(`Remember that you can change these settings using the --frontend and --contract flags. \n`)
+  console.log('Remember that you can change these settings using the --frontend and --contract flags. \n')
 
   // skip rapid-development build artifacts and symlinks
   const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json', 'contract', 'integration-tests']
@@ -72,7 +72,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
 
   // copy tests
-  const sourceTestDir = __dirname + `/integration-tests`
+  const sourceTestDir = __dirname + '/integration-tests'
   await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
 
   // copy contract files
