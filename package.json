@@ -6,7 +6,8 @@
   "files": [
     "contracts",
     "templates",
-    "utils"
+    "utils",
+    "integration-tests"
   ],
   "scripts": {
     "test": "node ./test/test-new-project.js",
