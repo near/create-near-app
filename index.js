@@ -14,6 +14,9 @@ ncp.limit = 16
 const rustSetup = require('./utils/rust-setup')
 const mixpanel = require('./utils/tracking')
 
+const type = os.type();
+const arch = os.arch();
+
 const renameFile = async function (oldPath, newPath) {
   return new Promise((resolve, reject) => {
     fs.rename(oldPath, newPath, (err) => {
@@ -54,10 +57,6 @@ function copyDir(source, dest, { skip, veryVerbose } = {}) {
 }
 
 const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
-  if (os.platform() === 'win32') {
-    console.log('Sorry, create-near-app is not compatible with Windows. Please consider using Windows Subsystem for Linux.\n')
-    return
-  }
   // track used options
   mixpanel.track(frontend, contract)
 
@@ -72,8 +71,33 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
 
   // copy tests
-  const sourceTestDir = __dirname + '/integration-tests'
-  await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
+  if ((type === "Linux" || type === "Darwin") && arch === "x64") {
+    // Supports Sandbox
+    const sourceTestDir = __dirname + '/integration-tests'
+    await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) }) 
+  }else{
+    // Others use simple ava testing
+    console.log('Our testing framework (workspaces) is not compatible with your system.\n')
+    console.log('Your project will default to basic JS testing.\n')
+    const sourceTestDir = __dirname + '/integration-tests/js'
+    await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) }) 
+
+    await replaceInFiles({
+      files: `${projectDir}/package.json`,
+      from: '"test:integration:ts": "cd integration-tests/ts && npm run test"',
+      to: '"test:integration:ts": "echo not supported"'
+    })
+    await replaceInFiles({
+      files: `${projectDir}/package.json`,
+      from: '"test:integration:rs": "cd integration-tests/rs && cargo run --example integration-tests"',
+      to: '"test:integration:ts": "echo not supported"'
+    })
+    await replaceInFiles({
+      files: `${projectDir}/package.json`,
+      from: '"test:integration": "npm run test:integration:ts && npm run test:integration:rs"',
+      to: '"test:integration": "rm ./neardev/dev-account* -f && npm run deploy && sed -i \\"1s/.*/const CONTRACT_NAME=\'$(cat ./neardev/dev-account)\'/\\" ./integration-tests/src/config.ts && cd integration-tests && npm run test"'
+    })
+  }
 
   // copy contract files
   const contractSourceDir = `${__dirname}/contracts/${contract}`
