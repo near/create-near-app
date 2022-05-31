@@ -14,8 +14,8 @@ ncp.limit = 16
 const rustSetup = require('./utils/rust-setup')
 const mixpanel = require('./utils/tracking')
 
-const type = os.type();
-const arch = os.arch();
+const type = os.type()
+const arch = os.arch()
 
 const renameFile = async function (oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -71,10 +71,11 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
 
   // copy tests
-  if ((type === "Linux" || type === "Darwin") && arch === "x64") {
+  if ((type === 'Linux' || type === 'Darwin') && arch === 'x64') {
     // Supports Sandbox
     const sourceTestDir = __dirname + '/integration-tests'
-    await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) }) 
+    await copyDir(sourceTestDir, `${projectDir}/integration-tests/`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
+    fs.rmdirSync(`${projectDir}/integration-tests/js`, {recursive: true})
   }else{
     // Others use simple ava testing
     console.log('Our testing framework (workspaces) is not compatible with your system.\n')

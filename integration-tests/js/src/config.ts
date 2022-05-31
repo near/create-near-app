@@ -1,6 +1,6 @@
 
-const fs = require('fs')
 import { keyStores, KeyPair } from 'near-api-js'
+const fs = require('fs')
 
 const CONTRACT_NAME=fs.readFileSync('../neardev/dev-account', 'utf-8')
 const NETWORK_ID='testnet'

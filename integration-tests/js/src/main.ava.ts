@@ -8,13 +8,13 @@ const test = anyTest as TestFn<{
 }>
 
 test.beforeEach(async (t) => {
-  const near = await new Near(nearConfig);
-  const user = await new Account(near.connection, nearConfig.contractName);
+  const near = await new Near(nearConfig)
+  const user = await new Account(near.connection, nearConfig.contractName)
   const contract = await new Contract(
     user,
     nearConfig.contractName,
-    { viewMethods: ["get_greeting"], changeMethods: ["set_greeting"] }
-  );
+    { viewMethods: ['get_greeting'], changeMethods: ['set_greeting'] }
+  )
   t.context.accounts = { contract }
 })
 
