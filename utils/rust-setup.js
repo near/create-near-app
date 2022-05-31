@@ -12,7 +12,7 @@ const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32Target
 
 function isRustupInstalled() {
   console.log(chalk`Checking if {bold rustup} is installed...`)
-  const isInstalled = sh.exec('rustup --version &> /dev/null').code === 0
+  const isInstalled = sh.exec('rustup --version').code === 0
   console.log(chalk`{bold rustup} is`, isInstalled ? 'installed\n' : 'not installed\n')
   return isInstalled
 }
