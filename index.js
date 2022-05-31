@@ -71,7 +71,8 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
 
   // copy tests
-  if ((type === 'Linux' || type === 'Darwin') && arch === 'x64') {
+  const supports_sandbox = (type === 'Linux' || type === 'Darwin') && arch === 'x64'
+  if (supports_sandbox) {
     // Supports Sandbox
     const sourceTestDir = __dirname + '/integration-tests'
     await copyDir(sourceTestDir, `${projectDir}/integration-tests/`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
@@ -141,7 +142,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
 
   // setup rust
   let wasRustupInstalled = false
-  if (contract === 'rust') {
+  if (contract === 'rust' || supports_sandbox) {
     wasRustupInstalled = await rustSetup.setupRustAndWasm32Target()
   }
 
