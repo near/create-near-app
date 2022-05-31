@@ -95,19 +95,21 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
     await replaceInFiles({
       files: `${projectDir}/package.json`,
       from: '"test:integration": "npm run test:integration:ts && npm run test:integration:rs"',
-      to: '"test:integration": "rm ./neardev/dev-account* -f && npm run deploy && sed -i \\"1s/.*/const CONTRACT_NAME=\'$(cat ./neardev/dev-account)\'/\\" ./integration-tests/src/config.ts && cd integration-tests && npm run test"'
+      to: '"test:integration": "rm ./neardev/dev-account* -f && npm run deploy && cd integration-tests && npm run test"'
     })
     await replaceInFiles({
       files: `${projectDir}/package.json`,
       from: '    "near-workspaces": "^2.0.0",\n ',
       to: ' '
     })
-    
   }
 
   // copy contract files
   const contractSourceDir = `${__dirname}/contracts/${contract}`
   await copyDir(contractSourceDir, `${projectDir}/contract`, { veryVerbose, skip: skip.map(f => path.join(contractSourceDir, f)) })
+
+  // make out dir
+  fs.mkdirSync(`${projectDir}/out`)
 
   // changes in package.json for rust
   if (contract === 'rust') {
