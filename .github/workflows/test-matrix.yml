@@ -6,7 +6,7 @@ jobs:
       matrix:
         platform: [ubuntu-latest, macos-latest]
         contract: [assemblyscript, rust]
-        frontend: ['vanilla', 'react']
+        frontend: ['vanilla', 'react', 'none']
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v2
