@@ -101,7 +101,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
     })
     await replaceInFiles({
       files: `${projectDir}/package.json`,
-      from: '    "near-workspaces": "^2.0.0",\n ',
+      from: '"near-workspaces": "^2.0.0",',
       to: ' '
     })
   }

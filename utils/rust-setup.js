@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+const os = require('os')
 const readline = require('readline')
 const sh = require('shelljs')
 
@@ -6,9 +7,10 @@ const sh = require('shelljs')
 const installRustupScript = 'curl --proto \'=https\' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y'
 const updatePath = '. $HOME/.cargo/env'
 const addWasm32TargetScript = 'rustup target add wasm32-unknown-unknown'
-
 // We should update PATH in the same script because every new Bash scripts are executed in a separate shell
 const updatePathAndAddWasm32TargetScript = updatePath + ' && ' + addWasm32TargetScript
+
+const isWindows = os.platform() === 'win32'
 
 function isRustupInstalled() {
   console.log(chalk`Checking if {bold rustup} is installed...`)
@@ -69,21 +71,30 @@ const addWasm32TargetDisclaimer = chalk`To build Rust smart contracts you need t
 
 const installRustupQuestion = chalk`
 ${installRustupDisclaimer} We can run the following command to do it for you:
-
     {bold ${installRustupScript}}
-
 Continue with installation (Y/n)?: `
 
 const addWasm32TargetQuestion = chalk`
 ${addWasm32TargetDisclaimer} We can run the following command to do it for you:
-
     {bold ${addWasm32TargetScript}}
-
 Continue with installation (Y/n)?: `
 
+const rustupAndWasm32WindowsInstallationInstructions = chalk`
+${installRustupDisclaimer}
+    1. Go to https://rustup.rs
+    2. Download {bold rustup-init.exe}
+    3. Install it on your system
+${addWasm32TargetDisclaimer}
+Run the following command to do it:
+    {bold ${addWasm32TargetScript}}
+Press {bold Enter} to continue project creation.`
 
 async function setupRustAndWasm32Target() {
   try {
+    if (isWindows) {
+      await askYesNoQuestionAndRunFunction(rustupAndWasm32WindowsInstallationInstructions)
+      return false
+    }
     let wasRustupInstalled = false
     if (!isRustupInstalled()) {
       wasRustupInstalled = await askYesNoQuestionAndRunFunction(installRustupQuestion, installRustup)
