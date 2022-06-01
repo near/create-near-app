@@ -193,7 +193,7 @@ const opts = yargs
   .option('frontend', {
     desc: 'template to use',
     choices: ['vanilla', 'react'],
-    default: 'vanilla',
+    default: 'react',
   })
   .option('contract', {
     desc: 'language for smart contract',
