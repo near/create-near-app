@@ -103,7 +103,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
     await replaceInFiles({
       files: `${projectDir}/package.json`,
       from: '"test:integration": "npm run test:integration:ts && npm run test:integration:rs"',
-      to: '"test:integration": "rm ./neardev/dev-account* -f && npm run deploy && cd integration-tests && npm run test"'
+      to: '"test:integration": "npm run deploy && cd integration-tests && npm run test"'
     })
     await replaceInFiles({
       files: `${projectDir}/package.json`,
@@ -123,8 +123,8 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   if (contract === 'rust') {
     await replaceInFiles({
       files: `${projectDir}/package.json`,
-      from: 'cd contract && npm run build && rm -f ../out/main.wasm && cp ./build/release/greeter.wasm ../out/main.wasm',
-      to: 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release && rm -f ../out/main.wasm && cp ./target/wasm32-unknown-unknown/release/greeter.wasm ../out/main.wasm'
+      from: 'cd contract && npm run build && cp ./build/release/greeter.wasm ../out/main.wasm',
+      to: 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release && cp ./target/wasm32-unknown-unknown/release/greeter.wasm ../out/main.wasm'
     })
     await replaceInFiles({
       files: `${projectDir}/package.json`,
@@ -207,7 +207,7 @@ const opts = yargs
   .example('$0 new-app', 'Create a project called "new-app"')
   .option('frontend', {
     desc: 'template to use',
-    choices: ['vanilla', 'react'],
+    choices: ['vanilla', 'react', 'none'],
     default: 'react',
   })
   .option('contract', {

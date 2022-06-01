@@ -15,7 +15,7 @@ if (![undefined, 'assemblyscript', 'rust'].includes(process.env.CONTRACT)) {
   process.exit(1)
 }
 
-if (![undefined, 'react', 'vanilla'].includes(process.env.FRONTEND)) {
+if (![undefined, 'react', 'vanilla', 'none'].includes(process.env.FRONTEND)) {
   console.error(
     `Unknown FRONTEND template '${process.env.FRONTEND}'; ` +
         'use \'react\' or \'vanilla\''
