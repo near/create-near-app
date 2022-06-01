@@ -76,7 +76,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
     // Supports Sandbox
     const sourceTestDir = __dirname + '/integration-tests'
     await copyDir(sourceTestDir, `${projectDir}/integration-tests/`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
-    fs.rmdirSync(`${projectDir}/integration-tests/js`, {recursive: true})
+    fs.rmSync(`${projectDir}/integration-tests/js`, {recursive: true})
   }else{
     // Others use simple ava testing
     console.log('Our testing framework (workspaces) is not compatible with your system.\n')
