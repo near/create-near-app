@@ -59,8 +59,8 @@ function copyDir(source, dest, { skip, veryVerbose } = {}) {
 const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
   const supports_sandbox = (type === 'Linux' || type === 'Darwin') && arch === 'x64'
 
-  if (!supports_sandbox && contract == "assemblyscript") {
-    console.log("Sorry, assemblyscript is not supported in your system, use --contract=rust")
+  if (!supports_sandbox && contract === 'assemblyscript') {
+    console.log('Sorry, assemblyscript is not supported in your system, use --contract=rust')
     return
   }
 
