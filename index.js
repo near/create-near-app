@@ -57,6 +57,13 @@ function copyDir(source, dest, { skip, veryVerbose } = {}) {
 }
 
 const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
+  const supports_sandbox = (type === 'Linux' || type === 'Darwin') && arch === 'x64'
+
+  if (!supports_sandbox && contract == "assemblyscript") {
+    console.log("Sorry, assemblyscript is not supported in your system, use --contract=rust")
+    return
+  }
+
   // track used options
   mixpanel.track(frontend, contract)
 
@@ -71,7 +78,6 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
 
   // copy tests
-  const supports_sandbox = (type === 'Linux' || type === 'Darwin') && arch === 'x64'
   if (supports_sandbox) {
     // Supports Sandbox
     const sourceTestDir = __dirname + '/integration-tests'
@@ -144,6 +150,15 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   let wasRustupInstalled = false
   if (contract === 'rust' || supports_sandbox) {
     wasRustupInstalled = await rustSetup.setupRustAndWasm32Target()
+  }
+
+  if (contract === 'rust') {
+    // remove assemblyscript
+    await replaceInFiles({
+      files: `${projectDir}/package.json`,
+      from: '"near-sdk-as": "^3.2.3",',
+      to: ' '
+    })
   }
 
   if (hasNpm || hasYarn) {
