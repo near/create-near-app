@@ -14,7 +14,7 @@ const isWindows = os.platform() === 'win32'
 
 function isRustupInstalled() {
   console.log(chalk`Checking if {bold rustup} is installed...`)
-  const isInstalled = sh.exec('rustup --version &> /dev/null').code === 0
+  const isInstalled = sh.exec('rustup --version').code === 0
   console.log(chalk`{bold rustup} is`, isInstalled ? 'installed\n' : 'not installed\n')
   return isInstalled
 }
@@ -71,16 +71,12 @@ const addWasm32TargetDisclaimer = chalk`To build Rust smart contracts you need t
 
 const installRustupQuestion = chalk`
 ${installRustupDisclaimer} We can run the following command to do it for you:
-
     {bold ${installRustupScript}}
-
 Continue with installation (Y/n)?: `
 
 const addWasm32TargetQuestion = chalk`
 ${addWasm32TargetDisclaimer} We can run the following command to do it for you:
-
     {bold ${addWasm32TargetScript}}
-
 Continue with installation (Y/n)?: `
 
 const rustupAndWasm32WindowsInstallationInstructions = chalk`
@@ -88,13 +84,9 @@ ${installRustupDisclaimer}
     1. Go to https://rustup.rs
     2. Download {bold rustup-init.exe}
     3. Install it on your system
-
 ${addWasm32TargetDisclaimer}
-
 Run the following command to do it:
-
     {bold ${addWasm32TargetScript}}
-
 Press {bold Enter} to continue project creation.`
 
 async function setupRustAndWasm32Target() {
