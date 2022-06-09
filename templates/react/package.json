@@ -31,7 +31,7 @@
     "typescript": "^4.7.2"
   },
   "dependencies": {
-    "near-api-js": "~0.44.2",
+    "near-api-js": "~0.45.0",
     "near-sdk-as": "^3.2.3",
     "react": "~18.1.0",
     "react-dom": "~18.1.0",
