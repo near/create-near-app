@@ -27,7 +27,7 @@
     "ts-node": "^10.8.0"
   },
   "dependencies": {
-    "near-api-js": "^0.44.2",
+    "near-api-js": "^0.45.1",
     "near-sdk-as": "^3.2.3",
     "regenerator-runtime": "~0.13.9"
   }
