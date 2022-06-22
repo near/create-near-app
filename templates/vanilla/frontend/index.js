@@ -61,18 +61,28 @@ function signedOutFlow() {
 // Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
   document.querySelector('#signed-in-flow').style.display = 'block'
-  const { networkId, contractName } = getConfig(process.env.NODE_ENV || 'testnet')
+  const { networkId, contractName, explorerUrl } = getConfig(process.env.NODE_ENV || 'testnet')
+  const urlPrefix = `https://explorer.${networkId}.near.org/accounts`
 
   document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
     el.innerText = window.accountId
+  })
+  document.querySelectorAll('a[data-behavior=account-id]').forEach(el => {
+    el.setAttribute('href', `${urlPrefix}/${window.accountId}`)
   })
 
   document.querySelectorAll('[data-behavior=network-id]').forEach(el => {
     el.innerText = networkId
   })
+  document.querySelectorAll('a[data-behavior=network-id]').forEach(el => {
+    el.setAttribute('href', explorerUrl)
+  })
 
   document.querySelectorAll('[data-behavior=contract-name]').forEach(el => {
     el.innerText = contractName
+  })
+  document.querySelectorAll('a[data-behavior=contract-name]').forEach(el => {
+    el.setAttribute('href', `${urlPrefix}/${contractName}`)
   })
 
   fetchGreeting()
