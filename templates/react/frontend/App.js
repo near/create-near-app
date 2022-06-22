@@ -10,22 +10,27 @@ import { EducationalText, NearInformation, SignInPrompt, SignOutButton } from '.
 export default function App() {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState()
 
-  const [uiPleaseWait, setUiPleaseWait] = React.useState(false)
+  const [uiPleaseWait, setUiPleaseWait] = React.useState(true)
+
+  // Get blockchian state once on component load
+  React.useEffect(() => {
+    getGreetingFromContract()
+      .then(val => {
+        setUiPleaseWait(false)
+        setValueFromBlockchain(val)
+      }).catch(e => {
+        alert(e)
+        setUiPleaseWait(false)
+      })
+  }, [])
 
   /// If user not signed-in with wallet - show prompt
   if (!window.walletConnection.isSignedIn()) {
     // Sign-in flow will reload the page later
     return <SignInPrompt greeting={valueFromBlockchain}/>
-  } else {
-    // Get blockchian state once on component load
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(() => {
-      getGreetingFromContract()
-        .then(val => setValueFromBlockchain(val))
-    }, [])
   }
 
-  function submit(e) {
+  function changeGreeting(e) {
     e.preventDefault()
     setUiPleaseWait(true)
     const { greetingInput } = e.target.elements
@@ -48,17 +53,16 @@ export default function App() {
         <h1>
           <span className="greeting">{valueFromBlockchain}</span>
         </h1>
-        <form onSubmit={submit} className='change'>
+        <form onSubmit={changeGreeting} className='change'>
           <label>Change greeting:</label>
-          <input
-            autoComplete="off"
-            defaultValue={valueFromBlockchain}
-            id="greetingInput"
-            style={{ flex: 1 }}
-          />
-          <button>
-            Save
-          </button>
+          <div>
+            <input
+              autoComplete="off"
+              defaultValue={valueFromBlockchain}
+              id="greetingInput"
+            />
+            <button>Save</button>
+          </div>
         </form>
         <NearInformation greeting={valueFromBlockchain}/>
         <EducationalText/>

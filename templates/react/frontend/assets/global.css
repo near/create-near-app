@@ -27,7 +27,6 @@ body {
 main {
   margin: 0 auto;
   max-width: 26em;
-  text-align: justify;
 }
 
 main.please-wait {
@@ -61,10 +60,13 @@ h2 {
 }
 
 ul.information  {
-  margin: 0 0 2em 0;
+  margin: 2em 0 2em 0;
   padding: 0;
   text-align: left;
   font-size: 0.8em;
+
+}
+.information li:first-child {
   border-top: 1px solid var(--light-gray);
 }
 .information li {
@@ -75,16 +77,28 @@ ul.information  {
 
 .change {
   display: flex;
+  flex-direction: column;
   align-content: stretch;
   justify-content: space-evenly;
   align-items: stretch;
   font-size: 1em;
-  padding-bottom: 1.5em;
+  border: 2px solid var(--light-gray);
+  padding: 0.5em;
+}
+.change > div {
+  display: flex;
+  align-content: stretch;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+.change input {
+  flex: 1;
 }
 .change label {
-  font-size: 0.8em;
-  align-self: center;
+  display: block;
+  text-align: left;
   margin-right: 10px;
+  padding-bottom: 0.5em;
 }
 
 a,

@@ -27,17 +27,78 @@ body {
 main {
   margin: 0 auto;
   max-width: 26em;
-  text-align: justify;
+}
+
+main.please-wait {
+  opacity: 0.5;
+  cursor: wait;
 }
 
 h1 {
-  background-image: url(../img/logo-black.svg);
+  background-image: url(./logo-black.svg);
   background-position: center 1em;
   background-repeat: no-repeat;
   background-size: auto 1.5em;
   margin-top: 0;
-  padding: 3.5em 0 0.5em;
+  padding: 3.5em 0 0;
   text-align: center;
+  font-size: 1.5em;
+}
+.greeting {
+  color: white;
+  background: var(--primary);
+  display: inline-block;
+  padding: 0 1em;
+  margin-bottom: 1em;
+}
+h2 {
+  text-align: center;
+}
+
+.please-wait .change {
+  pointer-events: none;
+}
+
+ul.information  {
+  margin: 2em 0 2em 0;
+  padding: 0;
+  text-align: left;
+  font-size: 0.8em;
+
+}
+.information li:first-child {
+  border-top: 1px solid var(--light-gray);
+}
+.information li {
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--light-gray);
+  list-style: none;
+}
+
+.change {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  justify-content: space-evenly;
+  align-items: stretch;
+  font-size: 1em;
+  border: 2px solid var(--light-gray);
+  padding: 0.5em;
+}
+.change > div {
+  display: flex;
+  align-content: stretch;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+.change input {
+  flex: 1;
+}
+.change label {
+  display: block;
+  text-align: left;
+  margin-right: 10px;
+  padding-bottom: 0.5em;
 }
 
 a,
@@ -73,57 +134,14 @@ button {
 button:hover, button:focus {
   box-shadow: 0 0 10em rgba(255, 255, 255, 0.2) inset;
 }
-button:active {
-  box-shadow: 0 0 10em rgba(0, 0, 0, 0.1) inset;
-}
-button.link {
-  background: none;
-  border: none;
-  box-shadow: none;
-  display: inline;
-}
-[disabled] button, button[disabled] {
-  box-shadow: none;
-  background-color: var(--light-gray);
-  color: gray;
-  cursor: not-allowed;
-  transform: none;
-}
-[disabled] button {
-  text-indent: -900em;
-  width: 2em;
-  position: relative;
-}
-[disabled] button:after {
-  content: " ";
-  display: block;
-  width: 0.8em;
-  height: 0.8em;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  border-color: var(--fg) transparent var(--fg) transparent;
-  animation: loader 1.2s linear infinite;
-  position: absolute;
-  top: 0.45em;
-  right: 0.5em;
-}
-@keyframes loader {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
-}
-
-fieldset {
-  border: none;
-  padding: 2em 0;
-}
 
 input {
-  background-color: var(--shadow);
+  background-color: var(--light-gray);
   border: none;
   border-radius: 5px 0 0 5px;
   caret-color: var(--primary);
   color: inherit;
-  padding: 0.25em 1em;
+  padding: 0.25em 0.5em;
 }
 input::selection {
   background-color: var(--secondary);
@@ -141,37 +159,6 @@ li {
   padding-bottom: 1em;
 }
 
-aside {
-  animation: notify ease-in-out 10s;
-  background-color: var(--shadow);
-  border-radius: 5px;
-  bottom: 0;
-  font-size: 0.8em;
-  margin: 1em;
-  padding: 1em;
-  position: fixed;
-  transform: translateY(10em);
-  right: 0;
-}
-aside footer {
-  display: flex;
-  font-size: 0.9em;
-  justify-content: space-between;
-  margin-top: 0.5em;
-}
-aside footer *:first-child {
-  color: var(--success);
-}
-aside footer *:last-child {
-  color: var(--gray);
-}
-@keyframes notify {
-  0% { transform: translateY(10em) }
-  5% { transform: translateY(0) }
-  95% { transform: translateY(0) }
-  100% { transform: translateY(10em) }
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     --bg: #1e1e1e;
@@ -181,7 +168,7 @@ aside footer *:last-child {
     --light-gray: #444;
   }
   h1 {
-    background-image: url(../img/logo-white.svg);
+    background-image: url(./logo-white.svg);
   }
   input:focus {
     box-shadow: 0 0 10em rgba(255, 255, 255, 0.02) inset;
