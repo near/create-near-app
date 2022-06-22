@@ -14,7 +14,8 @@ Exploring The Code
 ==================
 
 1. The main smart contract code lives in `assembly/index.ts`.
-2. Tests: You can run smart contract tests with the `./test` script. This runs
+2. There are two functions to the smart contract: `get_greeting` and `set_greeting`.
+3. Tests: You can run smart contract tests with the `npm run test` script. This runs
    standard AssemblyScript tests using [as-pect].
 
 
