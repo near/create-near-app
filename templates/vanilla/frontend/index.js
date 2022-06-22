@@ -1,20 +1,30 @@
 import 'regenerator-runtime/runtime'
-import { initContract, signInWithNearWallet, signOutNearWallet, setGreetingOnContract, getGreetingFromContract } from './near-api'
+import {
+  initContract,
+  signInWithNearWallet,
+  signOutNearWallet,
+  setGreetingOnContract,
+  getGreetingFromContract,
+} from './near-api'
 import getConfig from './config'
+
+document.querySelector('form').onsubmit = doUserAction
+document.querySelector('#sign-in-button').onclick = signInWithNearWallet
+document.querySelector('#sign-out-button').onclick = signOutNearWallet
 
 // ====== Initialize the API for NEAR ======
 window.nearInitPromise = initContract()
   .then(() => {
-    if (window.walletConnection.isSignedIn()){
+    if (window.walletConnection.isSignedIn()) {
       signedInFlow()
-    }else{
+    } else {
       signedOutFlow()
     }
   })
   .catch(alert)
 
-// On submit, take the new greeting and send it to the contract
-document.querySelector('form').onsubmit = async (event) => {
+// Take the new greeting and send it to the contract
+async function doUserAction(event) {
   event.preventDefault()
   const { greeting } = event.target.elements
   document
@@ -38,14 +48,11 @@ document.querySelector('form').onsubmit = async (event) => {
     .querySelector('#signed-in-flow main')
     .classList.remove('please-wait')
 }
-document.querySelector('#sign-in-button').onclick = signInWithNearWallet
-document.querySelector('#sign-out-button').onclick = signOutNearWallet
 
+// Get greeting from the contract on chain
 async function fetchGreeting() {
-  // ====== Get greeting from the contract ======
   const currentGreeting = await getGreetingFromContract()
 
-  // Set all elements marked as greeting with the current greeting
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting
     el.value = currentGreeting
@@ -54,12 +61,14 @@ async function fetchGreeting() {
 
 // Display the signed-out-flow container
 function signedOutFlow() {
+  document.querySelector('#signed-in-flow').style.display = 'none'
   document.querySelector('#signed-out-flow').style.display = 'block'
   fetchGreeting()
 }
 
 // Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
+  document.querySelector('#signed-out-flow').style.display = 'none'
   document.querySelector('#signed-in-flow').style.display = 'block'
   const { networkId, contractName, explorerUrl } = getConfig(process.env.NODE_ENV || 'testnet')
   const urlPrefix = `https://explorer.${networkId}.near.org/accounts`
