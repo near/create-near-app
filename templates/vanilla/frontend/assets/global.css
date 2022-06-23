@@ -45,11 +45,8 @@ h1 {
   font-size: 1.5em;
 }
 .greeting {
-  color: white;
-  background: var(--primary);
-  display: inline-block;
-  padding: 0 1em;
-  margin-bottom: 1em;
+  color: var(--secondary);
+  text-decoration: underline;
 }
 h2 {
   text-align: center;

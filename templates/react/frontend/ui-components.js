@@ -1,16 +1,15 @@
 import { signInWithNearWallet, signOutNearWallet } from './near-api'
-import { getConfig } from './config'
 import React from 'react'
 
 export function SignInPrompt({greeting}) {
   return (
     <main>
       <h1>
-        <span className="greeting">{greeting}</span>
+        The contract says: <span className="greeting">{greeting}</span>
       </h1>
-      <h2>
+      <h3>
         Welcome to NEAR!
-      </h2>
+      </h3>
       <p>
         Your contract is storing a greeting message in the NEAR blockchain. To
         change it you need to sign in using the NEAR Wallet. It is very simple,
@@ -34,36 +33,6 @@ export function SignOutButton({accountId}) {
     <button style={{ float: 'right' }} onClick={signOutNearWallet}>
       Sign out {accountId}
     </button>
-  )
-}
-
-export function NearInformation({ greeting }) {
-  const { networkId, contractName, explorerUrl } = getConfig(process.env.NODE_ENV || 'testnet')
-  const urlPrefix = `https://explorer.${networkId}.near.org/accounts`
-
-  return (
-    <ul className='information'>
-      <li>Your account ID:&nbsp;
-        <a target="_blank" rel="noreferrer" href={`${urlPrefix}/${window.accountId}`}>
-          {window.accountId}
-        </a>
-      </li>
-      <li>Network ID:&nbsp;
-        <a target="_blank" rel="noreferrer" href={explorerUrl}>
-          {networkId}
-        </a>
-      </li>
-      <li>Contract name:&nbsp;
-        <a target="_blank" rel="noreferrer" href={`${urlPrefix}/${contractName}`}>
-          {contractName}
-        </a>
-      </li>
-      <li>Current state on the blockchain: <br/>
-        <code>
-          &#123; greeting: '{greeting}' &#125;
-        </code>
-      </li>
-    </ul>
   )
 }
 
