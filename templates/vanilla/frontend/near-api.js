@@ -1,5 +1,5 @@
 import { connect, Contract, keyStores, WalletConnection } from 'near-api-js'
-import getConfig from './config'
+import getConfig from './near-config'
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development')
 
@@ -24,13 +24,13 @@ export async function initContract() {
   })
 }
 
-export function logout() {
+export function signOutNearWallet() {
   window.walletConnection.signOut()
   // reload page
   window.location.replace(window.location.origin + window.location.pathname)
 }
 
-export function login() {
+export function signInWithNearWallet() {
   // Allow the current app to make calls to the specified contract on the
   // user's behalf.
   // This works by creating a new access key for the user's account and storing
@@ -38,14 +38,14 @@ export function login() {
   window.walletConnection.requestSignIn(nearConfig.contractName)
 }
 
-export async function set_greeting(message){
+export async function setGreetingOnContract(message){
   let response = await window.contract.set_greeting({
     args:{message: message}
   })
   return response
 }
 
-export async function get_greeting(){
+export async function getGreetingFromContract(){
   let greeting = await window.contract.get_greeting()
   return greeting
 }

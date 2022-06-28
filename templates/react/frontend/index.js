@@ -1,14 +1,15 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import { initContract } from './assets/js/near/utils'
+import { initContract } from './near-api'
 
-const container = document.querySelector('#root')
-const root = createRoot(container) // createRoot(container!) if you use TypeScript
+const reactRoot = createRoot(document.querySelector('#root'))
 
 window.nearInitPromise = initContract()
   .then(() => {
-    <App />
-    root.render(<App tab="home" />)
+    reactRoot.render(<App />)
   })
-  .catch(console.error)
+  .catch(e => {
+    reactRoot.render(<div style={{color: 'red'}}>Error: <code>{e.message}</code></div>)
+    console.error(e)
+  })
