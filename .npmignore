@@ -1,2 +1,2 @@
-contracts/rust/target
-contracts/out
+templates/contracts/rust/target
+templates/contracts/out

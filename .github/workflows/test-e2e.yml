@@ -1,11 +1,17 @@
-name: Tests
-on: push
+name: Tests E2E
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - 'master'
 jobs:
   tests:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
+    timeout-minutes: 30
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
@@ -13,8 +19,8 @@ jobs:
         node-version: '16'
     - name: Install modules
       run: yarn
-    - name: Run tests
+    - name: Run E2E tests
       env:
         NEAR_ENV: ci 
         IS_GITHUB_ACTION: true
-      run: yarn test
+      run: yarn test-e2e

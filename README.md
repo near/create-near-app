@@ -8,29 +8,29 @@ Quickly build apps backed by the [NEAR](https://near.org) blockchain
 Prerequisites
 =============
 
-Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `12+`.
-**Note**: if using Node version 13 please be advised that you will need version >= 13.7.0
+Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `16+`.
 
+Read about other [prerequisites](https://docs.near.org/develop/prerequisites) in our docs.
 
 Getting Started
 ===============
 
-To create a new NEAR project with default settings, you just need one command
+To create a new NEAR project with default settings:
 
 Using [npm's npx](https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner):
 
-    npx create-near-app [options] new-awesome-project
+    npx create-near-app
 
-**Or**, if you prefer [yarn](https://classic.yarnpkg.com/en/docs/cli/create/):
+You can create contracts written in:
 
-    yarn create near-app [options] new-awesome-project
+- [Rust](https://docs.near.org/develop/prerequisites)
+- [JavaScript](https://docs.near.org/develop/quickstart-guide)
+- AssemblyScript
 
-Without any options, this will create a project with a **vanilla JavaScript** frontend and an [AssemblyScript](https://docs.near.org/develop/quickstart-guide) smart contract
+You can create a frontend template in:
 
-Other options:
-
-* `--frontend=react` – use [React](https://reactjs.org/) for your frontend template
-* `--contract=rust` – use [Rust](https://docs.near.org/develop/prerequisites) for your smart contract
+- [React](https://reactjs.org/)
+- Vanilla JavaScript
 
 
 Develop your own Dapp
