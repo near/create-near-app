@@ -60,7 +60,7 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
   const supports_sandbox = (type === 'Linux' || type === 'Darwin') && arch === 'x64'
 
   if (!supports_sandbox && contract === 'assemblyscript') {
-    console.log('Sorry, assemblyscript is not supported in your system, use --contract=rust')
+    console.log('Sorry, assemblyscript is not supported in your system, use --contract=js or --contract=rust')
     return
   }
 
@@ -83,12 +83,12 @@ const createProject = async function ({ contract, frontend, projectDir, veryVerb
     const sourceTestDir = __dirname + '/integration-tests'
     await copyDir(sourceTestDir, `${projectDir}/integration-tests/`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
     fs.rmSync(`${projectDir}/integration-tests/js`, {recursive: true})
-  }else{
+  } else {
     // Others use simple ava testing
     console.log('Our testing framework (workspaces) is not compatible with your system.\n')
     console.log('Your project will default to basic JS testing.\n')
     const sourceTestDir = __dirname + '/integration-tests/js'
-    await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) }) 
+    await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
 
     await replaceInFiles({
       files: `${projectDir}/package.json`,
@@ -212,8 +212,8 @@ const opts = yargs
   })
   .option('contract', {
     desc: 'language for smart contract',
-    choices: ['assemblyscript', 'rust'],
-    default: 'rust'
+    choices: ['assemblyscript', 'js', 'rust'],
+    default: 'js'
   })
   .option('very-verbose', {
     desc: 'turn on very verbose logging',
