@@ -10,7 +10,7 @@ Prerequisites
 
 Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `16+`.
 
-Notice: AssemblyScript isn't supported on all platforms.
+Read about other [prerequisites](https://docs.near.org/develop/prerequisites) in our docs.
 
 Getting Started
 ===============
