@@ -1,16 +1,16 @@
-import 'regenerator-runtime/runtime'
-import React from 'react'
+import 'regenerator-runtime/runtime';
+import React from 'react';
 
-import './assets/global.css'
+import './assets/global.css';
 
-import { getGreetingFromContract, setGreetingOnContract } from './near-api'
-import { EducationalText, SignInPrompt, SignOutButton } from './ui-components'
+import { getGreetingFromContract, setGreetingOnContract } from './near-api';
+import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
 export default function App() {
-  const [valueFromBlockchain, setValueFromBlockchain] = React.useState()
+  const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
-  const [uiPleaseWait, setUiPleaseWait] = React.useState(true)
+  const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
@@ -18,27 +18,27 @@ export default function App() {
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
-        setUiPleaseWait(false)
-      })
-  }, [])
+        setUiPleaseWait(false);
+      });
+  }, []);
 
   /// If user not signed-in with wallet - show prompt
   if (!window.walletConnection.isSignedIn()) {
     // Sign-in flow will reload the page later
-    return <SignInPrompt greeting={valueFromBlockchain}/>
+    return <SignInPrompt greeting={valueFromBlockchain}/>;
   }
 
   function changeGreeting(e) {
-    e.preventDefault()
-    setUiPleaseWait(true)
-    const { greetingInput } = e.target.elements
+    e.preventDefault();
+    setUiPleaseWait(true);
+    const { greetingInput } = e.target.elements;
     setGreetingOnContract(greetingInput.value)
       .then(getGreetingFromContract)
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
-        setUiPleaseWait(false)
-      })
+        setUiPleaseWait(false);
+      });
   }
 
   return (
@@ -62,5 +62,5 @@ export default function App() {
         <EducationalText/>
       </main>
     </>
-  )
+  );
 }

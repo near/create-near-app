@@ -1,5 +1,5 @@
-import { signInWithNearWallet, signOutNearWallet } from './near-api'
-import React from 'react'
+import { signInWithNearWallet, signOutNearWallet } from './near-api';
+import React from 'react';
 
 export function SignInPrompt({greeting}) {
   return (
@@ -25,7 +25,7 @@ export function SignInPrompt({greeting}) {
         <button onClick={signInWithNearWallet}>Sign in with NEAR Wallet</button>
       </p>
     </main>
-  )
+  );
 }
 
 export function SignOutButton({accountId}) {
@@ -33,7 +33,7 @@ export function SignOutButton({accountId}) {
     <button style={{ float: 'right' }} onClick={signOutNearWallet}>
       Sign out {accountId}
     </button>
-  )
+  );
 }
 
 export function EducationalText() {
@@ -56,5 +56,5 @@ export function EducationalText() {
         To keep learning, check out <a target="_blank" rel="noreferrer" href="https://docs.near.org">the NEAR docs</a> or look through some <a target="_blank" rel="noreferrer" href="https://examples.near.org">example apps</a>.
       </p>
     </>
-  )
+  );
 }

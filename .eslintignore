@@ -1,2 +1,3 @@
 dist
 node_modules
+contracts/js/src/contract.js

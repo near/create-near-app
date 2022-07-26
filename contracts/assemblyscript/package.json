@@ -1,8 +1,7 @@
 {
   "name": "greeter",
   "version": "1.0.0",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "(MIT AND Apache-2.0)",
   "scripts": {
     "build": "asb",
     "test": "asp --nologo"

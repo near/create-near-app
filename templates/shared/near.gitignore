@@ -1,18 +1,19 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-_testrun
-
+# Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
 /.pnp
 .pnp.js
-out
-/neardev
+
+# build
+/out
+/dist
+
+# keys
+/templates/react/neardev
+
 # testing
 /coverage
-tmp-project
-#parcel
-.cache
 
 # production
 /build
@@ -23,11 +24,8 @@ tmp-project
 .env.development.local
 .env.test.local
 .env.production.local
-.idea
-/templates/**/yarn.lock
-/templates/*/neardev/dev-account*
+/.cache
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/.vs

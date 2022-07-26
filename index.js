@@ -1,234 +1,96 @@
-#!/usr/bin/env node
-const fs = require('fs')
-const os = require('os')
-const path = require('path')
-const yargs = require('yargs')
+// #!/usr/bin/env node
+const path = require('path');
+const prompt = require('prompts');
+const chalk = require('chalk');
+const {make} = require('./scaffold/make');
+const mixpanel = require('./scaffold/tracking');
+const {
+  checkPrerequisites,
+  checkUserInput,
+} = require('./scaffold/checks');
 
-const replaceInFiles = require('replace-in-files')
-const spawn = require('cross-spawn')
-const chalk = require('chalk')
-const which = require('which')
-const ncp = require('ncp').ncp
-ncp.limit = 16
 
-const rustSetup = require('./utils/rust-setup')
-const mixpanel = require('./utils/tracking')
+const createProject = async function ({contract, frontend, projectName, verbose}) {
+  mixpanel.track(frontend, contract);
 
-const type = os.type()
-const arch = os.arch()
+  console.log(chalk`Creating a new NEAR app.`);
 
-const renameFile = async function (oldPath, newPath) {
-  return new Promise((resolve, reject) => {
-    fs.rename(oldPath, newPath, (err) => {
-      if (err) {
-        console.error(err)
-        return reject(err)
-      }
-      resolve()
-    })
-  })
-}
-
-// Wrap `ncp` tool to wait for the copy to finish when using `await`
-// Allow passing `skip` variable to skip copying an array of filenames
-function copyDir(source, dest, { skip, veryVerbose } = {}) {
-  return new Promise((resolve, reject) => {
-    const copied = []
-    const skipped = []
-    const filter = skip && function (filename) {
-      const shouldCopy = !skip.find(f => filename.includes(f))
-      shouldCopy ? copied.push(filename) : skipped.push(filename)
-      return !skip.find(f => filename.includes(f))
-    }
-
-    ncp(source, dest, { filter }, (err) => {
-      if (err) return reject(err)
-
-      if (veryVerbose) {
-        console.log('Copied:')
-        copied.forEach(f => console.log('  ' + f))
-        console.log('Skipped:')
-        skipped.forEach(f => console.log('  ' + f))
-      }
-
-      resolve()
-    })
-  })
-}
-
-const createProject = async function ({ contract, frontend, projectDir, veryVerbose }) {
-  const supports_sandbox = (type === 'Linux' || type === 'Darwin') && arch === 'x64'
-
-  if (!supports_sandbox && contract === 'assemblyscript') {
-    console.log('Sorry, assemblyscript is not supported in your system, use --contract=js or --contract=rust')
-    return
+  try {
+    await make({
+      contract,
+      frontend,
+      projectName,
+      verbose,
+      rootDir: __dirname,
+      projectPath: path.resolve(__dirname, projectName),
+    });
+  } catch (e) {
+    console.log(chalk`{bold {red ==========================================}}
+{bold {red NEAR project setup failed}}.
+Please refer to https://github.com/near/create-near-app README for troubleshoot.
+Notice: some platforms aren't supported (yet).
+{bold {red ==========================================}}`);
+    return;
   }
-
-  // track used options
-  mixpanel.track(frontend, contract)
-
-  console.log(chalk`Creating {bold ${projectDir}} with a contract in {bold ${contract}}, and a frontend using {bold ${frontend} js}.`)
-  console.log('Remember that you can change these settings using the --frontend and --contract flags. \n')
-
-  // skip rapid-development build artifacts and symlinks
-  const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json', 'contract', 'integration-tests']
-
-  // copy frontend
-  const sourceTemplateDir = __dirname + `/templates/${frontend}`
-  await copyDir(sourceTemplateDir, projectDir, { veryVerbose, skip: skip.map(f => path.join(sourceTemplateDir, f)) })
-
-  // copy tests
-  if (supports_sandbox) {
-    // Supports Sandbox
-    const sourceTestDir = __dirname + '/integration-tests'
-    await copyDir(sourceTestDir, `${projectDir}/integration-tests/`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
-    fs.rmSync(`${projectDir}/integration-tests/js`, {recursive: true})
-  } else {
-    // Others use simple ava testing
-    console.log('Our testing framework (workspaces) is not compatible with your system.\n')
-    console.log('Your project will default to basic JS testing.\n')
-    const sourceTestDir = __dirname + '/integration-tests/js'
-    await copyDir(sourceTestDir, `${projectDir}/integration-tests`, { veryVerbose, skip: skip.map(f => path.join(sourceTestDir, f)) })
-
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: '"test:integration:ts": "cd integration-tests/ts && npm run test"',
-      to: '"test:integration:ts": "echo not supported"'
-    })
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: '"test:integration:rs": "cd integration-tests/rs && cargo run --example integration-tests"',
-      to: '"test:integration:ts": "echo not supported"'
-    })
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: '"test:integration": "npm run test:integration:ts && npm run test:integration:rs"',
-      to: '"test:integration": "npm run deploy && cd integration-tests && npm run test"'
-    })
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: '"near-workspaces": "^2.0.0",',
-      to: ' '
-    })
-  }
-
-  // copy contract files
-  const contractSourceDir = `${__dirname}/contracts/${contract}`
-  await copyDir(contractSourceDir, `${projectDir}/contract`, { veryVerbose, skip: skip.map(f => path.join(contractSourceDir, f)) })
-
-  // make out dir
-  fs.mkdirSync(`${projectDir}/out`)
-
-  // changes in package.json for rust
-  if (contract === 'rust') {
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: 'cd contract && npm run build && cp ./build/release/greeter.wasm ../out/main.wasm',
-      to: 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release && cp ./target/wasm32-unknown-unknown/release/greeter.wasm ../out/main.wasm'
-    })
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: '"test:unit": "cd contract && npm i && npm run test"',
-      to: '"test:unit": "cd contract && cargo test"'
-    })
-  }
-
-  // add .gitignore
-  await renameFile(`${projectDir}/near.gitignore`, `${projectDir}/.gitignore`)
-
-  console.log('Project created! Lets set it up.\n')
-
-  const hasNpm = which.sync('npm', { nothrow: true })
-  const hasYarn = which.sync('yarn', { nothrow: true })
-  //console.log('hasYarn:' + hasYarn + ' hasNmp:' + hasNpm)
-
-  if (hasYarn) {
-    await replaceInFiles({ files: `${projectDir}/README.md`, from: /npm\b( run)?/g, to: 'yarn' })
-  }
-
-  // setup rust
-  let wasRustupInstalled = false
-  if (contract === 'rust' || supports_sandbox) {
-    wasRustupInstalled = await rustSetup.setupRustAndWasm32Target()
-  }
-
-  if (contract === 'rust') {
-    // remove assemblyscript
-    await replaceInFiles({
-      files: `${projectDir}/package.json`,
-      from: '"near-sdk-as": "^3.2.3",',
-      to: ' '
-    })
-  }
-
-  if (hasNpm || hasYarn) {
-    console.log('Installing project dependencies...')
-    spawn.sync(hasYarn ? 'yarn' : 'npm', ['install'], { cwd: projectDir, stdio: 'inherit' })
-    if (contract === 'assemblyscript') {
-      spawn.sync('npm', ['install', '--legacy-peer-deps'], { cwd: `${projectDir}/contract`, stdio: 'inherit' })
-    }
-  }
-
-  const runCommand = hasYarn ? 'yarn' : 'npm run'
 
   // print success message
   console.log(chalk`
-Success! Created ${projectDir}
-Inside that directory, you can run several commands:
+{bold {green Success! Created ${projectName}}}
 
-  {bold ${runCommand} dev}
-    Starts the development server. Both contract and client-side code will
-    auto-reload once you change source files.
+See the README to get started!`);
 
-  {bold ${runCommand} test}
-    Starts the test runner.
-
-We suggest that you begin by typing:`)
-
-  if (wasRustupInstalled) {
+  if (contract === 'rust') {
     console.log(chalk`
-    {bold source $HOME/.cargo/env}
-    {bold cd ${projectDir}}
-    {bold ${runCommand} dev}`)
-  } else {
-    console.log(chalk`
-    {bold cd ${projectDir}}
-    {bold ${runCommand} dev}`)
+{bold {green To get started with Rust visit https://www.rust-lang.org/}}
+    `);
   }
+  console.log(chalk`Happy hacking!`);
+};
 
-  console.log(chalk`
-Happy hacking!`)
+async function getUserInput() {
+  const questions = [
+    {
+      type: 'select',
+      name: 'contract',
+      message: 'Select your smart-contract language',
+      choices: [
+        {title: 'JavaScript', value: 'js'},
+        {title: 'Rust', value: 'rust'},
+        {title: 'AssemblyScript', value: 'assemblyscript'},
+      ]
+    },
+    {
+      type: 'select',
+      name: 'frontend',
+      message: 'Select a template for your frontend',
+      choices: [
+        {title: 'React.js', value: 'react'},
+        {title: 'Vanilla JavaScript', value: 'vanilla'},
+        {title: 'No frontend', value: 'none'},
+      ]
+    },
+    {
+      type: 'text',
+      name: 'projectName',
+      message: 'Name your project (this will create a directory with that name)',
+      initial: 'my-near-project',
+      format: v => `${v}`
+    },
+  ];
+
+  const answers = await prompt(questions);
+  return answers;
 }
 
-const opts = yargs
-  .strict()
-  .usage('$0 <projectDir>', 'Create a new NEAR project')
-  // BUG: does not work; https://github.com/yargs/yargs/issues/1331
-  .example('$0 new-app', 'Create a project called "new-app"')
-  .option('frontend', {
-    desc: 'template to use',
-    choices: ['vanilla', 'react', 'none'],
-    default: 'react',
-  })
-  .option('contract', {
-    desc: 'language for smart contract',
-    choices: ['assemblyscript', 'js', 'rust'],
-    default: 'js'
-  })
-  .option('very-verbose', {
-    desc: 'turn on very verbose logging',
-    type: 'boolean',
-    default: false,
-    hidden: true,
-  })
-  .help()
-  .argv
-
-createProject(opts).catch(e => {
-  // work around silly node error:
-  //   (node:56892) [DEP0018] DeprecationWarning: Unhandled promise rejections
-  //   are deprecated. In the future, promise rejections that are not handled
-  //   will terminate the Node.js process with a non-zero exit code.
-  console.error('Error:', e)
-  process.exit(1)
-})
+(async function run() {
+  const prerequisitesOk = checkPrerequisites();
+  if (!prerequisitesOk) {
+    return;
+  }
+  const userInput = await getUserInput();
+  const userInputOk = await checkUserInput(userInput);
+  if (!userInputOk) {
+    return;
+  }
+  createProject(userInput);
+})();
