@@ -19,7 +19,7 @@ Exploring The Code
    standard AssemblyScript tests using [as-pect].
 
 
-  [smart contract]: https://docs.near.org/docs/develop/contracts/overview
+  [smart contract]: https://docs.near.org/develop/welcome
   [AssemblyScript]: https://www.assemblyscript.org/
   [create-near-app]: https://github.com/near/create-near-app
   [Node.js]: https://nodejs.org/en/download/package-manager/
