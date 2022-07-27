@@ -26,7 +26,8 @@ Happy Hacking!`);
   const supported = require('./package.json').engines.node;
   
   if (!semver.satisfies(current, supported)) {
-    return console.log(chalk.red(`We support node.js version ${supported} or later`));
+    console.log(chalk.red(`We support node.js version ${supported} or later`));
+    return;
   }
 
   // Get and track the user input
@@ -36,7 +37,8 @@ Happy Hacking!`);
   // Make sure the project folder does not exist
   const dirName = `${process.cwd()}/${projectName}`;
   if (fs.existsSync(dirName)) {
-    return console.log(chalk.red(`This directory already exists! ${dirName}`));
+    console.log(chalk.red(`This directory already exists! ${dirName}`));
+    return;
   }
 
   // Check if sandbox is supported (this line is literally the check that sandbox makes)

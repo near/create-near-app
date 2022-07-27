@@ -53,7 +53,7 @@ async function createFiles({contract, frontend, projectPath, verbose, rootDir, s
   });
 
   // copy tests
-  let testFramework = supportsSandbox? 'workspaces-tests' : 'classic-tests';
+  let testFramework = supportsSandbox ? 'workspaces-tests' : 'classic-tests';
   let sourceTestDir = `${rootDir}/integration-tests/${testFramework}`;
   await copyDir(sourceTestDir, `${projectPath}/integration-tests/`, {
     verbose,

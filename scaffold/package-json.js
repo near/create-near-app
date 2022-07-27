@@ -26,8 +26,8 @@ function basePackage({contract, frontend, projectName, supportsSandbox}) {
       ...integrationTestScripts(supportsSandbox),
     },
     'devDependencies': {
-      'near-cli': '^3.3.0',
-      'nodemon': '~2.0.16',
+      'near-cli': '3.3.0',
+      'nodemon': '2.0.16',
       ...contractDevDependencies(contract),
       ...workspaceDevDependencies(supportsSandbox),
       ...frontendDevDependencies(hasFrontend),
@@ -119,36 +119,36 @@ const integrationTestScripts = (supportsSandbox) => {
 const contractDevDependencies = contract => {
   switch(contract){
     case 'assemblyscript':
-      return {'near-sdk-as': '^3.2.3'};
+      return {'near-sdk-as': '3.2.3'};
     case 'js':
       return {'near-sdk-js': '0.4.0-2'};
   }
 };
-const workspaceDevDependencies = isSupported => isSupported ? {'near-workspaces': '^2.0.0'} : {'ava': '^4.2.0'};
+const workspaceDevDependencies = isSupported => isSupported ? {'near-workspaces': '3.1.0'} : {'ava': '4.2.0'};
 
 const frontendDevDependencies = hasFrontend => hasFrontend ? {
-  'nodemon': '~2.0.16',
-  'parcel': '^2.6.0',
-  'process': '^0.11.10',
-  'env-cmd': '^10.1.0',
+  'nodemon': '2.0.16',
+  'parcel': '2.6.0',
+  'process': '0.11.10',
+  'env-cmd': '10.1.0',
 } : {};
 
-const frontendDependencies = hasFrontend => hasFrontend ? {'near-api-js': '^0.44.2'} : {};
+const frontendDependencies = hasFrontend => hasFrontend ? {'near-api-js': '0.44.2'} : {};
 
 const reactPackage = () => ({
   'devDependencies': {
-    '@babel/core': '~7.18.2',
-    '@babel/preset-env': '~7.18.2',
-    '@babel/preset-react': '~7.17.12',
-    'ava': '^4.2.0',
-    'react-test-renderer': '~18.1.0',
-    'ts-node': '^10.8.0',
-    'typescript': '^4.7.2'
+    '@babel/core': '7.18.2',
+    '@babel/preset-env': '7.18.2',
+    '@babel/preset-react': '7.17.12',
+    'ava': '4.2.0',
+    'react-test-renderer': '18.1.0',
+    'ts-node': '10.8.0',
+    'typescript': '4.7.2'
   },
   'dependencies': {
-    'react': '~18.1.0',
-    'react-dom': '~18.1.0',
-    'regenerator-runtime': '~0.13.9'
+    'react': '18.1.0',
+    'react-dom': '18.1.0',
+    'regenerator-runtime': '0.13.9'
   },
   'resolutions': {
     '@babel/preset-env': '7.13.8'
