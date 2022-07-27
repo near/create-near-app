@@ -25,7 +25,6 @@ function basePackage({contract, frontend, projectName, workspacesSupported}) {
     },
     'devDependencies': {
       'near-cli': '^3.3.0',
-      'nodemon': '~2.0.16',
       ...workspaceDevDependencies(workspacesSupported),
       ...frontendDevDependencies(hasFrontend),
     },

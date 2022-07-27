@@ -1,7 +1,5 @@
 const fs = require('fs');
 const {ncp} = require('ncp');
-const spawn = require('cross-spawn');
-const chalk = require('chalk');
 const path = require('path');
 const {buildPackageJson} = require('./package-json');
 const {checkWorkspacesSupport} = require('./checks');
@@ -15,7 +13,6 @@ async function make({
   verbose,
   rootDir,
   projectPath,
-  skipNpmInstall,
 }) {
   await createFiles({
     contract,
@@ -33,22 +30,6 @@ async function make({
     workspacesSupported: checkWorkspacesSupport()
   });
   fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
-
-  if (!skipNpmInstall) {
-    await npmInstall({
-      contract,
-      projectName,
-      projectPath,
-    });
-    if (contract !== 'rust') {
-      await npmInstall({
-        contract,
-        projectName,
-        projectPath: path.resolve(projectPath, 'contract'),
-      });
-    }
-  }
-
 }
 
 async function createFiles({contract, frontend, projectName, projectPath, verbose, rootDir}) {
@@ -89,25 +70,6 @@ async function createFiles({contract, frontend, projectName, projectPath, verbos
   // add .gitignore
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
 
-}
-
-async function npmInstall({contract, projectName, projectPath}) {
-  console.log('Installing project dependencies...');
-  const npmCommandArgs = ['install'];
-  if (contract === 'assemblyscript') {
-    npmCommandArgs.push('--legacy-peer-deps');
-  }
-  await new Promise((resolve, reject) => spawn('npm', npmCommandArgs, {
-    cwd: projectPath,
-    stdio: 'inherit',
-  }).on('close', code => {
-    if (code !== 0) {
-      console.log(chalk.red('Error installing NEAR project dependencies'));
-      reject(code);
-    } else {
-      resolve();
-    }
-  }));
 }
 
 const renameFile = async function (oldPath, newPath) {
@@ -152,4 +114,3 @@ function copyDir(source, dest, {skip, verbose} = {}) {
 exports.renameFile = renameFile;
 exports.copyDir = copyDir;
 exports.make = make;
-exports.npmInstall = npmInstall;

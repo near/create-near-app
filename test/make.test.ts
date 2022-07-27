@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
-import {make, npmInstall} from '../scaffold/make';
+import {make} from '../scaffold/make';
 
 describe('make all projects', () => {
   const contracts = ['js', 'rust', 'assemblyscript'];
@@ -22,7 +22,6 @@ describe('make all projects', () => {
         verbose: false,
         rootDir,
         projectPath,
-        skipNpmInstall: true,
       });
       await new Promise<void>((resolve, reject) => {
         const allContent = [];
@@ -46,17 +45,5 @@ describe('make all projects', () => {
       });
 
     });
-  });
-
-  xdescribe('npm install', () => {
-    test.each(testMatrix)('npm i - contract %o frontend %o', async (contract, frontend) => {
-      const projectName = `${contract}_${frontend}`;
-      const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
-      const projectPath = path.resolve(projectPathPrefix, projectName);
-      await npmInstall({contract, projectName, projectPath});
-      if (contract !== 'rust') {
-        await npmInstall({contract, projectName, projectPath: path.resolve(projectPath, 'contract')});
-      }
-    }, 300000);
   });
 });

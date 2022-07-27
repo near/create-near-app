@@ -4,10 +4,13 @@
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk build src/contract.js",
+    "build": "near-sdk build src/contract.ts",
     "deploy": "npm run build && rm -rf neardev && near dev-deploy --wasmFile build/contract.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME"
   },
   "dependencies": {
     "near-sdk-js": "0.4.0-2"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
   }
 }

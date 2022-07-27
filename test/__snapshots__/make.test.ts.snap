@@ -146,8 +146,6 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
     "/assemblyscript_none/contract/.gitignore",
     "node_modules
 build
-package-lock.json
-yarn.lock
 ",
   ],
   Array [
@@ -361,7 +359,6 @@ test('changes the message', async (t) => {
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\"
   },
   \\"dependencies\\": {}
@@ -516,8 +513,6 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
     "/assemblyscript_react/contract/.gitignore",
     "node_modules
 build
-package-lock.json
-yarn.lock
 ",
   ],
   Array [
@@ -974,7 +969,7 @@ window.nearInitPromise = initContract()
   Array [
     "/assemblyscript_react/frontend/near-api.js",
     "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
-import { getConfig}  from './near-config';
+import { getConfig } from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
 
@@ -1027,65 +1022,65 @@ export async function getGreetingFromContract() {
   ],
   Array [
     "/assemblyscript_react/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME ||'new-awesome-project';
+    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 export function getConfig(env) {
   switch (env) {
 
-  case 'production':
-  case 'mainnet':
-    return {
-      networkId: 'mainnet',
-      nodeUrl: 'https://rpc.mainnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.near.org',
-      helperUrl: 'https://helper.mainnet.near.org',
-      explorerUrl: 'https://explorer.mainnet.near.org',
-    };
-  case 'development':
-  case 'testnet':
-    return {
-      networkId: 'testnet',
-      nodeUrl: 'https://rpc.testnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org',
-    };
-  case 'betanet':
-    return {
-      networkId: 'betanet',
-      nodeUrl: 'https://rpc.betanet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.betanet.near.org',
-      helperUrl: 'https://helper.betanet.near.org',
-      explorerUrl: 'https://explorer.betanet.near.org',
-    };
-  case 'local':
-    return {
-      networkId: 'local',
-      nodeUrl: 'http://localhost:3030',
-      keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
-      walletUrl: 'http://localhost:4000/wallet',
-      contractName: CONTRACT_NAME,
-    };
-  case 'test':
-  case 'ci':
-    return {
-      networkId: 'shared-test',
-      nodeUrl: 'https://rpc.ci-testnet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  case 'ci-betanet':
-    return {
-      networkId: 'shared-test-staging',
-      nodeUrl: 'https://rpc.ci-betanet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  default:
-    throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org',
+        explorerUrl: 'https://explorer.mainnet.near.org',
+      };
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org',
+      };
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org',
+        explorerUrl: 'https://explorer.betanet.near.org',
+      };
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME,
+      };
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    default:
+      throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
   }
 }
 ",
@@ -1252,8 +1247,8 @@ test('changes the message', async (t) => {
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\",
+    \\"nodemon\\": \\"~2.0.16\\",
     \\"parcel\\": \\"^2.6.0\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\",
@@ -1443,8 +1438,6 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
     "/assemblyscript_vanilla/contract/.gitignore",
     "node_modules
 build
-package-lock.json
-yarn.lock
 ",
   ],
   Array [
@@ -2018,65 +2011,64 @@ export async function getGreetingFromContract(){
   ],
   Array [
     "/assemblyscript_vanilla/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME ||'new-awesome-project';
+    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 function getConfig(env) {
   switch (env) {
-
-  case 'production':
-  case 'mainnet':
-    return {
-      networkId: 'mainnet',
-      nodeUrl: 'https://rpc.mainnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.near.org',
-      helperUrl: 'https://helper.mainnet.near.org',
-      explorerUrl: 'https://explorer.mainnet.near.org',
-    };
-  case 'development':
-  case 'testnet':
-    return {
-      networkId: 'testnet',
-      nodeUrl: 'https://rpc.testnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org',
-    };
-  case 'betanet':
-    return {
-      networkId: 'betanet',
-      nodeUrl: 'https://rpc.betanet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.betanet.near.org',
-      helperUrl: 'https://helper.betanet.near.org',
-      explorerUrl: 'https://explorer.betanet.near.org',
-    };
-  case 'local':
-    return {
-      networkId: 'local',
-      nodeUrl: 'http://localhost:3030',
-      keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
-      walletUrl: 'http://localhost:4000/wallet',
-      contractName: CONTRACT_NAME,
-    };
-  case 'test':
-  case 'ci':
-    return {
-      networkId: 'shared-test',
-      nodeUrl: 'https://rpc.ci-testnet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  case 'ci-betanet':
-    return {
-      networkId: 'shared-test-staging',
-      nodeUrl: 'https://rpc.ci-betanet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  default:
-    throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org',
+        explorerUrl: 'https://explorer.mainnet.near.org',
+      };
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org',
+      };
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org',
+        explorerUrl: 'https://explorer.betanet.near.org',
+      };
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME,
+      };
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    default:
+      throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
   }
 }
 
@@ -2181,8 +2173,8 @@ test('changes the message', async (t) => {
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\",
+    \\"nodemon\\": \\"~2.0.16\\",
     \\"parcel\\": \\"^2.6.0\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
@@ -2338,6 +2330,12 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ",
   ],
   Array [
+    "/js_none/contract/.gitignore",
+    "node_modules
+build
+neardev",
+  ],
+  Array [
     "/js_none/contract/babel.config.json",
     "{
   \\"plugins\\": [
@@ -2355,22 +2353,27 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.js\\",
+    \\"build\\": \\"near-sdk build src/contract.ts\\",
     \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/contract.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\"
   },
   \\"dependencies\\": {
     \\"near-sdk-js\\": \\"0.4.0-2\\"
+  },
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
   ],
   Array [
-    "/js_none/contract/src/contract.js",
-    "import { NearBindgen, NearContract, call, view } from 'near-sdk-js';
+    "/js_none/contract/src/contract.ts",
+    "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
+  my_greeting: string;
+
   constructor() {
     //execute the NEAR Contract's constructor
     super();
@@ -2381,8 +2384,8 @@ class MyContract extends NearContract {
   // that changes state on the blockchain. Change methods cost gas.
   // For more info -> https://docs.near.org/docs/concepts/gas
   @call
-  set_greeting({ message }) {   
-    env.log(\`Saving greeting \${message}\`);
+  set_greeting({ message }: { message: string }): void {
+    near.log(\`Saving greeting \${message}\`);
     this.my_greeting = message;
   }
 
@@ -2390,12 +2393,25 @@ class MyContract extends NearContract {
   // the current values stored on the blockchain. View calls are free
   // and do not cost gas.
   @view
-  get_greeting() {
-    env.log(\`The current greeting is \${this.my_greeting}\`);
+  get_greeting(): string {
+    near.log(\`The current greeting is \${this.my_greeting}\`);
     return this.my_greeting;
   }
 }
 ",
+  ],
+  Array [
+    "/js_none/contract/tsconfig.json",
+    "{
+  \\"compilerOptions\\": {
+    \\"experimentalDecorators\\": true,
+    \\"target\\": \\"es5\\",
+    \\"noEmit\\": true
+  },
+  \\"exclude\\": [
+    \\"node_modules\\"
+  ],
+}",
   ],
   Array [
     "/js_none/integration-tests/ava.config.cjs",
@@ -2492,7 +2508,6 @@ test('changes the message', async (t) => {
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\"
   },
   \\"dependencies\\": {}
@@ -2644,6 +2659,12 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ",
   ],
   Array [
+    "/js_react/contract/.gitignore",
+    "node_modules
+build
+neardev",
+  ],
+  Array [
     "/js_react/contract/babel.config.json",
     "{
   \\"plugins\\": [
@@ -2661,22 +2682,27 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.js\\",
+    \\"build\\": \\"near-sdk build src/contract.ts\\",
     \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/contract.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\"
   },
   \\"dependencies\\": {
     \\"near-sdk-js\\": \\"0.4.0-2\\"
+  },
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
   ],
   Array [
-    "/js_react/contract/src/contract.js",
-    "import { NearBindgen, NearContract, call, view } from 'near-sdk-js';
+    "/js_react/contract/src/contract.ts",
+    "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
+  my_greeting: string;
+
   constructor() {
     //execute the NEAR Contract's constructor
     super();
@@ -2687,8 +2713,8 @@ class MyContract extends NearContract {
   // that changes state on the blockchain. Change methods cost gas.
   // For more info -> https://docs.near.org/docs/concepts/gas
   @call
-  set_greeting({ message }) {   
-    env.log(\`Saving greeting \${message}\`);
+  set_greeting({ message }: { message: string }): void {
+    near.log(\`Saving greeting \${message}\`);
     this.my_greeting = message;
   }
 
@@ -2696,12 +2722,25 @@ class MyContract extends NearContract {
   // the current values stored on the blockchain. View calls are free
   // and do not cost gas.
   @view
-  get_greeting() {
-    env.log(\`The current greeting is \${this.my_greeting}\`);
+  get_greeting(): string {
+    near.log(\`The current greeting is \${this.my_greeting}\`);
     return this.my_greeting;
   }
 }
 ",
+  ],
+  Array [
+    "/js_react/contract/tsconfig.json",
+    "{
+  \\"compilerOptions\\": {
+    \\"experimentalDecorators\\": true,
+    \\"target\\": \\"es5\\",
+    \\"noEmit\\": true
+  },
+  \\"exclude\\": [
+    \\"node_modules\\"
+  ],
+}",
   ],
   Array [
     "/js_react/frontend/App.js",
@@ -3042,7 +3081,7 @@ window.nearInitPromise = initContract()
   Array [
     "/js_react/frontend/near-api.js",
     "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
-import { getConfig}  from './near-config';
+import { getConfig } from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
 
@@ -3095,65 +3134,65 @@ export async function getGreetingFromContract() {
   ],
   Array [
     "/js_react/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME ||'new-awesome-project';
+    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 export function getConfig(env) {
   switch (env) {
 
-  case 'production':
-  case 'mainnet':
-    return {
-      networkId: 'mainnet',
-      nodeUrl: 'https://rpc.mainnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.near.org',
-      helperUrl: 'https://helper.mainnet.near.org',
-      explorerUrl: 'https://explorer.mainnet.near.org',
-    };
-  case 'development':
-  case 'testnet':
-    return {
-      networkId: 'testnet',
-      nodeUrl: 'https://rpc.testnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org',
-    };
-  case 'betanet':
-    return {
-      networkId: 'betanet',
-      nodeUrl: 'https://rpc.betanet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.betanet.near.org',
-      helperUrl: 'https://helper.betanet.near.org',
-      explorerUrl: 'https://explorer.betanet.near.org',
-    };
-  case 'local':
-    return {
-      networkId: 'local',
-      nodeUrl: 'http://localhost:3030',
-      keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
-      walletUrl: 'http://localhost:4000/wallet',
-      contractName: CONTRACT_NAME,
-    };
-  case 'test':
-  case 'ci':
-    return {
-      networkId: 'shared-test',
-      nodeUrl: 'https://rpc.ci-testnet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  case 'ci-betanet':
-    return {
-      networkId: 'shared-test-staging',
-      nodeUrl: 'https://rpc.ci-betanet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  default:
-    throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org',
+        explorerUrl: 'https://explorer.mainnet.near.org',
+      };
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org',
+      };
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org',
+        explorerUrl: 'https://explorer.betanet.near.org',
+      };
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME,
+      };
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    default:
+      throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
   }
 }
 ",
@@ -3319,8 +3358,8 @@ test('changes the message', async (t) => {
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\",
+    \\"nodemon\\": \\"~2.0.16\\",
     \\"parcel\\": \\"^2.6.0\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\",
@@ -3507,6 +3546,12 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ",
   ],
   Array [
+    "/js_vanilla/contract/.gitignore",
+    "node_modules
+build
+neardev",
+  ],
+  Array [
     "/js_vanilla/contract/babel.config.json",
     "{
   \\"plugins\\": [
@@ -3524,22 +3569,27 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.js\\",
+    \\"build\\": \\"near-sdk build src/contract.ts\\",
     \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/contract.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\"
   },
   \\"dependencies\\": {
     \\"near-sdk-js\\": \\"0.4.0-2\\"
+  },
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
   ],
   Array [
-    "/js_vanilla/contract/src/contract.js",
-    "import { NearBindgen, NearContract, call, view } from 'near-sdk-js';
+    "/js_vanilla/contract/src/contract.ts",
+    "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
+  my_greeting: string;
+
   constructor() {
     //execute the NEAR Contract's constructor
     super();
@@ -3550,8 +3600,8 @@ class MyContract extends NearContract {
   // that changes state on the blockchain. Change methods cost gas.
   // For more info -> https://docs.near.org/docs/concepts/gas
   @call
-  set_greeting({ message }) {   
-    env.log(\`Saving greeting \${message}\`);
+  set_greeting({ message }: { message: string }): void {
+    near.log(\`Saving greeting \${message}\`);
     this.my_greeting = message;
   }
 
@@ -3559,12 +3609,25 @@ class MyContract extends NearContract {
   // the current values stored on the blockchain. View calls are free
   // and do not cost gas.
   @view
-  get_greeting() {
-    env.log(\`The current greeting is \${this.my_greeting}\`);
+  get_greeting(): string {
+    near.log(\`The current greeting is \${this.my_greeting}\`);
     return this.my_greeting;
   }
 }
 ",
+  ],
+  Array [
+    "/js_vanilla/contract/tsconfig.json",
+    "{
+  \\"compilerOptions\\": {
+    \\"experimentalDecorators\\": true,
+    \\"target\\": \\"es5\\",
+    \\"noEmit\\": true
+  },
+  \\"exclude\\": [
+    \\"node_modules\\"
+  ],
+}",
   ],
   Array [
     "/js_vanilla/frontend/assets/favicon.ico",
@@ -4022,65 +4085,64 @@ export async function getGreetingFromContract(){
   ],
   Array [
     "/js_vanilla/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME ||'new-awesome-project';
+    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 function getConfig(env) {
   switch (env) {
-
-  case 'production':
-  case 'mainnet':
-    return {
-      networkId: 'mainnet',
-      nodeUrl: 'https://rpc.mainnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.near.org',
-      helperUrl: 'https://helper.mainnet.near.org',
-      explorerUrl: 'https://explorer.mainnet.near.org',
-    };
-  case 'development':
-  case 'testnet':
-    return {
-      networkId: 'testnet',
-      nodeUrl: 'https://rpc.testnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org',
-    };
-  case 'betanet':
-    return {
-      networkId: 'betanet',
-      nodeUrl: 'https://rpc.betanet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.betanet.near.org',
-      helperUrl: 'https://helper.betanet.near.org',
-      explorerUrl: 'https://explorer.betanet.near.org',
-    };
-  case 'local':
-    return {
-      networkId: 'local',
-      nodeUrl: 'http://localhost:3030',
-      keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
-      walletUrl: 'http://localhost:4000/wallet',
-      contractName: CONTRACT_NAME,
-    };
-  case 'test':
-  case 'ci':
-    return {
-      networkId: 'shared-test',
-      nodeUrl: 'https://rpc.ci-testnet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  case 'ci-betanet':
-    return {
-      networkId: 'shared-test-staging',
-      nodeUrl: 'https://rpc.ci-betanet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  default:
-    throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org',
+        explorerUrl: 'https://explorer.mainnet.near.org',
+      };
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org',
+      };
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org',
+        explorerUrl: 'https://explorer.betanet.near.org',
+      };
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME,
+      };
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    default:
+      throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
   }
 }
 
@@ -4184,8 +4246,8 @@ test('changes the message', async (t) => {
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\",
+    \\"nodemon\\": \\"~2.0.16\\",
     \\"parcel\\": \\"^2.6.0\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
@@ -4593,7 +4655,6 @@ async fn test_changes_message(
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\"
   },
   \\"dependencies\\": {}
@@ -5225,7 +5286,7 @@ window.nearInitPromise = initContract()
   Array [
     "/rust_react/frontend/near-api.js",
     "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
-import { getConfig}  from './near-config';
+import { getConfig } from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
 
@@ -5278,65 +5339,65 @@ export async function getGreetingFromContract() {
   ],
   Array [
     "/rust_react/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME ||'new-awesome-project';
+    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 export function getConfig(env) {
   switch (env) {
 
-  case 'production':
-  case 'mainnet':
-    return {
-      networkId: 'mainnet',
-      nodeUrl: 'https://rpc.mainnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.near.org',
-      helperUrl: 'https://helper.mainnet.near.org',
-      explorerUrl: 'https://explorer.mainnet.near.org',
-    };
-  case 'development':
-  case 'testnet':
-    return {
-      networkId: 'testnet',
-      nodeUrl: 'https://rpc.testnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org',
-    };
-  case 'betanet':
-    return {
-      networkId: 'betanet',
-      nodeUrl: 'https://rpc.betanet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.betanet.near.org',
-      helperUrl: 'https://helper.betanet.near.org',
-      explorerUrl: 'https://explorer.betanet.near.org',
-    };
-  case 'local':
-    return {
-      networkId: 'local',
-      nodeUrl: 'http://localhost:3030',
-      keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
-      walletUrl: 'http://localhost:4000/wallet',
-      contractName: CONTRACT_NAME,
-    };
-  case 'test':
-  case 'ci':
-    return {
-      networkId: 'shared-test',
-      nodeUrl: 'https://rpc.ci-testnet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  case 'ci-betanet':
-    return {
-      networkId: 'shared-test-staging',
-      nodeUrl: 'https://rpc.ci-betanet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  default:
-    throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org',
+        explorerUrl: 'https://explorer.mainnet.near.org',
+      };
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org',
+      };
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org',
+        explorerUrl: 'https://explorer.betanet.near.org',
+      };
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME,
+      };
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    default:
+      throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
   }
 }
 ",
@@ -5518,8 +5579,8 @@ async fn test_changes_message(
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\",
+    \\"nodemon\\": \\"~2.0.16\\",
     \\"parcel\\": \\"^2.6.0\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\",
@@ -6303,65 +6364,64 @@ export async function getGreetingFromContract(){
   ],
   Array [
     "/rust_vanilla/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME ||'new-awesome-project';
+    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 function getConfig(env) {
   switch (env) {
-
-  case 'production':
-  case 'mainnet':
-    return {
-      networkId: 'mainnet',
-      nodeUrl: 'https://rpc.mainnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.near.org',
-      helperUrl: 'https://helper.mainnet.near.org',
-      explorerUrl: 'https://explorer.mainnet.near.org',
-    };
-  case 'development':
-  case 'testnet':
-    return {
-      networkId: 'testnet',
-      nodeUrl: 'https://rpc.testnet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.testnet.near.org',
-      helperUrl: 'https://helper.testnet.near.org',
-      explorerUrl: 'https://explorer.testnet.near.org',
-    };
-  case 'betanet':
-    return {
-      networkId: 'betanet',
-      nodeUrl: 'https://rpc.betanet.near.org',
-      contractName: CONTRACT_NAME,
-      walletUrl: 'https://wallet.betanet.near.org',
-      helperUrl: 'https://helper.betanet.near.org',
-      explorerUrl: 'https://explorer.betanet.near.org',
-    };
-  case 'local':
-    return {
-      networkId: 'local',
-      nodeUrl: 'http://localhost:3030',
-      keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
-      walletUrl: 'http://localhost:4000/wallet',
-      contractName: CONTRACT_NAME,
-    };
-  case 'test':
-  case 'ci':
-    return {
-      networkId: 'shared-test',
-      nodeUrl: 'https://rpc.ci-testnet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  case 'ci-betanet':
-    return {
-      networkId: 'shared-test-staging',
-      nodeUrl: 'https://rpc.ci-betanet.near.org',
-      contractName: CONTRACT_NAME,
-      masterAccount: 'test.near',
-    };
-  default:
-    throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
+    case 'production':
+    case 'mainnet':
+      return {
+        networkId: 'mainnet',
+        nodeUrl: 'https://rpc.mainnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.near.org',
+        helperUrl: 'https://helper.mainnet.near.org',
+        explorerUrl: 'https://explorer.mainnet.near.org',
+      };
+    case 'development':
+    case 'testnet':
+      return {
+        networkId: 'testnet',
+        nodeUrl: 'https://rpc.testnet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
+        explorerUrl: 'https://explorer.testnet.near.org',
+      };
+    case 'betanet':
+      return {
+        networkId: 'betanet',
+        nodeUrl: 'https://rpc.betanet.near.org',
+        contractName: CONTRACT_NAME,
+        walletUrl: 'https://wallet.betanet.near.org',
+        helperUrl: 'https://helper.betanet.near.org',
+        explorerUrl: 'https://explorer.betanet.near.org',
+      };
+    case 'local':
+      return {
+        networkId: 'local',
+        nodeUrl: 'http://localhost:3030',
+        keyPath: \`\${process.env.HOME}/.near/validator_key.json\`,
+        walletUrl: 'http://localhost:4000/wallet',
+        contractName: CONTRACT_NAME,
+      };
+    case 'test':
+    case 'ci':
+      return {
+        networkId: 'shared-test',
+        nodeUrl: 'https://rpc.ci-testnet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    case 'ci-betanet':
+      return {
+        networkId: 'shared-test-staging',
+        nodeUrl: 'https://rpc.ci-betanet.near.org',
+        contractName: CONTRACT_NAME,
+        masterAccount: 'test.near',
+      };
+    default:
+      throw Error(\`Unconfigured environment '\${env}'. Can be configured in src/config.js.\`);
   }
 }
 
@@ -6481,8 +6541,8 @@ async fn test_changes_message(
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\",
-    \\"nodemon\\": \\"~2.0.16\\",
     \\"near-workspaces\\": \\"^2.0.0\\",
+    \\"nodemon\\": \\"~2.0.16\\",
     \\"parcel\\": \\"^2.6.0\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
