@@ -7,9 +7,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    `npm run deploy`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run `npm start`. This will run a dev server.
 

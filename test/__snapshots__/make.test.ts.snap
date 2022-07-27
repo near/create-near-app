@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`make all projects make project files contract 'assemblyscript' frontend 'none' 1`] = `
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/.gitignore 1`] = `
 Array [
-  Array [
-    "/assemblyscript_none/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "/assemblyscript_none/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -36,20 +35,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/assemblyscript_none/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/.gitpod.yml 1`] = `
+Array [
+  "/assemblyscript_none/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/assemblyscript_none/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/README.md 1`] = `
+Array [
+  "/assemblyscript_none/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -58,9 +63,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -141,16 +158,22 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/assemblyscript_none/contract/.gitignore",
-    "node_modules
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/.gitignore 1`] = `
+Array [
+  "/assemblyscript_none/contract/.gitignore",
+  "node_modules
 build
 ",
-  ],
-  Array [
-    "/assemblyscript_none/contract/README.md",
-    "NEAR blank project Smart Contract
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/README.md 1`] = `
+Array [
+  "/assemblyscript_none/contract/README.md",
+  "NEAR blank project Smart Contract
 =================================
 
 A [smart contract] written in [AssemblyScript] for an app initialized with [create-near-app]
@@ -177,25 +200,37 @@ Exploring The Code
   [Node.js]: https://nodejs.org/en/download/package-manager/
   [as-pect]: https://www.npmjs.com/package/@as-pect/cli
 ",
-  ],
-  Array [
-    "/assemblyscript_none/contract/as-pect.config.js",
-    "module.exports = require('near-sdk-as/imports');",
-  ],
-  Array [
-    "/assemblyscript_none/contract/asconfig.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/as-pect.config.js 1`] = `
+Array [
+  "/assemblyscript_none/contract/as-pect.config.js",
+  "module.exports = require('near-sdk-as/imports');",
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/asconfig.json 1`] = `
+Array [
+  "/assemblyscript_none/contract/asconfig.json",
+  "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_none/contract/assembly/__tests__/as-pect.d.ts",
-    "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
-  ],
-  Array [
-    "/assemblyscript_none/contract/assembly/__tests__/main.spec.ts",
-    "import { set_greeting, get_greeting } from '..';
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+Array [
+  "/assemblyscript_none/contract/assembly/__tests__/as-pect.d.ts",
+  "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/assembly/__tests__/main.spec.ts 1`] = `
+Array [
+  "/assemblyscript_none/contract/assembly/__tests__/main.spec.ts",
+  "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
   it('should get the default greeting', () => {
@@ -206,14 +241,20 @@ describe('Greeting ', () => {
     expect(get_greeting()).toBe('howdy');
   });
 });",
-  ],
-  Array [
-    "/assemblyscript_none/contract/assembly/as_types.d.ts",
-    "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
-  ],
-  Array [
-    "/assemblyscript_none/contract/assembly/index.ts",
-    "/*
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/assembly/as_types.d.ts 1`] = `
+Array [
+  "/assemblyscript_none/contract/assembly/as_types.d.ts",
+  "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/assembly/index.ts 1`] = `
+Array [
+  "/assemblyscript_none/contract/assembly/index.ts",
+  "/*
  * Example smart contract written in AssemblyScript
  *
  * Learn more about writing NEAR smart contracts with AssemblyScript:
@@ -236,20 +277,26 @@ export function set_greeting(message: string): void {
   logging.log(\`Saving greeting '\${message}'\`);
   storage.set<string>('message', message);
 }",
-  ],
-  Array [
-    "/assemblyscript_none/contract/assembly/tsconfig.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/assembly/tsconfig.json 1`] = `
+Array [
+  "/assemblyscript_none/contract/assembly/tsconfig.json",
+  "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
     \\"./**/*.ts\\"
   ]
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_none/contract/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/contract/package.json 1`] = `
+Array [
+  "/assemblyscript_none/contract/package.json",
+  "{
   \\"name\\": \\"greeter\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -262,10 +309,13 @@ export function set_greeting(message: string): void {
   }
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_none/integration-tests/ava.config.cjs",
-    "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/integration-tests/ava.config.cjs 1`] = `
+Array [
+  "/assemblyscript_none/integration-tests/ava.config.cjs",
+  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
   timeout: \\"300000\\",
@@ -275,10 +325,13 @@ module.exports = {
   require: [\\"ts-node/register\\"],
 };
 ",
-  ],
-  Array [
-    "/assemblyscript_none/integration-tests/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/integration-tests/package.json 1`] = `
+Array [
+  "/assemblyscript_none/integration-tests/package.json",
+  "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -295,10 +348,13 @@ module.exports = {
   \\"dependencies\\": {}
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_none/integration-tests/src/main.ava.ts",
-    "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/integration-tests/src/main.ava.ts 1`] = `
+Array [
+  "/assemblyscript_none/integration-tests/src/main.ava.ts",
+  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -342,10 +398,13 @@ test('changes the message', async (t) => {
   const message: string = await contract.view('get_greeting', {});
   t.is(message, 'Howdy');
 });",
-  ],
-  Array [
-    "/assemblyscript_none/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'none': /assemblyscript_none/package.json 1`] = `
+Array [
+  "/assemblyscript_none/package.json",
+  "{
   \\"name\\": \\"assemblyscript_none\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -363,15 +422,13 @@ test('changes the message', async (t) => {
   },
   \\"dependencies\\": {}
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'assemblyscript' frontend 'react' 1`] = `
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/.gitignore 1`] = `
 Array [
-  Array [
-    "/assemblyscript_react/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "/assemblyscript_react/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -403,20 +460,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/assemblyscript_react/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/.gitpod.yml 1`] = `
+Array [
+  "/assemblyscript_react/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/assemblyscript_react/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/README.md 1`] = `
+Array [
+  "/assemblyscript_react/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -425,9 +488,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -508,16 +583,22 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/assemblyscript_react/contract/.gitignore",
-    "node_modules
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/.gitignore 1`] = `
+Array [
+  "/assemblyscript_react/contract/.gitignore",
+  "node_modules
 build
 ",
-  ],
-  Array [
-    "/assemblyscript_react/contract/README.md",
-    "NEAR blank project Smart Contract
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/README.md 1`] = `
+Array [
+  "/assemblyscript_react/contract/README.md",
+  "NEAR blank project Smart Contract
 =================================
 
 A [smart contract] written in [AssemblyScript] for an app initialized with [create-near-app]
@@ -544,25 +625,37 @@ Exploring The Code
   [Node.js]: https://nodejs.org/en/download/package-manager/
   [as-pect]: https://www.npmjs.com/package/@as-pect/cli
 ",
-  ],
-  Array [
-    "/assemblyscript_react/contract/as-pect.config.js",
-    "module.exports = require('near-sdk-as/imports');",
-  ],
-  Array [
-    "/assemblyscript_react/contract/asconfig.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/as-pect.config.js 1`] = `
+Array [
+  "/assemblyscript_react/contract/as-pect.config.js",
+  "module.exports = require('near-sdk-as/imports');",
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/asconfig.json 1`] = `
+Array [
+  "/assemblyscript_react/contract/asconfig.json",
+  "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/contract/assembly/__tests__/as-pect.d.ts",
-    "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
-  ],
-  Array [
-    "/assemblyscript_react/contract/assembly/__tests__/main.spec.ts",
-    "import { set_greeting, get_greeting } from '..';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+Array [
+  "/assemblyscript_react/contract/assembly/__tests__/as-pect.d.ts",
+  "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/assembly/__tests__/main.spec.ts 1`] = `
+Array [
+  "/assemblyscript_react/contract/assembly/__tests__/main.spec.ts",
+  "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
   it('should get the default greeting', () => {
@@ -573,14 +666,20 @@ describe('Greeting ', () => {
     expect(get_greeting()).toBe('howdy');
   });
 });",
-  ],
-  Array [
-    "/assemblyscript_react/contract/assembly/as_types.d.ts",
-    "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
-  ],
-  Array [
-    "/assemblyscript_react/contract/assembly/index.ts",
-    "/*
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/assembly/as_types.d.ts 1`] = `
+Array [
+  "/assemblyscript_react/contract/assembly/as_types.d.ts",
+  "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/assembly/index.ts 1`] = `
+Array [
+  "/assemblyscript_react/contract/assembly/index.ts",
+  "/*
  * Example smart contract written in AssemblyScript
  *
  * Learn more about writing NEAR smart contracts with AssemblyScript:
@@ -603,20 +702,26 @@ export function set_greeting(message: string): void {
   logging.log(\`Saving greeting '\${message}'\`);
   storage.set<string>('message', message);
 }",
-  ],
-  Array [
-    "/assemblyscript_react/contract/assembly/tsconfig.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/assembly/tsconfig.json 1`] = `
+Array [
+  "/assemblyscript_react/contract/assembly/tsconfig.json",
+  "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
     \\"./**/*.ts\\"
   ]
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/contract/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/contract/package.json 1`] = `
+Array [
+  "/assemblyscript_react/contract/package.json",
+  "{
   \\"name\\": \\"greeter\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -629,10 +734,13 @@ export function set_greeting(message: string): void {
   }
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/App.js",
-    "import 'regenerator-runtime/runtime';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/App.js 1`] = `
+Array [
+  "/assemblyscript_react/frontend/App.js",
+  "import 'regenerator-runtime/runtime';
 import React from 'react';
 
 import './assets/global.css';
@@ -699,10 +807,13 @@ export default function App() {
   );
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/assets/favicon.ico",
-    "�PNG
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/assets/favicon.ico 1`] = `
+Array [
+  "/assemblyscript_react/frontend/assets/favicon.ico",
+  "�PNG
 
    
 IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
@@ -742,10 +853,13 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
 ��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
 ������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�\\"7�>\`�    IEND�B\`�",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/assets/global.css",
-    "* {
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/assets/global.css 1`] = `
+Array [
+  "/assemblyscript_react/frontend/assets/global.css",
+  "* {
   box-sizing: border-box;
 }
 
@@ -919,18 +1033,27 @@ li {
   }
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/assets/logo-black.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/assets/logo-white.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/index.html",
-    "<!DOCTYPE html>
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/assets/logo-black.svg 1`] = `
+Array [
+  "/assemblyscript_react/frontend/assets/logo-black.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/assets/logo-white.svg 1`] = `
+Array [
+  "/assemblyscript_react/frontend/assets/logo-white.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/index.html 1`] = `
+Array [
+  "/assemblyscript_react/frontend/index.html",
+  "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
     <meta charset=\\"utf-8\\" />
@@ -946,10 +1069,13 @@ li {
   </body>
 </html>
 ",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/index.js",
-    "import React from 'react';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/index.js 1`] = `
+Array [
+  "/assemblyscript_react/frontend/index.js",
+  "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { initContract } from './near-api';
@@ -965,10 +1091,13 @@ window.nearInitPromise = initContract()
     console.error(e);
   });
 ",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/near-api.js",
-    "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/near-api.js 1`] = `
+Array [
+  "/assemblyscript_react/frontend/near-api.js",
+  "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
@@ -1019,10 +1148,13 @@ export async function getGreetingFromContract() {
   let greeting = await window.contract.get_greeting();
   return greeting;
 }",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/near-config.js 1`] = `
+Array [
+  "/assemblyscript_react/frontend/near-config.js",
+  "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 export function getConfig(env) {
   switch (env) {
@@ -1084,10 +1216,13 @@ export function getConfig(env) {
   }
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/frontend/ui-components.js",
-    "import { signInWithNearWallet, signOutNearWallet } from './near-api';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/frontend/ui-components.js 1`] = `
+Array [
+  "/assemblyscript_react/frontend/ui-components.js",
+  "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
 export function SignInPrompt({greeting}) {
@@ -1148,10 +1283,13 @@ export function EducationalText() {
   );
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/integration-tests/ava.config.cjs",
-    "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/integration-tests/ava.config.cjs 1`] = `
+Array [
+  "/assemblyscript_react/integration-tests/ava.config.cjs",
+  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
   timeout: \\"300000\\",
@@ -1161,10 +1299,13 @@ module.exports = {
   require: [\\"ts-node/register\\"],
 };
 ",
-  ],
-  Array [
-    "/assemblyscript_react/integration-tests/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/integration-tests/package.json 1`] = `
+Array [
+  "/assemblyscript_react/integration-tests/package.json",
+  "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -1181,10 +1322,13 @@ module.exports = {
   \\"dependencies\\": {}
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_react/integration-tests/src/main.ava.ts",
-    "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/integration-tests/src/main.ava.ts 1`] = `
+Array [
+  "/assemblyscript_react/integration-tests/src/main.ava.ts",
+  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -1228,10 +1372,13 @@ test('changes the message', async (t) => {
   const message: string = await contract.view('get_greeting', {});
   t.is(message, 'Howdy');
 });",
-  ],
-  Array [
-    "/assemblyscript_react/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'react': /assemblyscript_react/package.json 1`] = `
+Array [
+  "/assemblyscript_react/package.json",
+  "{
   \\"name\\": \\"assemblyscript_react\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -1282,21 +1429,22 @@ test('changes the message', async (t) => {
     ]
   }
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'assemblyscript' frontend 'vanilla' 1`] = `
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/.gitattributes 1`] = `
 Array [
-  Array [
-    "/assemblyscript_vanilla/.gitattributes",
-    "package-lock.json linguist-generated=true -diff
+  "/assemblyscript_vanilla/.gitattributes",
+  "package-lock.json linguist-generated=true -diff
 yarn.lock linguist-generated=true -diff
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/.gitignore 1`] = `
+Array [
+  "/assemblyscript_vanilla/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -1328,20 +1476,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/.gitpod.yml 1`] = `
+Array [
+  "/assemblyscript_vanilla/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/README.md 1`] = `
+Array [
+  "/assemblyscript_vanilla/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -1350,9 +1504,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -1433,16 +1599,22 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/.gitignore",
-    "node_modules
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/.gitignore 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/.gitignore",
+  "node_modules
 build
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/README.md",
-    "NEAR blank project Smart Contract
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/README.md 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/README.md",
+  "NEAR blank project Smart Contract
 =================================
 
 A [smart contract] written in [AssemblyScript] for an app initialized with [create-near-app]
@@ -1469,25 +1641,37 @@ Exploring The Code
   [Node.js]: https://nodejs.org/en/download/package-manager/
   [as-pect]: https://www.npmjs.com/package/@as-pect/cli
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/as-pect.config.js",
-    "module.exports = require('near-sdk-as/imports');",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/asconfig.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/as-pect.config.js 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/as-pect.config.js",
+  "module.exports = require('near-sdk-as/imports');",
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/asconfig.json 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/asconfig.json",
+  "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/assembly/__tests__/as-pect.d.ts",
-    "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/assembly/__tests__/main.spec.ts",
-    "import { set_greeting, get_greeting } from '..';
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/assembly/__tests__/as-pect.d.ts",
+  "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/assembly/__tests__/main.spec.ts 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/assembly/__tests__/main.spec.ts",
+  "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
   it('should get the default greeting', () => {
@@ -1498,14 +1682,20 @@ describe('Greeting ', () => {
     expect(get_greeting()).toBe('howdy');
   });
 });",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/assembly/as_types.d.ts",
-    "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/assembly/index.ts",
-    "/*
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/assembly/as_types.d.ts 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/assembly/as_types.d.ts",
+  "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/assembly/index.ts 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/assembly/index.ts",
+  "/*
  * Example smart contract written in AssemblyScript
  *
  * Learn more about writing NEAR smart contracts with AssemblyScript:
@@ -1528,20 +1718,26 @@ export function set_greeting(message: string): void {
   logging.log(\`Saving greeting '\${message}'\`);
   storage.set<string>('message', message);
 }",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/assembly/tsconfig.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/assembly/tsconfig.json 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/assembly/tsconfig.json",
+  "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
     \\"./**/*.ts\\"
   ]
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/contract/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/contract/package.json 1`] = `
+Array [
+  "/assemblyscript_vanilla/contract/package.json",
+  "{
   \\"name\\": \\"greeter\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -1554,10 +1750,13 @@ export function set_greeting(message: string): void {
   }
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/assets/favicon.ico",
-    "�PNG
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/assets/favicon.ico 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/assets/favicon.ico",
+  "�PNG
 
    
 IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
@@ -1597,10 +1796,13 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
 ��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
 ������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�\\"7�>\`�    IEND�B\`�",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/assets/global.css",
-    "* {
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/assets/global.css 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/assets/global.css",
+  "* {
   box-sizing: border-box;
 }
 
@@ -1774,18 +1976,27 @@ li {
   }
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/assets/logo-black.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/assets/logo-white.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/index.html",
-    "<!DOCTYPE html>
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/assets/logo-black.svg 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/assets/logo-black.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/assets/logo-white.svg 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/assets/logo-white.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/index.html 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/index.html",
+  "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
   <meta charset=\\"utf-8\\">
@@ -1872,10 +2083,13 @@ li {
 </body>
 </html>
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/index.js",
-    "import 'regenerator-runtime/runtime';
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/index.js 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/index.js",
+  "import 'regenerator-runtime/runtime';
 import {
   initContract,
   signInWithNearWallet,
@@ -1954,10 +2168,13 @@ function signedInFlow() {
   fetchGreeting();
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/near-api.js",
-    "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/near-api.js 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/near-api.js",
+  "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
@@ -2008,10 +2225,13 @@ export async function getGreetingFromContract(){
   let greeting = await window.contract.get_greeting();
   return greeting;
 }",
-  ],
-  Array [
-    "/assemblyscript_vanilla/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/frontend/near-config.js 1`] = `
+Array [
+  "/assemblyscript_vanilla/frontend/near-config.js",
+  "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 function getConfig(env) {
   switch (env) {
@@ -2074,10 +2294,13 @@ function getConfig(env) {
 
 module.exports = getConfig;
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/integration-tests/ava.config.cjs",
-    "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/integration-tests/ava.config.cjs 1`] = `
+Array [
+  "/assemblyscript_vanilla/integration-tests/ava.config.cjs",
+  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
   timeout: \\"300000\\",
@@ -2087,10 +2310,13 @@ module.exports = {
   require: [\\"ts-node/register\\"],
 };
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/integration-tests/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/integration-tests/package.json 1`] = `
+Array [
+  "/assemblyscript_vanilla/integration-tests/package.json",
+  "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -2107,10 +2333,13 @@ module.exports = {
   \\"dependencies\\": {}
 }
 ",
-  ],
-  Array [
-    "/assemblyscript_vanilla/integration-tests/src/main.ava.ts",
-    "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/integration-tests/src/main.ava.ts 1`] = `
+Array [
+  "/assemblyscript_vanilla/integration-tests/src/main.ava.ts",
+  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -2154,10 +2383,13 @@ test('changes the message', async (t) => {
   const message: string = await contract.view('get_greeting', {});
   t.is(message, 'Howdy');
 });",
-  ],
-  Array [
-    "/assemblyscript_vanilla/package.json",
-    "{
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla': /assemblyscript_vanilla/package.json 1`] = `
+Array [
+  "/assemblyscript_vanilla/package.json",
+  "{
   \\"name\\": \\"assemblyscript_vanilla\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -2183,15 +2415,13 @@ test('changes the message', async (t) => {
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'js' frontend 'none' 1`] = `
+exports[`create 'js'+'none': /js_none/.gitignore 1`] = `
 Array [
-  Array [
-    "/js_none/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "/js_none/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -2223,20 +2453,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/js_none/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'js'+'none': /js_none/.gitpod.yml 1`] = `
+Array [
+  "/js_none/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/js_none/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'js'+'none': /js_none/README.md 1`] = `
+Array [
+  "/js_none/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -2245,9 +2481,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -2328,26 +2576,35 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/js_none/contract/.gitignore",
-    "node_modules
+]
+`;
+
+exports[`create 'js'+'none': /js_none/contract/.gitignore 1`] = `
+Array [
+  "/js_none/contract/.gitignore",
+  "node_modules
 build
 neardev",
-  ],
-  Array [
-    "/js_none/contract/babel.config.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'none': /js_none/contract/babel.config.json 1`] = `
+Array [
+  "/js_none/contract/babel.config.json",
+  "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
     [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
   ],
   \\"presets\\": [\\"@babel/preset-typescript\\"]
 }",
-  ],
-  Array [
-    "/js_none/contract/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'none': /js_none/contract/package.json 1`] = `
+Array [
+  "/js_none/contract/package.json",
+  "{
   \\"name\\": \\"greeter\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -2364,10 +2621,13 @@ neardev",
   }
 }
 ",
-  ],
-  Array [
-    "/js_none/contract/src/contract.ts",
-    "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
+]
+`;
+
+exports[`create 'js'+'none': /js_none/contract/src/contract.ts 1`] = `
+Array [
+  "/js_none/contract/src/contract.ts",
+  "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
@@ -2399,10 +2659,13 @@ class MyContract extends NearContract {
   }
 }
 ",
-  ],
-  Array [
-    "/js_none/contract/tsconfig.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'none': /js_none/contract/tsconfig.json 1`] = `
+Array [
+  "/js_none/contract/tsconfig.json",
+  "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
     \\"target\\": \\"es5\\",
@@ -2412,10 +2675,13 @@ class MyContract extends NearContract {
     \\"node_modules\\"
   ],
 }",
-  ],
-  Array [
-    "/js_none/integration-tests/ava.config.cjs",
-    "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+]
+`;
+
+exports[`create 'js'+'none': /js_none/integration-tests/ava.config.cjs 1`] = `
+Array [
+  "/js_none/integration-tests/ava.config.cjs",
+  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
   timeout: \\"300000\\",
@@ -2425,10 +2691,13 @@ module.exports = {
   require: [\\"ts-node/register\\"],
 };
 ",
-  ],
-  Array [
-    "/js_none/integration-tests/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'none': /js_none/integration-tests/package.json 1`] = `
+Array [
+  "/js_none/integration-tests/package.json",
+  "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -2445,10 +2714,13 @@ module.exports = {
   \\"dependencies\\": {}
 }
 ",
-  ],
-  Array [
-    "/js_none/integration-tests/src/main.ava.ts",
-    "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+]
+`;
+
+exports[`create 'js'+'none': /js_none/integration-tests/src/main.ava.ts 1`] = `
+Array [
+  "/js_none/integration-tests/src/main.ava.ts",
+  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -2492,10 +2764,13 @@ test('changes the message', async (t) => {
   const message: string = await contract.view('get_greeting', {});
   t.is(message, 'Howdy');
 });",
-  ],
-  Array [
-    "/js_none/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'none': /js_none/package.json 1`] = `
+Array [
+  "/js_none/package.json",
+  "{
   \\"name\\": \\"js_none\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -2512,15 +2787,13 @@ test('changes the message', async (t) => {
   },
   \\"dependencies\\": {}
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'js' frontend 'react' 1`] = `
+exports[`create 'js'+'react': /js_react/.gitignore 1`] = `
 Array [
-  Array [
-    "/js_react/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "/js_react/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -2552,20 +2825,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/js_react/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'js'+'react': /js_react/.gitpod.yml 1`] = `
+Array [
+  "/js_react/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/js_react/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'js'+'react': /js_react/README.md 1`] = `
+Array [
+  "/js_react/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -2574,9 +2853,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -2657,26 +2948,35 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/js_react/contract/.gitignore",
-    "node_modules
+]
+`;
+
+exports[`create 'js'+'react': /js_react/contract/.gitignore 1`] = `
+Array [
+  "/js_react/contract/.gitignore",
+  "node_modules
 build
 neardev",
-  ],
-  Array [
-    "/js_react/contract/babel.config.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'react': /js_react/contract/babel.config.json 1`] = `
+Array [
+  "/js_react/contract/babel.config.json",
+  "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
     [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
   ],
   \\"presets\\": [\\"@babel/preset-typescript\\"]
 }",
-  ],
-  Array [
-    "/js_react/contract/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'react': /js_react/contract/package.json 1`] = `
+Array [
+  "/js_react/contract/package.json",
+  "{
   \\"name\\": \\"greeter\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -2693,10 +2993,13 @@ neardev",
   }
 }
 ",
-  ],
-  Array [
-    "/js_react/contract/src/contract.ts",
-    "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/contract/src/contract.ts 1`] = `
+Array [
+  "/js_react/contract/src/contract.ts",
+  "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
@@ -2728,10 +3031,13 @@ class MyContract extends NearContract {
   }
 }
 ",
-  ],
-  Array [
-    "/js_react/contract/tsconfig.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'react': /js_react/contract/tsconfig.json 1`] = `
+Array [
+  "/js_react/contract/tsconfig.json",
+  "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
     \\"target\\": \\"es5\\",
@@ -2741,10 +3047,13 @@ class MyContract extends NearContract {
     \\"node_modules\\"
   ],
 }",
-  ],
-  Array [
-    "/js_react/frontend/App.js",
-    "import 'regenerator-runtime/runtime';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/App.js 1`] = `
+Array [
+  "/js_react/frontend/App.js",
+  "import 'regenerator-runtime/runtime';
 import React from 'react';
 
 import './assets/global.css';
@@ -2811,10 +3120,13 @@ export default function App() {
   );
 }
 ",
-  ],
-  Array [
-    "/js_react/frontend/assets/favicon.ico",
-    "�PNG
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/assets/favicon.ico 1`] = `
+Array [
+  "/js_react/frontend/assets/favicon.ico",
+  "�PNG
 
    
 IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
@@ -2854,10 +3166,13 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
 ��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
 ������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�\\"7�>\`�    IEND�B\`�",
-  ],
-  Array [
-    "/js_react/frontend/assets/global.css",
-    "* {
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/assets/global.css 1`] = `
+Array [
+  "/js_react/frontend/assets/global.css",
+  "* {
   box-sizing: border-box;
 }
 
@@ -3031,18 +3346,27 @@ li {
   }
 }
 ",
-  ],
-  Array [
-    "/js_react/frontend/assets/logo-black.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
-  ],
-  Array [
-    "/js_react/frontend/assets/logo-white.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
-  ],
-  Array [
-    "/js_react/frontend/index.html",
-    "<!DOCTYPE html>
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/assets/logo-black.svg 1`] = `
+Array [
+  "/js_react/frontend/assets/logo-black.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/assets/logo-white.svg 1`] = `
+Array [
+  "/js_react/frontend/assets/logo-white.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/index.html 1`] = `
+Array [
+  "/js_react/frontend/index.html",
+  "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
     <meta charset=\\"utf-8\\" />
@@ -3058,10 +3382,13 @@ li {
   </body>
 </html>
 ",
-  ],
-  Array [
-    "/js_react/frontend/index.js",
-    "import React from 'react';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/index.js 1`] = `
+Array [
+  "/js_react/frontend/index.js",
+  "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { initContract } from './near-api';
@@ -3077,10 +3404,13 @@ window.nearInitPromise = initContract()
     console.error(e);
   });
 ",
-  ],
-  Array [
-    "/js_react/frontend/near-api.js",
-    "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/near-api.js 1`] = `
+Array [
+  "/js_react/frontend/near-api.js",
+  "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
@@ -3131,10 +3461,13 @@ export async function getGreetingFromContract() {
   let greeting = await window.contract.get_greeting();
   return greeting;
 }",
-  ],
-  Array [
-    "/js_react/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/near-config.js 1`] = `
+Array [
+  "/js_react/frontend/near-config.js",
+  "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 export function getConfig(env) {
   switch (env) {
@@ -3196,10 +3529,13 @@ export function getConfig(env) {
   }
 }
 ",
-  ],
-  Array [
-    "/js_react/frontend/ui-components.js",
-    "import { signInWithNearWallet, signOutNearWallet } from './near-api';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/frontend/ui-components.js 1`] = `
+Array [
+  "/js_react/frontend/ui-components.js",
+  "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
 export function SignInPrompt({greeting}) {
@@ -3260,10 +3596,13 @@ export function EducationalText() {
   );
 }
 ",
-  ],
-  Array [
-    "/js_react/integration-tests/ava.config.cjs",
-    "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+]
+`;
+
+exports[`create 'js'+'react': /js_react/integration-tests/ava.config.cjs 1`] = `
+Array [
+  "/js_react/integration-tests/ava.config.cjs",
+  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
   timeout: \\"300000\\",
@@ -3273,10 +3612,13 @@ module.exports = {
   require: [\\"ts-node/register\\"],
 };
 ",
-  ],
-  Array [
-    "/js_react/integration-tests/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'react': /js_react/integration-tests/package.json 1`] = `
+Array [
+  "/js_react/integration-tests/package.json",
+  "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -3293,10 +3635,13 @@ module.exports = {
   \\"dependencies\\": {}
 }
 ",
-  ],
-  Array [
-    "/js_react/integration-tests/src/main.ava.ts",
-    "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+]
+`;
+
+exports[`create 'js'+'react': /js_react/integration-tests/src/main.ava.ts 1`] = `
+Array [
+  "/js_react/integration-tests/src/main.ava.ts",
+  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -3340,10 +3685,13 @@ test('changes the message', async (t) => {
   const message: string = await contract.view('get_greeting', {});
   t.is(message, 'Howdy');
 });",
-  ],
-  Array [
-    "/js_react/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'react': /js_react/package.json 1`] = `
+Array [
+  "/js_react/package.json",
+  "{
   \\"name\\": \\"js_react\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -3393,21 +3741,22 @@ test('changes the message', async (t) => {
     ]
   }
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'js' frontend 'vanilla' 1`] = `
+exports[`create 'js'+'vanilla': /js_vanilla/.gitattributes 1`] = `
 Array [
-  Array [
-    "/js_vanilla/.gitattributes",
-    "package-lock.json linguist-generated=true -diff
+  "/js_vanilla/.gitattributes",
+  "package-lock.json linguist-generated=true -diff
 yarn.lock linguist-generated=true -diff
 ",
-  ],
-  Array [
-    "/js_vanilla/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/.gitignore 1`] = `
+Array [
+  "/js_vanilla/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -3439,20 +3788,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/js_vanilla/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/.gitpod.yml 1`] = `
+Array [
+  "/js_vanilla/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/js_vanilla/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/README.md 1`] = `
+Array [
+  "/js_vanilla/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -3461,9 +3816,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -3544,26 +3911,35 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/js_vanilla/contract/.gitignore",
-    "node_modules
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/contract/.gitignore 1`] = `
+Array [
+  "/js_vanilla/contract/.gitignore",
+  "node_modules
 build
 neardev",
-  ],
-  Array [
-    "/js_vanilla/contract/babel.config.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/contract/babel.config.json 1`] = `
+Array [
+  "/js_vanilla/contract/babel.config.json",
+  "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
     [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
   ],
   \\"presets\\": [\\"@babel/preset-typescript\\"]
 }",
-  ],
-  Array [
-    "/js_vanilla/contract/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/contract/package.json 1`] = `
+Array [
+  "/js_vanilla/contract/package.json",
+  "{
   \\"name\\": \\"greeter\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -3580,10 +3956,13 @@ neardev",
   }
 }
 ",
-  ],
-  Array [
-    "/js_vanilla/contract/src/contract.ts",
-    "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/contract/src/contract.ts 1`] = `
+Array [
+  "/js_vanilla/contract/src/contract.ts",
+  "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
@@ -3615,10 +3994,13 @@ class MyContract extends NearContract {
   }
 }
 ",
-  ],
-  Array [
-    "/js_vanilla/contract/tsconfig.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/contract/tsconfig.json 1`] = `
+Array [
+  "/js_vanilla/contract/tsconfig.json",
+  "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
     \\"target\\": \\"es5\\",
@@ -3628,10 +4010,13 @@ class MyContract extends NearContract {
     \\"node_modules\\"
   ],
 }",
-  ],
-  Array [
-    "/js_vanilla/frontend/assets/favicon.ico",
-    "�PNG
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/assets/favicon.ico 1`] = `
+Array [
+  "/js_vanilla/frontend/assets/favicon.ico",
+  "�PNG
 
    
 IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
@@ -3671,10 +4056,13 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
 ��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
 ������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�\\"7�>\`�    IEND�B\`�",
-  ],
-  Array [
-    "/js_vanilla/frontend/assets/global.css",
-    "* {
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/assets/global.css 1`] = `
+Array [
+  "/js_vanilla/frontend/assets/global.css",
+  "* {
   box-sizing: border-box;
 }
 
@@ -3848,18 +4236,27 @@ li {
   }
 }
 ",
-  ],
-  Array [
-    "/js_vanilla/frontend/assets/logo-black.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
-  ],
-  Array [
-    "/js_vanilla/frontend/assets/logo-white.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
-  ],
-  Array [
-    "/js_vanilla/frontend/index.html",
-    "<!DOCTYPE html>
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/assets/logo-black.svg 1`] = `
+Array [
+  "/js_vanilla/frontend/assets/logo-black.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/assets/logo-white.svg 1`] = `
+Array [
+  "/js_vanilla/frontend/assets/logo-white.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/index.html 1`] = `
+Array [
+  "/js_vanilla/frontend/index.html",
+  "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
   <meta charset=\\"utf-8\\">
@@ -3946,10 +4343,13 @@ li {
 </body>
 </html>
 ",
-  ],
-  Array [
-    "/js_vanilla/frontend/index.js",
-    "import 'regenerator-runtime/runtime';
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/index.js 1`] = `
+Array [
+  "/js_vanilla/frontend/index.js",
+  "import 'regenerator-runtime/runtime';
 import {
   initContract,
   signInWithNearWallet,
@@ -4028,10 +4428,13 @@ function signedInFlow() {
   fetchGreeting();
 }
 ",
-  ],
-  Array [
-    "/js_vanilla/frontend/near-api.js",
-    "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/near-api.js 1`] = `
+Array [
+  "/js_vanilla/frontend/near-api.js",
+  "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
@@ -4082,10 +4485,13 @@ export async function getGreetingFromContract(){
   let greeting = await window.contract.get_greeting();
   return greeting;
 }",
-  ],
-  Array [
-    "/js_vanilla/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/frontend/near-config.js 1`] = `
+Array [
+  "/js_vanilla/frontend/near-config.js",
+  "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 function getConfig(env) {
   switch (env) {
@@ -4148,10 +4554,13 @@ function getConfig(env) {
 
 module.exports = getConfig;
 ",
-  ],
-  Array [
-    "/js_vanilla/integration-tests/ava.config.cjs",
-    "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/integration-tests/ava.config.cjs 1`] = `
+Array [
+  "/js_vanilla/integration-tests/ava.config.cjs",
+  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
   timeout: \\"300000\\",
@@ -4161,10 +4570,13 @@ module.exports = {
   require: [\\"ts-node/register\\"],
 };
 ",
-  ],
-  Array [
-    "/js_vanilla/integration-tests/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/integration-tests/package.json 1`] = `
+Array [
+  "/js_vanilla/integration-tests/package.json",
+  "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -4181,10 +4593,13 @@ module.exports = {
   \\"dependencies\\": {}
 }
 ",
-  ],
-  Array [
-    "/js_vanilla/integration-tests/src/main.ava.ts",
-    "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/integration-tests/src/main.ava.ts 1`] = `
+Array [
+  "/js_vanilla/integration-tests/src/main.ava.ts",
+  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -4228,10 +4643,13 @@ test('changes the message', async (t) => {
   const message: string = await contract.view('get_greeting', {});
   t.is(message, 'Howdy');
 });",
-  ],
-  Array [
-    "/js_vanilla/package.json",
-    "{
+]
+`;
+
+exports[`create 'js'+'vanilla': /js_vanilla/package.json 1`] = `
+Array [
+  "/js_vanilla/package.json",
+  "{
   \\"name\\": \\"js_vanilla\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -4256,15 +4674,13 @@ test('changes the message', async (t) => {
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'rust' frontend 'none' 1`] = `
+exports[`create 'rust'+'none': /rust_none/.gitignore 1`] = `
 Array [
-  Array [
-    "/rust_none/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "/rust_none/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -4296,20 +4712,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/rust_none/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/.gitpod.yml 1`] = `
+Array [
+  "/rust_none/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/rust_none/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/README.md 1`] = `
+Array [
+  "/rust_none/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -4318,9 +4740,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -4401,21 +4835,30 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/rust_none/contract/.cargo/config",
-    "[build]
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/contract/.cargo/config 1`] = `
+Array [
+  "/rust_none/contract/.cargo/config",
+  "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
-  ],
-  Array [
-    "/rust_none/contract/.gitignore",
-    "target
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/contract/.gitignore 1`] = `
+Array [
+  "/rust_none/contract/.gitignore",
+  "target
 ",
-  ],
-  Array [
-    "/rust_none/contract/Cargo.toml",
-    "[package]
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/contract/Cargo.toml 1`] = `
+Array [
+  "/rust_none/contract/Cargo.toml",
+  "[package]
 name = \\"greeter\\"
 version = \\"1.0.0\\"
 authors = [\\"Near Inc <hello@near.org>\\"]
@@ -4439,10 +4882,13 @@ overflow-checks = true
 [workspace]
 members = []
 ",
-  ],
-  Array [
-    "/rust_none/contract/README.md",
-    "NEAR blank project Smart Contract
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/contract/README.md 1`] = `
+Array [
+  "/rust_none/contract/README.md",
+  "NEAR blank project Smart Contract
 =================================
 
 A [smart contract] written in [Rust] for an app initialized with [create-near-app]
@@ -4467,10 +4913,13 @@ Exploring The Code
   [correct target]: https://github.com/near/near-sdk-rs#pre-requisites
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
-  ],
-  Array [
-    "/rust_none/contract/src/lib.rs",
-    "/*
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/contract/src/lib.rs 1`] = `
+Array [
+  "/rust_none/contract/src/lib.rs",
+  "/*
  * Example smart contract written in RUST
  *
  * Learn more about writing NEAR smart contracts with Rust:
@@ -4543,10 +4992,13 @@ mod tests {
     }
 }
 ",
-  ],
-  Array [
-    "/rust_none/integration-tests/Cargo.toml",
-    "[package]
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/integration-tests/Cargo.toml 1`] = `
+Array [
+  "/rust_none/integration-tests/Cargo.toml",
+  "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
 publish = false
@@ -4569,10 +5021,13 @@ pkg-config = \\"0.3.1\\"
 name = \\"integration-tests\\"
 path = \\"src/tests.rs\\"
 ",
-  ],
-  Array [
-    "/rust_none/integration-tests/src/tests.rs",
-    "use near_units::parse_near;
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/integration-tests/src/tests.rs 1`] = `
+Array [
+  "/rust_none/integration-tests/src/tests.rs",
+  "use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
@@ -4638,10 +5093,13 @@ async fn test_changes_message(
     println!(\\"      Passed ✅ changes message\\");
     Ok(())
 }",
-  ],
-  Array [
-    "/rust_none/package.json",
-    "{
+]
+`;
+
+exports[`create 'rust'+'none': /rust_none/package.json 1`] = `
+Array [
+  "/rust_none/package.json",
+  "{
   \\"name\\": \\"rust_none\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -4659,15 +5117,13 @@ async fn test_changes_message(
   },
   \\"dependencies\\": {}
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'rust' frontend 'react' 1`] = `
+exports[`create 'rust'+'react': /rust_react/.gitignore 1`] = `
 Array [
-  Array [
-    "/rust_react/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "/rust_react/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -4699,20 +5155,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/rust_react/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/.gitpod.yml 1`] = `
+Array [
+  "/rust_react/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/rust_react/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/README.md 1`] = `
+Array [
+  "/rust_react/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -4721,9 +5183,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -4804,21 +5278,30 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/rust_react/contract/.cargo/config",
-    "[build]
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/contract/.cargo/config 1`] = `
+Array [
+  "/rust_react/contract/.cargo/config",
+  "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
-  ],
-  Array [
-    "/rust_react/contract/.gitignore",
-    "target
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/contract/.gitignore 1`] = `
+Array [
+  "/rust_react/contract/.gitignore",
+  "target
 ",
-  ],
-  Array [
-    "/rust_react/contract/Cargo.toml",
-    "[package]
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/contract/Cargo.toml 1`] = `
+Array [
+  "/rust_react/contract/Cargo.toml",
+  "[package]
 name = \\"greeter\\"
 version = \\"1.0.0\\"
 authors = [\\"Near Inc <hello@near.org>\\"]
@@ -4842,10 +5325,13 @@ overflow-checks = true
 [workspace]
 members = []
 ",
-  ],
-  Array [
-    "/rust_react/contract/README.md",
-    "NEAR blank project Smart Contract
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/contract/README.md 1`] = `
+Array [
+  "/rust_react/contract/README.md",
+  "NEAR blank project Smart Contract
 =================================
 
 A [smart contract] written in [Rust] for an app initialized with [create-near-app]
@@ -4870,10 +5356,13 @@ Exploring The Code
   [correct target]: https://github.com/near/near-sdk-rs#pre-requisites
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
-  ],
-  Array [
-    "/rust_react/contract/src/lib.rs",
-    "/*
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/contract/src/lib.rs 1`] = `
+Array [
+  "/rust_react/contract/src/lib.rs",
+  "/*
  * Example smart contract written in RUST
  *
  * Learn more about writing NEAR smart contracts with Rust:
@@ -4946,10 +5435,13 @@ mod tests {
     }
 }
 ",
-  ],
-  Array [
-    "/rust_react/frontend/App.js",
-    "import 'regenerator-runtime/runtime';
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/App.js 1`] = `
+Array [
+  "/rust_react/frontend/App.js",
+  "import 'regenerator-runtime/runtime';
 import React from 'react';
 
 import './assets/global.css';
@@ -5016,10 +5508,13 @@ export default function App() {
   );
 }
 ",
-  ],
-  Array [
-    "/rust_react/frontend/assets/favicon.ico",
-    "�PNG
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/assets/favicon.ico 1`] = `
+Array [
+  "/rust_react/frontend/assets/favicon.ico",
+  "�PNG
 
    
 IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
@@ -5059,10 +5554,13 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
 ��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
 ������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�\\"7�>\`�    IEND�B\`�",
-  ],
-  Array [
-    "/rust_react/frontend/assets/global.css",
-    "* {
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/assets/global.css 1`] = `
+Array [
+  "/rust_react/frontend/assets/global.css",
+  "* {
   box-sizing: border-box;
 }
 
@@ -5236,18 +5734,27 @@ li {
   }
 }
 ",
-  ],
-  Array [
-    "/rust_react/frontend/assets/logo-black.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
-  ],
-  Array [
-    "/rust_react/frontend/assets/logo-white.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
-  ],
-  Array [
-    "/rust_react/frontend/index.html",
-    "<!DOCTYPE html>
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/assets/logo-black.svg 1`] = `
+Array [
+  "/rust_react/frontend/assets/logo-black.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/assets/logo-white.svg 1`] = `
+Array [
+  "/rust_react/frontend/assets/logo-white.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/index.html 1`] = `
+Array [
+  "/rust_react/frontend/index.html",
+  "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
     <meta charset=\\"utf-8\\" />
@@ -5263,10 +5770,13 @@ li {
   </body>
 </html>
 ",
-  ],
-  Array [
-    "/rust_react/frontend/index.js",
-    "import React from 'react';
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/index.js 1`] = `
+Array [
+  "/rust_react/frontend/index.js",
+  "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { initContract } from './near-api';
@@ -5282,10 +5792,13 @@ window.nearInitPromise = initContract()
     console.error(e);
   });
 ",
-  ],
-  Array [
-    "/rust_react/frontend/near-api.js",
-    "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/near-api.js 1`] = `
+Array [
+  "/rust_react/frontend/near-api.js",
+  "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
@@ -5336,10 +5849,13 @@ export async function getGreetingFromContract() {
   let greeting = await window.contract.get_greeting();
   return greeting;
 }",
-  ],
-  Array [
-    "/rust_react/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/near-config.js 1`] = `
+Array [
+  "/rust_react/frontend/near-config.js",
+  "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 export function getConfig(env) {
   switch (env) {
@@ -5401,10 +5917,13 @@ export function getConfig(env) {
   }
 }
 ",
-  ],
-  Array [
-    "/rust_react/frontend/ui-components.js",
-    "import { signInWithNearWallet, signOutNearWallet } from './near-api';
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/frontend/ui-components.js 1`] = `
+Array [
+  "/rust_react/frontend/ui-components.js",
+  "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
 export function SignInPrompt({greeting}) {
@@ -5465,10 +5984,13 @@ export function EducationalText() {
   );
 }
 ",
-  ],
-  Array [
-    "/rust_react/integration-tests/Cargo.toml",
-    "[package]
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/integration-tests/Cargo.toml 1`] = `
+Array [
+  "/rust_react/integration-tests/Cargo.toml",
+  "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
 publish = false
@@ -5491,10 +6013,13 @@ pkg-config = \\"0.3.1\\"
 name = \\"integration-tests\\"
 path = \\"src/tests.rs\\"
 ",
-  ],
-  Array [
-    "/rust_react/integration-tests/src/tests.rs",
-    "use near_units::parse_near;
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/integration-tests/src/tests.rs 1`] = `
+Array [
+  "/rust_react/integration-tests/src/tests.rs",
+  "use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
@@ -5560,10 +6085,13 @@ async fn test_changes_message(
     println!(\\"      Passed ✅ changes message\\");
     Ok(())
 }",
-  ],
-  Array [
-    "/rust_react/package.json",
-    "{
+]
+`;
+
+exports[`create 'rust'+'react': /rust_react/package.json 1`] = `
+Array [
+  "/rust_react/package.json",
+  "{
   \\"name\\": \\"rust_react\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -5614,21 +6142,22 @@ async fn test_changes_message(
     ]
   }
 }",
-  ],
 ]
 `;
 
-exports[`make all projects make project files contract 'rust' frontend 'vanilla' 1`] = `
+exports[`create 'rust'+'vanilla': /rust_vanilla/.gitattributes 1`] = `
 Array [
-  Array [
-    "/rust_vanilla/.gitattributes",
-    "package-lock.json linguist-generated=true -diff
+  "/rust_vanilla/.gitattributes",
+  "package-lock.json linguist-generated=true -diff
 yarn.lock linguist-generated=true -diff
 ",
-  ],
-  Array [
-    "/rust_vanilla/.gitignore",
-    "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/.gitignore 1`] = `
+Array [
+  "/rust_vanilla/.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
 node_modules
@@ -5660,20 +6189,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ",
-  ],
-  Array [
-    "/rust_vanilla/.gitpod.yml",
-    "tasks:
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/.gitpod.yml 1`] = `
+Array [
+  "/rust_vanilla/.gitpod.yml",
+  "tasks:
   - init: yarn
     command: yarn dev
 ports:
   - port: 1234
     onOpen: open-browser
 ",
-  ],
-  Array [
-    "/rust_vanilla/README.md",
-    "near-blank-project
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/README.md 1`] = `
+Array [
+  "/rust_vanilla/README.md",
+  "near-blank-project
 ==================
 
 This app was initialized with [create-near-app]
@@ -5682,9 +6217,21 @@ This app was initialized with [create-near-app]
 Quick Start
 ===========
 
+Install dependencies for your project:
+
+    npm install
+
+If your contract is in JavaScript or AssemblyScript, install contract's dependencies:
+
+    cd contract && npm install
+
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    \`npm run deploy\`.
+    npm run deploy
+
+Test your contract tests:
+
+    npm test
 
 If you have a frontend, run \`npm start\`. This will run a dev server.
 
@@ -5765,21 +6312,30 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
   [near-cli]: https://github.com/near/near-cli
   [gh-pages]: https://github.com/tschaub/gh-pages
 ",
-  ],
-  Array [
-    "/rust_vanilla/contract/.cargo/config",
-    "[build]
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/contract/.cargo/config 1`] = `
+Array [
+  "/rust_vanilla/contract/.cargo/config",
+  "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
-  ],
-  Array [
-    "/rust_vanilla/contract/.gitignore",
-    "target
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/contract/.gitignore 1`] = `
+Array [
+  "/rust_vanilla/contract/.gitignore",
+  "target
 ",
-  ],
-  Array [
-    "/rust_vanilla/contract/Cargo.toml",
-    "[package]
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/contract/Cargo.toml 1`] = `
+Array [
+  "/rust_vanilla/contract/Cargo.toml",
+  "[package]
 name = \\"greeter\\"
 version = \\"1.0.0\\"
 authors = [\\"Near Inc <hello@near.org>\\"]
@@ -5803,10 +6359,13 @@ overflow-checks = true
 [workspace]
 members = []
 ",
-  ],
-  Array [
-    "/rust_vanilla/contract/README.md",
-    "NEAR blank project Smart Contract
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/contract/README.md 1`] = `
+Array [
+  "/rust_vanilla/contract/README.md",
+  "NEAR blank project Smart Contract
 =================================
 
 A [smart contract] written in [Rust] for an app initialized with [create-near-app]
@@ -5831,10 +6390,13 @@ Exploring The Code
   [correct target]: https://github.com/near/near-sdk-rs#pre-requisites
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
-  ],
-  Array [
-    "/rust_vanilla/contract/src/lib.rs",
-    "/*
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/contract/src/lib.rs 1`] = `
+Array [
+  "/rust_vanilla/contract/src/lib.rs",
+  "/*
  * Example smart contract written in RUST
  *
  * Learn more about writing NEAR smart contracts with Rust:
@@ -5907,10 +6469,13 @@ mod tests {
     }
 }
 ",
-  ],
-  Array [
-    "/rust_vanilla/frontend/assets/favicon.ico",
-    "�PNG
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/assets/favicon.ico 1`] = `
+Array [
+  "/rust_vanilla/frontend/assets/favicon.ico",
+  "�PNG
 
    
 IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
@@ -5950,10 +6515,13 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
 ��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
 ������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�\\"7�>\`�    IEND�B\`�",
-  ],
-  Array [
-    "/rust_vanilla/frontend/assets/global.css",
-    "* {
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/assets/global.css 1`] = `
+Array [
+  "/rust_vanilla/frontend/assets/global.css",
+  "* {
   box-sizing: border-box;
 }
 
@@ -6127,18 +6695,27 @@ li {
   }
 }
 ",
-  ],
-  Array [
-    "/rust_vanilla/frontend/assets/logo-black.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
-  ],
-  Array [
-    "/rust_vanilla/frontend/assets/logo-white.svg",
-    "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
-  ],
-  Array [
-    "/rust_vanilla/frontend/index.html",
-    "<!DOCTYPE html>
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/assets/logo-black.svg 1`] = `
+Array [
+  "/rust_vanilla/frontend/assets/logo-black.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/assets/logo-white.svg 1`] = `
+Array [
+  "/rust_vanilla/frontend/assets/logo-white.svg",
+  "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/index.html 1`] = `
+Array [
+  "/rust_vanilla/frontend/index.html",
+  "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
   <meta charset=\\"utf-8\\">
@@ -6225,10 +6802,13 @@ li {
 </body>
 </html>
 ",
-  ],
-  Array [
-    "/rust_vanilla/frontend/index.js",
-    "import 'regenerator-runtime/runtime';
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/index.js 1`] = `
+Array [
+  "/rust_vanilla/frontend/index.js",
+  "import 'regenerator-runtime/runtime';
 import {
   initContract,
   signInWithNearWallet,
@@ -6307,10 +6887,13 @@ function signedInFlow() {
   fetchGreeting();
 }
 ",
-  ],
-  Array [
-    "/rust_vanilla/frontend/near-api.js",
-    "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/near-api.js 1`] = `
+Array [
+  "/rust_vanilla/frontend/near-api.js",
+  "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
 const nearConfig = getConfig(process.env.NODE_ENV || 'development');
@@ -6361,10 +6944,13 @@ export async function getGreetingFromContract(){
   let greeting = await window.contract.get_greeting();
   return greeting;
 }",
-  ],
-  Array [
-    "/rust_vanilla/frontend/near-config.js",
-    "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/frontend/near-config.js 1`] = `
+Array [
+  "/rust_vanilla/frontend/near-config.js",
+  "const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
 
 function getConfig(env) {
   switch (env) {
@@ -6427,10 +7013,13 @@ function getConfig(env) {
 
 module.exports = getConfig;
 ",
-  ],
-  Array [
-    "/rust_vanilla/integration-tests/Cargo.toml",
-    "[package]
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/integration-tests/Cargo.toml 1`] = `
+Array [
+  "/rust_vanilla/integration-tests/Cargo.toml",
+  "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
 publish = false
@@ -6453,10 +7042,13 @@ pkg-config = \\"0.3.1\\"
 name = \\"integration-tests\\"
 path = \\"src/tests.rs\\"
 ",
-  ],
-  Array [
-    "/rust_vanilla/integration-tests/src/tests.rs",
-    "use near_units::parse_near;
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/integration-tests/src/tests.rs 1`] = `
+Array [
+  "/rust_vanilla/integration-tests/src/tests.rs",
+  "use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
@@ -6522,10 +7114,13 @@ async fn test_changes_message(
     println!(\\"      Passed ✅ changes message\\");
     Ok(())
 }",
-  ],
-  Array [
-    "/rust_vanilla/package.json",
-    "{
+]
+`;
+
+exports[`create 'rust'+'vanilla': /rust_vanilla/package.json 1`] = `
+Array [
+  "/rust_vanilla/package.json",
+  "{
   \\"name\\": \\"rust_vanilla\\",
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
@@ -6551,6 +7146,5 @@ async fn test_changes_message(
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
-  ],
 ]
 `;
