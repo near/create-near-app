@@ -1,5 +1,5 @@
 [package]
-name = "greeter"
+name = "hello_near"
 version = "1.0.0"
 authors = ["Near Inc <hello@near.org>"]
 edition = "2021"

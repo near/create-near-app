@@ -1,29 +1,41 @@
-const fs = require('fs');
-const semver = require('semver');
 const chalk = require('chalk');
 
-exports.checkWorkspacesSupport = function () {
-  // TODO: implement this check
-  return true;
-};
-
-exports.checkPrerequisites = function () {
-  const current = process.version;
-  const supported = require('../package.json').engines.node;
-
-  if (!semver.satisfies(current, supported)) {
-    console.log(chalk.red(`We support node.js version ${supported} or later`));
-    return false;
+function preMessage(settings){
+  switch(settings.contract){
+    case 'rust': return rustPreMessage(settings);
+    case 'assemblyscript': return asPreMessage(settings);
+    default: return true;
   }
-  return true;
-};
+}
 
-exports.checkUserInput = function ({projectName}) {
-  const dirName = `${process.cwd()}/${projectName}`;
-  if (fs.existsSync(dirName)) {
-    console.log(chalk.red(`This directory already exists! ${dirName}`));
-    return false;
-  } else {
+function postMessage(settings){
+  switch(settings.contract){
+    default: return true;
+  }
+}
+
+
+// Rust preMessage
+const RUST_MSG = chalk`If you are new to Rust please check {bold {green https://www.rust-lang.org }}`;
+
+function rustPreMessage(settings){
+  console.log(RUST_MSG);
+  return true;
+}
+
+
+// AS preMessage
+const AS_NOT_SUPPORTED_MSG = chalk`
+{yellow Warning} NEAR-SDK-AS might {bold {red not be compatible}} with your system
+`;
+
+async function asPreMessage({supportsSandbox}){
+  if(!supportsSandbox){
+    console.log(AS_NOT_SUPPORTED_MSG);
     return true;
   }
-};
+}
+
+
+exports.preMessage = preMessage;
+exports.postMessage = postMessage;

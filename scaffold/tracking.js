@@ -10,7 +10,7 @@ const track = async (frontendType, contractType) => {
     return;
   }
   try {
-    console.log(chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you will be shared.\n`);
+    console.log(chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you is shared`);
     const mixPanelProperties = {
       frontend: frontendType,
       contract: contractType,

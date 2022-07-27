@@ -1,38 +1,37 @@
 const fs = require('fs');
 const {ncp} = require('ncp');
+const chalk = require('chalk');
 const path = require('path');
+const {preMessage, postMessage} = require('./checks');
 const {buildPackageJson} = require('./package-json');
-const {checkWorkspacesSupport} = require('./checks');
 
 ncp.limit = 16;
 
-async function make({
-  contract,
-  frontend,
-  projectName,
-  verbose,
-  rootDir,
-  projectPath,
-}) {
-  await createFiles({
-    contract,
-    frontend,
-    projectName,
-    verbose,
-    rootDir,
-    projectPath,
-  });
+// Method to create the project folder
+async function createProject(settings) {
+  // Make language specific checks
+  let preMessagePass = preMessage(settings);
+  if(!preMessagePass){
+    return false;
+  }
 
-  const packageJson = buildPackageJson({
-    contract,
-    frontend,
-    projectName,
-    workspacesSupported: checkWorkspacesSupport()
-  });
-  fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
+  console.log(chalk`Creating a new NEAR app.`);
+
+  // Create relevant files in the project folder
+  await createFiles(settings);
+
+  // Create package settings and dump them as a .json
+  const packageJson = buildPackageJson(settings);
+  fs.writeFileSync(path.resolve(settings.projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
+
+  // Run any language-specific post check
+  postMessage(settings);
+
+  // Finished!
+  return true;
 }
 
-async function createFiles({contract, frontend, projectName, projectPath, verbose, rootDir}) {
+async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}) {
   // skip build artifacts and symlinks
   const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json'];
 
@@ -54,14 +53,8 @@ async function createFiles({contract, frontend, projectName, projectPath, verbos
   });
 
   // copy tests
-  let sourceTestDir = rootDir + '/integration-tests/tests';
-  if (checkWorkspacesSupport()) {
-    if (contract === 'rust') {
-      sourceTestDir = rootDir + '/integration-tests/workspaces-rs-tests';
-    } else {
-      sourceTestDir = rootDir + '/integration-tests/workspaces-js-tests';
-    }
-  }
+  let testFramework = supportsSandbox? 'workspaces-tests' : 'classic-tests';
+  let sourceTestDir = `${rootDir}/integration-tests/${testFramework}`;
   await copyDir(sourceTestDir, `${projectPath}/integration-tests/`, {
     verbose,
     skip: skip.map(f => path.join(sourceTestDir, f))
@@ -69,7 +62,6 @@ async function createFiles({contract, frontend, projectName, projectPath, verbos
 
   // add .gitignore
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
-
 }
 
 const renameFile = async function (oldPath, newPath) {
@@ -113,4 +105,4 @@ function copyDir(source, dest, {skip, verbose} = {}) {
 
 exports.renameFile = renameFile;
 exports.copyDir = copyDir;
-exports.make = make;
+exports.createProject = createProject;

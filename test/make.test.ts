@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
-import {make} from '../scaffold/make';
+import {createProject} from '../scaffold/make';
 
 describe('create', () => {
   const contracts = ['js', 'rust', 'assemblyscript'];
@@ -14,7 +14,7 @@ describe('create', () => {
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
-    await make({
+    await createProject({
       contract,
       frontend,
       projectName,
