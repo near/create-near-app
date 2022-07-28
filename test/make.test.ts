@@ -9,7 +9,7 @@ describe('create', () => {
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => [[c, f, true], [c, f, false]]));
   const ts = Date.now();
   test.each(testMatrix)('%o+%o sandbox:%o', async (contract, frontend, supportsSandbox) => {
-    const projectName = `${contract}_${frontend}`;
+    const projectName = `${contract}_${frontend}_${supportsSandbox ? 'sandbox' : 'no-sandbox'}`;
     const rootDir = path.resolve(__dirname, '../');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
