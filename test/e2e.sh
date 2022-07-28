@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 ts=$(date +%s)
 root_dir="./_testrun/${ts}"
