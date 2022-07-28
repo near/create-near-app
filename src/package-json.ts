@@ -183,15 +183,15 @@ const npmInstallScript = (contract, supportsSandbox) => {
   switch (contract) {
     case 'js':
       return supportsSandbox ?
-        {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..'}
+        {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..'}
         : {};
     case 'assemblyscript':
       return supportsSandbox ?
-        {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..'}
+        {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..'}
         : {};
     case 'rust':
       return supportsSandbox ?
-        {'deps-install': 'yarn && cd ../integration-tests/ts && yarn && cd ../..'}
+        {'deps-install': 'yarn && cd ../integration-tests && yarn && cd ../..'}
         : {};
   }
 };
