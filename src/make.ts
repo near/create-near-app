@@ -1,4 +1,4 @@
-import {Contract, CreateProjectParams, Frontend, ProjectName} from './types';
+import {CreateProjectParams} from './types';
 
 const spawn = require('cross-spawn');
 const fs = require('fs');
