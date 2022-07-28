@@ -28,9 +28,11 @@ test () {
   dirname="${root_dir}/${1}"
   cd $dirname || exit 42
   echo "deps-install: ${dirname}"
-  if ! yarn deps-install > /dev/null 2>&1; then exit 42; fi
+  #  if ! yarn deps-install > /dev/null 2>&1; then exit 42; fi
+  if ! yarn deps-install ; then exit 42; fi
   echo "test: ${dirname}"
-  if ! yarn test > /dev/null 2>&1; then exit 42; fi
+  #  if ! yarn test > /dev/null 2>&1; then exit 42; fi
+  if ! yarn test ; then exit 42; fi
 }
 
 test "js_react"
