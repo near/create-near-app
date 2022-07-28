@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
-import {createProject} from '../src/make.js';
+import {createProject} from '../src/make';
 
 describe('create', () => {
   const contracts = ['js', 'rust', 'assemblyscript'];

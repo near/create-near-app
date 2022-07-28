@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// #!/usr/bin/env node
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const chalk_1 = __importDefault(require("chalk"));
@@ -48,7 +47,7 @@ Happy Hacking! 👍
         config = await (0, user_input_1.getUserArgs)();
     }
     catch (e) {
-        console.log(chalk_1.default.red(`Bad arguments.`));
+        console.log(chalk_1.default.red('Bad arguments.'));
         return;
     }
     if (config === null) {

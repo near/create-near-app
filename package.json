@@ -4,15 +4,13 @@
   "description": "generate new near blank project with different type",
   "main": "index.js",
   "files": [
-    "templates/contracts",
     "templates",
-    "scaffold",
-    "templates/integration-tests"
+    "dist"
   ],
   "scripts": {
     "start": "npm run build && node index.js",
     "build": "tsc",
-    "test": "jest --runInBand",
+    "test": "npm run build && jest --runInBand",
     "test-e2e": "./test/e2e.sh",
     "lint": "eslint .",
     "fix": "eslint . --fix",

@@ -6,7 +6,7 @@ _testrun
 node_modules
 /.pnp
 .pnp.js
-out
+templates/out
 /neardev
 # testing
 /coverage
