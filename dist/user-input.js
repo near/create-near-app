@@ -70,7 +70,7 @@ async function showDepsInstallPrompt() {
         {
             type: 'toggle',
             name: 'depsInstall',
-            message: chalk `One last thing:\n  We can run {bold {blue 'npm install'}} for you in a few directories.\n  To do it yourself: {bold {blue 'npm run deps-install'}}.\n  Run {bold {blue 'npm install'}} now?\n`,
+            message: chalk `One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'npm install'}} for you.\n  To do it yourself: {bold {blue 'npm run deps-install'}}.\n  Run {bold {blue 'npm install'}} now?\n`,
             initial: true,
             active: 'yes',
             inactive: 'no'

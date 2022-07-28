@@ -458,7 +458,8 @@ Array [
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -907,7 +908,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
     \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -1931,7 +1932,8 @@ Array [
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -2959,7 +2961,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
     \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -4016,7 +4018,8 @@ Array [
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -5024,7 +5027,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
     \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -5448,7 +5451,8 @@ Array [
     \\"build:contract\\": \\"cd contract && yarn build\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -5844,7 +5848,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
     \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -6815,7 +6819,8 @@ Array [
     \\"build:contract\\": \\"cd contract && yarn build\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -7790,7 +7795,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
     \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -8794,7 +8799,8 @@ Array [
     \\"build:contract\\": \\"cd contract && yarn build\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -9749,7 +9755,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
     \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -10219,7 +10225,8 @@ Array [
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -10685,7 +10692,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -11701,7 +11708,8 @@ Array [
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -12746,7 +12754,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -13795,7 +13803,8 @@ Array [
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
     \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -14820,7 +14829,7 @@ Array [
     \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"yarn && cd ../integration-tests && yarn && cd ../..\\"
+    \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
