@@ -21,8 +21,8 @@ const SETUP_FAILED_MSG = ((0, chalk_1.default) `{bold {red =====================
 Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
-const contractToText = contract => (0, chalk_1.default) `with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
-const frontendToText = frontend => frontend === 'none' ? '' : (0, chalk_1.default) ` and a frontend template${frontend === 'react' ? (0, chalk_1.default) `{bold  in React.js}` : ''}`;
+const contractToText = (contract) => (0, chalk_1.default) `with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
+const frontendToText = (frontend) => frontend === 'none' ? '' : (0, chalk_1.default) ` and a frontend template${frontend === 'react' ? (0, chalk_1.default) `{bold  in React.js}` : ''}`;
 const SETUP_SUCCESS_MSG = (projectName, contract, frontend) => ((0, chalk_1.default) `
 ✅  Success! Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
 🧠 See {bold ${projectName}/{green README.md}} to get started.

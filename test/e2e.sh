@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ts=$(date +%s)
-root_dir="./_testrun/${ts}"
+root_dir="${PWD}/_testrun/${ts}"
 mkdir -p $root_dir
 cd $root_dir
 
@@ -18,11 +18,6 @@ scaffold "js_none"
 scaffold "rust_react"
 scaffold "rust_vanilla"
 scaffold "rust_none"
-
-echo "tests..."
-if ! npm test; then exit 42; fi
-
-cd ../../
 
 test () {
   dirname="${root_dir}/${1}"

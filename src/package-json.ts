@@ -24,7 +24,7 @@ function basePackage({contract, frontend, projectName, supportsSandbox}) {
       'test': 'yarn build:contract && yarn test:unit && yarn test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(contract, supportsSandbox),
-      ...npmInstallScript(contract, supportsSandbox),
+      ...npmInstallScript(contract),
     },
     'devDependencies': {
       'near-cli': '3.3.0',
@@ -179,19 +179,12 @@ const reactPackage = () => ({
   }
 });
 
-const npmInstallScript = (contract, supportsSandbox) => {
+const npmInstallScript = (contract) => {
   switch (contract) {
-    case 'js':
-      return supportsSandbox ?
-        {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..'}
-        : {};
     case 'assemblyscript':
-      return supportsSandbox ?
-        {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../..'}
-        : {};
+    case 'js':
+      return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..'};
     case 'rust':
-      return supportsSandbox ?
-        {'deps-install': 'yarn && cd ../integration-tests && yarn && cd ../..'}
-        : {};
+      return {'deps-install': 'yarn'};
   }
 };

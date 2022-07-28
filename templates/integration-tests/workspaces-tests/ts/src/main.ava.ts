@@ -14,7 +14,7 @@ test.beforeEach(async (t) => {
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
   await contract.deploy(
-    '../../contract/build/contract.wasm',
+    '../contract/build/contract.wasm',
   );
   await contract.call(contract, 'init', {});
 
