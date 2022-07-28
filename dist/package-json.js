@@ -41,16 +41,16 @@ function basePackage({ contract, frontend, projectName, supportsSandbox }) {
         }
     };
 }
-const startScript = hasFrontend => hasFrontend ? {
+const startScript = (hasFrontend) => hasFrontend ? {
     'start': 'echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open'
 } : {};
-const buildScript = hasFrontend => hasFrontend ? {
+const buildScript = (hasFrontend) => hasFrontend ? {
     'build': 'yarn build:contract && yarn build:web',
     'build:web': 'parcel build frontend/index.html --public-url ./',
 } : {
     'build': 'yarn build:contract',
 };
-const buildContractScript = contract => {
+const buildContractScript = (contract) => {
     switch (contract) {
         case 'js':
             return {
@@ -121,7 +121,7 @@ const integrationTestScripts = (contract, supportsSandbox) => {
         };
     }
 };
-const contractDevDependencies = contract => {
+const contractDevDependencies = (contract) => {
     switch (contract) {
         case 'assemblyscript':
             return { 'near-sdk-as': '3.2.3' };
@@ -131,14 +131,14 @@ const contractDevDependencies = contract => {
             return {};
     }
 };
-const workspaceDevDependencies = isSupported => isSupported ? { 'near-workspaces': '3.1.0' } : { 'ava': '4.2.0' };
-const frontendDevDependencies = hasFrontend => hasFrontend ? {
+const workspaceDevDependencies = (isSupported) => isSupported ? { 'near-workspaces': '3.1.0' } : { 'ava': '4.2.0' };
+const frontendDevDependencies = (hasFrontend) => hasFrontend ? {
     'nodemon': '2.0.16',
     'parcel': '2.6.0',
     'process': '0.11.10',
     'env-cmd': '10.1.0',
 } : {};
-const frontendDependencies = hasFrontend => hasFrontend ? { 'near-api-js': '0.44.2' } : {};
+const frontendDependencies = (hasFrontend) => hasFrontend ? { 'near-api-js': '0.44.2' } : {};
 const reactPackage = () => ({
     'devDependencies': {
         '@babel/core': '7.18.2',

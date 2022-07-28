@@ -6,3 +6,12 @@ export interface UserConfig {
   frontend: Frontend;
   projectName: ProjectName;
 }
+export type CreateProjectParams = {
+  contract: Contract,
+  frontend: Frontend,
+  projectPath: string,
+  projectName: ProjectName,
+  verbose: boolean,
+  rootDir: string,
+  supportsSandbox: boolean,
+}

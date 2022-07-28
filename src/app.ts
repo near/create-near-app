@@ -5,6 +5,7 @@ import { createProject, runDepsInstall } from './make';
 import { trackUsage, trackingMessage } from './tracking';
 import semver from 'semver';
 import { showUserPrompts, getUserArgs, userAnswersAreValid, showDepsInstallPrompt } from './user-input';
+import {Contract, Frontend, ProjectName, UserConfig} from './types';
 
 const WELCOME_MESSAGE = (chalk`{blue ======================================================}
 👋 {bold {green Welcome to NEAR!}} Learn more: https://docs.near.org/
@@ -19,9 +20,9 @@ Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-const contractToText = contract => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
-const frontendToText = frontend => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
-const SETUP_SUCCESS_MSG = (projectName, contract, frontend) => (chalk`
+const contractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
+const frontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
+const SETUP_SUCCESS_MSG = (projectName: ProjectName, contract: Contract, frontend: Frontend) => (chalk`
 ✅  Success! Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
 🧠 See {bold ${projectName}/{green README.md}} to get started.
 ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : '\n'}
@@ -42,7 +43,7 @@ Happy Hacking! 👍
   }
 
   // Get and track the user input
-  let config = null;
+  let config: UserConfig | null = null;
   let configIsFromPrompts = false;
   try {
     config = await getUserArgs();
@@ -59,7 +60,7 @@ Happy Hacking! 👍
     }
     config = userInput;
   }
-  const {frontend, contract, projectName} = config;
+  const {frontend, contract, projectName} = config as UserConfig;
   trackUsage(frontend, contract);
 
   // Make sure the project folder does not exist

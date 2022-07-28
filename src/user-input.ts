@@ -1,8 +1,10 @@
+import {UserConfig} from './types';
+
 const chalk = require('chalk');
 const prompt = require('prompts');
 const { program } = require('commander');
 
-export async function getUserArgs() {
+export async function getUserArgs(): Promise<UserConfig | null> {
   program
     .argument('[projectName]')
     .option('--contract <contract>')
@@ -59,7 +61,6 @@ export async function showUserPrompts() {
       name: 'projectName',
       message: 'Name your project (this will create a directory with that name)}',
       initial: 'my-near-project',
-      format: v => `${v}`
     },
   ];
 
@@ -83,7 +84,7 @@ export async function showDepsInstallPrompt() {
   return answers;
 }
 
-export function userAnswersAreValid(answers) {
+export function userAnswersAreValid(answers: Partial<UserConfig>): answers is UserConfig {
   const { contract, frontend, projectName } = answers;
   if ([contract, frontend, projectName].includes(undefined)) {
     return false;

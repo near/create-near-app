@@ -1,6 +1,10 @@
+import {Contract, CreateProjectParams} from './types';
+
 const _ = require('lodash');
 
-export function buildPackageJson({contract, frontend, projectName, supportsSandbox}) {
+type Entries = Record<string, unknown>;
+type PackageBuildParams = Pick<CreateProjectParams, 'contract'| 'frontend'| 'projectName' | 'supportsSandbox'>;
+export function buildPackageJson({contract, frontend, projectName, supportsSandbox}: PackageBuildParams): Entries {
   const result = basePackage({
     contract, frontend, projectName, supportsSandbox,
   });
@@ -10,7 +14,7 @@ export function buildPackageJson({contract, frontend, projectName, supportsSandb
   return result;
 }
 
-function basePackage({contract, frontend, projectName, supportsSandbox}) {
+function basePackage({contract, frontend, projectName, supportsSandbox}: PackageBuildParams): Entries {
   const hasFrontend = frontend !== 'none';
   return {
     'name': projectName,
@@ -40,18 +44,18 @@ function basePackage({contract, frontend, projectName, supportsSandbox}) {
   };
 }
 
-const startScript = hasFrontend => hasFrontend ? {
+const startScript = (hasFrontend: boolean) => hasFrontend ? {
   'start': 'echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open'
 } : {};
 
-const buildScript = hasFrontend => hasFrontend ? {
+const buildScript = (hasFrontend: boolean) => hasFrontend ? {
   'build': 'yarn build:contract && yarn build:web',
   'build:web': 'parcel build frontend/index.html --public-url ./',
 } : {
   'build': 'yarn build:contract',
 };
 
-const buildContractScript = contract => {
+const buildContractScript = (contract: Contract) => {
   switch (contract) {
     case 'js':
       return {
@@ -74,7 +78,7 @@ const buildContractScript = contract => {
   }
 };
 
-const deployScript = (contract) => {
+const deployScript = (contract: Contract) => {
   switch (contract) {
     case 'js':
       return {
@@ -90,7 +94,7 @@ const deployScript = (contract) => {
   }
 };
 
-const unitTestScripts = (contract) => {
+const unitTestScripts = (contract: Contract) => {
   switch (contract) {
     case 'js':
     case 'assemblyscript':
@@ -102,7 +106,7 @@ const unitTestScripts = (contract) => {
   }
 };
 
-const integrationTestScripts = (contract, supportsSandbox) => {
+const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) => {
   if (supportsSandbox) {
     switch (contract) {
       case 'assemblyscript':
@@ -125,7 +129,7 @@ const integrationTestScripts = (contract, supportsSandbox) => {
   }
 };
 
-const contractDevDependencies = contract => {
+const contractDevDependencies = (contract: Contract) => {
   switch (contract) {
     case 'assemblyscript':
       return {'near-sdk-as': '3.2.3'};
@@ -136,16 +140,16 @@ const contractDevDependencies = contract => {
   }
 };
 
-const workspaceDevDependencies = isSupported => isSupported ? {'near-workspaces': '3.1.0'} : {'ava': '4.2.0'};
+const workspaceDevDependencies = (isSupported: boolean) => isSupported ? {'near-workspaces': '3.1.0'} : {'ava': '4.2.0'};
 
-const frontendDevDependencies = hasFrontend => hasFrontend ? {
+const frontendDevDependencies = (hasFrontend: boolean) => hasFrontend ? {
   'nodemon': '2.0.16',
   'parcel': '2.6.0',
   'process': '0.11.10',
   'env-cmd': '10.1.0',
 } : {};
 
-const frontendDependencies = hasFrontend => hasFrontend ? {'near-api-js': '0.44.2'} : {};
+const frontendDependencies = (hasFrontend: boolean) => hasFrontend ? {'near-api-js': '0.44.2'} : {};
 
 const reactPackage = () => ({
   'devDependencies': {
@@ -179,7 +183,7 @@ const reactPackage = () => ({
   }
 });
 
-const npmInstallScript = (contract) => {
+const npmInstallScript = (contract: Contract) => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':

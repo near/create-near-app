@@ -59,7 +59,6 @@ async function showUserPrompts() {
             name: 'projectName',
             message: 'Name your project (this will create a directory with that name)}',
             initial: 'my-near-project',
-            format: v => `${v}`
         },
     ];
     const answers = await prompt(questions);

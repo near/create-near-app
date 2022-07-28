@@ -2,13 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
 import {createProject} from '../src/make';
+import {Contract, Frontend} from '../src/types';
 
 describe('create', () => {
   const contracts = ['js', 'rust', 'assemblyscript'];
   const frontends = ['react', 'vanilla', 'none'];
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => [[c, f, true], [c, f, false]]));
   const ts = Date.now();
-  test.each(testMatrix)('%o+%o sandbox:%o', async (contract, frontend, supportsSandbox) => {
+  test.each(testMatrix)('%o+%o sandbox:%o', async (contract: Contract, frontend: Frontend, supportsSandbox: boolean) => {
     const projectName = `${contract}_${frontend}_${supportsSandbox ? 'sandbox' : 'no-sandbox'}`;
     const rootDir = path.resolve(__dirname, '../templates/');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});

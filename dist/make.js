@@ -18,7 +18,7 @@ async function createProject({ contract, frontend, projectPath, projectName, ver
     }
     console.log(chalk `...creating a new NEAR app...`);
     // Create relevant files in the project folder
-    await createFiles({ contract, frontend, projectPath, verbose, rootDir, supportsSandbox });
+    await createFiles({ contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox });
     // Create package settings and dump them as a .json
     const packageJson = buildPackageJson({ contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox });
     fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
@@ -123,7 +123,7 @@ async function runDepsInstall(projectPath) {
     await new Promise((resolve, reject) => spawn('yarn', npmCommandArgs, {
         cwd: projectPath,
         stdio: 'inherit',
-    }).on('close', code => {
+    }).on('close', (code) => {
         if (code !== 0) {
             console.log(chalk.red('Error installing NEAR project dependencies'));
             reject(code);

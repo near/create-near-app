@@ -1,3 +1,5 @@
+import {Contract, CreateProjectParams, Frontend, ProjectName} from './types';
+
 const spawn = require('cross-spawn');
 const fs = require('fs');
 const {ncp} = require('ncp');
@@ -9,7 +11,7 @@ const {buildPackageJson} = require('./package-json');
 ncp.limit = 16;
 
 // Method to create the project folder
-export async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}) {
+export async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}: CreateProjectParams): Promise<boolean> {
   // Make language specific checks
   let preMessagePass = preMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
   if(!preMessagePass){
@@ -19,7 +21,7 @@ export async function createProject({contract, frontend, projectPath, projectNam
   console.log(chalk`...creating a new NEAR app...`);
 
   // Create relevant files in the project folder
-  await createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
+  await createFiles({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
 
   // Create package settings and dump them as a .json
   const packageJson = buildPackageJson({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
@@ -32,7 +34,7 @@ export async function createProject({contract, frontend, projectPath, projectNam
   return true;
 }
 
-export async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}) {
+export async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}: CreateProjectParams) {
   // skip build artifacts and symlinks
   const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json'];
 
@@ -86,9 +88,9 @@ export async function createFiles({contract, frontend, projectPath, verbose, roo
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
 }
 
-export const renameFile = async function (oldPath, newPath) {
+export const renameFile = async function (oldPath: string, newPath: string) {
   return new Promise<void>((resolve, reject) => {
-    fs.rename(oldPath, newPath, (err) => {
+    fs.rename(oldPath, newPath, (err: Error) => {
       if (err) {
         console.error(err);
         return reject(err);
@@ -100,17 +102,17 @@ export const renameFile = async function (oldPath, newPath) {
 
 // Wrap `ncp` tool to wait for the copy to finish when using `await`
 // Allow passing `skip` variable to skip copying an array of filenames
-export function copyDir(source, dest, {skip, verbose}) {
+export function copyDir(source: string, dest: string, {skip, verbose}: {skip: string[], verbose: boolean}) {
   return new Promise<void>((resolve, reject) => {
-    const copied = [];
-    const skipped = [];
-    const filter = skip && function (filename) {
+    const copied: string[] = [];
+    const skipped: string[] = [];
+    const filter = skip && function(filename: string) {
       const shouldCopy = !skip.find(f => filename.includes(f));
       shouldCopy ? copied.push(filename) : skipped.push(filename);
       return !skip.find(f => filename.includes(f));
     };
 
-    ncp(source, dest, {filter}, (err) => {
+    ncp(source, dest, {filter}, (err: Error) => {
       if (err) return reject(err);
 
       if (verbose) {
@@ -125,7 +127,7 @@ export function copyDir(source, dest, {skip, verbose}) {
   });
 }
 
-export async function runDepsInstall(projectPath) {
+export async function runDepsInstall(projectPath: string) {
   console.log(chalk`
 {green Installing dependencies in a few folders, this might take a while...}
 `);
@@ -133,7 +135,7 @@ export async function runDepsInstall(projectPath) {
   await new Promise<void>((resolve, reject) => spawn('yarn', npmCommandArgs, {
     cwd: projectPath,
     stdio: 'inherit',
-  }).on('close', code => {
+  }).on('close', (code: number) => {
     if (code !== 0) {
       console.log(chalk.red('Error installing NEAR project dependencies'));
       reject(code);
