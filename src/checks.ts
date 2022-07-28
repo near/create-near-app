@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 
-function preMessage(settings) {
+export function preMessage(settings) {
   switch(settings.contract) {
     case 'assemblyscript':
       return asPreMessage(settings);
@@ -9,7 +9,7 @@ function preMessage(settings) {
   }
 }
 
-function postMessage(settings) {
+export function postMessage(settings) {
   switch(settings.contract) {
     default:
       return true;
@@ -27,7 +27,3 @@ async function asPreMessage({ supportsSandbox }) {
     return true;
   }
 }
-
-
-exports.preMessage = preMessage;
-exports.postMessage = postMessage;

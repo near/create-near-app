@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const prompt = require('prompts');
 const { program } = require('commander');
 
-async function getUserArgs() {
+export async function getUserArgs() {
   program
     .argument('[projectName]')
     .option('--contract <contract>')
@@ -32,7 +32,7 @@ async function getUserArgs() {
   }
 }
 
-async function showUserPrompts() {
+export async function showUserPrompts() {
   const questions = [
     {
       type: 'select',
@@ -67,7 +67,7 @@ async function showUserPrompts() {
   return answers;
 }
 
-async function showDepsInstallPrompt() {
+export async function showDepsInstallPrompt() {
   const questions = [
     {
       type: 'toggle',
@@ -83,7 +83,7 @@ async function showDepsInstallPrompt() {
   return answers;
 }
 
-function userAnswersAreValid(answers) {
+export function userAnswersAreValid(answers) {
   const { contract, frontend, projectName } = answers;
   if ([contract, frontend, projectName].includes(undefined)) {
     return false;
@@ -91,9 +91,3 @@ function userAnswersAreValid(answers) {
     return true;
   }
 }
-
-
-exports.showUserPrompts = showUserPrompts;
-exports.getUserArgs = getUserArgs;
-exports.userAnswersAreValid = userAnswersAreValid;
-exports.showDepsInstallPrompt = showDepsInstallPrompt;

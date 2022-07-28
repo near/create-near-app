@@ -9,7 +9,7 @@ const {buildPackageJson} = require('./package-json');
 ncp.limit = 16;
 
 // Method to create the project folder
-async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}) {
+export async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}) {
   // Make language specific checks
   let preMessagePass = preMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
   if(!preMessagePass){
@@ -32,18 +32,18 @@ async function createProject({contract, frontend, projectPath, projectName, verb
   return true;
 }
 
-async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}) {
+export async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}) {
   // skip build artifacts and symlinks
   const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json'];
 
   // copy frontend
   if (frontend !== 'none') {
-    const sourceTemplateDir = rootDir + `/templates/${frontend}`;
+    const sourceTemplateDir = `${rootDir}/frontend/${frontend}`;
     await copyDir(sourceTemplateDir, projectPath, {verbose, skip: skip.map(f => path.join(sourceTemplateDir, f))});
   }
 
   // shared files
-  const sourceSharedDir = rootDir + '/templates/shared';
+  const sourceSharedDir = `${rootDir}/shared`;
   await copyDir(sourceSharedDir, projectPath, {verbose, skip: skip.map(f => path.join(sourceSharedDir, f))});
 
   // copy contract files
@@ -65,8 +65,8 @@ async function createFiles({contract, frontend, projectPath, verbose, rootDir, s
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
 }
 
-const renameFile = async function (oldPath, newPath) {
-  return new Promise((resolve, reject) => {
+export const renameFile = async function (oldPath, newPath) {
+  return new Promise<void>((resolve, reject) => {
     fs.rename(oldPath, newPath, (err) => {
       if (err) {
         console.error(err);
@@ -79,8 +79,8 @@ const renameFile = async function (oldPath, newPath) {
 
 // Wrap `ncp` tool to wait for the copy to finish when using `await`
 // Allow passing `skip` variable to skip copying an array of filenames
-function copyDir(source, dest, {skip, verbose} = {}) {
-  return new Promise((resolve, reject) => {
+export function copyDir(source, dest, {skip, verbose}) {
+  return new Promise<void>((resolve, reject) => {
     const copied = [];
     const skipped = [];
     const filter = skip && function (filename) {
@@ -104,12 +104,12 @@ function copyDir(source, dest, {skip, verbose} = {}) {
   });
 }
 
-async function runDepsInstall(projectPath) {
+export async function runDepsInstall(projectPath) {
   console.log(chalk`
 {green Installing dependencies in a few folders, this might take a while...}
 `);
   const npmCommandArgs = ['run', 'deps-install'];
-  await new Promise((resolve, reject) => spawn('npm', npmCommandArgs, {
+  await new Promise<void>((resolve, reject) => spawn('npm', npmCommandArgs, {
     cwd: projectPath,
     stdio: 'inherit',
   }).on('close', code => {
@@ -121,8 +121,3 @@ async function runDepsInstall(projectPath) {
     }
   }));
 }
-
-exports.renameFile = renameFile;
-exports.copyDir = copyDir;
-exports.createProject = createProject;
-exports.runDepsInstall = runDepsInstall;

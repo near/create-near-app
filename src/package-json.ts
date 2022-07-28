@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-function buildPackageJson({ contract, frontend, projectName, supportsSandbox }) {
+export function buildPackageJson({ contract, frontend, projectName, supportsSandbox }) {
   const result = basePackage({
     contract, frontend, projectName, supportsSandbox,
   });
@@ -186,5 +186,3 @@ const npmInstallScript = (contract, supportsSandbox) => {
         : {};
   }
 };
-
-exports.buildPackageJson = buildPackageJson;

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
-import {createProject} from '../scaffold/make';
+import {createProject} from '../src/make.js';
 
 describe('create', () => {
   const contracts = ['js', 'rust', 'assemblyscript'];
@@ -10,7 +10,7 @@ describe('create', () => {
   const ts = Date.now();
   test.each(testMatrix)('%o+%o sandbox:%o', async (contract, frontend, supportsSandbox) => {
     const projectName = `${contract}_${frontend}_${supportsSandbox ? 'sandbox' : 'no-sandbox'}`;
-    const rootDir = path.resolve(__dirname, '../');
+    const rootDir = path.resolve(__dirname, '../templates/');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
