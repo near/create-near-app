@@ -24,9 +24,9 @@ Notice: some platforms aren't supported (yet).
 const contractToText = contract => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
 const frontendToText = frontend => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
 const SETUP_SUCCESS_MSG = (projectName, contract, frontend) => (chalk`
-✅  {bold Success!} Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
-Check {bold ${projectName}/{green README.md}} to get started.
-
+✅  Success! Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
+🧠 Check {bold ${projectName}/{green README.md}} to get started.
+${contract === 'rust' ? chalk`🦀 If you are new to Rust please check {bold {green https://www.rust-lang.org }}\n` : '\n'}
 Happy Hacking! 👍
 {blue ======================================================}`);
 
@@ -45,6 +45,7 @@ Happy Hacking! 👍
 
   // Get and track the user input
   let config = null;
+  let configIsFromPrompts = false;
   try {
     config = await getUserArgs();
   } catch(e) {
@@ -53,6 +54,7 @@ Happy Hacking! 👍
   }
   if (config === null) {
     const userInput = await showUserPrompts();
+    configIsFromPrompts = true;
     if (!userAnswersAreValid(userInput)) {
       console.log('Invalid prompt.');
       return;
@@ -95,8 +97,10 @@ Happy Hacking! 👍
     console.log(SETUP_FAILED_MSG);
     return;
   }
-  const {depsInstall} = await showDepsInstallPrompt();
-  if (depsInstall) {
-    await runDepsInstall(projectPath);
+  if (configIsFromPrompts) {
+    const { depsInstall } = await showDepsInstallPrompt();
+    if (depsInstall) {
+      await runDepsInstall(projectPath);
+    }
   }
 })();

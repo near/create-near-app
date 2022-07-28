@@ -11,20 +11,20 @@ node index.js _assemblyscript+vanilla --contract assemblyscript --frontend vanil
 node index.js _assemblyscript+none --contract assemblyscript --frontend none
 
 cd _js+react
-npm run install-packages
+npm run deps-install
 cd _js+vanilla
-npm run install-packages
+npm run deps-install
 cd _js+none
-npm run install-packages
+npm run deps-install
 cd _rust+react
-npm run install-packages
+npm run deps-install
 cd _rust+vanilla
-npm run install-packages
+npm run deps-install
 cd _rust+none
-npm run install-packages
+npm run deps-install
 cd _assemblyscript+react
-npm run install-packages
+npm run deps-install
 cd _assemblyscript+vanilla
-npm run install-packages
+npm run deps-install
 cd _assemblyscript+none
-npm run install-packages
+npm run deps-install
