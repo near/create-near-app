@@ -451,14 +451,14 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"npm run build:asb && npm run build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && npm run build\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract\\",
+    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
+    \\"build:asb\\": \\"cd contract && yarn build\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -466,7 +466,9 @@ Array [
     \\"near-sdk-as\\": \\"3.2.3\\",
     \\"ava\\": \\"4.2.0\\"
   },
-  \\"dependencies\\": {}
+  \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\"
+  }
 }",
 ]
 `;
@@ -783,110 +785,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/ava.config.cjs sandbox 1`] = `
 Array [
-  "/assemblyscript_none_sandbox/integration-tests/rs/Cargo.toml",
-  "[package]
-name = \\"integration-tests\\"
-version = \\"1.0.0\\"
-publish = false
-edition = \\"2018\\"
-
-[dev-dependencies]
-anyhow = \\"1.0\\"
-borsh = \\"0.9\\"
-maplit = \\"1.0\\"
-near-units = \\"0.2.0\\"
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
-serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
-tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
-tracing = \\"0.1\\"
-tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
-workspaces = \\"0.2.1\\"
-pkg-config = \\"0.3.1\\"
-
-[[example]]
-name = \\"integration-tests\\"
-path = \\"src/tests.rs\\"
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
-Array [
-  "/assemblyscript_none_sandbox/integration-tests/rs/src/tests.rs",
-  "use near_units::parse_near;
-use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
-
-const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
-    let contract = worker.dev_deploy(&wasm).await?;
-
-    // create accounts
-    let owner = worker.root_account();
-    let alice = owner
-        .create_subaccount(&worker, \\"alice\\")
-        .initial_balance(parse_near!(\\"30 N\\"))
-        .transact()
-        .await?
-        .into_result()?;
-
-    // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
-    Ok(())
-}
-
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Hello\\".to_string());
-    println!(\\"      Passed ✅ gets default message\\");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), \\"set_greeting\\")
-        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
-        .transact()
-        .await?;
-
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Howdy\\".to_string());
-    println!(\\"      Passed ✅ changes message\\");
-    Ok(())
-}",
-]
-`;
-
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/assemblyscript_none_sandbox/integration-tests/ts/ava.config.cjs",
+  "/assemblyscript_none_sandbox/integration-tests/ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -900,9 +801,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/ts/package.json sandbox 1`] = `
+exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/package.json sandbox 1`] = `
 Array [
-  "/assemblyscript_none_sandbox/integration-tests/ts/package.json",
+  "/assemblyscript_none_sandbox/integration-tests/package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -923,9 +824,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
+exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/integration-tests/src/main.ava.ts sandbox 1`] = `
 Array [
-  "/assemblyscript_none_sandbox/integration-tests/ts/src/main.ava.ts",
+  "/assemblyscript_none_sandbox/integration-tests/src/main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -998,17 +899,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"npm run build:asb && npm run build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && npm run build\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract\\",
+    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
+    \\"build:asb\\": \\"cd contract && yarn build\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -1016,7 +915,9 @@ Array [
     \\"near-sdk-as\\": \\"3.2.3\\",
     \\"near-workspaces\\": \\"3.1.0\\"
   },
-  \\"dependencies\\": {}
+  \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\"
+  }
 }",
 ]
 `;
@@ -2022,15 +1923,15 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:asb && npm run build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && npm run build\\",
+    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
+    \\"build:asb\\": \\"cd contract && yarn build\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -2048,6 +1949,7 @@ Array [
     \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\",
     \\"react\\": \\"18.1.0\\",
     \\"react-dom\\": \\"18.1.0\\",
@@ -2933,110 +2835,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/ava.config.cjs sandbox 1`] = `
 Array [
-  "/assemblyscript_react_sandbox/integration-tests/rs/Cargo.toml",
-  "[package]
-name = \\"integration-tests\\"
-version = \\"1.0.0\\"
-publish = false
-edition = \\"2018\\"
-
-[dev-dependencies]
-anyhow = \\"1.0\\"
-borsh = \\"0.9\\"
-maplit = \\"1.0\\"
-near-units = \\"0.2.0\\"
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
-serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
-tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
-tracing = \\"0.1\\"
-tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
-workspaces = \\"0.2.1\\"
-pkg-config = \\"0.3.1\\"
-
-[[example]]
-name = \\"integration-tests\\"
-path = \\"src/tests.rs\\"
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
-Array [
-  "/assemblyscript_react_sandbox/integration-tests/rs/src/tests.rs",
-  "use near_units::parse_near;
-use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
-
-const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
-    let contract = worker.dev_deploy(&wasm).await?;
-
-    // create accounts
-    let owner = worker.root_account();
-    let alice = owner
-        .create_subaccount(&worker, \\"alice\\")
-        .initial_balance(parse_near!(\\"30 N\\"))
-        .transact()
-        .await?
-        .into_result()?;
-
-    // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
-    Ok(())
-}
-
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Hello\\".to_string());
-    println!(\\"      Passed ✅ gets default message\\");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), \\"set_greeting\\")
-        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
-        .transact()
-        .await?;
-
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Howdy\\".to_string());
-    println!(\\"      Passed ✅ changes message\\");
-    Ok(())
-}",
-]
-`;
-
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/assemblyscript_react_sandbox/integration-tests/ts/ava.config.cjs",
+  "/assemblyscript_react_sandbox/integration-tests/ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -3050,9 +2851,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/ts/package.json sandbox 1`] = `
+exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/package.json sandbox 1`] = `
 Array [
-  "/assemblyscript_react_sandbox/integration-tests/ts/package.json",
+  "/assemblyscript_react_sandbox/integration-tests/package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -3073,9 +2874,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
+exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/integration-tests/src/main.ava.ts sandbox 1`] = `
 Array [
-  "/assemblyscript_react_sandbox/integration-tests/ts/src/main.ava.ts",
+  "/assemblyscript_react_sandbox/integration-tests/src/main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -3149,18 +2950,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:asb && npm run build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && npm run build\\",
+    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
+    \\"build:asb\\": \\"cd contract && yarn build\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -3179,6 +2978,7 @@ Array [
     \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\",
     \\"react\\": \\"18.1.0\\",
     \\"react-dom\\": \\"18.1.0\\",
@@ -4208,15 +4008,15 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:asb && npm run build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && npm run build\\",
+    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
+    \\"build:asb\\": \\"cd contract && yarn build\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -4228,6 +4028,7 @@ Array [
     \\"env-cmd\\": \\"10.1.0\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\"
   }
 }",
@@ -5099,110 +4900,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/ava.config.cjs sandbox 1`] = `
 Array [
-  "/assemblyscript_vanilla_sandbox/integration-tests/rs/Cargo.toml",
-  "[package]
-name = \\"integration-tests\\"
-version = \\"1.0.0\\"
-publish = false
-edition = \\"2018\\"
-
-[dev-dependencies]
-anyhow = \\"1.0\\"
-borsh = \\"0.9\\"
-maplit = \\"1.0\\"
-near-units = \\"0.2.0\\"
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
-serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
-tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
-tracing = \\"0.1\\"
-tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
-workspaces = \\"0.2.1\\"
-pkg-config = \\"0.3.1\\"
-
-[[example]]
-name = \\"integration-tests\\"
-path = \\"src/tests.rs\\"
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
-Array [
-  "/assemblyscript_vanilla_sandbox/integration-tests/rs/src/tests.rs",
-  "use near_units::parse_near;
-use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
-
-const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
-    let contract = worker.dev_deploy(&wasm).await?;
-
-    // create accounts
-    let owner = worker.root_account();
-    let alice = owner
-        .create_subaccount(&worker, \\"alice\\")
-        .initial_balance(parse_near!(\\"30 N\\"))
-        .transact()
-        .await?
-        .into_result()?;
-
-    // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
-    Ok(())
-}
-
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Hello\\".to_string());
-    println!(\\"      Passed ✅ gets default message\\");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), \\"set_greeting\\")
-        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
-        .transact()
-        .await?;
-
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Howdy\\".to_string());
-    println!(\\"      Passed ✅ changes message\\");
-    Ok(())
-}",
-]
-`;
-
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/assemblyscript_vanilla_sandbox/integration-tests/ts/ava.config.cjs",
+  "/assemblyscript_vanilla_sandbox/integration-tests/ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -5216,9 +4916,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/ts/package.json sandbox 1`] = `
+exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/package.json sandbox 1`] = `
 Array [
-  "/assemblyscript_vanilla_sandbox/integration-tests/ts/package.json",
+  "/assemblyscript_vanilla_sandbox/integration-tests/package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -5239,9 +4939,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
+exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/integration-tests/src/main.ava.ts sandbox 1`] = `
 Array [
-  "/assemblyscript_vanilla_sandbox/integration-tests/ts/src/main.ava.ts",
+  "/assemblyscript_vanilla_sandbox/integration-tests/src/main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -5315,18 +5015,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:asb && npm run build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && npm run build\\",
+    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
+    \\"build:asb\\": \\"cd contract && yarn build\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -5338,6 +5036,7 @@ Array [
     \\"env-cmd\\": \\"10.1.0\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\"
   }
 }",
@@ -5744,12 +5443,12 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"cd contract && npm run deploy\\",
-    \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"cd contract && npm run build\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
+    \\"build\\": \\"yarn build:contract\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -5757,7 +5456,9 @@ Array [
     \\"near-sdk-js\\": \\"0.4.0-2\\",
     \\"ava\\": \\"4.2.0\\"
   },
-  \\"dependencies\\": {}
+  \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\"
+  }
 }",
 ]
 `;
@@ -6023,110 +5724,9 @@ Array [
 ]
 `;
 
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/ava.config.cjs sandbox 1`] = `
 Array [
-  "/js_none_sandbox/integration-tests/rs/Cargo.toml",
-  "[package]
-name = \\"integration-tests\\"
-version = \\"1.0.0\\"
-publish = false
-edition = \\"2018\\"
-
-[dev-dependencies]
-anyhow = \\"1.0\\"
-borsh = \\"0.9\\"
-maplit = \\"1.0\\"
-near-units = \\"0.2.0\\"
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
-serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
-tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
-tracing = \\"0.1\\"
-tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
-workspaces = \\"0.2.1\\"
-pkg-config = \\"0.3.1\\"
-
-[[example]]
-name = \\"integration-tests\\"
-path = \\"src/tests.rs\\"
-",
-]
-`;
-
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
-Array [
-  "/js_none_sandbox/integration-tests/rs/src/tests.rs",
-  "use near_units::parse_near;
-use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
-
-const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
-    let contract = worker.dev_deploy(&wasm).await?;
-
-    // create accounts
-    let owner = worker.root_account();
-    let alice = owner
-        .create_subaccount(&worker, \\"alice\\")
-        .initial_balance(parse_near!(\\"30 N\\"))
-        .transact()
-        .await?
-        .into_result()?;
-
-    // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
-    Ok(())
-}
-
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Hello\\".to_string());
-    println!(\\"      Passed ✅ gets default message\\");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), \\"set_greeting\\")
-        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
-        .transact()
-        .await?;
-
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Howdy\\".to_string());
-    println!(\\"      Passed ✅ changes message\\");
-    Ok(())
-}",
-]
-`;
-
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/js_none_sandbox/integration-tests/ts/ava.config.cjs",
+  "/js_none_sandbox/integration-tests/ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -6140,9 +5740,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/ts/package.json sandbox 1`] = `
+exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/package.json sandbox 1`] = `
 Array [
-  "/js_none_sandbox/integration-tests/ts/package.json",
+  "/js_none_sandbox/integration-tests/package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -6163,9 +5763,9 @@ Array [
 ]
 `;
 
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
+exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/integration-tests/src/main.ava.ts sandbox 1`] = `
 Array [
-  "/js_none_sandbox/integration-tests/ts/src/main.ava.ts",
+  "/js_none_sandbox/integration-tests/src/main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -6238,15 +5838,13 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"cd contract && npm run deploy\\",
-    \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"cd contract && npm run build\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
+    \\"build\\": \\"yarn build:contract\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -6254,7 +5852,9 @@ Array [
     \\"near-sdk-js\\": \\"0.4.0-2\\",
     \\"near-workspaces\\": \\"3.1.0\\"
   },
-  \\"dependencies\\": {}
+  \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\"
+  }
 }",
 ]
 `;
@@ -7209,13 +6809,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"cd contract && npm run deploy\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"cd contract && npm run build\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -7233,6 +6833,7 @@ Array [
     \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\",
     \\"react\\": \\"18.1.0\\",
     \\"react-dom\\": \\"18.1.0\\",
@@ -8067,110 +7668,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/ava.config.cjs sandbox 1`] = `
 Array [
-  "/js_react_sandbox/integration-tests/rs/Cargo.toml",
-  "[package]
-name = \\"integration-tests\\"
-version = \\"1.0.0\\"
-publish = false
-edition = \\"2018\\"
-
-[dev-dependencies]
-anyhow = \\"1.0\\"
-borsh = \\"0.9\\"
-maplit = \\"1.0\\"
-near-units = \\"0.2.0\\"
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
-serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
-tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
-tracing = \\"0.1\\"
-tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
-workspaces = \\"0.2.1\\"
-pkg-config = \\"0.3.1\\"
-
-[[example]]
-name = \\"integration-tests\\"
-path = \\"src/tests.rs\\"
-",
-]
-`;
-
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
-Array [
-  "/js_react_sandbox/integration-tests/rs/src/tests.rs",
-  "use near_units::parse_near;
-use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
-
-const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
-    let contract = worker.dev_deploy(&wasm).await?;
-
-    // create accounts
-    let owner = worker.root_account();
-    let alice = owner
-        .create_subaccount(&worker, \\"alice\\")
-        .initial_balance(parse_near!(\\"30 N\\"))
-        .transact()
-        .await?
-        .into_result()?;
-
-    // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
-    Ok(())
-}
-
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Hello\\".to_string());
-    println!(\\"      Passed ✅ gets default message\\");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), \\"set_greeting\\")
-        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
-        .transact()
-        .await?;
-
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Howdy\\".to_string());
-    println!(\\"      Passed ✅ changes message\\");
-    Ok(())
-}",
-]
-`;
-
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/js_react_sandbox/integration-tests/ts/ava.config.cjs",
+  "/js_react_sandbox/integration-tests/ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -8184,9 +7684,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/ts/package.json sandbox 1`] = `
+exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/package.json sandbox 1`] = `
 Array [
-  "/js_react_sandbox/integration-tests/ts/package.json",
+  "/js_react_sandbox/integration-tests/package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -8207,9 +7707,9 @@ Array [
 ]
 `;
 
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
+exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/integration-tests/src/main.ava.ts sandbox 1`] = `
 Array [
-  "/js_react_sandbox/integration-tests/ts/src/main.ava.ts",
+  "/js_react_sandbox/integration-tests/src/main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -8283,16 +7783,14 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"cd contract && npm run deploy\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"cd contract && npm run build\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -8311,6 +7809,7 @@ Array [
     \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\",
     \\"react\\": \\"18.1.0\\",
     \\"react-dom\\": \\"18.1.0\\",
@@ -9289,13 +8788,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"cd contract && npm run deploy\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"cd contract && npm run build\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -9307,6 +8806,7 @@ Array [
     \\"env-cmd\\": \\"10.1.0\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\"
   }
 }",
@@ -10127,110 +9627,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/ava.config.cjs sandbox 1`] = `
 Array [
-  "/js_vanilla_sandbox/integration-tests/rs/Cargo.toml",
-  "[package]
-name = \\"integration-tests\\"
-version = \\"1.0.0\\"
-publish = false
-edition = \\"2018\\"
-
-[dev-dependencies]
-anyhow = \\"1.0\\"
-borsh = \\"0.9\\"
-maplit = \\"1.0\\"
-near-units = \\"0.2.0\\"
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
-serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
-tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
-tracing = \\"0.1\\"
-tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
-workspaces = \\"0.2.1\\"
-pkg-config = \\"0.3.1\\"
-
-[[example]]
-name = \\"integration-tests\\"
-path = \\"src/tests.rs\\"
-",
-]
-`;
-
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
-Array [
-  "/js_vanilla_sandbox/integration-tests/rs/src/tests.rs",
-  "use near_units::parse_near;
-use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
-
-const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
-    let contract = worker.dev_deploy(&wasm).await?;
-
-    // create accounts
-    let owner = worker.root_account();
-    let alice = owner
-        .create_subaccount(&worker, \\"alice\\")
-        .initial_balance(parse_near!(\\"30 N\\"))
-        .transact()
-        .await?
-        .into_result()?;
-
-    // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
-    Ok(())
-}
-
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Hello\\".to_string());
-    println!(\\"      Passed ✅ gets default message\\");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-    worker: &Worker<Sandbox>,
-) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), \\"set_greeting\\")
-        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
-        .transact()
-        .await?;
-
-    let message: String = user
-        .call(&worker, contract.id(), \\"get_greeting\\")
-        .args_json(json!({}))?
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(message, \\"Howdy\\".to_string());
-    println!(\\"      Passed ✅ changes message\\");
-    Ok(())
-}",
-]
-`;
-
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/js_vanilla_sandbox/integration-tests/ts/ava.config.cjs",
+  "/js_vanilla_sandbox/integration-tests/ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -10244,9 +9643,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/ts/package.json sandbox 1`] = `
+exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/package.json sandbox 1`] = `
 Array [
-  "/js_vanilla_sandbox/integration-tests/ts/package.json",
+  "/js_vanilla_sandbox/integration-tests/package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -10267,9 +9666,9 @@ Array [
 ]
 `;
 
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
+exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/integration-tests/src/main.ava.ts sandbox 1`] = `
 Array [
-  "/js_vanilla_sandbox/integration-tests/ts/src/main.ava.ts",
+  "/js_vanilla_sandbox/integration-tests/src/main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -10343,16 +9742,14 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"cd contract && npm run deploy\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"cd contract && npm run build\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
-    \\"test:unit\\": \\"cd contract && npm run test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test:unit\\": \\"cd contract && yarn test\\",
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -10364,6 +9761,7 @@ Array [
     \\"env-cmd\\": \\"10.1.0\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\"
   }
 }",
@@ -10688,117 +10086,104 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/integration-tests/ava.config.cjs no-sandbox 1`] = `
+exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/integration-tests/Cargo.toml no-sandbox 1`] = `
 Array [
-  "/rust_none_no-sandbox/integration-tests/ava.config.cjs",
-  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+  "/rust_none_no-sandbox/integration-tests/Cargo.toml",
+  "[package]
+name = \\"integration-tests\\"
+version = \\"1.0.0\\"
+publish = false
+edition = \\"2018\\"
 
-module.exports = {
-  timeout: \\"300000\\",
-  files: [\\"src/*.ava.ts\\"],
-  failWithoutAssertions: false,
-  extensions: [\\"ts\\"],
-  require: [\\"ts-node/register\\"],
-};
+[dev-dependencies]
+anyhow = \\"1.0\\"
+borsh = \\"0.9\\"
+maplit = \\"1.0\\"
+near-units = \\"0.2.0\\"
+# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
+serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
+tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
+tracing = \\"0.1\\"
+tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
+workspaces = \\"0.2.1\\"
+pkg-config = \\"0.3.1\\"
+
+[[example]]
+name = \\"integration-tests\\"
+path = \\"src/tests.rs\\"
 ",
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/integration-tests/package.json no-sandbox 1`] = `
+exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/integration-tests/src/tests.rs no-sandbox 1`] = `
 Array [
-  "/rust_none_no-sandbox/integration-tests/package.json",
-  "{
-  \\"name\\": \\"ava-testing\\",
-  \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"(MIT AND Apache-2.0)\\",
-  \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
-  },
-  \\"devDependencies\\": {
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
-  },
-  \\"dependencies\\": {}
+  "/rust_none_no-sandbox/integration-tests/src/tests.rs",
+  "use near_units::parse_near;
+use serde_json::json;
+use workspaces::prelude::*;
+use workspaces::{network::Sandbox, Account, Contract, Worker};
+
+const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let worker = workspaces::sandbox().await?;
+    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let contract = worker.dev_deploy(&wasm).await?;
+
+    // create accounts
+    let owner = worker.root_account();
+    let alice = owner
+        .create_subaccount(&worker, \\"alice\\")
+        .initial_balance(parse_near!(\\"30 N\\"))
+        .transact()
+        .await?
+        .into_result()?;
+
+    // begin tests
+    test_default_message(&alice, &contract, &worker).await?;
+    test_changes_message(&alice, &contract, &worker).await?;
+    Ok(())
 }
-",
-]
-`;
 
-exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/integration-tests/src/config.ts no-sandbox 1`] = `
-Array [
-  "/rust_none_no-sandbox/integration-tests/src/config.ts",
-  "import {KeyPair, keyStores} from 'near-api-js';
+async fn test_default_message(
+    user: &Account,
+    contract: &Contract,
+    worker: &Worker<Sandbox>,
+) -> anyhow::Result<()> {
+    let message: String = user
+        .call(&worker, contract.id(), \\"get_greeting\\")
+        .args_json(json!({}))?
+        .transact()
+        .await?
+        .json()?;
 
-const fs = require('fs');
+    assert_eq!(message, \\"Hello\\".to_string());
+    println!(\\"      Passed ✅ gets default message\\");
+    Ok(())
+}
 
-const CONTRACT_NAME = fs.readFileSync('../contract/neardev/dev-account', 'utf-8');
-const NETWORK_ID = 'testnet';
+async fn test_changes_message(
+    user: &Account,
+    contract: &Contract,
+    worker: &Worker<Sandbox>,
+) -> anyhow::Result<()> {
+    user.call(&worker, contract.id(), \\"set_greeting\\")
+        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
+        .transact()
+        .await?;
 
-// Create an InMemoryKeyStore
-const keyStore = new keyStores.InMemoryKeyStore();
+    let message: String = user
+        .call(&worker, contract.id(), \\"get_greeting\\")
+        .args_json(json!({}))?
+        .transact()
+        .await?
+        .json()?;
 
-// Load credentials
-const credPath = \`\${process.env.HOME}/.near-credentials/\${NETWORK_ID}/\${CONTRACT_NAME}.json\`;
-let credentials = JSON.parse(fs.readFileSync(credPath));
-
-// Save key in the key store
-keyStore.setKey(
-  NETWORK_ID,
-  CONTRACT_NAME,
-  KeyPair.fromString(credentials.private_key)
-);
-
-export const nearConfig = {
-  networkId: NETWORK_ID,
-  nodeUrl: 'https://rpc.testnet.near.org',
-  contractName: CONTRACT_NAME,
-  walletUrl: 'https://wallet.testnet.near.org',
-  helperUrl: 'https://helper.testnet.near.org',
-  explorerUrl: 'https://explorer.testnet.near.org',
-  headers: {},
-  deps: {keyStore}
-};",
-]
-`;
-
-exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/integration-tests/src/main.ava.ts no-sandbox 1`] = `
-Array [
-  "/rust_none_no-sandbox/integration-tests/src/main.ava.ts",
-  "import anyTest, { TestFn } from 'ava';
-
-import { Near, Account, Contract } from 'near-api-js';
-import { nearConfig } from './config';
-
-const test = anyTest as TestFn<{
-  accounts: Record<string, any>;
-}>;
-
-test.beforeEach(async (t) => {
-  const near = await new Near(nearConfig);
-  const user = await new Account(near.connection, nearConfig.contractName);
-  const contract = await new Contract(
-    user,
-    nearConfig.contractName,
-    { viewMethods: ['get_greeting'], changeMethods: ['set_greeting'] }
-  );
-  t.context.accounts = { contract };
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.get_greeting({});
-  t.is(message, 'Hello');
-});
-
-test('changes the message', async (t) => {
-  const { contract } = t.context.accounts;
-  await contract.set_greeting({args:{ message: 'Howdy' }});
-  const message: string = await contract.get_greeting({});
-  t.is(message, 'Howdy');
-});",
+    assert_eq!(message, \\"Howdy\\".to_string());
+    println!(\\"      Passed ✅ changes message\\");
+    Ok(())
+}",
 ]
 `;
 
@@ -10827,21 +10212,23 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"npm run build:rustup && npm run build:cpwasm\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract\\",
+    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
     \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
     \\"nodemon\\": \\"2.0.16\\",
     \\"ava\\": \\"4.2.0\\"
   },
-  \\"dependencies\\": {}
+  \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\"
+  }
 }",
 ]
 `;
@@ -11164,9 +10551,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/Cargo.toml sandbox 1`] = `
 Array [
-  "/rust_none_sandbox/integration-tests/rs/Cargo.toml",
+  "/rust_none_sandbox/integration-tests/Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -11193,9 +10580,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
+exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/src/tests.rs sandbox 1`] = `
 Array [
-  "/rust_none_sandbox/integration-tests/rs/src/tests.rs",
+  "/rust_none_sandbox/integration-tests/src/tests.rs",
   "use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
@@ -11265,95 +10652,6 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/rust_none_sandbox/integration-tests/ts/ava.config.cjs",
-  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
-
-module.exports = {
-  timeout: \\"300000\\",
-  files: [\\"src/*.ava.ts\\"],
-  failWithoutAssertions: false,
-  extensions: [\\"ts\\"],
-  require: [\\"ts-node/register\\"],
-};
-",
-]
-`;
-
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/ts/package.json sandbox 1`] = `
-Array [
-  "/rust_none_sandbox/integration-tests/ts/package.json",
-  "{
-  \\"name\\": \\"ava-testing\\",
-  \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"(MIT AND Apache-2.0)\\",
-  \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
-  },
-  \\"devDependencies\\": {
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
-  },
-  \\"dependencies\\": {}
-}
-",
-]
-`;
-
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
-Array [
-  "/rust_none_sandbox/integration-tests/ts/src/main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
-
-const test = anyTest as TestFn<{
-  worker: Worker;
-  accounts: Record<string, NearAccount>;
-}>;
-
-test.beforeEach(async (t) => {
-  // Init the worker and start a Sandbox server
-  const worker = await Worker.init();
-
-  // deploy contract
-  const root = worker.rootAccount;
-  const contract = await root.createSubAccount('test-account');
-  await contract.deploy(
-    '../../contract/build/contract.wasm',
-  );
-  await contract.call(contract, 'init', {});
-
-  // Save state for test runs, it is unique for each test
-  t.context.worker = worker;
-  t.context.accounts = { root, contract };
-});
-
-test.afterEach(async (t) => {
-  // Stop Sandbox server
-  await t.context.worker.tearDown().catch((error) => {
-    console.log('Failed to stop the Sandbox:', error);
-  });
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Hello');
-});
-
-test('changes the message', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { message: 'Howdy' });
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Howdy');
-});",
-]
-`;
-
 exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/neardev/.gitignore sandbox 1`] = `
 Array [
   "/rust_none_sandbox/neardev/.gitignore",
@@ -11379,24 +10677,24 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"npm run build:rustup && npm run build:cpwasm\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract\\",
+    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
     \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
+    \\"deps-install\\": \\"yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
     \\"nodemon\\": \\"2.0.16\\",
     \\"near-workspaces\\": \\"3.1.0\\"
   },
-  \\"dependencies\\": {}
+  \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\"
+  }
 }",
 ]
 `;
@@ -12268,117 +11566,104 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/integration-tests/ava.config.cjs no-sandbox 1`] = `
+exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/integration-tests/Cargo.toml no-sandbox 1`] = `
 Array [
-  "/rust_react_no-sandbox/integration-tests/ava.config.cjs",
-  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+  "/rust_react_no-sandbox/integration-tests/Cargo.toml",
+  "[package]
+name = \\"integration-tests\\"
+version = \\"1.0.0\\"
+publish = false
+edition = \\"2018\\"
 
-module.exports = {
-  timeout: \\"300000\\",
-  files: [\\"src/*.ava.ts\\"],
-  failWithoutAssertions: false,
-  extensions: [\\"ts\\"],
-  require: [\\"ts-node/register\\"],
-};
+[dev-dependencies]
+anyhow = \\"1.0\\"
+borsh = \\"0.9\\"
+maplit = \\"1.0\\"
+near-units = \\"0.2.0\\"
+# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
+serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
+tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
+tracing = \\"0.1\\"
+tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
+workspaces = \\"0.2.1\\"
+pkg-config = \\"0.3.1\\"
+
+[[example]]
+name = \\"integration-tests\\"
+path = \\"src/tests.rs\\"
 ",
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/integration-tests/package.json no-sandbox 1`] = `
+exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/integration-tests/src/tests.rs no-sandbox 1`] = `
 Array [
-  "/rust_react_no-sandbox/integration-tests/package.json",
-  "{
-  \\"name\\": \\"ava-testing\\",
-  \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"(MIT AND Apache-2.0)\\",
-  \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
-  },
-  \\"devDependencies\\": {
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
-  },
-  \\"dependencies\\": {}
+  "/rust_react_no-sandbox/integration-tests/src/tests.rs",
+  "use near_units::parse_near;
+use serde_json::json;
+use workspaces::prelude::*;
+use workspaces::{network::Sandbox, Account, Contract, Worker};
+
+const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let worker = workspaces::sandbox().await?;
+    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let contract = worker.dev_deploy(&wasm).await?;
+
+    // create accounts
+    let owner = worker.root_account();
+    let alice = owner
+        .create_subaccount(&worker, \\"alice\\")
+        .initial_balance(parse_near!(\\"30 N\\"))
+        .transact()
+        .await?
+        .into_result()?;
+
+    // begin tests
+    test_default_message(&alice, &contract, &worker).await?;
+    test_changes_message(&alice, &contract, &worker).await?;
+    Ok(())
 }
-",
-]
-`;
 
-exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/integration-tests/src/config.ts no-sandbox 1`] = `
-Array [
-  "/rust_react_no-sandbox/integration-tests/src/config.ts",
-  "import {KeyPair, keyStores} from 'near-api-js';
+async fn test_default_message(
+    user: &Account,
+    contract: &Contract,
+    worker: &Worker<Sandbox>,
+) -> anyhow::Result<()> {
+    let message: String = user
+        .call(&worker, contract.id(), \\"get_greeting\\")
+        .args_json(json!({}))?
+        .transact()
+        .await?
+        .json()?;
 
-const fs = require('fs');
+    assert_eq!(message, \\"Hello\\".to_string());
+    println!(\\"      Passed ✅ gets default message\\");
+    Ok(())
+}
 
-const CONTRACT_NAME = fs.readFileSync('../contract/neardev/dev-account', 'utf-8');
-const NETWORK_ID = 'testnet';
+async fn test_changes_message(
+    user: &Account,
+    contract: &Contract,
+    worker: &Worker<Sandbox>,
+) -> anyhow::Result<()> {
+    user.call(&worker, contract.id(), \\"set_greeting\\")
+        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
+        .transact()
+        .await?;
 
-// Create an InMemoryKeyStore
-const keyStore = new keyStores.InMemoryKeyStore();
+    let message: String = user
+        .call(&worker, contract.id(), \\"get_greeting\\")
+        .args_json(json!({}))?
+        .transact()
+        .await?
+        .json()?;
 
-// Load credentials
-const credPath = \`\${process.env.HOME}/.near-credentials/\${NETWORK_ID}/\${CONTRACT_NAME}.json\`;
-let credentials = JSON.parse(fs.readFileSync(credPath));
-
-// Save key in the key store
-keyStore.setKey(
-  NETWORK_ID,
-  CONTRACT_NAME,
-  KeyPair.fromString(credentials.private_key)
-);
-
-export const nearConfig = {
-  networkId: NETWORK_ID,
-  nodeUrl: 'https://rpc.testnet.near.org',
-  contractName: CONTRACT_NAME,
-  walletUrl: 'https://wallet.testnet.near.org',
-  helperUrl: 'https://helper.testnet.near.org',
-  explorerUrl: 'https://explorer.testnet.near.org',
-  headers: {},
-  deps: {keyStore}
-};",
-]
-`;
-
-exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/integration-tests/src/main.ava.ts no-sandbox 1`] = `
-Array [
-  "/rust_react_no-sandbox/integration-tests/src/main.ava.ts",
-  "import anyTest, { TestFn } from 'ava';
-
-import { Near, Account, Contract } from 'near-api-js';
-import { nearConfig } from './config';
-
-const test = anyTest as TestFn<{
-  accounts: Record<string, any>;
-}>;
-
-test.beforeEach(async (t) => {
-  const near = await new Near(nearConfig);
-  const user = await new Account(near.connection, nearConfig.contractName);
-  const contract = await new Contract(
-    user,
-    nearConfig.contractName,
-    { viewMethods: ['get_greeting'], changeMethods: ['set_greeting'] }
-  );
-  t.context.accounts = { contract };
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.get_greeting({});
-  t.is(message, 'Hello');
-});
-
-test('changes the message', async (t) => {
-  const { contract } = t.context.accounts;
-  await contract.set_greeting({args:{ message: 'Howdy' }});
-  const message: string = await contract.get_greeting({});
-  t.is(message, 'Howdy');
-});",
+    assert_eq!(message, \\"Howdy\\".to_string());
+    println!(\\"      Passed ✅ changes message\\");
+    Ok(())
+}",
 ]
 `;
 
@@ -12408,15 +11693,15 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:rustup && npm run build:cpwasm\\",
+    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
     \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -12433,6 +11718,7 @@ Array [
     \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\",
     \\"react\\": \\"18.1.0\\",
     \\"react-dom\\": \\"18.1.0\\",
@@ -13324,9 +12610,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/Cargo.toml sandbox 1`] = `
 Array [
-  "/rust_react_sandbox/integration-tests/rs/Cargo.toml",
+  "/rust_react_sandbox/integration-tests/Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -13353,9 +12639,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
+exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/src/tests.rs sandbox 1`] = `
 Array [
-  "/rust_react_sandbox/integration-tests/rs/src/tests.rs",
+  "/rust_react_sandbox/integration-tests/src/tests.rs",
   "use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
@@ -13425,95 +12711,6 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/rust_react_sandbox/integration-tests/ts/ava.config.cjs",
-  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
-
-module.exports = {
-  timeout: \\"300000\\",
-  files: [\\"src/*.ava.ts\\"],
-  failWithoutAssertions: false,
-  extensions: [\\"ts\\"],
-  require: [\\"ts-node/register\\"],
-};
-",
-]
-`;
-
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/ts/package.json sandbox 1`] = `
-Array [
-  "/rust_react_sandbox/integration-tests/ts/package.json",
-  "{
-  \\"name\\": \\"ava-testing\\",
-  \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"(MIT AND Apache-2.0)\\",
-  \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
-  },
-  \\"devDependencies\\": {
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
-  },
-  \\"dependencies\\": {}
-}
-",
-]
-`;
-
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
-Array [
-  "/rust_react_sandbox/integration-tests/ts/src/main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
-
-const test = anyTest as TestFn<{
-  worker: Worker;
-  accounts: Record<string, NearAccount>;
-}>;
-
-test.beforeEach(async (t) => {
-  // Init the worker and start a Sandbox server
-  const worker = await Worker.init();
-
-  // deploy contract
-  const root = worker.rootAccount;
-  const contract = await root.createSubAccount('test-account');
-  await contract.deploy(
-    '../../contract/build/contract.wasm',
-  );
-  await contract.call(contract, 'init', {});
-
-  // Save state for test runs, it is unique for each test
-  t.context.worker = worker;
-  t.context.accounts = { root, contract };
-});
-
-test.afterEach(async (t) => {
-  // Stop Sandbox server
-  await t.context.worker.tearDown().catch((error) => {
-    console.log('Failed to stop the Sandbox:', error);
-  });
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Hello');
-});
-
-test('changes the message', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { message: 'Howdy' });
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Howdy');
-});",
-]
-`;
-
 exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/neardev/.gitignore sandbox 1`] = `
 Array [
   "/rust_react_sandbox/neardev/.gitignore",
@@ -13540,18 +12737,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:rustup && npm run build:cpwasm\\",
+    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
     \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
+    \\"deps-install\\": \\"yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -13569,6 +12764,7 @@ Array [
     \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\",
     \\"react\\": \\"18.1.0\\",
     \\"react-dom\\": \\"18.1.0\\",
@@ -14464,117 +13660,104 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/ava.config.cjs no-sandbox 1`] = `
+exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/Cargo.toml no-sandbox 1`] = `
 Array [
-  "/rust_vanilla_no-sandbox/integration-tests/ava.config.cjs",
-  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+  "/rust_vanilla_no-sandbox/integration-tests/Cargo.toml",
+  "[package]
+name = \\"integration-tests\\"
+version = \\"1.0.0\\"
+publish = false
+edition = \\"2018\\"
 
-module.exports = {
-  timeout: \\"300000\\",
-  files: [\\"src/*.ava.ts\\"],
-  failWithoutAssertions: false,
-  extensions: [\\"ts\\"],
-  require: [\\"ts-node/register\\"],
-};
+[dev-dependencies]
+anyhow = \\"1.0\\"
+borsh = \\"0.9\\"
+maplit = \\"1.0\\"
+near-units = \\"0.2.0\\"
+# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
+serde_json = { version = \\"1.0\\", features = [\\"arbitrary_precision\\"] }
+tokio = { version = \\"1.18.1\\", features = [\\"full\\"] }
+tracing = \\"0.1\\"
+tracing-subscriber = { version = \\"0.3.11\\", features = [\\"env-filter\\"] }
+workspaces = \\"0.2.1\\"
+pkg-config = \\"0.3.1\\"
+
+[[example]]
+name = \\"integration-tests\\"
+path = \\"src/tests.rs\\"
 ",
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/package.json no-sandbox 1`] = `
+exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/src/tests.rs no-sandbox 1`] = `
 Array [
-  "/rust_vanilla_no-sandbox/integration-tests/package.json",
-  "{
-  \\"name\\": \\"ava-testing\\",
-  \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"(MIT AND Apache-2.0)\\",
-  \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
-  },
-  \\"devDependencies\\": {
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
-  },
-  \\"dependencies\\": {}
+  "/rust_vanilla_no-sandbox/integration-tests/src/tests.rs",
+  "use near_units::parse_near;
+use serde_json::json;
+use workspaces::prelude::*;
+use workspaces::{network::Sandbox, Account, Contract, Worker};
+
+const WASM_FILEPATH: &str = \\"../../out/hello_near.wasm\\";
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let worker = workspaces::sandbox().await?;
+    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let contract = worker.dev_deploy(&wasm).await?;
+
+    // create accounts
+    let owner = worker.root_account();
+    let alice = owner
+        .create_subaccount(&worker, \\"alice\\")
+        .initial_balance(parse_near!(\\"30 N\\"))
+        .transact()
+        .await?
+        .into_result()?;
+
+    // begin tests
+    test_default_message(&alice, &contract, &worker).await?;
+    test_changes_message(&alice, &contract, &worker).await?;
+    Ok(())
 }
-",
-]
-`;
 
-exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/src/config.ts no-sandbox 1`] = `
-Array [
-  "/rust_vanilla_no-sandbox/integration-tests/src/config.ts",
-  "import {KeyPair, keyStores} from 'near-api-js';
+async fn test_default_message(
+    user: &Account,
+    contract: &Contract,
+    worker: &Worker<Sandbox>,
+) -> anyhow::Result<()> {
+    let message: String = user
+        .call(&worker, contract.id(), \\"get_greeting\\")
+        .args_json(json!({}))?
+        .transact()
+        .await?
+        .json()?;
 
-const fs = require('fs');
+    assert_eq!(message, \\"Hello\\".to_string());
+    println!(\\"      Passed ✅ gets default message\\");
+    Ok(())
+}
 
-const CONTRACT_NAME = fs.readFileSync('../contract/neardev/dev-account', 'utf-8');
-const NETWORK_ID = 'testnet';
+async fn test_changes_message(
+    user: &Account,
+    contract: &Contract,
+    worker: &Worker<Sandbox>,
+) -> anyhow::Result<()> {
+    user.call(&worker, contract.id(), \\"set_greeting\\")
+        .args_json(json!({\\"message\\": \\"Howdy\\"}))?
+        .transact()
+        .await?;
 
-// Create an InMemoryKeyStore
-const keyStore = new keyStores.InMemoryKeyStore();
+    let message: String = user
+        .call(&worker, contract.id(), \\"get_greeting\\")
+        .args_json(json!({}))?
+        .transact()
+        .await?
+        .json()?;
 
-// Load credentials
-const credPath = \`\${process.env.HOME}/.near-credentials/\${NETWORK_ID}/\${CONTRACT_NAME}.json\`;
-let credentials = JSON.parse(fs.readFileSync(credPath));
-
-// Save key in the key store
-keyStore.setKey(
-  NETWORK_ID,
-  CONTRACT_NAME,
-  KeyPair.fromString(credentials.private_key)
-);
-
-export const nearConfig = {
-  networkId: NETWORK_ID,
-  nodeUrl: 'https://rpc.testnet.near.org',
-  contractName: CONTRACT_NAME,
-  walletUrl: 'https://wallet.testnet.near.org',
-  helperUrl: 'https://helper.testnet.near.org',
-  explorerUrl: 'https://explorer.testnet.near.org',
-  headers: {},
-  deps: {keyStore}
-};",
-]
-`;
-
-exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/src/main.ava.ts no-sandbox 1`] = `
-Array [
-  "/rust_vanilla_no-sandbox/integration-tests/src/main.ava.ts",
-  "import anyTest, { TestFn } from 'ava';
-
-import { Near, Account, Contract } from 'near-api-js';
-import { nearConfig } from './config';
-
-const test = anyTest as TestFn<{
-  accounts: Record<string, any>;
-}>;
-
-test.beforeEach(async (t) => {
-  const near = await new Near(nearConfig);
-  const user = await new Account(near.connection, nearConfig.contractName);
-  const contract = await new Contract(
-    user,
-    nearConfig.contractName,
-    { viewMethods: ['get_greeting'], changeMethods: ['set_greeting'] }
-  );
-  t.context.accounts = { contract };
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.get_greeting({});
-  t.is(message, 'Hello');
-});
-
-test('changes the message', async (t) => {
-  const { contract } = t.context.accounts;
-  await contract.set_greeting({args:{ message: 'Howdy' }});
-  const message: string = await contract.get_greeting({});
-  t.is(message, 'Howdy');
-});",
+    assert_eq!(message, \\"Howdy\\".to_string());
+    println!(\\"      Passed ✅ changes message\\");
+    Ok(())
+}",
 ]
 `;
 
@@ -14604,15 +13787,15 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:rustup && npm run build:cpwasm\\",
+    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
     \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:integration\\",
+    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm run test\\"
+    \\"test:integration\\": \\"cd integration-tests && yarn test\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -14623,6 +13806,7 @@ Array [
     \\"env-cmd\\": \\"10.1.0\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\"
   }
 }",
@@ -15500,9 +14684,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/rs/Cargo.toml sandbox 1`] = `
+exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/Cargo.toml sandbox 1`] = `
 Array [
-  "/rust_vanilla_sandbox/integration-tests/rs/Cargo.toml",
+  "/rust_vanilla_sandbox/integration-tests/Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -15529,9 +14713,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/rs/src/tests.rs sandbox 1`] = `
+exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/src/tests.rs sandbox 1`] = `
 Array [
-  "/rust_vanilla_sandbox/integration-tests/rs/src/tests.rs",
+  "/rust_vanilla_sandbox/integration-tests/src/tests.rs",
   "use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
@@ -15601,95 +14785,6 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/ts/ava.config.cjs sandbox 1`] = `
-Array [
-  "/rust_vanilla_sandbox/integration-tests/ts/ava.config.cjs",
-  "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
-
-module.exports = {
-  timeout: \\"300000\\",
-  files: [\\"src/*.ava.ts\\"],
-  failWithoutAssertions: false,
-  extensions: [\\"ts\\"],
-  require: [\\"ts-node/register\\"],
-};
-",
-]
-`;
-
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/ts/package.json sandbox 1`] = `
-Array [
-  "/rust_vanilla_sandbox/integration-tests/ts/package.json",
-  "{
-  \\"name\\": \\"ava-testing\\",
-  \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"(MIT AND Apache-2.0)\\",
-  \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
-  },
-  \\"devDependencies\\": {
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
-  },
-  \\"dependencies\\": {}
-}
-",
-]
-`;
-
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/ts/src/main.ava.ts sandbox 1`] = `
-Array [
-  "/rust_vanilla_sandbox/integration-tests/ts/src/main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
-
-const test = anyTest as TestFn<{
-  worker: Worker;
-  accounts: Record<string, NearAccount>;
-}>;
-
-test.beforeEach(async (t) => {
-  // Init the worker and start a Sandbox server
-  const worker = await Worker.init();
-
-  // deploy contract
-  const root = worker.rootAccount;
-  const contract = await root.createSubAccount('test-account');
-  await contract.deploy(
-    '../../contract/build/contract.wasm',
-  );
-  await contract.call(contract, 'init', {});
-
-  // Save state for test runs, it is unique for each test
-  t.context.worker = worker;
-  t.context.accounts = { root, contract };
-});
-
-test.afterEach(async (t) => {
-  // Stop Sandbox server
-  await t.context.worker.tearDown().catch((error) => {
-    console.log('Failed to stop the Sandbox:', error);
-  });
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Hello');
-});
-
-test('changes the message', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { message: 'Howdy' });
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Howdy');
-});",
-]
-`;
-
 exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/neardev/.gitignore sandbox 1`] = `
 Array [
   "/rust_vanilla_sandbox/neardev/.gitignore",
@@ -15716,18 +14811,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"npm run build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
-    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"npm run build:rustup && npm run build:cpwasm\\",
+    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
     \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"npm run build:contract && npm run test:unit && npm run test:integration\\",
+    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"npm run test:integration:ts && npm run test:integration:rs\\",
-    \\"test:integration:ts\\": \\"cd integration-tests/ts && npm run test\\",
-    \\"test:integration:rs\\": \\"cd integration-tests/rs && cargo run --example integration-tests\\",
-    \\"deps-install\\": \\"npm install && cd ../integration-tests/ts && npm install && cd ../..\\"
+    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
+    \\"deps-install\\": \\"yarn && cd ../integration-tests/ts && yarn && cd ../..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -15738,6 +14831,7 @@ Array [
     \\"env-cmd\\": \\"10.1.0\\"
   },
   \\"dependencies\\": {
+    \\"yarn\\": \\"1.22.19\\",
     \\"near-api-js\\": \\"0.44.2\\"
   }
 }",

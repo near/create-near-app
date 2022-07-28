@@ -20,7 +20,7 @@ scaffold "rust_vanilla"
 scaffold "rust_none"
 
 echo "tests..."
-if ! npm test > /dev/null; then exit 42; fi
+if ! npm test; then exit 42; fi
 
 cd ../../
 

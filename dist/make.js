@@ -46,8 +46,30 @@ async function createFiles({ contract, frontend, projectPath, verbose, rootDir, 
         skip: skip.map(f => path.join(contractSourceDir, f))
     });
     // copy tests
-    let testFramework = supportsSandbox ? 'workspaces-tests' : 'classic-tests';
-    let sourceTestDir = `${rootDir}/integration-tests/${testFramework}`;
+    const testFramework = supportsSandbox ? 'workspaces-tests' : 'classic-tests';
+    let sourceTestDir = `${rootDir}/integration-tests`;
+    if (supportsSandbox) {
+        switch (contract) {
+            case 'js':
+            case 'assemblyscript':
+                sourceTestDir = path.resolve(sourceTestDir, testFramework, 'ts');
+                break;
+            case 'rust':
+                sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/rs');
+                break;
+        }
+    }
+    else {
+        switch (contract) {
+            case 'js':
+            case 'assemblyscript':
+                sourceTestDir = path.resolve(sourceTestDir, 'classic-tests');
+                break;
+            case 'rust':
+                sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/rs');
+                break;
+        }
+    }
     await copyDir(sourceTestDir, `${projectPath}/integration-tests/`, {
         verbose,
         skip: skip.map(f => path.join(sourceTestDir, f))
@@ -97,8 +119,8 @@ async function runDepsInstall(projectPath) {
     console.log(chalk `
 {green Installing dependencies in a few folders, this might take a while...}
 `);
-    const npmCommandArgs = ['run', 'deps-install'];
-    await new Promise((resolve, reject) => spawn('npm', npmCommandArgs, {
+    const npmCommandArgs = ['deps-install'];
+    await new Promise((resolve, reject) => spawn('yarn', npmCommandArgs, {
         cwd: projectPath,
         stdio: 'inherit',
     }).on('close', code => {
