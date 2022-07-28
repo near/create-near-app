@@ -1,3 +1,6 @@
 dist
 node_modules
-contracts/js/src/contract.js
+templates/contracts/js/src/contract.ts
+templates/integration-tests/workspaces-tests/ts/src/main.ava.ts
+src/*.js
+jest.config.js

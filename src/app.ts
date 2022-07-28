@@ -48,7 +48,7 @@ Happy Hacking! 👍
   try {
     config = await getUserArgs();
   } catch(e) {
-    console.log(chalk.red(`Bad arguments.`));
+    console.log(chalk.red('Bad arguments.'));
     return;
   }
   if (config === null) {
