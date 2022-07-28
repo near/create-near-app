@@ -1,3 +1,4 @@
+const spawn = require('cross-spawn');
 const fs = require('fs');
 const {ncp} = require('ncp');
 const chalk = require('chalk');
@@ -8,24 +9,24 @@ const {buildPackageJson} = require('./package-json');
 ncp.limit = 16;
 
 // Method to create the project folder
-async function createProject(settings) {
+async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}) {
   // Make language specific checks
-  let preMessagePass = preMessage(settings);
+  let preMessagePass = preMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
   if(!preMessagePass){
     return false;
   }
 
-  console.log(chalk`Creating a new NEAR app.`);
+  console.log(chalk`...creating a new NEAR app...`);
 
   // Create relevant files in the project folder
-  await createFiles(settings);
+  await createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
 
   // Create package settings and dump them as a .json
-  const packageJson = buildPackageJson(settings);
-  fs.writeFileSync(path.resolve(settings.projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
+  const packageJson = buildPackageJson({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
+  fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
 
   // Run any language-specific post check
-  postMessage(settings);
+  postMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
 
   // Finished!
   return true;
@@ -103,6 +104,25 @@ function copyDir(source, dest, {skip, verbose} = {}) {
   });
 }
 
+async function runDepsInstall(projectPath) {
+  console.log(chalk`
+{green Installing dependencies in a few folders, this might take a while...}
+`);
+  const npmCommandArgs = ['run', 'deps-install'];
+  await new Promise((resolve, reject) => spawn('npm', npmCommandArgs, {
+    cwd: projectPath,
+    stdio: 'inherit',
+  }).on('close', code => {
+    if (code !== 0) {
+      console.log(chalk.red('Error installing NEAR project dependencies'));
+      reject(code);
+    } else {
+      resolve();
+    }
+  }));
+}
+
 exports.renameFile = renameFile;
 exports.copyDir = copyDir;
 exports.createProject = createProject;
+exports.runDepsInstall = runDepsInstall;

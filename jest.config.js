@@ -2,8 +2,6 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testPathIgnorePatterns: [
-    'contracts/assemblyscript/assembly/__tests__',
-    '_testrun'
-  ]
+  testRegex: "test/.*\.test\.ts",
+  testPathIgnorePatterns: ['/node_modules/', '__snapshots__'],
 };

@@ -6,9 +6,9 @@ import {createProject} from '../scaffold/make';
 describe('create', () => {
   const contracts = ['js', 'rust', 'assemblyscript'];
   const frontends = ['react', 'vanilla', 'none'];
-  const testMatrix = contracts.flatMap(c => frontends.map(f => [c, f]));
+  const testMatrix = contracts.flatMap(c => frontends.flatMap(f => [[c, f, true], [c, f, false]]));
   const ts = Date.now();
-  test.each(testMatrix)('%o+%o', async (contract, frontend) => {
+  test.each(testMatrix)('%o+%o sandbox:%o', async (contract, frontend, supportsSandbox) => {
     const projectName = `${contract}_${frontend}`;
     const rootDir = path.resolve(__dirname, '../');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});
@@ -21,6 +21,7 @@ describe('create', () => {
       verbose: false,
       rootDir,
       projectPath,
+      supportsSandbox,
     });
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
@@ -39,13 +40,11 @@ describe('create', () => {
           } else {
             files.forEach((f, n) => {
               const fileName = f.replace(projectPathPrefix, '');
-              expect([fileName, allContent[n]]).toMatchSnapshot(fileName);
+              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName} ${ supportsSandbox ? 'sandbox' : 'no-sandbox'}`);
             });
-            // expect(files.map((f, n) => [f.replace(projectPathPrefix, ''), allContent[n]])).toMatchSnapshot({});
             resolve();
           }
         });
     });
-
   });
 });

@@ -3,36 +3,64 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const chalk = require('chalk');
-const { createProject } = require('./scaffold/make');
-const mixpanel = require('./scaffold/tracking');
+const { createProject, runDepsInstall } = require('./scaffold/make');
+const { trackUsage, trackingMessage } = require('./scaffold/tracking');
 const semver = require('semver');
-const { getUserInput } = require('./scaffold/user-input');
+const { showUserPrompts, getUserArgs, userAnswersAreValid, showDepsInstallPrompt } = require('./scaffold/user-input');
+
+const WELCOME_MESSAGE = (chalk`{blue ======================================================}
+👋 {bold {green Welcome to NEAR!}} Learn more: https://docs.near.org/
+🔧 Let's get your dApp ready.
+{blue ======================================================}
+(${trackingMessage})
+`);
 
 const SETUP_FAILED_MSG = (chalk`{bold {red ==========================================}}
-{bold {red There was a problem during NEAR project setup}}.
-Please refer to https://github.com/near/create-near-app README for troubleshoot.
+{red ⛔️ There was a problem during NEAR project setup}.
+Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-const SETUP_SUCCESS_MSG = projectName => (chalk`{bold {green Success!} Created ${projectName}}
+const contractToText = contract => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
+const frontendToText = frontend => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
+const SETUP_SUCCESS_MSG = (projectName, contract, frontend) => (chalk`
+✅  {bold Success!} Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
 Check {bold ${projectName}/{green README.md}} to get started.
-Happy Hacking!`);
+
+Happy Hacking! 👍
+{blue ======================================================}`);
 
 // Execute the tool
 (async function run() {
-  
+  console.log(WELCOME_MESSAGE);
   // Check they have the right node.js version
   const current = process.version;
   const supported = require('./package.json').engines.node;
   
   if (!semver.satisfies(current, supported)) {
     console.log(chalk.red(`We support node.js version ${supported} or later`));
+    // TODO: track unsupported versions
     return;
   }
 
   // Get and track the user input
-  const {contract, frontend, projectName} = await getUserInput();
-  mixpanel.track(frontend, contract);
+  let config = null;
+  try {
+    config = await getUserArgs();
+  } catch(e) {
+    console.log(chalk.red(`Bad arguments.`));
+    return;
+  }
+  if (config === null) {
+    const userInput = await showUserPrompts();
+    if (!userAnswersAreValid(userInput)) {
+      console.log('Invalid prompt.');
+      return;
+    }
+    config = userInput;
+  }
+  const {frontend, contract, projectName} = config;
+  trackUsage(frontend, contract);
 
   // Make sure the project folder does not exist
   const dirName = `${process.cwd()}/${projectName}`;
@@ -41,28 +69,34 @@ Happy Hacking!`);
     return;
   }
 
-  // Check if sandbox is supported (this line is literally the check that sandbox makes)
-  const supportsSandbox = (os.type() === 'Linux' || os.type() === 'Darwin') && os.arch() === 'x64';
+  // sanbox should be well supported by now, assemblyscript will be deprecated soon
+  const supportsSandbox = true; // (os.type() === 'Linux' || os.type() === 'Darwin') && os.arch() === 'x64';
 
   // Create the project
-  let createdSuccessful;
+  let createSuccess;
+  const projectPath = path.resolve(__dirname, projectName);
   try {
-    createdSuccessful = await createProject({
+    createSuccess = await createProject({
       contract,
       frontend,
       projectName,
       supportsSandbox,
       verbose: false,
       rootDir: __dirname,
-      projectPath: path.resolve(__dirname, projectName),
+      projectPath,
     });
   } catch(e) {
-    createdSuccessful = false;
+    createSuccess = false;
   }
 
-  if(createdSuccessful){
-    console.log(SETUP_SUCCESS_MSG(projectName));
+  if(createSuccess){
+    console.log(SETUP_SUCCESS_MSG(projectName, contract, frontend));
   }else{
     console.log(SETUP_FAILED_MSG);
+    return;
+  }
+  const {depsInstall} = await showDepsInstallPrompt();
+  if (depsInstall) {
+    await runDepsInstall(projectPath);
   }
 })();

@@ -12,11 +12,11 @@ test.beforeEach(async (t) => {
 
   // deploy contract
   const root = worker.rootAccount;
-  const contract = await root.createAndDeploy(
-    root.getSubAccount('greeter').accountId,
-    '../../out/hello_near.wasm',
-    { initialBalance: NEAR.parse('30 N').toJSON() }
+  const contract = await root.createSubAccount('test-account');
+  await contract.deploy(
+    '../../contract/build/contract.wasm',
   );
+  await contract.call(contract, 'init', {});
 
   // Save state for test runs, it is unique for each test
   t.context.worker = worker;

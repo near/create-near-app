@@ -1,16 +1,16 @@
 const _ = require('lodash');
 
-function buildPackageJson({contract, frontend, projectName, supportsSandbox}) {
+function buildPackageJson({ contract, frontend, projectName, supportsSandbox }) {
   const result = basePackage({
     contract, frontend, projectName, supportsSandbox,
   });
-  if (frontend === 'react') {
+  if(frontend === 'react') {
     _.merge(result, reactPackage());
   }
   return result;
 }
 
-function basePackage({contract, frontend, projectName, supportsSandbox}) {
+function basePackage({ contract, frontend, projectName, supportsSandbox }) {
   const hasFrontend = frontend !== 'none';
   return {
     'name': projectName,
@@ -24,6 +24,7 @@ function basePackage({contract, frontend, projectName, supportsSandbox}) {
       'test': 'npm run build:contract && npm run test:unit && npm run test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(supportsSandbox),
+      ...npmInstallScript(contract, supportsSandbox),
     },
     'devDependencies': {
       'near-cli': '3.3.0',
@@ -50,7 +51,7 @@ const buildScript = hasFrontend => hasFrontend ? {
 };
 
 const buildContractScript = contract => {
-  switch (contract) {
+  switch(contract) {
     case 'js':
       return {
         'build:contract': 'cd contract && npm run build',
@@ -73,10 +74,11 @@ const buildContractScript = contract => {
 };
 
 const deployScript = (contract) => {
-  switch (contract) {
-    case 'js': return {
-      'deploy': 'cd contract && npm run deploy',
-    };
+  switch(contract) {
+    case 'js':
+      return {
+        'deploy': 'cd contract && npm run deploy',
+      };
     case 'assemblyscript':
     case 'rust':
       return {
@@ -88,21 +90,19 @@ const deployScript = (contract) => {
 };
 
 const unitTestScripts = (contract) => {
-  switch(contract){
+  switch(contract) {
     case 'js':
     case 'assemblyscript':
-      return {'test:unit': 'cd contract && npm run test'};
+      return { 'test:unit': 'cd contract && npm run test' };
     case 'rust':
-      return {'test:unit': 'cd contract && cargo test'};
+      return { 'test:unit': 'cd contract && cargo test' };
     default:
       return {};
   }
 };
 
-
-
 const integrationTestScripts = (supportsSandbox) => {
-  if (supportsSandbox) {
+  if(supportsSandbox) {
     return {
       'test:integration': 'npm run test:integration:ts && npm run test:integration:rs',
       'test:integration:ts': 'cd integration-tests/ts && npm run test',
@@ -117,14 +117,17 @@ const integrationTestScripts = (supportsSandbox) => {
 };
 
 const contractDevDependencies = contract => {
-  switch(contract){
+  switch(contract) {
     case 'assemblyscript':
-      return {'near-sdk-as': '3.2.3'};
+      return { 'near-sdk-as': '3.2.3' };
     case 'js':
-      return {'near-sdk-js': '0.4.0-2'};
+      return { 'near-sdk-js': '0.4.0-2' };
+    default:
+      return {};
   }
 };
-const workspaceDevDependencies = isSupported => isSupported ? {'near-workspaces': '3.1.0'} : {'ava': '4.2.0'};
+
+const workspaceDevDependencies = isSupported => isSupported ? { 'near-workspaces': '3.1.0' } : { 'ava': '4.2.0' };
 
 const frontendDevDependencies = hasFrontend => hasFrontend ? {
   'nodemon': '2.0.16',
@@ -133,7 +136,7 @@ const frontendDevDependencies = hasFrontend => hasFrontend ? {
   'env-cmd': '10.1.0',
 } : {};
 
-const frontendDependencies = hasFrontend => hasFrontend ? {'near-api-js': '0.44.2'} : {};
+const frontendDependencies = hasFrontend => hasFrontend ? { 'near-api-js': '0.44.2' } : {};
 
 const reactPackage = () => ({
   'devDependencies': {
@@ -166,5 +169,22 @@ const reactPackage = () => ({
     ]
   }
 });
+
+const npmInstallScript = (contract, supportsSandbox) => {
+  switch(contract) {
+    case 'js':
+      return supportsSandbox ?
+        { 'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..' }
+        : {};
+    case 'assemblyscript':
+      return supportsSandbox ?
+        { 'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests/ts && npm install && cd ../..' }
+        : {};
+    case 'rust':
+      return supportsSandbox ?
+        { 'deps-install': 'npm install && cd ../integration-tests/ts && npm install && cd ../..' }
+        : {};
+  }
+};
 
 exports.buildPackageJson = buildPackageJson;

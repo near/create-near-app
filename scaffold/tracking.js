@@ -3,14 +3,16 @@ const MIXPANEL_TOKEN = 'df164f13212cbb0dfdae991da60e87f2';
 const chalk = require('chalk');
 const mixpanel = require('mixpanel').init(MIXPANEL_TOKEN);
 
-const track = async (frontendType, contractType) => {
+const trackingMessage = chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you is shared`;
+
+// TODO: track different failures & deps-install usage
+const trackUsage = async (frontendType, contractType) => {
   // prevents logging from CI
   if (process.env.IS_GITHUB_ACTION) { 
     console.log('Mixpanel logging is skipped in CI env');
     return;
   }
   try {
-    console.log(chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you is shared`);
     const mixPanelProperties = {
       frontend: frontendType,
       contract: contractType,
@@ -27,4 +29,5 @@ const track = async (frontendType, contractType) => {
   }
 };
 
-exports.track = track;
+exports.trackUsage = trackUsage;
+exports.trackingMessage = trackingMessage;
