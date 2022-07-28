@@ -76,7 +76,7 @@ Happy Hacking! 👍
 
   // Create the project
   let createSuccess;
-  const projectPath = path.resolve(__dirname, projectName);
+  const projectPath = path.resolve(process.cwd(), projectName);
   try {
     createSuccess = await createProject({
       contract,
