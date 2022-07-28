@@ -25,8 +25,8 @@ const contractToText = contract => chalk`with a smart contract in {bold ${contra
 const frontendToText = frontend => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
 const SETUP_SUCCESS_MSG = (projectName, contract, frontend) => (chalk`
 ✅  Success! Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
-🧠 Check {bold ${projectName}/{green README.md}} to get started.
-${contract === 'rust' ? chalk`🦀 If you are new to Rust please check {bold {green https://www.rust-lang.org }}\n` : '\n'}
+🧠 See {bold ${projectName}/{green README.md}} to get started.
+${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : '\n'}
 Happy Hacking! 👍
 {blue ======================================================}`);
 
