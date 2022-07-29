@@ -36,7 +36,7 @@ export async function createProject({contract, frontend, projectPath, projectNam
 
 export async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}: CreateProjectParams) {
   // skip build artifacts and symlinks
-  const skip = ['.cache', 'dist', 'out', 'node_modules', 'yarn.lock', 'package-lock.json'];
+  const skip = ['.cache', 'dist', 'out', 'node_modules'];
 
   // copy frontend
   if (frontend !== 'none') {

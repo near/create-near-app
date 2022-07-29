@@ -5,7 +5,7 @@ import {trackUsage} from './tracking';
 import semver from 'semver';
 import {
   getUserArgs,
-  showDepsInstallPrompt,
+  showDepsInstallPrompt, showProjectNamePrompt,
   showUserPrompts,
   userAnswersAreValid,
   validateUserArgs,
@@ -17,6 +17,7 @@ import {show} from './messages';
   let config: UserConfig | null = null;
   let configIsFromPrompts = false;
   const args = await getUserArgs();
+  let {install} = args;
   const argsValid = validateUserArgs(args);
   // sanbox should be well supported by now, assemblyscript will be deprecated soon
   // we explicitly take user's input: --no-sandbox => false, otherwise true
@@ -52,16 +53,23 @@ import {show} from './messages';
   const {frontend, contract, projectName} = config as UserConfig;
   trackUsage(frontend, contract);
 
-  // Make sure the project folder does not exist
-  const dirName = `${process.cwd()}/${projectName}`;
-  if (fs.existsSync(dirName)) {
-    show.directoryExists(dirName);
-    return;
+  let projectPath = `${process.cwd()}/${projectName}`;
+  // If dir exists keep asking user
+  if (fs.existsSync(projectPath)) {
+    if (!configIsFromPrompts) {
+      show.directoryExists(projectPath);
+      return;
+    } else {
+      while (fs.existsSync(projectPath)) {
+        show.directoryExists(projectPath);
+        const {projectName: newProjectName} = await showProjectNamePrompt();
+        projectPath = `${process.cwd()}/${newProjectName}`;
+      }
+    }
   }
 
   // Create the project
   let createSuccess;
-  const projectPath = path.resolve(process.cwd(), projectName);
   try {
     createSuccess = await createProject({
       contract,
@@ -72,19 +80,21 @@ import {show} from './messages';
       rootDir: path.resolve(__dirname, '../templates'),
       projectPath,
     });
-  } catch(e) {
+  } catch (e) {
     console.error(e);
     createSuccess = false;
   }
 
-  if(createSuccess){
-    show.setupSuccess(projectName, contract, frontend);
-  }else{
+  if (createSuccess) {
+    show.setupSuccess(projectPath, contract, frontend);
+  } else {
     show.setupFailed();
     return;
   }
-  if (configIsFromPrompts) {
-    const { depsInstall } = await showDepsInstallPrompt();
+  if (install) {
+    await runDepsInstall(projectPath);
+  } else if (configIsFromPrompts) {
+    const {depsInstall} = await showDepsInstallPrompt();
     if (depsInstall) {
       await runDepsInstall(projectPath);
     }

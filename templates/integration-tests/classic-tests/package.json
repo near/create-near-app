@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "ava"
   },
   "devDependencies": {
     "@types/bn.js": "5.1.0",

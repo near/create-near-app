@@ -28,7 +28,7 @@ function basePackage({contract, frontend, projectName, supportsSandbox}: Package
       'test': 'yarn test:unit && yarn test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(contract, supportsSandbox),
-      ...npmInstallScript(contract),
+      ...npmInstallScript(contract, supportsSandbox),
     },
     'devDependencies': {
       'near-cli': '3.3.0',
@@ -55,15 +55,11 @@ const buildContractScript = (contract: Contract) => {
   switch (contract) {
     case 'assemblyscript':
       return {
-        'build:contract': 'yarn build:js-sdk && yarn build:cpwasm',
-        'build:as-sdk': 'cd contract && yarn build',
-        'build:cpwasm': 'mkdir -p ./out && cp ./contract/build/release/hello_near.wasm ./out/hello_near.wasm',
+        'build:contract': 'cd contract && yarn build',
       };
     case 'js':
       return {
-        'build:contract': 'yarn build:js-sdk && yarn build:cpwasm',
-        'build:js-sdk': 'cd contract && yarn build',
-        'build:cpwasm': 'mkdir -p ./out && cp ./contract/build/contract.wasm ./out/hello_near.wasm'
+        'build:contract': 'cd contract && yarn build',
       };
     case 'rust':
       return {
@@ -85,7 +81,7 @@ const deployScript = (contract: Contract) => {
       };
     case 'rust':
       return {
-        'deploy': 'yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm',
+        'deploy': 'yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm',
       };
     default:
       return {};
@@ -108,21 +104,23 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
   if (supportsSandbox) {
     switch (contract) {
       case 'assemblyscript':
+        return {
+          'test:integration': 'yarn build:contract && cd integration-tests && yarn test "./contract/build/release/hello_near.wasm"',
+        };
       case 'js':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && yarn test',
+          'test:integration': 'yarn build:contract && cd integration-tests && yarn test "./contract/build/hello_near.wasm"',
         };
       case 'rust':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && cargo run --example integration-tests',
+          'test:integration': 'yarn build:contract && cd integration-tests && cargo run --example integration-tests "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
         };
       default:
         return {};
     }
   } else {
     return {
-      'test': 'yarn build:contract && yarn test:integration',
-      'test:integration': 'cd integration-tests && yarn test',
+      'test:integration': 'yarn deploy && cd integration-tests && yarn test',
     };
   }
 };
@@ -169,12 +167,16 @@ const reactPackage = () => ({
   }
 });
 
-const npmInstallScript = (contract: Contract) => {
+const npmInstallScript = (contract: Contract, supportsSandbox: boolean) => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':
       return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..'};
     case 'rust':
-      return {'deps-install': 'yarn'};
+      if (supportsSandbox) {
+        return {'deps-install': 'yarn'};
+      } else {
+        return {'deps-install': 'yarn && cd integration-tests && yarn && cd ..'};
+      }
   }
 };

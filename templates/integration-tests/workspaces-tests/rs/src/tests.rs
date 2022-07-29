@@ -3,7 +3,8 @@ use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
 
-const WASM_FILEPATH: &str = "../out/hello_near.wasm";
+// const WASM_FILEPATH: &str = "../out/hello_near.wasm";
+const WASM_FILEPATH: &str = env::args().collect()[1];
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {

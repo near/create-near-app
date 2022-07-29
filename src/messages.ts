@@ -20,8 +20,9 @@ Notice: some platforms aren't supported (yet).
 const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
 const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
 const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend) => log(chalk`
-✅  Success! Created '${projectName}' ${successContractToText(contract)}${successFrontendToText(frontend)}.
-🧠 See {bold ${projectName}/{green README.md}} to get started.
+✅  Success! Created '${projectName}'
+   ${successContractToText(contract)}${successFrontendToText(frontend)}.
+🧠 See {bold {green README.md}} to get started.
 ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : '\n'}
 Happy Hacking! 👍
 {blue ======================================================}`);

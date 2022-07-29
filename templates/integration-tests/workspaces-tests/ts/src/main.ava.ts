@@ -10,11 +10,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 

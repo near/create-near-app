@@ -9,6 +9,7 @@ export async function getUserArgs(): Promise<UserConfig> {
     .argument('[projectName]')
     .option('--contract <contract>')
     .option('--frontend <frontend>')
+    .option('--install')
     .option('--no-sandbox');
 
 
@@ -16,8 +17,8 @@ export async function getUserArgs(): Promise<UserConfig> {
 
   const options = program.opts();
   const [projectName] = program.args;
-  const { contract, frontend, sandbox } = options;
-  return { contract, frontend, projectName,  sandbox };
+  const { contract, frontend, sandbox, install } = options;
+  return { contract, frontend, projectName, sandbox, install };
 }
 
 export function validateUserArgs(args: UserConfig | null): 'error' | 'ok' | 'none' {
@@ -43,37 +44,45 @@ export function validateUserArgs(args: UserConfig | null): 'error' | 'ok' | 'non
   }
 }
 
-export async function showUserPrompts() {
-  const questions = [
-    {
-      type: 'select',
-      name: 'contract',
-      message: 'Select your smart-contract language',
-      choices: [
-        { title: 'JavaScript', value: 'js' },
-        { title: 'Rust', value: 'rust' },
-        { title: 'AssemblyScript', value: 'assemblyscript' },
-      ]
-    },
-    {
-      type: 'select',
-      name: 'frontend',
-      message: 'Select a template for your frontend',
-      choices: [
-        { title: 'React.js', value: 'react' },
-        { title: 'Vanilla JavaScript', value: 'vanilla' },
-        { title: 'No frontend', value: 'none' },
-      ]
-    },
-    {
-      type: 'text',
-      name: 'projectName',
-      message: 'Name your project (this will create a directory with that name)}',
-      initial: 'my-near-project',
-    },
-  ];
+const userPrompts = [
+  {
+    type: 'select',
+    name: 'contract',
+    message: 'Select your smart-contract language',
+    choices: [
+      { title: 'JavaScript', value: 'js' },
+      { title: 'Rust', value: 'rust' },
+      { title: 'AssemblyScript', value: 'assemblyscript' },
+    ]
+  },
+  {
+    type: 'select',
+    name: 'frontend',
+    message: 'Select a template for your frontend',
+    choices: [
+      { title: 'React.js', value: 'react' },
+      { title: 'Vanilla JavaScript', value: 'vanilla' },
+      { title: 'No frontend', value: 'none' },
+    ]
+  },
+  {
+    type: 'text',
+    name: 'projectName',
+    message: 'Name your project (this will create a directory with that name)}',
+    initial: 'my-near-project',
+  },
+];
 
-  const answers = await prompt(questions);
+export async function showUserPrompts() {
+  const [contract, frontend, projectName] = userPrompts;
+
+  const answers = await prompt([contract, frontend, projectName]);
+  return answers;
+}
+
+export async function showProjectNamePrompt() {
+  const [, , projectName] = userPrompts;
+  const answers = await prompt([projectName]);
   return answers;
 }
 
