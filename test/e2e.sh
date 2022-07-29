@@ -43,7 +43,6 @@ test () {
   if ! yarn test ; then exit 42; fi
 }
 
-
 depsinstall "js_react"
 test "js_react"
 depsinstall "js_vanilla"
@@ -80,39 +79,3 @@ depsinstall "assemblyscript_vanilla--no-sandbox"
 #test "assemblyscript_vanilla--no-sandbox"
 depsinstall "assemblyscript_none--no-sandbox"
 #test "assemblyscript_none--no-sandbox"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
