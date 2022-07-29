@@ -5,6 +5,7 @@ export interface UserConfig {
   contract: Contract;
   frontend: Frontend;
   projectName: ProjectName;
+  sandbox: boolean;
 }
 export type CreateProjectParams = {
   contract: Contract,

@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runDepsInstall = exports.copyDir = exports.renameFile = exports.createFiles = exports.createProject = void 0;
 const messages_1 = require("./messages");
+const yarn_lock_1 = require("./yarn-lock");
 const spawn = require('cross-spawn');
 const fs = require('fs');
 const { ncp } = require('ncp');
-const chalk = require('chalk');
 const path = require('path');
 const { preMessage, postMessage } = require('./checks');
 const { buildPackageJson } = require('./package-json');
@@ -76,6 +76,8 @@ async function createFiles({ contract, frontend, projectPath, verbose, rootDir, 
     });
     // add .gitignore
     await (0, exports.renameFile)(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
+    // copy yarn.lock to all places
+    await (0, yarn_lock_1.yarnLock)(contract, frontend, projectPath, supportsSandbox, rootDir);
 }
 exports.createFiles = createFiles;
 const renameFile = async function (oldPath, newPath) {

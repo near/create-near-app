@@ -30,9 +30,9 @@ const argsError = () => log(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:
 npx create-near-app <projectName> --contract rust|js|assemblyscript --frontend react|vanilla|none`);
 
-const unsupportedNodeVersion = (supported: string) => log(chalk.red(`We support node.js version ${supported} or later`));
+const unsupportedNodeVersion = (supported: string) => log(chalk`{red We support node.js version ${supported} or later}`);
 
-const directoryExists = (dirName: string) => log(chalk.red(`This directory already exists! ${dirName}`));
+const directoryExists = (dirName: string) => log(chalk`{red This directory already exists! ${dirName}}`);
 
 const creatingApp = () =>  log(chalk`...creating a new NEAR app...`);
 

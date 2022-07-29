@@ -8,12 +8,13 @@ async function getUserArgs() {
     program
         .argument('[projectName]')
         .option('--contract <contract>')
-        .option('--frontend <frontend>');
+        .option('--frontend <frontend>')
+        .option('--no-sandbox');
     program.parse();
     const options = program.opts();
     const [projectName] = program.args;
-    const { contract, frontend } = options;
-    return { contract, frontend, projectName };
+    const { contract, frontend, sandbox } = options;
+    return { contract, frontend, projectName, sandbox };
 }
 exports.getUserArgs = getUserArgs;
 function validateUserArgs(args) {
@@ -78,7 +79,7 @@ async function showDepsInstallPrompt() {
         {
             type: 'toggle',
             name: 'depsInstall',
-            message: chalk `One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'npm install'}} for you.\n  To do it yourself: {bold {blue 'npm run deps-install'}}.\n  Run {bold {blue 'npm install'}} now?\n`,
+            message: chalk `One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'yarn install'}} for you.\n  To do it yourself: {bold {blue 'yarn run deps-install'}}.\n  Run {bold {blue 'yarn install'}} now?\n`,
             initial: true,
             active: 'yes',
             inactive: 'no'

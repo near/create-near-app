@@ -1,10 +1,10 @@
 import {CreateProjectParams} from './types';
 import {show} from './messages';
+import {yarnLock} from './yarn-lock';
 
 const spawn = require('cross-spawn');
 const fs = require('fs');
 const {ncp} = require('ncp');
-const chalk = require('chalk');
 const path = require('path');
 const {preMessage, postMessage} = require('./checks');
 const {buildPackageJson} = require('./package-json');
@@ -86,6 +86,9 @@ export async function createFiles({contract, frontend, projectPath, verbose, roo
 
   // add .gitignore
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
+
+  // copy yarn.lock to all places
+  await yarnLock(contract, frontend, projectPath, supportsSandbox, rootDir);
 }
 
 export const renameFile = async function (oldPath: string, newPath: string) {

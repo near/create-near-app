@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": [
     "templates",
-    "dist"
+    "dist/**/*.js"
   ],
   "scripts": {
     "start": "npm run build && node index.js",

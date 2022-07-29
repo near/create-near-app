@@ -5,30 +5,50 @@ root_dir="${PWD}/_testrun/${ts}"
 mkdir -p $root_dir
 cd $root_dir
 
-echo "Creating scaffolds..."
-
 scaffold () {
-  dirname="${root_dir}/${1}"
-  echo "Creating ${dirname}"
-  node ../../index.js $1 --contract js --frontend react > /dev/null
+  dirname="${root_dir}/${1}_${2}${3}"
+  echo "scaffold: ${dirname}"
+  node ../../index.js "${1}_${2}${3}" --contract $1 --frontend $2 "${3}" # > /dev/null
 }
-scaffold "js_react"
-scaffold "js_vanilla"
-scaffold "js_none"
-scaffold "rust_react"
-scaffold "rust_vanilla"
-scaffold "rust_none"
+scaffold js react
+scaffold js vanilla
+scaffold js none
+scaffold rust react
+scaffold rust vanilla
+scaffold rust none
+scaffold js react "--no-sandbox"
+scaffold js vanilla "--no-sandbox"
+scaffold js none "--no-sandbox"
+scaffold assemblyscript react "--no-sandbox"
+scaffold assemblyscript vanilla "--no-sandbox"
+scaffold assemblyscript none "--no-sandbox"
+
+depsinstall () {
+  dirname="${root_dir}/${1}"
+  cd $dirname || exit 42
+  echo "deps-install: ${dirname}"
+  if ! yarn deps-install ; then exit 42; fi
+}
 
 test () {
   dirname="${root_dir}/${1}"
   cd $dirname || exit 42
-  echo "deps-install: ${dirname}"
-  #  if ! yarn deps-install > /dev/null 2>&1; then exit 42; fi
-  if ! yarn deps-install ; then exit 42; fi
   echo "test: ${dirname}"
-  #  if ! yarn test > /dev/null 2>&1; then exit 42; fi
   if ! yarn test ; then exit 42; fi
 }
+
+depsinstall "js_react--no-sandbox"
+depsinstall "js_vanilla--no-sandbox"
+depsinstall "js_none--no-sandbox"
+depsinstall "js_react"
+depsinstall "js_vanilla"
+depsinstall "js_none"
+depsinstall "rust_react"
+depsinstall "rust_vanilla"
+depsinstall "rust_none"
+depsinstall "assemblyscript_react--no-sandbox"
+depsinstall "assemblyscript_vanilla--no-sandbox"
+depsinstall "assemblyscript_none--no-sandbox"
 
 test "js_react"
 test "js_vanilla"

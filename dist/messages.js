@@ -30,8 +30,8 @@ Happy Hacking! 👍
 const argsError = () => (0, exports.log)((0, chalk_1.default) `{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:
 npx create-near-app <projectName> --contract rust|js|assemblyscript --frontend react|vanilla|none`);
-const unsupportedNodeVersion = (supported) => (0, exports.log)(chalk_1.default.red(`We support node.js version ${supported} or later`));
-const directoryExists = (dirName) => (0, exports.log)(chalk_1.default.red(`This directory already exists! ${dirName}`));
+const unsupportedNodeVersion = (supported) => (0, exports.log)((0, chalk_1.default) `{red We support node.js version ${supported} or later}`);
+const directoryExists = (dirName) => (0, exports.log)((0, chalk_1.default) `{red This directory already exists! ${dirName}}`);
 const creatingApp = () => (0, exports.log)((0, chalk_1.default) `...creating a new NEAR app...`);
 const depsInstall = () => (0, exports.log)((0, chalk_1.default) `
 {green Installing dependencies in a few folders, this might take a while...}

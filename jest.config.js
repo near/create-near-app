@@ -6,7 +6,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '__snapshots__'],
   globals: {
     'ts-jest': {
-      tsConfig: 'test/tsconfig.test.json'
+      tsconfig: 'test/tsconfig.test.json'
     }
   }
 };

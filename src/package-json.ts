@@ -32,13 +32,9 @@ function basePackage({contract, frontend, projectName, supportsSandbox}: Package
     },
     'devDependencies': {
       'near-cli': '3.3.0',
-      'nodemon': '2.0.16',
-      ...contractDevDependencies(contract),
-      ...workspaceDevDependencies(supportsSandbox),
       ...frontendDevDependencies(hasFrontend),
     },
     'dependencies': {
-      'yarn': '1.22.19',
       ...frontendDependencies(hasFrontend),
     }
   };
@@ -128,19 +124,6 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
     };
   }
 };
-
-const contractDevDependencies = (contract: Contract) => {
-  switch (contract) {
-    case 'assemblyscript':
-      return {'near-sdk-as': '3.2.3'};
-    case 'js':
-      return {'near-sdk-js': '0.4.0-2'};
-    default:
-      return {};
-  }
-};
-
-const workspaceDevDependencies = (isSupported: boolean) => isSupported ? {'near-workspaces': '3.1.0'} : {'ava': '4.2.0'};
 
 const frontendDevDependencies = (hasFrontend: boolean) => hasFrontend ? {
   'nodemon': '2.0.16',

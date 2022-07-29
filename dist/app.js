@@ -15,6 +15,9 @@ const messages_1 = require("./messages");
     let configIsFromPrompts = false;
     const args = await (0, user_input_1.getUserArgs)();
     const argsValid = (0, user_input_1.validateUserArgs)(args);
+    // sanbox should be well supported by now, assemblyscript will be deprecated soon
+    // we explicitly take user's input: --no-sandbox => false, otherwise true
+    const supportsSandbox = args.sandbox;
     if (argsValid === 'error') {
         messages_1.show.argsError();
         return;
@@ -48,8 +51,6 @@ const messages_1 = require("./messages");
         messages_1.show.directoryExists(dirName);
         return;
     }
-    // sanbox should be well supported by now, assemblyscript will be deprecated soon
-    const supportsSandbox = true; // (os.type() === 'Linux' || os.type() === 'Darwin') && os.arch() === 'x64';
     // Create the project
     let createSuccess;
     const projectPath = path_1.default.resolve(process.cwd(), projectName);
