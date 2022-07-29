@@ -103,11 +103,11 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
     switch (contract) {
       case 'assemblyscript':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && yarn test "./contract/build/release/hello_near.wasm"',
+          'test:integration': 'yarn build:contract && cd integration-tests && yarn test -- -- "./contract/build/release/hello_near.wasm"',
         };
       case 'js':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && yarn test "./contract/build/hello_near.wasm"',
+          'test:integration': 'yarn build:contract && cd integration-tests && yarn test  -- -- "./contract/build/hello_near.wasm"',
         };
       case 'rust':
         return {
