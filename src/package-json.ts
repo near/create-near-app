@@ -63,9 +63,7 @@ const buildContractScript = (contract: Contract) => {
       };
     case 'rust':
       return {
-        'build:contract': 'yarn build:rustup && yarn build:cpwasm',
-        'build:rustup': 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release',
-        'build:cpwasm': 'mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm',
+        'build:contract': 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release',
       };
     default:
       return {};
@@ -113,7 +111,7 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
         };
       case 'rust':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && cargo run --example integration-tests "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+          'test:integration': 'yarn build:contract && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
         };
       default:
         return {};

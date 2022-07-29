@@ -3,6 +3,8 @@ import {KeyPair, keyStores} from 'near-api-js';
 const fs = require('fs');
 const path = require('path');
 
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
 const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 

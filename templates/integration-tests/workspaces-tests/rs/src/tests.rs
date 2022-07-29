@@ -1,13 +1,14 @@
+use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
 
-// const WASM_FILEPATH: &str = "../out/hello_near.wasm";
-const WASM_FILEPATH: &str = env::args().collect()[1];
-
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    let wasm_arg: &str = &(env::args().nth(1).unwrap());
+    let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
+
     let worker = workspaces::sandbox().await?;
     let wasm = std::fs::read(WASM_FILEPATH)?;
     let contract = worker.dev_deploy(&wasm).await?;
