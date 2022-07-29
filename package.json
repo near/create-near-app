@@ -8,10 +8,10 @@
     "dist/**/*.js"
   ],
   "scripts": {
-    "start": "yarn run build && node index.js",
+    "start": "yarn build && node index.js",
     "build": "tsc",
-    "test": "yarn run build && jest --runInBand",
-    "test-e2e": "yarn run build && ./test/e2e.sh",
+    "test": "yarn build && jest --runInBand",
+    "test-e2e": "yarn build && ./test/e2e.sh",
     "lint": "eslint .",
     "fix": "eslint . --fix",
     "release": "yarn build && release-it",
