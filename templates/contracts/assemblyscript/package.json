@@ -4,6 +4,7 @@
   "license": "(MIT AND Apache-2.0)",
   "scripts": {
     "build": "asb",
+    "deploy": "yarn build && rm -rf neardev && near dev-deploy --wasmFile ../out/hello_near.wasm",
     "test": "asp --nologo"
   },
   "dependencies": {

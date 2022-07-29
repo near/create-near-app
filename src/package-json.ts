@@ -25,7 +25,7 @@ function basePackage({contract, frontend, projectName, supportsSandbox}: Package
       ...deployScript(contract),
       ...buildScript(hasFrontend),
       ...buildContractScript(contract),
-      'test': 'yarn build:contract && yarn test:unit && yarn test:integration',
+      'test': 'yarn test:unit && yarn test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(contract, supportsSandbox),
       ...npmInstallScript(contract),
@@ -53,15 +53,17 @@ const buildScript = (hasFrontend: boolean) => hasFrontend ? {
 
 const buildContractScript = (contract: Contract) => {
   switch (contract) {
-    case 'js':
-      return {
-        'build:contract': 'cd contract && yarn build',
-      };
     case 'assemblyscript':
       return {
-        'build:contract': 'yarn build:asb && yarn build:cpwasm',
-        'build:asb': 'cd contract && yarn build',
-        'build:cpwasm': 'mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm'
+        'build:contract': 'yarn build:js-sdk && yarn build:cpwasm',
+        'build:as-sdk': 'cd contract && yarn build',
+        'build:cpwasm': 'mkdir -p ./out && cp ./contract/build/release/hello_near.wasm ./out/hello_near.wasm',
+      };
+    case 'js':
+      return {
+        'build:contract': 'yarn build:js-sdk && yarn build:cpwasm',
+        'build:js-sdk': 'cd contract && yarn build',
+        'build:cpwasm': 'mkdir -p ./out && cp ./contract/build/contract.wasm ./out/hello_near.wasm'
       };
     case 'rust':
       return {
@@ -76,11 +78,11 @@ const buildContractScript = (contract: Contract) => {
 
 const deployScript = (contract: Contract) => {
   switch (contract) {
+    case 'assemblyscript':
     case 'js':
       return {
         'deploy': 'cd contract && yarn deploy',
       };
-    case 'assemblyscript':
     case 'rust':
       return {
         'deploy': 'yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm',
@@ -108,11 +110,11 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
       case 'assemblyscript':
       case 'js':
         return {
-          'test:integration': 'cd integration-tests && yarn test',
+          'test:integration': 'yarn build:contract && cd integration-tests && yarn test',
         };
       case 'rust':
         return {
-          'test:integration': 'cd integration-tests && cargo run --example integration-tests',
+          'test:integration': 'yarn build:contract && cd integration-tests && cargo run --example integration-tests',
         };
       default:
         return {};
@@ -139,6 +141,7 @@ const reactPackage = () => ({
     '@babel/core': '7.18.2',
     '@babel/preset-env': '7.18.2',
     '@babel/preset-react': '7.17.12',
+    '@types/node': '18.6.2',
     'ava': '4.2.0',
     'react-test-renderer': '18.1.0',
     'ts-node': '10.8.0',

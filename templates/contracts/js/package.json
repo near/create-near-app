@@ -4,8 +4,8 @@
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm",
-    "deploy": "npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME",
+    "build": "near-sdk build src/contract.ts",
+    "deploy": "yarn build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME",
     "test": "echo use integration-tests"
   },
   "dependencies": {
