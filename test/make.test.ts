@@ -40,8 +40,10 @@ describe('create', () => {
             reject(err);
           } else {
             files.forEach((f, n) => {
-              const fileName = f.replace(projectPathPrefix, '');
-              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName} ${ supportsSandbox ? 'sandbox' : 'no-sandbox'}`);
+              const fileName: string = f.replace(projectPathPrefix, '');
+              if (!fileName.endsWith('yarn.lock')) {
+                expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName} ${ supportsSandbox ? 'sandbox' : 'no-sandbox'}`);
+              }
             });
             resolve();
           }
