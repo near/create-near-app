@@ -10,24 +10,6 @@ scaffold () {
   echo "scaffold: ${dirname}"
   node ../../index.js "${1}_${2}${3}" --contract $1 --frontend $2 --install "${3}" # > /dev/null
 }
-scaffold js react
-scaffold js vanilla
-scaffold js none
-scaffold rust react
-scaffold rust vanilla
-scaffold rust none
-scaffold assemblyscript react
-scaffold assemblyscript vanilla
-scaffold assemblyscript none
-scaffold js react "--no-sandbox"
-scaffold js vanilla "--no-sandbox"
-scaffold js none "--no-sandbox"
-scaffold rust react "--no-sandbox"
-scaffold rust vanilla "--no-sandbox"
-scaffold rust none "--no-sandbox"
-scaffold assemblyscript react "--no-sandbox"
-scaffold assemblyscript vanilla "--no-sandbox"
-scaffold assemblyscript none "--no-sandbox"
 
 test () {
   dirname="${root_dir}/${1}"
@@ -36,21 +18,50 @@ test () {
   if ! yarn test ; then exit 42; fi
 }
 
+deploy () {
+  dirname="${root_dir}/${1}"
+  cd $dirname || exit 42
+  echo "test: ${dirname}"
+  if ! yarn deploy ; then exit 42; fi
+}
+
+scaffold js react
 test "js_react"
+scaffold js vanilla
 test "js_vanilla"
+scaffold js none
 test "js_none"
+scaffold rust react
 test "rust_react"
+scaffold rust vanilla
 test "rust_vanilla"
+scaffold rust none
 test "rust_none"
-#test "assemblyscript_react"
-#test "assemblyscript_vanilla"
-#test "assemblyscript_none"
-#test "js_react--no-sandbox"
-#test "js_vanilla--no-sandbox"
-#test "js_none--no-sandbox"
-#test "rust_react--no-sandbox"
-#test "rust_vanilla--no-sandbox"
-#test "rust_none--no-sandbox"
-#test "assemblyscript_react--no-sandbox"
-#test "assemblyscript_vanilla--no-sandbox"
-#test "assemblyscript_none--no-sandbox"
+scaffold assemblyscript react
+test "assemblyscript_react"
+scaffold assemblyscript vanilla
+test "assemblyscript_vanilla"
+scaffold assemblyscript none
+test "assemblyscript_none"
+scaffold js react "--no-sandbox"
+test "js_react--no-sandbox"
+scaffold js vanilla "--no-sandbox"
+test "js_vanilla--no-sandbox"
+scaffold js none "--no-sandbox"
+test "js_none--no-sandbox"
+scaffold rust react "--no-sandbox"
+test "rust_react--no-sandbox"
+scaffold rust vanilla "--no-sandbox"
+test "rust_vanilla--no-sandbox"
+scaffold rust none "--no-sandbox"
+test "rust_none--no-sandbox"
+scaffold assemblyscript react "--no-sandbox"
+test "assemblyscript_react--no-sandbox"
+scaffold assemblyscript vanilla "--no-sandbox"
+test "assemblyscript_vanilla--no-sandbox"
+scaffold assemblyscript none "--no-sandbox"
+test "assemblyscript_none--no-sandbox"
+
+deploy "js_none"
+deploy "rust_none"
+deploy "assemblyscript_none"
