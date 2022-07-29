@@ -8,13 +8,14 @@
     "dist/**/*.js"
   ],
   "scripts": {
-    "start": "npm run build && node index.js",
+    "start": "yarn run build && node index.js",
     "build": "tsc",
-    "test": "npm run build && jest --runInBand",
-    "test-e2e": "npm run build && ./test/e2e.sh",
+    "test": "yarn run build && jest --runInBand",
+    "test-e2e": "yarn run build && ./test/e2e.sh",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "release": "npm run build && release-it"
+    "release": "yarn build && release-it",
+    "prepack": "yarn build"
   },
   "repository": "https://github.com/near/create-near-app.git",
   "author": "Yifang Ma <yifang@near.org>",
