@@ -60,15 +60,7 @@ async function createFiles({ contract, frontend, projectPath, verbose, rootDir, 
         }
     }
     else {
-        switch (contract) {
-            case 'js':
-            case 'assemblyscript':
-                sourceTestDir = path.resolve(sourceTestDir, 'classic-tests');
-                break;
-            case 'rust':
-                sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/rs');
-                break;
-        }
+        sourceTestDir = path.resolve(sourceTestDir, 'classic-tests');
     }
     await copyDir(sourceTestDir, `${projectPath}/integration-tests/`, {
         verbose,
