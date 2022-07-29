@@ -10,7 +10,7 @@ async fn main() -> anyhow::Result<()> {
     let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
 
     let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let wasm = std::fs::read(wasm_filepath)?;
     let contract = worker.dev_deploy(&wasm).await?;
 
     // create accounts
