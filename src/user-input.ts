@@ -16,6 +16,14 @@ export async function getUserArgs(): Promise<UserConfig | null> {
   const options = program.opts();
   const [projectName] = program.args;
   const { contract, frontend } = options;
+  return { contract, frontend, projectName };
+}
+
+export function validateUserArgs(args: UserConfig | null): 'error' | 'ok' | 'none' {
+  if (args === null) {
+    return 'error';
+  }
+  const { projectName, contract, frontend } = args;
   const hasAllOptions = contract !== undefined && frontend !== undefined;
   const hasPartialOptions = contract !== undefined || frontend !== undefined;
   const hasProjectName = projectName !== undefined;
@@ -26,11 +34,11 @@ export async function getUserArgs(): Promise<UserConfig | null> {
     && ['js', 'rust', 'assemblyscript'].includes(contract);
 
   if (hasNoArgs) {
-    return null;
+    return 'none';
   } else if (hasAllArgs && optionsAreValid) {
-    return { contract, frontend, projectName };
+    return 'ok';
   } else {
-    throw new Error('Bad arguments');
+    return 'error';
   }
 }
 

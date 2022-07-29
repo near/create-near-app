@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userAnswersAreValid = exports.showDepsInstallPrompt = exports.showUserPrompts = exports.getUserArgs = void 0;
+exports.userAnswersAreValid = exports.showDepsInstallPrompt = exports.showUserPrompts = exports.validateUserArgs = exports.getUserArgs = void 0;
 const chalk = require('chalk');
 const prompt = require('prompts');
 const { program } = require('commander');
@@ -13,6 +13,14 @@ async function getUserArgs() {
     const options = program.opts();
     const [projectName] = program.args;
     const { contract, frontend } = options;
+    return { contract, frontend, projectName };
+}
+exports.getUserArgs = getUserArgs;
+function validateUserArgs(args) {
+    if (args === null) {
+        return 'error';
+    }
+    const { projectName, contract, frontend } = args;
     const hasAllOptions = contract !== undefined && frontend !== undefined;
     const hasPartialOptions = contract !== undefined || frontend !== undefined;
     const hasProjectName = projectName !== undefined;
@@ -22,16 +30,16 @@ async function getUserArgs() {
         && ['react', 'vanilla', 'none'].includes(frontend)
         && ['js', 'rust', 'assemblyscript'].includes(contract);
     if (hasNoArgs) {
-        return null;
+        return 'none';
     }
     else if (hasAllArgs && optionsAreValid) {
-        return { contract, frontend, projectName };
+        return 'ok';
     }
     else {
-        throw new Error('Bad arguments');
+        return 'error';
     }
 }
-exports.getUserArgs = getUserArgs;
+exports.validateUserArgs = validateUserArgs;
 async function showUserPrompts() {
     const questions = [
         {

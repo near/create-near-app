@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runDepsInstall = exports.copyDir = exports.renameFile = exports.createFiles = exports.createProject = void 0;
+const messages_1 = require("./messages");
 const spawn = require('cross-spawn');
 const fs = require('fs');
 const { ncp } = require('ncp');
@@ -16,15 +17,14 @@ async function createProject({ contract, frontend, projectPath, projectName, ver
     if (!preMessagePass) {
         return false;
     }
-    console.log(chalk `...creating a new NEAR app...`);
-    // Create relevant files in the project folder
+    messages_1.show.creatingApp();
+    // Create files in the project folder
     await createFiles({ contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox });
-    // Create package settings and dump them as a .json
+    // Create package.json
     const packageJson = buildPackageJson({ contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox });
     fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
-    // Run any language-specific post check
+    // Run language-specific post check
     postMessage({ contract, frontend, projectPath, verbose, rootDir, supportsSandbox });
-    // Finished!
     return true;
 }
 exports.createProject = createProject;
@@ -83,7 +83,8 @@ const renameFile = async function (oldPath, newPath) {
         fs.rename(oldPath, newPath, (err) => {
             if (err) {
                 console.error(err);
-                return reject(err);
+                reject(err);
+                return;
             }
             resolve();
         });
@@ -102,8 +103,10 @@ function copyDir(source, dest, { skip, verbose }) {
             return !skip.find(f => filename.includes(f));
         };
         ncp(source, dest, { filter }, (err) => {
-            if (err)
-                return reject(err);
+            if (err) {
+                reject(err);
+                return;
+            }
             if (verbose) {
                 console.log('Copied:');
                 copied.forEach(f => console.log('  ' + f));
@@ -116,16 +119,14 @@ function copyDir(source, dest, { skip, verbose }) {
 }
 exports.copyDir = copyDir;
 async function runDepsInstall(projectPath) {
-    console.log(chalk `
-{green Installing dependencies in a few folders, this might take a while...}
-`);
+    messages_1.show.depsInstall();
     const npmCommandArgs = ['deps-install'];
     await new Promise((resolve, reject) => spawn('yarn', npmCommandArgs, {
         cwd: projectPath,
         stdio: 'inherit',
     }).on('close', (code) => {
         if (code !== 0) {
-            console.log(chalk.red('Error installing NEAR project dependencies'));
+            messages_1.show.depsInstallError();
             reject(code);
         }
         else {

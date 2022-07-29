@@ -1,62 +1,48 @@
 import path from 'path';
 import fs from 'fs';
-import chalk from 'chalk';
-import { createProject, runDepsInstall } from './make';
-import { trackUsage, trackingMessage } from './tracking';
+import {createProject, runDepsInstall} from './make';
+import {trackUsage} from './tracking';
 import semver from 'semver';
-import { showUserPrompts, getUserArgs, userAnswersAreValid, showDepsInstallPrompt } from './user-input';
-import {Contract, Frontend, ProjectName, UserConfig} from './types';
+import {
+  getUserArgs,
+  showDepsInstallPrompt,
+  showUserPrompts,
+  userAnswersAreValid,
+  validateUserArgs,
+} from './user-input';
+import {UserConfig} from './types';
+import {show} from './messages';
 
-const WELCOME_MESSAGE = (chalk`{blue ======================================================}
-👋 {bold {green Welcome to NEAR!}} Learn more: https://docs.near.org/
-🔧 Let's get your dApp ready.
-{blue ======================================================}
-(${trackingMessage})
-`);
-
-const SETUP_FAILED_MSG = (chalk`{bold {red ==========================================}}
-{red ⛔️ There was a problem during NEAR project setup}.
-Please refer to https://github.com/near/create-near-app README to troubleshoot.
-Notice: some platforms aren't supported (yet).
-{bold {red ==========================================}}`);
-
-const contractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
-const frontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
-const SETUP_SUCCESS_MSG = (projectName: ProjectName, contract: Contract, frontend: Frontend) => (chalk`
-✅  Success! Created '${projectName}' ${contractToText(contract)}${frontendToText(frontend)}.
-🧠 See {bold ${projectName}/{green README.md}} to get started.
-${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : '\n'}
-Happy Hacking! 👍
-{blue ======================================================}`);
-
-// Execute the tool
 (async function run() {
-  console.log(WELCOME_MESSAGE);
-  // Check they have the right node.js version
+  let config: UserConfig | null = null;
+  let configIsFromPrompts = false;
+  const args = await getUserArgs();
+  const argsValid = validateUserArgs(args);
+  if (argsValid === 'error') {
+    show.argsError();
+    return;
+  } else if (argsValid === 'ok') {
+    config = args as UserConfig;
+  }
+
+  show.welcome();
+
+  // Check node.js version
   const current = process.version;
   const supported = require('../package.json').engines.node;
 
   if (!semver.satisfies(current, supported)) {
-    console.log(chalk.red(`We support node.js version ${supported} or later`));
+    show.unsupportedNodeVersion(supported);
     // TODO: track unsupported versions
     return;
   }
 
-  // Get and track the user input
-  let config: UserConfig | null = null;
-  let configIsFromPrompts = false;
-  try {
-    config = await getUserArgs();
-  } catch(e) {
-    console.log(chalk.red('Bad arguments.'));
-    return;
-  }
+  // Get user input
   if (config === null) {
     const userInput = await showUserPrompts();
     configIsFromPrompts = true;
     if (!userAnswersAreValid(userInput)) {
-      console.log('Invalid prompt.');
-      return;
+      throw new Error(`Invalid prompt. ${JSON.stringify(userInput)}`);
     }
     config = userInput;
   }
@@ -66,7 +52,7 @@ Happy Hacking! 👍
   // Make sure the project folder does not exist
   const dirName = `${process.cwd()}/${projectName}`;
   if (fs.existsSync(dirName)) {
-    console.log(chalk.red(`This directory already exists! ${dirName}`));
+    show.directoryExists(dirName);
     return;
   }
 
@@ -92,9 +78,9 @@ Happy Hacking! 👍
   }
 
   if(createSuccess){
-    console.log(SETUP_SUCCESS_MSG(projectName, contract, frontend));
+    show.setupSuccess(projectName, contract, frontend);
   }else{
-    console.log(SETUP_FAILED_MSG);
+    show.setupFailed();
     return;
   }
   if (configIsFromPrompts) {

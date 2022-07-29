@@ -1,4 +1,5 @@
 import {CreateProjectParams} from './types';
+import {show} from './messages';
 
 const spawn = require('cross-spawn');
 const fs = require('fs');
@@ -18,19 +19,18 @@ export async function createProject({contract, frontend, projectPath, projectNam
     return false;
   }
 
-  console.log(chalk`...creating a new NEAR app...`);
+  show.creatingApp();
 
-  // Create relevant files in the project folder
+  // Create files in the project folder
   await createFiles({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
 
-  // Create package settings and dump them as a .json
+  // Create package.json
   const packageJson = buildPackageJson({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
   fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
 
-  // Run any language-specific post check
+  // Run language-specific post check
   postMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
 
-  // Finished!
   return true;
 }
 
@@ -93,7 +93,8 @@ export const renameFile = async function (oldPath: string, newPath: string) {
     fs.rename(oldPath, newPath, (err: Error) => {
       if (err) {
         console.error(err);
-        return reject(err);
+        reject(err);
+        return;
       }
       resolve();
     });
@@ -113,7 +114,10 @@ export function copyDir(source: string, dest: string, {skip, verbose}: {skip: st
     };
 
     ncp(source, dest, {filter}, (err: Error) => {
-      if (err) return reject(err);
+      if (err) {
+        reject(err);
+        return;
+      }
 
       if (verbose) {
         console.log('Copied:');
@@ -128,16 +132,14 @@ export function copyDir(source: string, dest: string, {skip, verbose}: {skip: st
 }
 
 export async function runDepsInstall(projectPath: string) {
-  console.log(chalk`
-{green Installing dependencies in a few folders, this might take a while...}
-`);
+  show.depsInstall();
   const npmCommandArgs = ['deps-install'];
   await new Promise<void>((resolve, reject) => spawn('yarn', npmCommandArgs, {
     cwd: projectPath,
     stdio: 'inherit',
   }).on('close', (code: number) => {
     if (code !== 0) {
-      console.log(chalk.red('Error installing NEAR project dependencies'));
+      show.depsInstallError();
       reject(code);
     } else {
       resolve();
