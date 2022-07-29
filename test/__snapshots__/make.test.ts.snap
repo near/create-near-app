@@ -302,9 +302,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -336,14 +338,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -357,8 +360,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -426,23 +432,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript'+'none' sandbox:false: /assemblyscript_none_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/assemblyscript_none_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'none' sandbox:false: /assemblyscript_none_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/assemblyscript_none_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'assemblyscript'+'none' sandbox:false: /assemblyscript_none_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/assemblyscript_none_no-sandbox/package.json",
@@ -451,14 +440,12 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && yarn build\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -771,9 +758,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -805,14 +794,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -835,11 +825,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 
@@ -870,23 +861,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/assemblyscript_none_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/assemblyscript_none_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandbox/package.json sandbox 1`] = `
 Array [
   "/assemblyscript_none_sandbox/package.json",
@@ -895,14 +869,12 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && yarn build\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -1215,9 +1187,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -1798,14 +1772,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -1819,8 +1794,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -1888,23 +1866,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript'+'react' sandbox:false: /assemblyscript_react_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/assemblyscript_react_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'react' sandbox:false: /assemblyscript_react_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/assemblyscript_react_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'assemblyscript'+'react' sandbox:false: /assemblyscript_react_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/assemblyscript_react_no-sandbox/package.json",
@@ -1914,15 +1875,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && yarn build\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -1934,6 +1893,7 @@ Array [
     \\"@babel/core\\": \\"7.18.2\\",
     \\"@babel/preset-env\\": \\"7.18.2\\",
     \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"react-test-renderer\\": \\"18.1.0\\",
     \\"ts-node\\": \\"10.8.0\\",
@@ -2266,9 +2226,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -2849,14 +2811,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -2879,11 +2842,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 
@@ -2914,23 +2878,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/assemblyscript_react_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/assemblyscript_react_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/package.json sandbox 1`] = `
 Array [
   "/assemblyscript_react_sandbox/package.json",
@@ -2940,15 +2887,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && yarn build\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -2960,6 +2905,7 @@ Array [
     \\"@babel/core\\": \\"7.18.2\\",
     \\"@babel/preset-env\\": \\"7.18.2\\",
     \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"react-test-renderer\\": \\"18.1.0\\",
     \\"ts-node\\": \\"10.8.0\\",
@@ -3292,9 +3238,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -3870,14 +3818,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -3891,8 +3840,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -3960,23 +3912,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript'+'vanilla' sandbox:false: /assemblyscript_vanilla_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/assemblyscript_vanilla_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'vanilla' sandbox:false: /assemblyscript_vanilla_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/assemblyscript_vanilla_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'assemblyscript'+'vanilla' sandbox:false: /assemblyscript_vanilla_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/assemblyscript_vanilla_no-sandbox/package.json",
@@ -3986,15 +3921,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && yarn build\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -4313,9 +4246,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -4891,14 +4826,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -4921,11 +4857,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 
@@ -4956,23 +4893,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/assemblyscript_vanilla_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/assemblyscript_vanilla_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/package.json sandbox 1`] = `
 Array [
   "/assemblyscript_vanilla_sandbox/package.json",
@@ -4982,15 +4902,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:asb && yarn build:cpwasm\\",
-    \\"build:asb\\": \\"cd contract && yarn build\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp contract/build/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && yarn build\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -5173,7 +5091,8 @@ Array [
   "/js_none_no-sandbox/contract/.gitignore",
   "node_modules
 build
-neardev",
+neardev
+",
 ]
 `;
 
@@ -5199,15 +5118,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.4.0\\",
     \\"near-sdk-js\\": \\"0.4.0-2\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"4.7.4\\"
   }
 }
 ",
@@ -5292,14 +5212,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -5313,8 +5234,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -5382,23 +5306,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js'+'none' sandbox:false: /js_none_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/js_none_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'js'+'none' sandbox:false: /js_none_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/js_none_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'js'+'none' sandbox:false: /js_none_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/js_none_no-sandbox/package.json",
@@ -5410,9 +5317,9 @@ Array [
     \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract\\",
     \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -5589,7 +5496,8 @@ Array [
   "/js_none_sandbox/contract/.gitignore",
   "node_modules
 build
-neardev",
+neardev
+",
 ]
 `;
 
@@ -5615,15 +5523,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.4.0\\",
     \\"near-sdk-js\\": \\"0.4.0-2\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"4.7.4\\"
   }
 }
 ",
@@ -5708,14 +5617,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -5738,11 +5648,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 
@@ -5773,23 +5684,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/js_none_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/js_none_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/package.json sandbox 1`] = `
 Array [
   "/js_none_sandbox/package.json",
@@ -5801,9 +5695,9 @@ Array [
     \\"deploy\\": \\"cd contract && yarn deploy\\",
     \\"build\\": \\"yarn build:contract\\",
     \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -5980,7 +5874,8 @@ Array [
   "/js_react_no-sandbox/contract/.gitignore",
   "node_modules
 build
-neardev",
+neardev
+",
 ]
 `;
 
@@ -6006,15 +5901,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.4.0\\",
     \\"near-sdk-js\\": \\"0.4.0-2\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"4.7.4\\"
   }
 }
 ",
@@ -6648,14 +6544,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -6669,8 +6566,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -6738,23 +6638,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js'+'react' sandbox:false: /js_react_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/js_react_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'js'+'react' sandbox:false: /js_react_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/js_react_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'js'+'react' sandbox:false: /js_react_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/js_react_no-sandbox/package.json",
@@ -6768,9 +6651,9 @@ Array [
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
     \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -6782,6 +6665,7 @@ Array [
     \\"@babel/core\\": \\"7.18.2\\",
     \\"@babel/preset-env\\": \\"7.18.2\\",
     \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"react-test-renderer\\": \\"18.1.0\\",
     \\"ts-node\\": \\"10.8.0\\",
@@ -6978,7 +6862,8 @@ Array [
   "/js_react_sandbox/contract/.gitignore",
   "node_modules
 build
-neardev",
+neardev
+",
 ]
 `;
 
@@ -7004,15 +6889,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.4.0\\",
     \\"near-sdk-js\\": \\"0.4.0-2\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"4.7.4\\"
   }
 }
 ",
@@ -7646,14 +7532,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -7676,11 +7563,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 
@@ -7711,23 +7599,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/js_react_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/js_react_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/package.json sandbox 1`] = `
 Array [
   "/js_react_sandbox/package.json",
@@ -7741,9 +7612,9 @@ Array [
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
     \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -7755,6 +7626,7 @@ Array [
     \\"@babel/core\\": \\"7.18.2\\",
     \\"@babel/preset-env\\": \\"7.18.2\\",
     \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"react-test-renderer\\": \\"18.1.0\\",
     \\"ts-node\\": \\"10.8.0\\",
@@ -7951,7 +7823,8 @@ Array [
   "/js_vanilla_no-sandbox/contract/.gitignore",
   "node_modules
 build
-neardev",
+neardev
+",
 ]
 `;
 
@@ -7977,15 +7850,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.4.0\\",
     \\"near-sdk-js\\": \\"0.4.0-2\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"4.7.4\\"
   }
 }
 ",
@@ -8614,14 +8488,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -8635,8 +8510,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -8704,23 +8582,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js'+'vanilla' sandbox:false: /js_vanilla_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/js_vanilla_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'js'+'vanilla' sandbox:false: /js_vanilla_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/js_vanilla_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'js'+'vanilla' sandbox:false: /js_vanilla_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/js_vanilla_no-sandbox/package.json",
@@ -8734,9 +8595,9 @@ Array [
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
     \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -8919,7 +8780,8 @@ Array [
   "/js_vanilla_sandbox/contract/.gitignore",
   "node_modules
 build
-neardev",
+neardev
+",
 ]
 `;
 
@@ -8945,15 +8807,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts && mkdir -p ../out && cp ./build/contract.wasm ../out/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile out/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
+    \\"near-cli\\": \\"3.4.0\\",
     \\"near-sdk-js\\": \\"0.4.0-2\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"4.7.4\\"
   }
 }
 ",
@@ -9582,14 +9445,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-workspaces\\": \\"3.1.0\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -9612,11 +9476,12 @@ test.beforeEach(async (t) => {
   // Init the worker and start a Sandbox server
   const worker = await Worker.init();
 
-  // deploy contract
+  // Deploy contract
   const root = worker.rootAccount;
   const contract = await root.createSubAccount('test-account');
+  // Get wasm file path from package.json test script in folder above
   await contract.deploy(
-    '../out/hello_near.wasm',
+    process.argv[2],
   );
   await contract.call(contract, 'init', {});
 
@@ -9647,23 +9512,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/js_vanilla_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/js_vanilla_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/package.json sandbox 1`] = `
 Array [
   "/js_vanilla_sandbox/package.json",
@@ -9677,9 +9525,9 @@ Array [
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
     \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
@@ -10038,14 +9886,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -10059,8 +9908,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -10128,23 +9980,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/rust_none_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/rust_none_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/rust_none_no-sandbox/package.json",
@@ -10153,15 +9988,13 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
     \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
-    \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn\\"
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\"
@@ -10521,17 +10354,19 @@ path = \\"src/tests.rs\\"
 exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/integration-tests/src/tests.rs sandbox 1`] = `
 Array [
   "/rust_none_sandbox/integration-tests/src/tests.rs",
-  "use near_units::parse_near;
+  "use std::{env, fs};
+use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
 
-const WASM_FILEPATH: &str = \\"../out/hello_near.wasm\\";
-
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    let wasm_arg: &str = &(env::args().nth(1).unwrap());
+    let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
+
     let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let wasm = std::fs::read(wasm_filepath)?;
     let contract = worker.dev_deploy(&wasm).await?;
 
     // create accounts
@@ -10590,23 +10425,6 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/rust_none_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/rust_none_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/package.json sandbox 1`] = `
 Array [
   "/rust_none_sandbox/package.json",
@@ -10615,14 +10433,12 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
     \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
-    \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
@@ -11524,14 +11340,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -11545,8 +11362,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -11614,23 +11434,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/rust_react_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/rust_react_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/rust_react_no-sandbox/package.json",
@@ -11640,16 +11443,14 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
-    \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn\\"
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -11660,6 +11461,7 @@ Array [
     \\"@babel/core\\": \\"7.18.2\\",
     \\"@babel/preset-env\\": \\"7.18.2\\",
     \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"react-test-renderer\\": \\"18.1.0\\",
     \\"ts-node\\": \\"10.8.0\\",
@@ -12589,17 +12391,19 @@ path = \\"src/tests.rs\\"
 exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/integration-tests/src/tests.rs sandbox 1`] = `
 Array [
   "/rust_react_sandbox/integration-tests/src/tests.rs",
-  "use near_units::parse_near;
+  "use std::{env, fs};
+use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
 
-const WASM_FILEPATH: &str = \\"../out/hello_near.wasm\\";
-
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    let wasm_arg: &str = &(env::args().nth(1).unwrap());
+    let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
+
     let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let wasm = std::fs::read(wasm_filepath)?;
     let contract = worker.dev_deploy(&wasm).await?;
 
     // create accounts
@@ -12658,23 +12462,6 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/rust_react_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/rust_react_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/package.json sandbox 1`] = `
 Array [
   "/rust_react_sandbox/package.json",
@@ -12684,15 +12471,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
-    \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {
@@ -12704,6 +12489,7 @@ Array [
     \\"@babel/core\\": \\"7.18.2\\",
     \\"@babel/preset-env\\": \\"7.18.2\\",
     \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"react-test-renderer\\": \\"18.1.0\\",
     \\"ts-node\\": \\"10.8.0\\",
@@ -13620,14 +13406,15 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"test\\": \\"ava --verbose\\"
+    \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
+    \\"@types/bn.js\\": \\"5.1.0\\",
+    \\"@types/node\\": \\"18.6.2\\",
     \\"ava\\": \\"4.2.0\\",
     \\"near-api-js\\": \\"0.44.2\\",
-    \\"typescript\\": \\"4.7.2\\",
     \\"ts-node\\": \\"10.8.0\\",
-    \\"@types/bn.js\\": \\"5.1.0\\"
+    \\"typescript\\": \\"4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -13641,8 +13428,11 @@ Array [
   "import {KeyPair, keyStores} from 'near-api-js';
 
 const fs = require('fs');
+const path = require('path');
 
-const CONTRACT_NAME = fs.readFileSync('../neardev/dev-account', 'utf-8');
+// first make sure you deployed your contract with dev-deploy, see ../package.json deploy script
+// here we take the contract from the auto-generated neardev folder
+const CONTRACT_NAME = fs.readFileSync(path.resolve(__dirname, '../../contract/neardev/dev-account'), 'utf-8');
 const NETWORK_ID = 'testnet';
 
 // Create an InMemoryKeyStore
@@ -13710,23 +13500,6 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/neardev/.gitignore no-sandbox 1`] = `
-Array [
-  "/rust_vanilla_no-sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/neardev/shared-test/test.near.json no-sandbox 1`] = `
-Array [
-  "/rust_vanilla_no-sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/package.json no-sandbox 1`] = `
 Array [
   "/rust_vanilla_no-sandbox/package.json",
@@ -13736,16 +13509,14 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
-    \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn\\"
+    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
+    \\"deps-install\\": \\"yarn && cd integration-tests && yarn && cd ..\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"3.3.0\\",
@@ -14655,17 +14426,19 @@ path = \\"src/tests.rs\\"
 exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/integration-tests/src/tests.rs sandbox 1`] = `
 Array [
   "/rust_vanilla_sandbox/integration-tests/src/tests.rs",
-  "use near_units::parse_near;
+  "use std::{env, fs};
+use near_units::parse_near;
 use serde_json::json;
 use workspaces::prelude::*;
 use workspaces::{network::Sandbox, Account, Contract, Worker};
 
-const WASM_FILEPATH: &str = \\"../out/hello_near.wasm\\";
-
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    let wasm_arg: &str = &(env::args().nth(1).unwrap());
+    let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
+
     let worker = workspaces::sandbox().await?;
-    let wasm = std::fs::read(WASM_FILEPATH)?;
+    let wasm = std::fs::read(wasm_filepath)?;
     let contract = worker.dev_deploy(&wasm).await?;
 
     // create accounts
@@ -14724,23 +14497,6 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/neardev/.gitignore sandbox 1`] = `
-Array [
-  "/rust_vanilla_sandbox/neardev/.gitignore",
-  "**.json
-!**/test.near.json
-",
-]
-`;
-
-exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/neardev/shared-test/test.near.json sandbox 1`] = `
-Array [
-  "/rust_vanilla_sandbox/neardev/shared-test/test.near.json",
-  "{\\"account_id\\":\\"test.near\\",\\"private_key\\":\\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\\"}
-",
-]
-`;
-
 exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/package.json sandbox 1`] = `
 Array [
   "/rust_vanilla_sandbox/package.json",
@@ -14750,15 +14506,13 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open\\",
-    \\"deploy\\": \\"yarn build:contract && near dev-deploy --wasmFile ./out/hello_near.wasm\\",
+    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
     \\"build\\": \\"yarn build:contract && yarn build:web\\",
     \\"build:web\\": \\"parcel build frontend/index.html --public-url ./\\",
-    \\"build:contract\\": \\"yarn build:rustup && yarn build:cpwasm\\",
-    \\"build:rustup\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"build:cpwasm\\": \\"mkdir -p out && cp ./contract/target/wasm32-unknown-unknown/release/hello_near.wasm ./out/hello_near.wasm\\",
-    \\"test\\": \\"yarn build:contract && yarn test:unit && yarn test:integration\\",
+    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests\\",
+    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"deps-install\\": \\"yarn\\"
   },
   \\"devDependencies\\": {

@@ -1,14 +1,19 @@
 #!/bin/sh
 
 ts=$(date +%s)
+app_dir="${PWD}"
 root_dir="${PWD}/_testrun/${ts}"
 mkdir -p $root_dir
 cd $root_dir
 
+echo $PWD
+echo $app_dir
+echo $root_dir
+
 scaffold () {
+  cd $root_dir
   dirname="${root_dir}/${1}_${2}${3}"
-  echo "scaffold: ${dirname}"
-  node ../../index.js "${1}_${2}${3}" --contract $1 --frontend $2 --install "${3}" # > /dev/null
+  node "${app_dir}/index.js" "${1}_${2}${3}" --contract $1 --frontend $2 --install "${3}"
 }
 
 test () {
@@ -37,12 +42,6 @@ scaffold rust vanilla
 test "rust_vanilla"
 scaffold rust none
 test "rust_none"
-scaffold assemblyscript react
-test "assemblyscript_react"
-scaffold assemblyscript vanilla
-test "assemblyscript_vanilla"
-scaffold assemblyscript none
-test "assemblyscript_none"
 scaffold js react "--no-sandbox"
 test "js_react--no-sandbox"
 scaffold js vanilla "--no-sandbox"
@@ -62,6 +61,6 @@ test "assemblyscript_vanilla--no-sandbox"
 scaffold assemblyscript none "--no-sandbox"
 test "assemblyscript_none--no-sandbox"
 
-deploy "js_none"
-deploy "rust_none"
-deploy "assemblyscript_none"
+#deploy "js_none"
+#deploy "rust_none"
+#deploy "assemblyscript_none"

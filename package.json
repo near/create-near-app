@@ -3,10 +3,16 @@
   "version": "3.2.0",
   "description": "generate new near blank project with different type",
   "main": "index.js",
+  "engines": {
+    "node": ">=16"
+  },
   "files": [
     "templates",
     "dist/**/*.js"
   ],
+  "bin": {
+    "create-near-app": "index.js"
+  },
   "scripts": {
     "start": "yarn build && node index.js",
     "build": "tsc",
@@ -16,22 +22,6 @@
     "fix": "eslint . --fix",
     "release": "yarn build && release-it",
     "prepack": "yarn build"
-  },
-  "repository": "https://github.com/near/create-near-app.git",
-  "author": "Yifang Ma <yifang@near.org>",
-  "license": "(MIT AND Apache-2.0)",
-  "keywords": [
-    "nearprotocol",
-    "near-protocol",
-    "assemblyscript",
-    "rust",
-    "react",
-    "smart-contract",
-    "blockchain"
-  ],
-  "bugs": "https://github.com/near/create-near-app/issues",
-  "bin": {
-    "create-near-app": "index.js"
   },
   "dependencies": {
     "chalk": "4.1.2",
@@ -66,9 +56,19 @@
     "ts-jest": "28.0.7",
     "typescript": "4.7.4"
   },
-  "engines": {
-    "node": ">=16"
-  },
+  "repository": "https://github.com/near/create-near-app.git",
+  "author": "Yifang Ma <yifang@near.org>",
+  "bugs": "https://github.com/near/create-near-app/issues",
+  "license": "(MIT AND Apache-2.0)",
+  "keywords": [
+    "nearprotocol",
+    "near-protocol",
+    "assemblyscript",
+    "rust",
+    "react",
+    "smart-contract",
+    "blockchain"
+  ],
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
