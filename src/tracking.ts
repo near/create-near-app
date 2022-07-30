@@ -4,7 +4,7 @@ import mixpanel from 'mixpanel';
 
 const MIXPANEL_TOKEN = 'df164f13212cbb0dfdae991da60e87f2';
 
-mixpanel.init(MIXPANEL_TOKEN);
+const tracker = mixpanel.init(MIXPANEL_TOKEN);
 
 export const trackingMessage = chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you is shared`;
 
@@ -23,7 +23,7 @@ export const trackUsage = async (frontend: Frontend, contract: Contract) => {
       nodeVersion: process.versions.node,
       timestamp: new Date().toString()
     };
-    mixpanel.track('track create near app', mixPanelProperties);
+    tracker.track('track create near app', mixPanelProperties);
   } catch (e) {
     console.error(
       'Warning: problem while sending tracking data. Error: ',
