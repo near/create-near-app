@@ -1,20 +1,16 @@
 import {CreateProjectParams} from './types';
 import {show} from './messages';
-import {yarnLock} from './yarn-lock';
-
-const spawn = require('cross-spawn');
-const fs = require('fs');
-const {ncp} = require('ncp');
-const path = require('path');
-const {preMessage, postMessage} = require('./checks');
-const {buildPackageJson} = require('./package-json');
-
-ncp.limit = 16;
+import spawn from 'cross-spawn';
+import fs from 'fs';
+import {ncp} from 'ncp';
+import path from 'path';
+import {preMessage, postMessage} from './checks';
+import {buildPackageJson} from './package-json';
 
 // Method to create the project folder
 export async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}: CreateProjectParams): Promise<boolean> {
   // Make language specific checks
-  let preMessagePass = preMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
+  let preMessagePass = preMessage({contract, projectName, frontend, projectPath, verbose, rootDir, supportsSandbox});
   if(!preMessagePass){
     return false;
   }
@@ -25,11 +21,11 @@ export async function createProject({contract, frontend, projectPath, projectNam
   await createFiles({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
 
   // Create package.json
-  const packageJson = buildPackageJson({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
+  const packageJson = buildPackageJson({contract, frontend, projectName, supportsSandbox});
   fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
 
   // Run language-specific post check
-  postMessage({contract, frontend, projectPath, verbose, rootDir, supportsSandbox});
+  postMessage({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
 
   return true;
 }
@@ -78,14 +74,11 @@ export async function createFiles({contract, frontend, projectPath, verbose, roo
 
   // add .gitignore
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
-
-  // copy yarn.lock to all places
-  await yarnLock(contract, frontend, projectPath, supportsSandbox, rootDir);
 }
 
 export const renameFile = async function (oldPath: string, newPath: string) {
   return new Promise<void>((resolve, reject) => {
-    fs.rename(oldPath, newPath, (err: Error) => {
+    fs.rename(oldPath, newPath, err => {
       if (err) {
         console.error(err);
         reject(err);
@@ -108,7 +101,7 @@ export function copyDir(source: string, dest: string, {skip, verbose}: {skip: st
       return !skip.find(f => filename.includes(f));
     };
 
-    ncp(source, dest, {filter}, (err: Error) => {
+    ncp(source, dest, {filter}, err => {
       if (err) {
         reject(err);
         return;

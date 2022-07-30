@@ -1681,6 +1681,56 @@ export function getConfig(env) {
 ]
 `;
 
+exports[`create 'assemblyscript'+'react' sandbox:false: /assemblyscript_react_no-sandbox/frontend/package.json no-sandbox 1`] = `
+Array [
+  "/assemblyscript_react_no-sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"@babel/core\\": \\"7.18.2\\",
+    \\"@babel/preset-env\\": \\"7.18.2\\",
+    \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
+    \\"ava\\": \\"4.2.0\\",
+    \\"react-test-renderer\\": \\"18.1.0\\",
+    \\"ts-node\\": \\"10.8.0\\",
+    \\"typescript\\": \\"4.7.2\\",
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\",
+    \\"react\\": \\"18.1.0\\",
+    \\"react-dom\\": \\"18.1.0\\",
+    \\"regenerator-runtime\\": \\"0.13.9\\"
+  },
+  \\"resolutions\\": {
+    \\"@babel/preset-env\\": \\"7.13.8\\"
+  },
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.2%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  }
+}",
+]
+`;
+
 exports[`create 'assemblyscript'+'react' sandbox:false: /assemblyscript_react_no-sandbox/frontend/ui-components.js no-sandbox 1`] = `
 Array [
   "/assemblyscript_react_no-sandbox/frontend/ui-components.js",
@@ -2717,6 +2767,56 @@ export function getConfig(env) {
   }
 }
 ",
+]
+`;
+
+exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_sandbox/frontend/package.json sandbox 1`] = `
+Array [
+  "/assemblyscript_react_sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"@babel/core\\": \\"7.18.2\\",
+    \\"@babel/preset-env\\": \\"7.18.2\\",
+    \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
+    \\"ava\\": \\"4.2.0\\",
+    \\"react-test-renderer\\": \\"18.1.0\\",
+    \\"ts-node\\": \\"10.8.0\\",
+    \\"typescript\\": \\"4.7.2\\",
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\",
+    \\"react\\": \\"18.1.0\\",
+    \\"react-dom\\": \\"18.1.0\\",
+    \\"regenerator-runtime\\": \\"0.13.9\\"
+  },
+  \\"resolutions\\": {
+    \\"@babel/preset-env\\": \\"7.13.8\\"
+  },
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.2%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  }
+}",
 ]
 `;
 
@@ -3794,6 +3894,30 @@ module.exports = getConfig;
 ]
 `;
 
+exports[`create 'assemblyscript'+'vanilla' sandbox:false: /assemblyscript_vanilla_no-sandbox/frontend/package.json no-sandbox 1`] = `
+Array [
+  "/assemblyscript_vanilla_no-sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\"
+  }
+}",
+]
+`;
+
 exports[`create 'assemblyscript'+'vanilla' sandbox:false: /assemblyscript_vanilla_no-sandbox/integration-tests/ava.config.cjs no-sandbox 1`] = `
 Array [
   "/assemblyscript_vanilla_no-sandbox/integration-tests/ava.config.cjs",
@@ -4799,6 +4923,30 @@ function getConfig(env) {
 
 module.exports = getConfig;
 ",
+]
+`;
+
+exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla_sandbox/frontend/package.json sandbox 1`] = `
+Array [
+  "/assemblyscript_vanilla_sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\"
+  }
+}",
 ]
 `;
 
@@ -6453,6 +6601,56 @@ export function getConfig(env) {
 ]
 `;
 
+exports[`create 'js'+'react' sandbox:false: /js_react_no-sandbox/frontend/package.json no-sandbox 1`] = `
+Array [
+  "/js_react_no-sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"@babel/core\\": \\"7.18.2\\",
+    \\"@babel/preset-env\\": \\"7.18.2\\",
+    \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
+    \\"ava\\": \\"4.2.0\\",
+    \\"react-test-renderer\\": \\"18.1.0\\",
+    \\"ts-node\\": \\"10.8.0\\",
+    \\"typescript\\": \\"4.7.2\\",
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\",
+    \\"react\\": \\"18.1.0\\",
+    \\"react-dom\\": \\"18.1.0\\",
+    \\"regenerator-runtime\\": \\"0.13.9\\"
+  },
+  \\"resolutions\\": {
+    \\"@babel/preset-env\\": \\"7.13.8\\"
+  },
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.2%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  }
+}",
+]
+`;
+
 exports[`create 'js'+'react' sandbox:false: /js_react_no-sandbox/frontend/ui-components.js no-sandbox 1`] = `
 Array [
   "/js_react_no-sandbox/frontend/ui-components.js",
@@ -7438,6 +7636,56 @@ export function getConfig(env) {
   }
 }
 ",
+]
+`;
+
+exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/frontend/package.json sandbox 1`] = `
+Array [
+  "/js_react_sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"@babel/core\\": \\"7.18.2\\",
+    \\"@babel/preset-env\\": \\"7.18.2\\",
+    \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
+    \\"ava\\": \\"4.2.0\\",
+    \\"react-test-renderer\\": \\"18.1.0\\",
+    \\"ts-node\\": \\"10.8.0\\",
+    \\"typescript\\": \\"4.7.2\\",
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\",
+    \\"react\\": \\"18.1.0\\",
+    \\"react-dom\\": \\"18.1.0\\",
+    \\"regenerator-runtime\\": \\"0.13.9\\"
+  },
+  \\"resolutions\\": {
+    \\"@babel/preset-env\\": \\"7.13.8\\"
+  },
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.2%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  }
+}",
 ]
 `;
 
@@ -8464,6 +8712,30 @@ module.exports = getConfig;
 ]
 `;
 
+exports[`create 'js'+'vanilla' sandbox:false: /js_vanilla_no-sandbox/frontend/package.json no-sandbox 1`] = `
+Array [
+  "/js_vanilla_no-sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\"
+  }
+}",
+]
+`;
+
 exports[`create 'js'+'vanilla' sandbox:false: /js_vanilla_no-sandbox/integration-tests/ava.config.cjs no-sandbox 1`] = `
 Array [
   "/js_vanilla_no-sandbox/integration-tests/ava.config.cjs",
@@ -9418,6 +9690,30 @@ function getConfig(env) {
 
 module.exports = getConfig;
 ",
+]
+`;
+
+exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/frontend/package.json sandbox 1`] = `
+Array [
+  "/js_vanilla_sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\"
+  }
+}",
 ]
 `;
 
@@ -11249,6 +11545,56 @@ export function getConfig(env) {
 ]
 `;
 
+exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/frontend/package.json no-sandbox 1`] = `
+Array [
+  "/rust_react_no-sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"@babel/core\\": \\"7.18.2\\",
+    \\"@babel/preset-env\\": \\"7.18.2\\",
+    \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
+    \\"ava\\": \\"4.2.0\\",
+    \\"react-test-renderer\\": \\"18.1.0\\",
+    \\"ts-node\\": \\"10.8.0\\",
+    \\"typescript\\": \\"4.7.2\\",
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\",
+    \\"react\\": \\"18.1.0\\",
+    \\"react-dom\\": \\"18.1.0\\",
+    \\"regenerator-runtime\\": \\"0.13.9\\"
+  },
+  \\"resolutions\\": {
+    \\"@babel/preset-env\\": \\"7.13.8\\"
+  },
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.2%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  }
+}",
+]
+`;
+
 exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/frontend/ui-components.js no-sandbox 1`] = `
 Array [
   "/rust_react_no-sandbox/frontend/ui-components.js",
@@ -12289,6 +12635,56 @@ export function getConfig(env) {
   }
 }
 ",
+]
+`;
+
+exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/frontend/package.json sandbox 1`] = `
+Array [
+  "/rust_react_sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"@babel/core\\": \\"7.18.2\\",
+    \\"@babel/preset-env\\": \\"7.18.2\\",
+    \\"@babel/preset-react\\": \\"7.17.12\\",
+    \\"@types/node\\": \\"18.6.2\\",
+    \\"ava\\": \\"4.2.0\\",
+    \\"react-test-renderer\\": \\"18.1.0\\",
+    \\"ts-node\\": \\"10.8.0\\",
+    \\"typescript\\": \\"4.7.2\\",
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\",
+    \\"react\\": \\"18.1.0\\",
+    \\"react-dom\\": \\"18.1.0\\",
+    \\"regenerator-runtime\\": \\"0.13.9\\"
+  },
+  \\"resolutions\\": {
+    \\"@babel/preset-env\\": \\"7.13.8\\"
+  },
+  \\"browserslist\\": {
+    \\"production\\": [
+      \\">0.2%\\",
+      \\"not dead\\",
+      \\"not op_mini all\\"
+    ],
+    \\"development\\": [
+      \\"last 1 chrome version\\",
+      \\"last 1 firefox version\\",
+      \\"last 1 safari version\\"
+    ]
+  }
+}",
 ]
 `;
 
@@ -13382,6 +13778,30 @@ module.exports = getConfig;
 ]
 `;
 
+exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/frontend/package.json no-sandbox 1`] = `
+Array [
+  "/rust_vanilla_no-sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\"
+  }
+}",
+]
+`;
+
 exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/integration-tests/ava.config.cjs no-sandbox 1`] = `
 Array [
   "/rust_vanilla_no-sandbox/integration-tests/ava.config.cjs",
@@ -14391,6 +14811,30 @@ function getConfig(env) {
 
 module.exports = getConfig;
 ",
+]
+`;
+
+exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/frontend/package.json sandbox 1`] = `
+Array [
+  "/rust_vanilla_sandbox/frontend/package.json",
+  "{
+  \\"name\\": \\"my-near-app\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"license\\": \\"(MIT AND Apache-2.0)\\",
+  \\"scripts\\": {
+    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"build\\": \\"parcel build index.html --public-url ./\\"
+  },
+  \\"devDependencies\\": {
+    \\"nodemon\\": \\"2.0.16\\",
+    \\"parcel\\": \\"2.6.0\\",
+    \\"process\\": \\"0.11.10\\",
+    \\"env-cmd\\": \\"10.1.0\\"
+  },
+  \\"dependencies\\": {
+    \\"near-api-js\\": \\"0.44.2\\"
+  }
+}",
 ]
 `;
 

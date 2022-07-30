@@ -1,16 +1,11 @@
 import {Contract, CreateProjectParams} from './types';
 
-const _ = require('lodash');
-
 type Entries = Record<string, unknown>;
 type PackageBuildParams = Pick<CreateProjectParams, 'contract'| 'frontend'| 'projectName' | 'supportsSandbox'>;
 export function buildPackageJson({contract, frontend, projectName, supportsSandbox}: PackageBuildParams): Entries {
   const result = basePackage({
     contract, frontend, projectName, supportsSandbox,
   });
-  if (frontend === 'react') {
-    _.merge(result, reactPackage());
-  }
   return result;
 }
 
@@ -28,25 +23,22 @@ function basePackage({contract, frontend, projectName, supportsSandbox}: Package
       'test': 'yarn test:unit && yarn test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(contract, supportsSandbox),
-      ...npmInstallScript(contract, supportsSandbox),
+      ...npmInstallScript(contract, supportsSandbox, hasFrontend),
     },
     'devDependencies': {
       'near-cli': '3.3.0',
-      ...frontendDevDependencies(hasFrontend),
     },
-    'dependencies': {
-      ...frontendDependencies(hasFrontend),
-    }
+    'dependencies': {}
   };
 }
 
 const startScript = (hasFrontend: boolean) => hasFrontend ? {
-  'start': 'echo The app is starting! && env-cmd -f ./neardev/dev-account.env parcel frontend/index.html --open'
+  'start': 'cd frontend && yarn start'
 } : {};
 
 const buildScript = (hasFrontend: boolean) => hasFrontend ? {
   'build': 'yarn build:contract && yarn build:web',
-  'build:web': 'parcel build frontend/index.html --public-url ./',
+  'build:web': 'cd frontend && yarn build',
 } : {
   'build': 'yarn build:contract',
 };
@@ -123,58 +115,28 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
   }
 };
 
-const frontendDevDependencies = (hasFrontend: boolean) => hasFrontend ? {
-  'nodemon': '2.0.16',
-  'parcel': '2.6.0',
-  'process': '0.11.10',
-  'env-cmd': '10.1.0',
-} : {};
-
-const frontendDependencies = (hasFrontend: boolean) => hasFrontend ? {'near-api-js': '0.44.2'} : {};
-
-const reactPackage = () => ({
-  'devDependencies': {
-    '@babel/core': '7.18.2',
-    '@babel/preset-env': '7.18.2',
-    '@babel/preset-react': '7.17.12',
-    '@types/node': '18.6.2',
-    'ava': '4.2.0',
-    'react-test-renderer': '18.1.0',
-    'ts-node': '10.8.0',
-    'typescript': '4.7.2'
-  },
-  'dependencies': {
-    'react': '18.1.0',
-    'react-dom': '18.1.0',
-    'regenerator-runtime': '0.13.9'
-  },
-  'resolutions': {
-    '@babel/preset-env': '7.13.8'
-  },
-  'browserslist': {
-    'production': [
-      '>0.2%',
-      'not dead',
-      'not op_mini all'
-    ],
-    'development': [
-      'last 1 chrome version',
-      'last 1 firefox version',
-      'last 1 safari version'
-    ]
-  }
-});
-
-const npmInstallScript = (contract: Contract, supportsSandbox: boolean) => {
+const npmInstallScript = (contract: Contract, supportsSandbox: boolean, hasFrontend: boolean) => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':
-      return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..'};
+      if (hasFrontend) {
+        return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..'};
+      } else {
+        return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..'};
+      }
     case 'rust':
       if (supportsSandbox) {
-        return {'deps-install': 'yarn'};
+        if (hasFrontend) {
+          return {'deps-install': 'yarn && cd frontend && yarn && cd ..'};
+        } else {
+          return {'deps-install': 'yarn'};
+        }
       } else {
-        return {'deps-install': 'yarn && cd integration-tests && yarn && cd ..'};
+        if (hasFrontend) {
+          return {'deps-install': 'yarn && cd integration-tests && yarn && cd ../frontend && yarn && cd ..'};
+        } else {
+          return {'deps-install': 'yarn && cd integration-tests && yarn && cd ..'};
+        }
       }
   }
 };

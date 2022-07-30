@@ -1,6 +1,5 @@
 import {CreateProjectParams} from './types';
-
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 export function preMessage(settings: CreateProjectParams) {
   switch(settings.contract) {

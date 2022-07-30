@@ -1,8 +1,7 @@
 import {UserConfig} from './types';
-
-const chalk = require('chalk');
-const prompt = require('prompts');
-const { program } = require('commander');
+import chalk from 'chalk';
+import prompt, {PromptObject} from 'prompts';
+import { program } from 'commander';
 
 export async function getUserArgs(): Promise<UserConfig> {
   program
@@ -44,7 +43,7 @@ export function validateUserArgs(args: UserConfig | null): 'error' | 'ok' | 'non
   }
 }
 
-const userPrompts = [
+const userPrompts: PromptObject[] = [
   {
     type: 'select',
     name: 'contract',
@@ -87,7 +86,7 @@ export async function showProjectNamePrompt() {
 }
 
 export async function showDepsInstallPrompt() {
-  const questions = [
+  const questions: PromptObject[] = [
     {
       type: 'toggle',
       name: 'depsInstall',
