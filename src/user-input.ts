@@ -71,8 +71,8 @@ const userPrompts: PromptObject[] = [
     name: 'tests',
     message: 'Select a testing framework',
     choices: [
-      { title: 'Workspaces', value: 'workspaces' },
-      { title: 'Classic', value: 'classic' },
+      { title: 'Workspaces (Test against an emulated NEAR blockchain on your computer)', value: 'workspaces' },
+      { title: 'Classic (Tests against deployed contracts on NEAR TestNet)', value: 'classic' },
     ]
   },
   {
