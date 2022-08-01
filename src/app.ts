@@ -19,9 +19,6 @@ import {show} from './messages';
   const args = await getUserArgs();
   let {install} = args;
   const argsValid = validateUserArgs(args);
-  // sanbox should be well supported by now, assemblyscript will be deprecated soon
-  // we explicitly take user's input: --no-sandbox => false, otherwise true
-  const supportsSandbox = args.sandbox;
   if (argsValid === 'error') {
     show.argsError();
     return;
@@ -50,7 +47,7 @@ import {show} from './messages';
     }
     config = userInput;
   }
-  const {frontend, contract, projectName} = config as UserConfig;
+  const {frontend, contract, tests, projectName} = config as UserConfig;
   trackUsage(frontend, contract);
 
   let projectPath = `${process.cwd()}/${projectName}`;
@@ -74,8 +71,8 @@ import {show} from './messages';
     createSuccess = await createProject({
       contract,
       frontend,
+      tests,
       projectName,
-      supportsSandbox,
       verbose: false,
       rootDir: path.resolve(__dirname, '../templates'),
       projectPath,
@@ -86,7 +83,7 @@ import {show} from './messages';
   }
 
   if (createSuccess) {
-    show.setupSuccess(projectPath, contract, frontend);
+    show.setupSuccess(projectPath, contract, frontend, tests);
   } else {
     show.setupFailed();
     return;

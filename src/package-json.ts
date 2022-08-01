@@ -1,15 +1,15 @@
-import {Contract, CreateProjectParams} from './types';
+import {Contract, CreateProjectParams, TestingFramework} from './types';
 
 type Entries = Record<string, unknown>;
-type PackageBuildParams = Pick<CreateProjectParams, 'contract'| 'frontend'| 'projectName' | 'supportsSandbox'>;
-export function buildPackageJson({contract, frontend, projectName, supportsSandbox}: PackageBuildParams): Entries {
+type PackageBuildParams = Pick<CreateProjectParams, 'contract'| 'frontend' | 'tests' | 'projectName'>;
+export function buildPackageJson({contract, frontend, tests, projectName}: PackageBuildParams): Entries {
   const result = basePackage({
-    contract, frontend, projectName, supportsSandbox,
+    contract, frontend, tests, projectName,
   });
   return result;
 }
 
-function basePackage({contract, frontend, projectName, supportsSandbox}: PackageBuildParams): Entries {
+function basePackage({contract, frontend, tests, projectName}: PackageBuildParams): Entries {
   const hasFrontend = frontend !== 'none';
   return {
     'name': projectName,
@@ -22,8 +22,8 @@ function basePackage({contract, frontend, projectName, supportsSandbox}: Package
       ...buildContractScript(contract),
       'test': 'yarn test:unit && yarn test:integration',
       ...unitTestScripts(contract),
-      ...integrationTestScripts(contract, supportsSandbox),
-      ...npmInstallScript(contract, supportsSandbox, hasFrontend),
+      ...integrationTestScripts(contract, tests),
+      ...npmInstallScript(contract, tests, hasFrontend),
     },
     'devDependencies': {
       'near-cli': '3.3.0',
@@ -90,8 +90,8 @@ const unitTestScripts = (contract: Contract) => {
   }
 };
 
-const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) => {
-  if (supportsSandbox) {
+const integrationTestScripts = (contract: Contract, tests: TestingFramework) => {
+  if (tests === 'workspaces') {
     switch (contract) {
       case 'assemblyscript':
         return {
@@ -115,7 +115,7 @@ const integrationTestScripts = (contract: Contract, supportsSandbox: boolean) =>
   }
 };
 
-const npmInstallScript = (contract: Contract, supportsSandbox: boolean, hasFrontend: boolean) => {
+const npmInstallScript = (contract: Contract, tests: TestingFramework, hasFrontend: boolean) => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':
@@ -125,7 +125,7 @@ const npmInstallScript = (contract: Contract, supportsSandbox: boolean, hasFront
         return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..'};
       }
     case 'rust':
-      if (supportsSandbox) {
+      if (tests === 'workspaces') {
         if (hasFrontend) {
           return {'deps-install': 'yarn && cd frontend && yarn && cd ..'};
         } else {

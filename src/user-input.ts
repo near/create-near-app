@@ -8,6 +8,7 @@ export async function getUserArgs(): Promise<UserConfig> {
     .argument('[projectName]')
     .option('--contract <contract>')
     .option('--frontend <frontend>')
+    .option('--tests <tests>')
     .option('--install')
     .option('--no-sandbox');
 
@@ -16,15 +17,15 @@ export async function getUserArgs(): Promise<UserConfig> {
 
   const options = program.opts();
   const [projectName] = program.args;
-  const { contract, frontend, sandbox, install } = options;
-  return { contract, frontend, projectName, sandbox, install };
+  const { contract, frontend, tests, sandbox, install } = options;
+  return { contract, frontend, projectName, tests, sandbox, install };
 }
 
 export function validateUserArgs(args: UserConfig | null): 'error' | 'ok' | 'none' {
   if (args === null) {
     return 'error';
   }
-  const { projectName, contract, frontend } = args;
+  const { projectName, contract, frontend, tests } = args;
   const hasAllOptions = contract !== undefined && frontend !== undefined;
   const hasPartialOptions = contract !== undefined || frontend !== undefined;
   const hasProjectName = projectName !== undefined;
@@ -32,7 +33,8 @@ export function validateUserArgs(args: UserConfig | null): 'error' | 'ok' | 'non
   const hasNoArgs = !hasPartialOptions && !hasProjectName;
   const optionsAreValid = hasAllOptions
     && ['react', 'vanilla', 'none'].includes(frontend)
-    && ['js', 'rust', 'assemblyscript'].includes(contract);
+    && ['js', 'rust', 'assemblyscript'].includes(contract)
+    && ['workspaces', 'classic'].includes(tests);
 
   if (hasNoArgs) {
     return 'none';
@@ -65,22 +67,31 @@ const userPrompts: PromptObject[] = [
     ]
   },
   {
+    type: 'select',
+    name: 'tests',
+    message: 'Select a testing framework',
+    choices: [
+      { title: 'Workspaces', value: 'workspaces' },
+      { title: 'Classic', value: 'classic' },
+    ]
+  },
+  {
     type: 'text',
     name: 'projectName',
-    message: 'Name your project (this will create a directory with that name)}',
+    message: 'Name your project (this will create a directory with that name)',
     initial: 'my-near-project',
   },
 ];
 
 export async function showUserPrompts() {
-  const [contract, frontend, projectName] = userPrompts;
+  const [contract, frontend, tests, projectName] = userPrompts;
 
-  const answers = await prompt([contract, frontend, projectName]);
+  const answers = await prompt([contract, frontend, tests, projectName]);
   return answers;
 }
 
 export async function showProjectNamePrompt() {
-  const [, , projectName] = userPrompts;
+  const [, , , projectName] = userPrompts;
   const answers = await prompt([projectName]);
   return answers;
 }
@@ -90,7 +101,8 @@ export async function showDepsInstallPrompt() {
     {
       type: 'toggle',
       name: 'depsInstall',
-      message: chalk`One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'yarn install'}} for you.\n  To do it yourself: {bold {blue 'yarn run deps-install'}}.\n  Run {bold {blue 'yarn install'}} now?\n`,
+      // message: chalk`One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'yarn install'}} for you.\n  Run {bold {blue 'yarn install'}} now? (To do it yourself: {blue 'yarn run deps-install'}).\n  \n`,
+      message: chalk`Run {bold {blue 'yarn install'}} now in all folders? (To do it yourself: {blue 'yarn run deps-install'}).\n`,
       initial: true,
       active: 'yes',
       inactive: 'no'

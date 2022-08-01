@@ -18,11 +18,11 @@ describe('create', () => {
     await createProject({
       contract,
       frontend,
+      tests: supportsSandbox ? 'workspaces' : 'classic',
       projectName,
       verbose: false,
       rootDir,
       projectPath,
-      supportsSandbox,
     });
     await new Promise<void>((resolve, reject) => {
       const allContent = [];

@@ -8,9 +8,9 @@ import {preMessage, postMessage} from './checks';
 import {buildPackageJson} from './package-json';
 
 // Method to create the project folder
-export async function createProject({contract, frontend, projectPath, projectName, verbose, rootDir, supportsSandbox}: CreateProjectParams): Promise<boolean> {
+export async function createProject({contract, frontend, tests, projectPath, projectName, verbose, rootDir}: CreateProjectParams): Promise<boolean> {
   // Make language specific checks
-  let preMessagePass = preMessage({contract, projectName, frontend, projectPath, verbose, rootDir, supportsSandbox});
+  let preMessagePass = preMessage({contract, projectName, frontend, tests, projectPath, verbose, rootDir});
   if(!preMessagePass){
     return false;
   }
@@ -18,19 +18,19 @@ export async function createProject({contract, frontend, projectPath, projectNam
   show.creatingApp();
 
   // Create files in the project folder
-  await createFiles({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
+  await createFiles({contract, frontend, projectName, tests, projectPath, verbose, rootDir});
 
   // Create package.json
-  const packageJson = buildPackageJson({contract, frontend, projectName, supportsSandbox});
+  const packageJson = buildPackageJson({contract, frontend, tests, projectName});
   fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
 
   // Run language-specific post check
-  postMessage({contract, frontend, projectName, projectPath, verbose, rootDir, supportsSandbox});
+  postMessage({contract, frontend, projectName, tests, projectPath, verbose, rootDir});
 
   return true;
 }
 
-export async function createFiles({contract, frontend, projectPath, verbose, rootDir, supportsSandbox}: CreateProjectParams) {
+export async function createFiles({contract, frontend, tests, projectPath, verbose, rootDir}: CreateProjectParams) {
   // skip build artifacts and symlinks
   const skip = ['.cache', 'dist', 'out', 'node_modules'];
 
@@ -52,13 +52,12 @@ export async function createFiles({contract, frontend, projectPath, verbose, roo
   });
 
   // copy tests
-  const testFramework = supportsSandbox ? 'workspaces-tests' : 'classic-tests';
   let sourceTestDir = `${rootDir}/integration-tests`;
-  if (supportsSandbox) {
+  if (tests === 'workspaces') {
     switch(contract) {
       case 'js':
       case 'assemblyscript':
-        sourceTestDir = path.resolve(sourceTestDir, testFramework, 'ts');
+        sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/ts');
         break;
       case 'rust':
         sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/rs');
