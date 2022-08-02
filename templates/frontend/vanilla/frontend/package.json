@@ -7,12 +7,12 @@
     "build": "parcel build index.html --public-url ./"
   },
   "devDependencies": {
-    "nodemon": "2.0.16",
-    "parcel": "2.6.0",
-    "process": "0.11.10",
-    "env-cmd": "10.1.0"
+    "nodemon": "^2.0.16",
+    "parcel": "^2.6.0",
+    "process": "^0.11.10",
+    "env-cmd": "^10.1.0"
   },
   "dependencies": {
-    "near-api-js": "0.44.2"
+    "near-api-js": "^0.44.2"
   }
 }

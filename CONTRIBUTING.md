@@ -19,7 +19,7 @@ Please note that for technical contributions, NEAR runs a battery of continuous 
 
 It's encouraged to write unit tests on new features. Many NEAR repositories have built-in scripts that run tests locally. Tests may check linting and must be addressed.
 
-For example, a repository might have `yarn test` available. It's a good idea to run tests locally before submitting a pull request, as these will be caught during the CI process.
+For example, a repository might have `npm test` available. It's a good idea to run tests locally before submitting a pull request, as these will be caught during the CI process.
 
 ### Thank you
 

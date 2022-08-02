@@ -120,8 +120,8 @@ export function copyDir(source: string, dest: string, {skip, verbose}: {skip: st
 
 export async function runDepsInstall(projectPath: string) {
   show.depsInstall();
-  const npmCommandArgs = ['deps-install'];
-  await new Promise<void>((resolve, reject) => spawn('yarn', npmCommandArgs, {
+  const npmCommandArgs = ['run', 'deps-install'];
+  await new Promise<void>((resolve, reject) => spawn('npm', npmCommandArgs, {
     cwd: projectPath,
     stdio: 'inherit',
   }).on('close', (code: number) => {

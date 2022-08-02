@@ -20,38 +20,38 @@ function basePackage({contract, frontend, tests, projectName}: PackageBuildParam
       ...deployScript(contract),
       ...buildScript(hasFrontend),
       ...buildContractScript(contract),
-      'test': 'yarn test:unit && yarn test:integration',
+      'test': 'npm run test:unit && npm run test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(contract, tests),
       ...npmInstallScript(contract, tests, hasFrontend),
     },
     'devDependencies': {
-      'near-cli': '3.3.0',
+      'near-cli': '^3.3.0',
     },
     'dependencies': {}
   };
 }
 
 const startScript = (hasFrontend: boolean) => hasFrontend ? {
-  'start': 'cd frontend && yarn start'
+  'start': 'cd frontend && npm run start'
 } : {};
 
 const buildScript = (hasFrontend: boolean) => hasFrontend ? {
-  'build': 'yarn build:contract && yarn build:web',
-  'build:web': 'cd frontend && yarn build',
+  'build': 'npm run build:contract && npm run build:web',
+  'build:web': 'cd frontend && npm run build',
 } : {
-  'build': 'yarn build:contract',
+  'build': 'npm run build:contract',
 };
 
 const buildContractScript = (contract: Contract) => {
   switch (contract) {
     case 'assemblyscript':
       return {
-        'build:contract': 'cd contract && yarn build',
+        'build:contract': 'cd contract && npm run build',
       };
     case 'js':
       return {
-        'build:contract': 'cd contract && yarn build',
+        'build:contract': 'cd contract && npm run build',
       };
     case 'rust':
       return {
@@ -67,11 +67,11 @@ const deployScript = (contract: Contract) => {
     case 'assemblyscript':
     case 'js':
       return {
-        'deploy': 'cd contract && yarn deploy',
+        'deploy': 'cd contract && npm run deploy',
       };
     case 'rust':
       return {
-        'deploy': 'yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm',
+        'deploy': 'npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm',
       };
     default:
       return {};
@@ -82,7 +82,7 @@ const unitTestScripts = (contract: Contract) => {
   switch (contract) {
     case 'js':
     case 'assemblyscript':
-      return {'test:unit': 'cd contract && yarn test'};
+      return {'test:unit': 'cd contract && npm test'};
     case 'rust':
       return {'test:unit': 'cd contract && cargo test'};
     default:
@@ -95,22 +95,22 @@ const integrationTestScripts = (contract: Contract, tests: TestingFramework) => 
     switch (contract) {
       case 'assemblyscript':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && yarn test -- -- "./contract/build/release/hello_near.wasm"',
+          'test:integration': 'npm run build:contract && cd integration-tests && npm test -- -- "./contract/build/release/hello_near.wasm"',
         };
       case 'js':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && yarn test  -- -- "./contract/build/hello_near.wasm"',
+          'test:integration': 'npm run build:contract && cd integration-tests && npm test  -- -- "./contract/build/hello_near.wasm"',
         };
       case 'rust':
         return {
-          'test:integration': 'yarn build:contract && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+          'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
         };
       default:
         return {};
     }
   } else {
     return {
-      'test:integration': 'yarn deploy && cd integration-tests && yarn test',
+      'test:integration': 'npm run deploy && cd integration-tests && npm test',
     };
   }
 };
@@ -120,22 +120,22 @@ const npmInstallScript = (contract: Contract, tests: TestingFramework, hasFronte
     case 'assemblyscript':
     case 'js':
       if (hasFrontend) {
-        return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..'};
+        return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
       } else {
-        return {'deps-install': 'yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..'};
+        return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..'};
       }
     case 'rust':
       if (tests === 'workspaces') {
         if (hasFrontend) {
-          return {'deps-install': 'yarn && cd frontend && yarn && cd ..'};
+          return {'deps-install': 'npm install && cd frontend && npm install && cd ..'};
         } else {
-          return {'deps-install': 'yarn'};
+          return {'deps-install': 'npm install'};
         }
       } else {
         if (hasFrontend) {
-          return {'deps-install': 'yarn && cd integration-tests && yarn && cd ../frontend && yarn && cd ..'};
+          return {'deps-install': 'npm install && cd integration-tests && npm install && cd ../frontend && npm install && cd ..'};
         } else {
-          return {'deps-install': 'yarn && cd integration-tests && yarn && cd ..'};
+          return {'deps-install': 'npm install && cd integration-tests && npm install && cd ..'};
         }
       }
   }

@@ -9,18 +9,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run `yarn start`. This will run a dev server.
+If you have a frontend, run `npm run start`. This will run a dev server.
 
 
 Exploring The Code
@@ -31,23 +31,23 @@ Exploring The Code
 2. The frontend code lives in the `/frontend` folder. `/frontend/index.html` is a great
    place to start exploring. Note that it loads in `/frontend/index.js`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: `yarn test`, this will run the tests in `integration-tests` directory.
+3. Test your contract: `npm test`, this will run the tests in `integration-tests` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run `yarn deploy`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run `npm run deploy`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `yarn install`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `npm install`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all `near` commands with `npx`
 

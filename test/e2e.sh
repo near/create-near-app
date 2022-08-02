@@ -21,21 +21,21 @@ test () {
   dirname="${root_dir}/${1}"
   cd $dirname || exit 42
   echo "test: ${dirname}"
-  if ! yarn test ; then exit 42; fi
+  if ! npm test ; then exit 42; fi
 }
 
 buildweb () {
   dirname="${root_dir}/${1}"
   cd $dirname || exit 42
   echo "buildweb: ${dirname}"
-  if ! yarn build:web ; then exit 42; fi
+  if ! npm run build:web ; then exit 42; fi
 }
 
 deploy () {
   dirname="${root_dir}/${1}"
   cd $dirname || exit 42
   echo "test: ${dirname}"
-  if ! yarn deploy ; then exit 42; fi
+  if ! npm run deploy ; then exit 42; fi
 }
 
 scaffold js react workspaces

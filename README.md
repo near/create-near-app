@@ -52,7 +52,7 @@ To make changes to `create-near-app` itself:
 
 * clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
 * in your terminal, enter one of the folders inside `templates`, such as `templates/vanilla`
-* now you can run `yarn` to install dependencies and `yarn dev` to run the local development server, just like you can in a new app created with `create-near-app`
+* now you can run `npm install` to install dependencies and `npm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
 
 about commit messages
@@ -85,7 +85,7 @@ If you want to deploy a new version, you will need two prerequisites:
 
 Then run one script:
 
-    yarn release
+    npm run release
 
 Or just `release-it`
 

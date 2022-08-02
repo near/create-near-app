@@ -27,7 +27,7 @@ describe('create', () => {
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
       dir.readFiles(projectPath,
-        {exclude: ['node_modules', 'Cargo.lock']},
+        {exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock']},
         function (err, content, next) {
           if (err) {
             reject(err);
@@ -41,9 +41,7 @@ describe('create', () => {
           } else {
             files.forEach((f, n) => {
               const fileName: string = f.replace(projectPathPrefix, '');
-              if (!fileName.endsWith('yarn.lock')) {
-                expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName} ${ supportsSandbox ? 'sandbox' : 'no-sandbox'}`);
-              }
+              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName} ${ supportsSandbox ? 'sandbox' : 'no-sandbox'}`);
             });
             resolve();
           }

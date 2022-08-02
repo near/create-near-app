@@ -18,9 +18,9 @@ jobs:
       with:
         node-version: '16'
     - name: Install modules
-      run: yarn
+      run: npm install
     - name: Run E2E tests
       env:
         NEAR_ENV: ci 
         IS_GITHUB_ACTION: true
-      run: yarn test-e2e
+      run: npm run test-e2e

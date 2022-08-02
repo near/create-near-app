@@ -42,8 +42,8 @@ exports[`create 'assemblyscript'+'none' sandbox:false: /assemblyscript_none_no-s
 Array [
   "/assemblyscript_none_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -65,18 +65,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -87,23 +87,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -299,11 +299,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\",
+    \\"near-cli\\": \\"^3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -338,12 +338,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -437,16 +437,16 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -495,8 +495,8 @@ exports[`create 'assemblyscript'+'none' sandbox:true: /assemblyscript_none_sandb
 Array [
   "/assemblyscript_none_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -518,18 +518,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -540,23 +540,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -752,11 +752,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\",
+    \\"near-cli\\": \\"^3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -791,12 +791,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-workspaces\\": \\"^3.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -863,16 +863,16 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -921,8 +921,8 @@ exports[`create 'assemblyscript'+'react' sandbox:false: /assemblyscript_react_no
 Array [
   "/assemblyscript_react_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -944,18 +944,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -966,23 +966,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -1178,11 +1178,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\",
+    \\"near-cli\\": \\"^3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -1684,24 +1684,24 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"7.18.2\\",
-    \\"@babel/preset-env\\": \\"7.18.2\\",
-    \\"@babel/preset-react\\": \\"7.17.12\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"react-test-renderer\\": \\"18.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"@babel/core\\": \\"^7.18.2\\",
+    \\"@babel/preset-env\\": \\"^7.18.2\\",
+    \\"@babel/preset-react\\": \\"^7.17.12\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"react-test-renderer\\": \\"^18.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\",
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"react\\": \\"18.1.0\\",
-    \\"react-dom\\": \\"18.1.0\\",
-    \\"regenerator-runtime\\": \\"0.13.9\\"
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"react\\": \\"^18.1.0\\",
+    \\"react-dom\\": \\"^18.1.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.9\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -1776,7 +1776,7 @@ export function EducationalText() {
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
         <li>
-          When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
       </ol>
       <hr />
       <p>
@@ -1816,12 +1816,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -1915,18 +1915,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -1975,8 +1975,8 @@ exports[`create 'assemblyscript'+'react' sandbox:true: /assemblyscript_react_san
 Array [
   "/assemblyscript_react_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -1998,18 +1998,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -2020,23 +2020,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -2232,11 +2232,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\",
+    \\"near-cli\\": \\"^3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -2738,24 +2738,24 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"7.18.2\\",
-    \\"@babel/preset-env\\": \\"7.18.2\\",
-    \\"@babel/preset-react\\": \\"7.17.12\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"react-test-renderer\\": \\"18.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"@babel/core\\": \\"^7.18.2\\",
+    \\"@babel/preset-env\\": \\"^7.18.2\\",
+    \\"@babel/preset-react\\": \\"^7.17.12\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"react-test-renderer\\": \\"^18.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\",
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"react\\": \\"18.1.0\\",
-    \\"react-dom\\": \\"18.1.0\\",
-    \\"regenerator-runtime\\": \\"0.13.9\\"
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"react\\": \\"^18.1.0\\",
+    \\"react-dom\\": \\"^18.1.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.9\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -2830,7 +2830,7 @@ export function EducationalText() {
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
         <li>
-          When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
       </ol>
       <hr />
       <p>
@@ -2870,12 +2870,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-workspaces\\": \\"^3.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -2942,18 +2942,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -3002,8 +3002,8 @@ exports[`create 'assemblyscript'+'vanilla' sandbox:false: /assemblyscript_vanill
 Array [
   "/assemblyscript_vanilla_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -3025,18 +3025,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -3047,23 +3047,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -3259,11 +3259,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\",
+    \\"near-cli\\": \\"^3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -3581,7 +3581,7 @@ Array [
         <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
       </li>
       <li>
-        When you run <code>yarn dev</code>, the code in
+        When you run <code>npm run dev</code>, the code in
         <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
         can see how this happens by looking in <code>package.json</code> at the
         <code>scripts</code> section to find the <code>dev</code> command.
@@ -3827,13 +3827,13 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\"
+    \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
 ]
@@ -3866,12 +3866,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -3965,18 +3965,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -4025,8 +4025,8 @@ exports[`create 'assemblyscript'+'vanilla' sandbox:true: /assemblyscript_vanilla
 Array [
   "/assemblyscript_vanilla_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -4048,18 +4048,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -4070,23 +4070,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -4282,11 +4282,11 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"build\\": \\"asb\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile ./build/release/hello_near.wasm\\",
     \\"test\\": \\"asp --nologo\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\",
+    \\"near-cli\\": \\"^3.3.0\\",
     \\"near-sdk-as\\": \\"^3.2.3\\"
   }
 }
@@ -4604,7 +4604,7 @@ Array [
         <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
       </li>
       <li>
-        When you run <code>yarn dev</code>, the code in
+        When you run <code>npm run dev</code>, the code in
         <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
         can see how this happens by looking in <code>package.json</code> at the
         <code>scripts</code> section to find the <code>dev</code> command.
@@ -4850,13 +4850,13 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\"
+    \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
 ]
@@ -4889,12 +4889,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-workspaces\\": \\"^3.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -4961,18 +4961,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/release/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -5021,8 +5021,8 @@ exports[`create 'js'+'none' sandbox:false: /js_none_no-sandbox/.gitpod.yml no-sa
 Array [
   "/js_none_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -5044,18 +5044,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5066,23 +5066,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -5169,16 +5169,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-2\\"
+    \\"near-cli\\": \\"^3.4.0\\",
+    \\"near-sdk-js\\": \\"0.4.0-3\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
@@ -5266,12 +5266,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -5365,16 +5365,16 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -5423,8 +5423,8 @@ exports[`create 'js'+'none' sandbox:true: /js_none_sandbox/.gitpod.yml sandbox 1
 Array [
   "/js_none_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -5446,18 +5446,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5468,23 +5468,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -5571,16 +5571,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-2\\"
+    \\"near-cli\\": \\"^3.4.0\\",
+    \\"near-sdk-js\\": \\"0.4.0-3\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
@@ -5668,12 +5668,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-workspaces\\": \\"^3.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -5740,16 +5740,16 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ..\\"
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -5798,8 +5798,8 @@ exports[`create 'js'+'react' sandbox:false: /js_react_no-sandbox/.gitpod.yml no-
 Array [
   "/js_react_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -5821,18 +5821,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5843,23 +5843,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -5946,16 +5946,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-2\\"
+    \\"near-cli\\": \\"^3.4.0\\",
+    \\"near-sdk-js\\": \\"0.4.0-3\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
@@ -6510,24 +6510,24 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"7.18.2\\",
-    \\"@babel/preset-env\\": \\"7.18.2\\",
-    \\"@babel/preset-react\\": \\"7.17.12\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"react-test-renderer\\": \\"18.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"@babel/core\\": \\"^7.18.2\\",
+    \\"@babel/preset-env\\": \\"^7.18.2\\",
+    \\"@babel/preset-react\\": \\"^7.17.12\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"react-test-renderer\\": \\"^18.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\",
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"react\\": \\"18.1.0\\",
-    \\"react-dom\\": \\"18.1.0\\",
-    \\"regenerator-runtime\\": \\"0.13.9\\"
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"react\\": \\"^18.1.0\\",
+    \\"react-dom\\": \\"^18.1.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.9\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -6602,7 +6602,7 @@ export function EducationalText() {
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
         <li>
-          When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
       </ol>
       <hr />
       <p>
@@ -6642,12 +6642,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -6741,18 +6741,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -6801,8 +6801,8 @@ exports[`create 'js'+'react' sandbox:true: /js_react_sandbox/.gitpod.yml sandbox
 Array [
   "/js_react_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -6824,18 +6824,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -6846,23 +6846,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -6949,16 +6949,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-2\\"
+    \\"near-cli\\": \\"^3.4.0\\",
+    \\"near-sdk-js\\": \\"0.4.0-3\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
@@ -7513,24 +7513,24 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"7.18.2\\",
-    \\"@babel/preset-env\\": \\"7.18.2\\",
-    \\"@babel/preset-react\\": \\"7.17.12\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"react-test-renderer\\": \\"18.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"@babel/core\\": \\"^7.18.2\\",
+    \\"@babel/preset-env\\": \\"^7.18.2\\",
+    \\"@babel/preset-react\\": \\"^7.17.12\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"react-test-renderer\\": \\"^18.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\",
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"react\\": \\"18.1.0\\",
-    \\"react-dom\\": \\"18.1.0\\",
-    \\"regenerator-runtime\\": \\"0.13.9\\"
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"react\\": \\"^18.1.0\\",
+    \\"react-dom\\": \\"^18.1.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.9\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -7605,7 +7605,7 @@ export function EducationalText() {
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
         <li>
-          When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
       </ol>
       <hr />
       <p>
@@ -7645,12 +7645,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-workspaces\\": \\"^3.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -7717,18 +7717,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -7777,8 +7777,8 @@ exports[`create 'js'+'vanilla' sandbox:false: /js_vanilla_no-sandbox/.gitpod.yml
 Array [
   "/js_vanilla_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -7800,18 +7800,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -7822,23 +7822,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -7925,16 +7925,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-2\\"
+    \\"near-cli\\": \\"^3.4.0\\",
+    \\"near-sdk-js\\": \\"0.4.0-3\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
@@ -8305,7 +8305,7 @@ Array [
         <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
       </li>
       <li>
-        When you run <code>yarn dev</code>, the code in
+        When you run <code>npm run dev</code>, the code in
         <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
         can see how this happens by looking in <code>package.json</code> at the
         <code>scripts</code> section to find the <code>dev</code> command.
@@ -8551,13 +8551,13 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\"
+    \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
 ]
@@ -8590,12 +8590,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -8689,18 +8689,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -8749,8 +8749,8 @@ exports[`create 'js'+'vanilla' sandbox:true: /js_vanilla_sandbox/.gitpod.yml san
 Array [
   "/js_vanilla_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -8772,18 +8772,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -8794,23 +8794,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -8897,16 +8897,16 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"yarn build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
+    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
-    \\"near-cli\\": \\"3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-2\\"
+    \\"near-cli\\": \\"^3.4.0\\",
+    \\"near-sdk-js\\": \\"0.4.0-3\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\"
   }
 }
 ",
@@ -9277,7 +9277,7 @@ Array [
         <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
       </li>
       <li>
-        When you run <code>yarn dev</code>, the code in
+        When you run <code>npm run dev</code>, the code in
         <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
         can see how this happens by looking in <code>package.json</code> at the
         <code>scripts</code> section to find the <code>dev</code> command.
@@ -9523,13 +9523,13 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\"
+    \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
 ]
@@ -9562,12 +9562,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-workspaces\\": \\"3.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-workspaces\\": \\"^3.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -9634,18 +9634,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"cd contract && yarn deploy\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
-    \\"build:contract\\": \\"cd contract && yarn build\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
-    \\"test:unit\\": \\"cd contract && yarn test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && yarn test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd contract && yarn && cd ../integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"cd contract && npm run deploy\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
+    \\"build:contract\\": \\"cd contract && npm run build\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
+    \\"test:unit\\": \\"cd contract && npm test\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test  -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -9694,8 +9694,8 @@ exports[`create 'rust'+'none' sandbox:false: /rust_none_no-sandbox/.gitpod.yml n
 Array [
   "/rust_none_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -9717,18 +9717,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -9739,23 +9739,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -9994,12 +9994,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -10093,16 +10093,16 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
-    \\"build\\": \\"yarn build:contract\\",
+    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"build\\": \\"npm run build:contract\\",
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd integration-tests && yarn && cd ..\\"
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd integration-tests && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -10151,8 +10151,8 @@ exports[`create 'rust'+'none' sandbox:true: /rust_none_sandbox/.gitpod.yml sandb
 Array [
   "/rust_none_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -10174,18 +10174,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -10196,23 +10196,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -10535,16 +10535,16 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
-    \\"build\\": \\"yarn build:contract\\",
+    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"build\\": \\"npm run build:contract\\",
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn\\"
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -10593,8 +10593,8 @@ exports[`create 'rust'+'react' sandbox:false: /rust_react_no-sandbox/.gitpod.yml
 Array [
   "/rust_react_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -10616,18 +10616,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -10638,23 +10638,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -11360,24 +11360,24 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"7.18.2\\",
-    \\"@babel/preset-env\\": \\"7.18.2\\",
-    \\"@babel/preset-react\\": \\"7.17.12\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"react-test-renderer\\": \\"18.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"@babel/core\\": \\"^7.18.2\\",
+    \\"@babel/preset-env\\": \\"^7.18.2\\",
+    \\"@babel/preset-react\\": \\"^7.17.12\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"react-test-renderer\\": \\"^18.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\",
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"react\\": \\"18.1.0\\",
-    \\"react-dom\\": \\"18.1.0\\",
-    \\"regenerator-runtime\\": \\"0.13.9\\"
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"react\\": \\"^18.1.0\\",
+    \\"react-dom\\": \\"^18.1.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.9\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -11452,7 +11452,7 @@ export function EducationalText() {
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
         <li>
-          When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
       </ol>
       <hr />
       <p>
@@ -11492,12 +11492,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -11591,18 +11591,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -11651,8 +11651,8 @@ exports[`create 'rust'+'react' sandbox:true: /rust_react_sandbox/.gitpod.yml san
 Array [
   "/rust_react_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -11674,18 +11674,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -11696,23 +11696,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -12418,24 +12418,24 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"7.18.2\\",
-    \\"@babel/preset-env\\": \\"7.18.2\\",
-    \\"@babel/preset-react\\": \\"7.17.12\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"react-test-renderer\\": \\"18.1.0\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\",
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"@babel/core\\": \\"^7.18.2\\",
+    \\"@babel/preset-env\\": \\"^7.18.2\\",
+    \\"@babel/preset-react\\": \\"^7.17.12\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"react-test-renderer\\": \\"^18.1.0\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\",
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"react\\": \\"18.1.0\\",
-    \\"react-dom\\": \\"18.1.0\\",
-    \\"regenerator-runtime\\": \\"0.13.9\\"
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"react\\": \\"^18.1.0\\",
+    \\"react-dom\\": \\"^18.1.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.9\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -12510,7 +12510,7 @@ export function EducationalText() {
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
         <li>
-          When you run <code>yarn dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
       </ol>
       <hr />
       <p>
@@ -12634,18 +12634,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd frontend && yarn && cd ..\\"
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -12694,8 +12694,8 @@ exports[`create 'rust'+'vanilla' sandbox:false: /rust_vanilla_no-sandbox/.gitpod
 Array [
   "/rust_vanilla_no-sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -12717,18 +12717,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -12739,23 +12739,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -13277,7 +13277,7 @@ Array [
         <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
       </li>
       <li>
-        When you run <code>yarn dev</code>, the code in
+        When you run <code>npm run dev</code>, the code in
         <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
         can see how this happens by looking in <code>package.json</code> at the
         <code>scripts</code> section to find the <code>dev</code> command.
@@ -13523,13 +13523,13 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\"
+    \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
 ]
@@ -13562,12 +13562,12 @@ Array [
     \\"test\\": \\"ava\\"
   },
   \\"devDependencies\\": {
-    \\"@types/bn.js\\": \\"5.1.0\\",
-    \\"@types/node\\": \\"18.6.2\\",
-    \\"ava\\": \\"4.2.0\\",
-    \\"near-api-js\\": \\"0.44.2\\",
-    \\"ts-node\\": \\"10.8.0\\",
-    \\"typescript\\": \\"4.7.2\\"
+    \\"@types/bn.js\\": \\"^5.1.0\\",
+    \\"@types/node\\": \\"^18.6.2\\",
+    \\"ava\\": \\"^4.2.0\\",
+    \\"near-api-js\\": \\"^0.44.2\\",
+    \\"ts-node\\": \\"^10.8.0\\",
+    \\"typescript\\": \\"^4.7.2\\"
   },
   \\"dependencies\\": {}
 }
@@ -13661,18 +13661,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"yarn deploy && cd integration-tests && yarn test\\",
-    \\"deps-install\\": \\"yarn && cd integration-tests && yarn && cd ../frontend && yarn && cd ..\\"
+    \\"test:integration\\": \\"npm run deploy && cd integration-tests && npm test\\",
+    \\"deps-install\\": \\"npm install && cd integration-tests && npm install && cd ../frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",
@@ -13721,8 +13721,8 @@ exports[`create 'rust'+'vanilla' sandbox:true: /rust_vanilla_sandbox/.gitpod.yml
 Array [
   "/rust_vanilla_sandbox/.gitpod.yml",
   "tasks:
-  - init: yarn
-    command: yarn dev
+  - init: npm dev
+    command: npm run dev
 ports:
   - port: 1234
     onOpen: open-browser
@@ -13744,18 +13744,18 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    yarn deps-install
+    npm run deps-install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:
 
-    yarn deploy
+    npm run deploy
 
 Test your contract tests:
 
-    yarn test
+    npm test
 
-If you have a frontend, run \`yarn start\`. This will run a dev server.
+If you have a frontend, run \`npm run start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -13766,23 +13766,23 @@ Exploring The Code
 2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
    place to start exploring. Note that it loads in \`/frontend/index.js\`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`yarn test\`, this will run the tests in \`integration-tests\` directory.
+3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
 
 
 Deploy
 ======
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`yarn deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
 
 Step 0: Install near-cli (optional)
 -------------------------------------
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`yarn install\`, but for best ergonomics you may want to install it globally:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
 
-    yarn global add near-cli
+    npm install --global near-cli
 
 Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
 
@@ -14304,7 +14304,7 @@ Array [
         <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
       </li>
       <li>
-        When you run <code>yarn dev</code>, the code in
+        When you run <code>npm run dev</code>, the code in
         <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
         can see how this happens by looking in <code>package.json</code> at the
         <code>scripts</code> section to find the <code>dev</code> command.
@@ -14550,13 +14550,13 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"nodemon\\": \\"2.0.16\\",
-    \\"parcel\\": \\"2.6.0\\",
-    \\"process\\": \\"0.11.10\\",
-    \\"env-cmd\\": \\"10.1.0\\"
+    \\"nodemon\\": \\"^2.0.16\\",
+    \\"parcel\\": \\"^2.6.0\\",
+    \\"process\\": \\"^0.11.10\\",
+    \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"0.44.2\\"
+    \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
 ]
@@ -14673,18 +14673,18 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"cd frontend && yarn start\\",
-    \\"deploy\\": \\"yarn build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
-    \\"build\\": \\"yarn build:contract && yarn build:web\\",
-    \\"build:web\\": \\"cd frontend && yarn build\\",
+    \\"start\\": \\"cd frontend && npm run start\\",
+    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"build\\": \\"npm run build:contract && npm run build:web\\",
+    \\"build:web\\": \\"cd frontend && npm run build\\",
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
-    \\"test\\": \\"yarn test:unit && yarn test:integration\\",
+    \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"yarn build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
-    \\"deps-install\\": \\"yarn && cd frontend && yarn && cd ..\\"
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"deps-install\\": \\"npm install && cd frontend && npm install && cd ..\\"
   },
   \\"devDependencies\\": {
-    \\"near-cli\\": \\"3.3.0\\"
+    \\"near-cli\\": \\"^3.3.0\\"
   },
   \\"dependencies\\": {}
 }",

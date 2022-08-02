@@ -102,7 +102,7 @@ export async function showDepsInstallPrompt() {
       type: 'toggle',
       name: 'depsInstall',
       // message: chalk`One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'yarn install'}} for you.\n  Run {bold {blue 'yarn install'}} now? (To do it yourself: {blue 'yarn run deps-install'}).\n  \n`,
-      message: chalk`Run {bold {blue 'yarn install'}} now in all folders? (To do it yourself: {blue 'yarn run deps-install'}).\n`,
+      message: chalk`Run {bold {blue 'npm install'}} now in all folders? (To do it yourself: {blue 'npm run deps-install'}).\n`,
       initial: true,
       active: 'yes',
       inactive: 'no'

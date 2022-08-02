@@ -6,12 +6,12 @@
     "test": "ava"
   },
   "devDependencies": {
-    "@types/bn.js": "5.1.0",
-    "@types/node": "18.6.2",
-    "ava": "4.2.0",
-    "near-api-js": "0.44.2",
-    "ts-node": "10.8.0",
-    "typescript": "4.7.2"
+    "@types/bn.js": "^5.1.0",
+    "@types/node": "^18.6.2",
+    "ava": "^4.2.0",
+    "near-api-js": "^0.44.2",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
   },
   "dependencies": {}
 }
