@@ -1,13 +1,12 @@
 export type Contract = 'assemblyscript' | 'js' | 'rust';
 export type Frontend = 'react' | 'vanilla' | 'none';
-export type TestingFramework = 'workspaces' | 'classic';
+export type TestingFramework = 'rust' | 'js';
 export type ProjectName = string;
 export interface UserConfig {
   contract: Contract;
   frontend: Frontend;
   projectName: ProjectName;
   tests: TestingFramework;
-  sandbox: boolean;
   install: boolean;
 }
 export type CreateProjectParams = {

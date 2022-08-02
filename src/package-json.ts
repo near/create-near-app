@@ -1,7 +1,8 @@
 import {Contract, CreateProjectParams, TestingFramework} from './types';
 
 type Entries = Record<string, unknown>;
-type PackageBuildParams = Pick<CreateProjectParams, 'contract'| 'frontend' | 'tests' | 'projectName'>;
+type PackageBuildParams = Pick<CreateProjectParams, 'contract' | 'frontend' | 'tests' | 'projectName'>;
+
 export function buildPackageJson({contract, frontend, tests, projectName}: PackageBuildParams): Entries {
   const result = basePackage({
     contract, frontend, tests, projectName,
@@ -23,7 +24,7 @@ function basePackage({contract, frontend, tests, projectName}: PackageBuildParam
       'test': 'npm run test:unit && npm run test:integration',
       ...unitTestScripts(contract),
       ...integrationTestScripts(contract, tests),
-      ...npmInstallScript(contract, tests, hasFrontend),
+      ...npmInstallScript(contract, hasFrontend, tests),
     },
     'devDependencies': {
       'near-cli': '^3.3.0',
@@ -91,51 +92,71 @@ const unitTestScripts = (contract: Contract) => {
 };
 
 const integrationTestScripts = (contract: Contract, tests: TestingFramework) => {
-  if (tests === 'workspaces') {
-    switch (contract) {
-      case 'assemblyscript':
+  switch (contract) {
+    case 'assemblyscript':
+      if (tests === 'js') {
         return {
           'test:integration': 'npm run build:contract && cd integration-tests && npm test -- -- "./contract/build/release/hello_near.wasm"',
         };
-      case 'js':
+      } else {
+        return {
+          'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/build/release/hello_near.wasm"',
+        };
+      }
+    case 'js':
+      if (tests === 'js') {
         return {
           'test:integration': 'npm run build:contract && cd integration-tests && npm test  -- -- "./contract/build/hello_near.wasm"',
         };
-      case 'rust':
+      } else {
+        return {
+          'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/build/hello_near.wasm"',
+        };
+      }
+    case 'rust':
+      if (tests === 'js') {
+        return {
+          'test:integration': 'npm run build:contract && cd integration-tests && npm test  -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+        };
+      } else {
         return {
           'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
         };
-      default:
-        return {};
-    }
-  } else {
-    return {
-      'test:integration': 'npm run deploy && cd integration-tests && npm test',
-    };
+      }
+    default:
+      return {};
   }
 };
 
-const npmInstallScript = (contract: Contract, tests: TestingFramework, hasFrontend: boolean) => {
+const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: TestingFramework) => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':
       if (hasFrontend) {
-        return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
-      } else {
-        return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..'};
-      }
-    case 'rust':
-      if (tests === 'workspaces') {
-        if (hasFrontend) {
-          return {'deps-install': 'npm install && cd frontend && npm install && cd ..'};
+        if (tests === 'js') {
+          return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install'};
+          return {'deps-install': 'npm install && cd contract && npm install && cd ../frontend && npm install && cd ..'};
         }
       } else {
-        if (hasFrontend) {
-          return {'deps-install': 'npm install && cd integration-tests && npm install && cd ../frontend && npm install && cd ..'};
+        if (tests === 'js') {
+          return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install && cd integration-tests && npm install && cd ..'};
+          return {'deps-install': 'npm install && cd contract && npm install && cd ..'};
+        }
+      }
+    case 'rust':
+      if (hasFrontend) {
+        if (tests === 'js') {
+          return {'deps-install': 'npm install && cd frontend && npm install && cd ../integration-tests && npm install && cd ..'};
+        } else {
+          return {'deps-install': 'npm install && cd frontend && npm install && cd ..'};
+        }
+      } else {
+        if (tests === 'js') {
+          return {'deps-install': 'npm install && cd ./integration-tests && npm install && cd ..'};
+        } else {
+          return {'deps-install': 'npm install'};
         }
       }
   }

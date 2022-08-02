@@ -14,7 +14,7 @@ scaffold () {
   cd $root_dir
   dirname="${root_dir}/${1}_${2}_${3}"
   echo "scaffold: ${dirname}"
-  node "${app_dir}/index.js" "${1}_${2}_${3}" --contract $1 --frontend $2 --tests $3 --install
+  if ! node "${app_dir}/index.js" "${1}_${2}_${3}" --contract $1 --frontend $2 --tests $3 --install ; then exit 42; fi
 }
 
 test () {
@@ -38,55 +38,73 @@ deploy () {
   if ! npm run deploy ; then exit 42; fi
 }
 
-scaffold js react workspaces
-test "js_react_workspaces"
-buildweb "js_react_workspaces"
 
-scaffold js vanilla workspaces
-test "js_vanilla_workspaces"
-buildweb "js_vanilla_workspaces"
+## CONTRACT:JS SANDBOX:JS
 
-scaffold js none workspaces
-test "js_none_workspaces"
+scaffold js react js
+test "js_react_js"
 
-scaffold rust react workspaces
-test "rust_react_workspaces"
-buildweb "rust_react_workspaces"
+scaffold js vanilla js
+test "js_vanilla_js"
 
-scaffold rust vanilla workspaces
-test "rust_vanilla_workspaces"
-buildweb "rust_vanilla_workspaces"
+scaffold js none js
+test "js_none_js"
 
-scaffold rust none workspaces
-test "rust_none_workspaces"
 
-scaffold js react classic
-test "js_react_classic"
+## CONTRACT:RUST SANDBOX:JS
 
-scaffold js vanilla classic
-test "js_vanilla_classic"
+scaffold rust react js
+test "rust_react_js"
 
-scaffold js none classic
-test "js_none_classic"
+scaffold rust vanilla js
+test "rust_vanilla_js"
 
-scaffold rust react classic
-test "rust_react_classic"
+scaffold rust none js
+test "rust_none_js"
 
-scaffold rust vanilla classic
-test "rust_vanilla_classic"
 
-scaffold rust none classic
-test "rust_none_classic"
+## CONTRACT:ASSEMBLYSCRIPT SANDBOX:JS
 
-scaffold assemblyscript react classic
-test "assemblyscript_react_classic"
+scaffold assemblyscript react js
+test "assemblyscript_react_js"
 
-scaffold assemblyscript vanilla classic
-test "assemblyscript_vanilla_classic"
+scaffold assemblyscript vanilla js
+test "assemblyscript_vanilla_js"
 
-scaffold assemblyscript none classic
-test "assemblyscript_none_classic"
+scaffold assemblyscript none js
+test "assemblyscript_none_js"
 
-#deploy "js_none"
-#deploy "rust_none"
-#deploy "assemblyscript_none"
+
+### CONTRACT:JS SANDBOX:RUST
+
+scaffold js react rust
+test "js_react_rust"
+
+scaffold js vanilla rust
+test "js_vanilla_rust"
+
+scaffold js none rust
+test "js_none_rust"
+
+
+## CONTRACT:RUST SANDBOX:RUST
+
+scaffold rust react rust
+test "rust_react_rust"
+
+scaffold rust vanilla rust
+test "rust_vanilla_rust"
+
+scaffold rust none rust
+test "rust_none_rust"
+
+## CONTRACT:ASSEMBLYSCRIPT SANDBOX:RUST
+
+scaffold assemblyscript react rust
+test "assemblyscript_react_rust"
+
+scaffold assemblyscript vanilla rust
+test "assemblyscript_vanilla_rust"
+
+scaffold assemblyscript none rust
+test "assemblyscript_none_rust"

@@ -2,15 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
 import {createProject} from '../src/make';
-import {Contract, Frontend} from '../src/types';
+import {Contract, Frontend, TestingFramework} from '../src/types';
 
 describe('create', () => {
-  const contracts = ['js', 'rust', 'assemblyscript'];
+  const contracts = ['js', 'assemblyscript', 'rust'];
   const frontends = ['react', 'vanilla', 'none'];
-  const testMatrix = contracts.flatMap(c => frontends.flatMap(f => [[c, f, true], [c, f, false]]));
+  const tests = ['js', 'rust'];
+  // all combinations of the above
+  const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.map(t => ([c, f, t]))));
+
   const ts = Date.now();
-  test.each(testMatrix)('%o+%o sandbox:%o', async (contract: Contract, frontend: Frontend, supportsSandbox: boolean) => {
-    const projectName = `${contract}_${frontend}_${supportsSandbox ? 'sandbox' : 'no-sandbox'}`;
+  test.each(testMatrix)('%o %o %o', async (contract: Contract, frontend: Frontend, tests: TestingFramework) => {
+    const projectName = `${contract}_${frontend}_${tests}`;
     const rootDir = path.resolve(__dirname, '../templates/');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
@@ -18,7 +21,7 @@ describe('create', () => {
     await createProject({
       contract,
       frontend,
-      tests: supportsSandbox ? 'workspaces' : 'classic',
+      tests,
       projectName,
       verbose: false,
       rootDir,
@@ -27,7 +30,7 @@ describe('create', () => {
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
       dir.readFiles(projectPath,
-        {exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock']},
+        {exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store']},
         function (err, content, next) {
           if (err) {
             reject(err);
@@ -41,7 +44,7 @@ describe('create', () => {
           } else {
             files.forEach((f, n) => {
               const fileName: string = f.replace(projectPathPrefix, '');
-              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName} ${ supportsSandbox ? 'sandbox' : 'no-sandbox'}`);
+              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName}`);
             });
             resolve();
           }

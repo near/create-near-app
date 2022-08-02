@@ -60,7 +60,7 @@
     "typescript": "^4.7.4"
   },
   "repository": "https://github.com/near/create-near-app.git",
-  "author": "Near Inc",
+  "author": "Pagoda.co",
   "bugs": "https://github.com/near/create-near-app/issues",
   "license": "(MIT AND Apache-2.0)",
   "keywords": [

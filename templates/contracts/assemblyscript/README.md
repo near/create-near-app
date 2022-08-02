@@ -1,5 +1,5 @@
-NEAR blank project Smart Contract
-=================================
+Hello NEAR!
+===========
 
 A [smart contract] written in [AssemblyScript] for an app initialized with [create-near-app]
 
@@ -7,7 +7,7 @@ A [smart contract] written in [AssemblyScript] for an app initialized with [crea
 Quick Start
 ===========
 
-Before you compile this code, you will need to install [Node.js] ≥ 12
+Before you compile this code, you will need to install [Node.js] ≥ 16
 
 
 Exploring The Code

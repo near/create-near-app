@@ -9,6 +9,7 @@ jobs:
   tests:
     strategy:
       matrix:
+        # macos-latest platform doesn't work yet because: https://github.com/near/nearcore/issues/7235
         platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 30

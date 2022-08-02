@@ -1,31 +1,18 @@
 import {CreateProjectParams} from './types';
-import {show} from './messages';
+import * as show from './messages';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import {ncp} from 'ncp';
 import path from 'path';
-import {preMessage, postMessage} from './checks';
 import {buildPackageJson} from './package-json';
 
-// Method to create the project folder
 export async function createProject({contract, frontend, tests, projectPath, projectName, verbose, rootDir}: CreateProjectParams): Promise<boolean> {
-  // Make language specific checks
-  let preMessagePass = preMessage({contract, projectName, frontend, tests, projectPath, verbose, rootDir});
-  if(!preMessagePass){
-    return false;
-  }
-
-  show.creatingApp();
-
   // Create files in the project folder
   await createFiles({contract, frontend, projectName, tests, projectPath, verbose, rootDir});
 
   // Create package.json
   const packageJson = buildPackageJson({contract, frontend, tests, projectName});
   fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
-
-  // Run language-specific post check
-  postMessage({contract, frontend, projectName, tests, projectPath, verbose, rootDir});
 
   return true;
 }
@@ -51,25 +38,20 @@ export async function createFiles({contract, frontend, tests, projectPath, verbo
     skip: skip.map(f => path.join(contractSourceDir, f))
   });
 
-  // copy tests
-  let sourceTestDir = `${rootDir}/integration-tests`;
-  if (tests === 'workspaces') {
-    switch(contract) {
-      case 'js':
-      case 'assemblyscript':
-        sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/ts');
-        break;
-      case 'rust':
-        sourceTestDir = path.resolve(sourceTestDir, 'workspaces-tests/rs');
-        break;
-    }
-  } else {
-    sourceTestDir = path.resolve(sourceTestDir, 'classic-tests');
-  }
-  await copyDir(sourceTestDir, `${projectPath}/integration-tests/`, {
+  // copy tests - shared files
+  let sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/shared/${tests}-tests`);
+  await copyDir(sourceTestSharedDir, `${projectPath}/integration-tests/`, {
     verbose,
-    skip: skip.map(f => path.join(sourceTestDir, f))
+    skip: skip.map(f => path.join(sourceTestSharedDir, f))
   });
+  // copy tests - overrides files
+  let sourceTestOverridesDir = path.resolve(`${rootDir}/integration-tests/overrides/${contract}-contract/${tests}-tests`);
+  if (fs.existsSync(sourceTestOverridesDir)) {
+    await copyDir(sourceTestOverridesDir, `${projectPath}/integration-tests/`, {
+      verbose,
+      skip: skip.map(f => path.join(sourceTestOverridesDir, f))
+    });
+  }
 
   // add .gitignore
   await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);

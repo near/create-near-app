@@ -1,4 +1,4 @@
-NEAR blank project Smart Contract
+Hello NEAR!
 =================================
 
 A [smart contract] written in [Rust] for an app initialized with [create-near-app]
@@ -20,5 +20,5 @@ Exploring The Code
   [smart contract]: https://docs.near.org/develop/welcome
   [Rust]: https://www.rust-lang.org/
   [create-near-app]: https://github.com/near/create-near-app
-  [correct target]: https://github.com/near/near-sdk-rs#pre-requisites
+  [correct target]: https://docs.near.org/develop/prerequisites#rust-and-wasm
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html

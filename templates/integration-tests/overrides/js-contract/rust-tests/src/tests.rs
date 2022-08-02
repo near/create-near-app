@@ -14,13 +14,19 @@ async fn main() -> anyhow::Result<()> {
     let contract = worker.dev_deploy(&wasm).await?;
 
     // create accounts
-    let owner = worker.root_account();
-    let alice = owner
+    let account = worker.dev_create_account().await?;
+    let alice = account
         .create_subaccount(&worker, "alice")
         .initial_balance(parse_near!("30 N"))
         .transact()
         .await?
         .into_result()?;
+
+    // js contracts need to be initialized
+    contract
+        .call(&worker, "init")
+        .transact()
+        .await?;
 
     // begin tests
     test_default_message(&alice, &contract, &worker).await?;

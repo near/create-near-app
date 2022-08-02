@@ -17,7 +17,6 @@ test.beforeEach(async (t) => {
   await contract.deploy(
     process.argv[2],
   );
-  await contract.call(contract, 'init', {});
 
   // Save state for test runs, it is unique for each test
   t.context.worker = worker;
