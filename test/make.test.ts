@@ -43,7 +43,7 @@ describe('create', () => {
             reject(err);
           } else {
             files.forEach((f, n) => {
-              const fileName: string = f.replace(projectPathPrefix, '');
+              const fileName: string = f.replace(projectPathPrefix, '').replace(/\//g, '--').replace(/\\/g, '--');
               expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName}`);
             });
             resolve();

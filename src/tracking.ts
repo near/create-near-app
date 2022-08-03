@@ -11,7 +11,7 @@ export const trackingMessage = chalk`NEAR collects anonymous information on the 
 // TODO: track different failures & deps-install usage
 export const trackUsage = async (frontend: Frontend, contract: Contract) => {
   // prevents logging from CI
-  if (process.env.IS_GITHUB_ACTION) { 
+  if (process.env.NEAR_ENV === 'ci' || process.env.NODE_ENV === 'ci') {
     console.log('Mixpanel logging is skipped in CI env');
     return;
   }

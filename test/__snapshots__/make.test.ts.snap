@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--.gitignore 1`] = `
 Array [
-  "/assemblyscript_none_js/.gitignore",
+  "--assemblyscript_none_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -38,9 +38,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/.gitpod.yml 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--.gitpod.yml 1`] = `
 Array [
-  "/assemblyscript_none_js/.gitpod.yml",
+  "--assemblyscript_none_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -51,9 +51,9 @@ ports:
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/README.md 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--README.md 1`] = `
 Array [
-  "/assemblyscript_none_js/README.md",
+  "--assemblyscript_none_js--README.md",
   "near-blank-project
 ==================
 
@@ -158,18 +158,18 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--.gitignore 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/.gitignore",
+  "--assemblyscript_none_js--contract--.gitignore",
   "node_modules
 build
 ",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/README.md 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--README.md 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/README.md",
+  "--assemblyscript_none_js--contract--README.md",
   "Hello NEAR!
 ===========
 
@@ -200,16 +200,16 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/as-pect.config.js 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--as-pect.config.js 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/as-pect.config.js",
+  "--assemblyscript_none_js--contract--as-pect.config.js",
   "module.exports = require('near-sdk-as/imports');",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/asconfig.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--asconfig.json 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/asconfig.json",
+  "--assemblyscript_none_js--contract--asconfig.json",
   "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
@@ -217,16 +217,16 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--assembly--__tests__--as-pect.d.ts 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/assembly/__tests__/as-pect.d.ts",
+  "--assemblyscript_none_js--contract--assembly--__tests__--as-pect.d.ts",
   "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/assembly/__tests__/main.spec.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--assembly--__tests__--main.spec.ts 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/assembly/__tests__/main.spec.ts",
+  "--assemblyscript_none_js--contract--assembly--__tests__--main.spec.ts",
   "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
@@ -241,16 +241,16 @@ describe('Greeting ', () => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/assembly/as_types.d.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--assembly--as_types.d.ts 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/assembly/as_types.d.ts",
+  "--assemblyscript_none_js--contract--assembly--as_types.d.ts",
   "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/assembly/index.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--assembly--index.ts 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/assembly/index.ts",
+  "--assemblyscript_none_js--contract--assembly--index.ts",
   "/*
  * Example smart contract written in AssemblyScript
  *
@@ -277,9 +277,9 @@ export function set_greeting(message: string): void {
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/assembly/tsconfig.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--assembly--tsconfig.json 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/assembly/tsconfig.json",
+  "--assemblyscript_none_js--contract--assembly--tsconfig.json",
   "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
@@ -290,9 +290,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/contract/package.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--contract--package.json 1`] = `
 Array [
-  "/assemblyscript_none_js/contract/package.json",
+  "--assemblyscript_none_js--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -311,9 +311,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/assemblyscript_none_js/integration-tests/ava.config.cjs",
+  "--assemblyscript_none_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -327,9 +327,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/integration-tests/package.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--integration-tests--package.json 1`] = `
 Array [
-  "/assemblyscript_none_js/integration-tests/package.json",
+  "--assemblyscript_none_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -351,9 +351,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/assemblyscript_none_js/integration-tests/src/main.ava.ts",
+  "--assemblyscript_none_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -401,9 +401,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'js': /assemblyscript_none_js/package.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--package.json 1`] = `
 Array [
-  "/assemblyscript_none_js/package.json",
+  "--assemblyscript_none_js--package.json",
   "{
   \\"name\\": \\"assemblyscript_none_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -425,9 +425,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--.gitignore 1`] = `
 Array [
-  "/assemblyscript_none_rust/.gitignore",
+  "--assemblyscript_none_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -463,9 +463,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/.gitpod.yml 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--.gitpod.yml 1`] = `
 Array [
-  "/assemblyscript_none_rust/.gitpod.yml",
+  "--assemblyscript_none_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -476,9 +476,9 @@ ports:
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/README.md 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--README.md 1`] = `
 Array [
-  "/assemblyscript_none_rust/README.md",
+  "--assemblyscript_none_rust--README.md",
   "near-blank-project
 ==================
 
@@ -583,18 +583,18 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--.gitignore 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/.gitignore",
+  "--assemblyscript_none_rust--contract--.gitignore",
   "node_modules
 build
 ",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/README.md 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--README.md 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/README.md",
+  "--assemblyscript_none_rust--contract--README.md",
   "Hello NEAR!
 ===========
 
@@ -625,16 +625,16 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/as-pect.config.js 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--as-pect.config.js 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/as-pect.config.js",
+  "--assemblyscript_none_rust--contract--as-pect.config.js",
   "module.exports = require('near-sdk-as/imports');",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/asconfig.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--asconfig.json 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/asconfig.json",
+  "--assemblyscript_none_rust--contract--asconfig.json",
   "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
@@ -642,16 +642,16 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--assembly--__tests__--as-pect.d.ts 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/assembly/__tests__/as-pect.d.ts",
+  "--assemblyscript_none_rust--contract--assembly--__tests__--as-pect.d.ts",
   "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/assembly/__tests__/main.spec.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--assembly--__tests__--main.spec.ts 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/assembly/__tests__/main.spec.ts",
+  "--assemblyscript_none_rust--contract--assembly--__tests__--main.spec.ts",
   "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
@@ -666,16 +666,16 @@ describe('Greeting ', () => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/assembly/as_types.d.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--assembly--as_types.d.ts 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/assembly/as_types.d.ts",
+  "--assemblyscript_none_rust--contract--assembly--as_types.d.ts",
   "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/assembly/index.ts 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--assembly--index.ts 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/assembly/index.ts",
+  "--assemblyscript_none_rust--contract--assembly--index.ts",
   "/*
  * Example smart contract written in AssemblyScript
  *
@@ -702,9 +702,9 @@ export function set_greeting(message: string): void {
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/assembly/tsconfig.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--assembly--tsconfig.json 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/assembly/tsconfig.json",
+  "--assemblyscript_none_rust--contract--assembly--tsconfig.json",
   "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
@@ -715,9 +715,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/contract/package.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--contract--package.json 1`] = `
 Array [
-  "/assemblyscript_none_rust/contract/package.json",
+  "--assemblyscript_none_rust--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -736,9 +736,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/assemblyscript_none_rust/integration-tests/Cargo.toml",
+  "--assemblyscript_none_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -765,9 +765,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/assemblyscript_none_rust/integration-tests/src/tests.rs",
+  "--assemblyscript_none_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -839,9 +839,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'assemblyscript' 'none' 'rust': /assemblyscript_none_rust/package.json 1`] = `
+exports[`create 'assemblyscript' 'none' 'rust': --assemblyscript_none_rust--package.json 1`] = `
 Array [
-  "/assemblyscript_none_rust/package.json",
+  "--assemblyscript_none_rust--package.json",
   "{
   \\"name\\": \\"assemblyscript_none_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -863,9 +863,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--.gitignore 1`] = `
 Array [
-  "/assemblyscript_react_js/.gitignore",
+  "--assemblyscript_react_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -901,9 +901,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/.gitpod.yml 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--.gitpod.yml 1`] = `
 Array [
-  "/assemblyscript_react_js/.gitpod.yml",
+  "--assemblyscript_react_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -914,9 +914,9 @@ ports:
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/README.md 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--README.md 1`] = `
 Array [
-  "/assemblyscript_react_js/README.md",
+  "--assemblyscript_react_js--README.md",
   "near-blank-project
 ==================
 
@@ -1021,18 +1021,18 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--.gitignore 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/.gitignore",
+  "--assemblyscript_react_js--contract--.gitignore",
   "node_modules
 build
 ",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/README.md 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--README.md 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/README.md",
+  "--assemblyscript_react_js--contract--README.md",
   "Hello NEAR!
 ===========
 
@@ -1063,16 +1063,16 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/as-pect.config.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--as-pect.config.js 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/as-pect.config.js",
+  "--assemblyscript_react_js--contract--as-pect.config.js",
   "module.exports = require('near-sdk-as/imports');",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/asconfig.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--asconfig.json 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/asconfig.json",
+  "--assemblyscript_react_js--contract--asconfig.json",
   "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
@@ -1080,16 +1080,16 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--assembly--__tests__--as-pect.d.ts 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/assembly/__tests__/as-pect.d.ts",
+  "--assemblyscript_react_js--contract--assembly--__tests__--as-pect.d.ts",
   "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/assembly/__tests__/main.spec.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--assembly--__tests__--main.spec.ts 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/assembly/__tests__/main.spec.ts",
+  "--assemblyscript_react_js--contract--assembly--__tests__--main.spec.ts",
   "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
@@ -1104,16 +1104,16 @@ describe('Greeting ', () => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/assembly/as_types.d.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--assembly--as_types.d.ts 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/assembly/as_types.d.ts",
+  "--assemblyscript_react_js--contract--assembly--as_types.d.ts",
   "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/assembly/index.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--assembly--index.ts 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/assembly/index.ts",
+  "--assemblyscript_react_js--contract--assembly--index.ts",
   "/*
  * Example smart contract written in AssemblyScript
  *
@@ -1140,9 +1140,9 @@ export function set_greeting(message: string): void {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/assembly/tsconfig.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--assembly--tsconfig.json 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/assembly/tsconfig.json",
+  "--assemblyscript_react_js--contract--assembly--tsconfig.json",
   "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
@@ -1153,9 +1153,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/contract/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--contract--package.json 1`] = `
 Array [
-  "/assemblyscript_react_js/contract/package.json",
+  "--assemblyscript_react_js--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -1174,9 +1174,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/App.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--App.js 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/App.js",
+  "--assemblyscript_react_js--frontend--App.js",
   "import 'regenerator-runtime/runtime';
 import React from 'react';
 
@@ -1247,9 +1247,9 @@ export default function App() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/assets/favicon.ico 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/assets/favicon.ico",
+  "--assemblyscript_react_js--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -1293,9 +1293,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/assets/global.css 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--assets--global.css 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/assets/global.css",
+  "--assemblyscript_react_js--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -1473,23 +1473,23 @@ li {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/assets/logo-black.svg",
+  "--assemblyscript_react_js--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/assets/logo-white.svg",
+  "--assemblyscript_react_js--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/index.html 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--index.html 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/index.html",
+  "--assemblyscript_react_js--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -1509,9 +1509,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/index.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--index.js 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/index.js",
+  "--assemblyscript_react_js--frontend--index.js",
   "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -1531,9 +1531,9 @@ window.nearInitPromise = initContract()
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/near-api.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--near-api.js 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/near-api.js",
+  "--assemblyscript_react_js--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
@@ -1588,9 +1588,9 @@ export async function getGreetingFromContract() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/near-config.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--near-config.js 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/near-config.js",
+  "--assemblyscript_react_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 export function getConfig(env) {
@@ -1656,9 +1656,9 @@ export function getConfig(env) {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--package.json 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/package.json",
+  "--assemblyscript_react_js--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -1706,9 +1706,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/frontend/ui-components.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--ui-components.js 1`] = `
 Array [
-  "/assemblyscript_react_js/frontend/ui-components.js",
+  "--assemblyscript_react_js--frontend--ui-components.js",
   "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
@@ -1773,9 +1773,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/assemblyscript_react_js/integration-tests/ava.config.cjs",
+  "--assemblyscript_react_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -1789,9 +1789,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/integration-tests/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--integration-tests--package.json 1`] = `
 Array [
-  "/assemblyscript_react_js/integration-tests/package.json",
+  "--assemblyscript_react_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -1813,9 +1813,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/assemblyscript_react_js/integration-tests/src/main.ava.ts",
+  "--assemblyscript_react_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -1863,9 +1863,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'js': /assemblyscript_react_js/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--package.json 1`] = `
 Array [
-  "/assemblyscript_react_js/package.json",
+  "--assemblyscript_react_js--package.json",
   "{
   \\"name\\": \\"assemblyscript_react_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -1889,9 +1889,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--.gitignore 1`] = `
 Array [
-  "/assemblyscript_react_rust/.gitignore",
+  "--assemblyscript_react_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -1927,9 +1927,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/.gitpod.yml 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--.gitpod.yml 1`] = `
 Array [
-  "/assemblyscript_react_rust/.gitpod.yml",
+  "--assemblyscript_react_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -1940,9 +1940,9 @@ ports:
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/README.md 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--README.md 1`] = `
 Array [
-  "/assemblyscript_react_rust/README.md",
+  "--assemblyscript_react_rust--README.md",
   "near-blank-project
 ==================
 
@@ -2047,18 +2047,18 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--.gitignore 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/.gitignore",
+  "--assemblyscript_react_rust--contract--.gitignore",
   "node_modules
 build
 ",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/README.md 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--README.md 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/README.md",
+  "--assemblyscript_react_rust--contract--README.md",
   "Hello NEAR!
 ===========
 
@@ -2089,16 +2089,16 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/as-pect.config.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--as-pect.config.js 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/as-pect.config.js",
+  "--assemblyscript_react_rust--contract--as-pect.config.js",
   "module.exports = require('near-sdk-as/imports');",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/asconfig.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--asconfig.json 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/asconfig.json",
+  "--assemblyscript_react_rust--contract--asconfig.json",
   "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
@@ -2106,16 +2106,16 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--assembly--__tests__--as-pect.d.ts 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/assembly/__tests__/as-pect.d.ts",
+  "--assemblyscript_react_rust--contract--assembly--__tests__--as-pect.d.ts",
   "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/assembly/__tests__/main.spec.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--assembly--__tests__--main.spec.ts 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/assembly/__tests__/main.spec.ts",
+  "--assemblyscript_react_rust--contract--assembly--__tests__--main.spec.ts",
   "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
@@ -2130,16 +2130,16 @@ describe('Greeting ', () => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/assembly/as_types.d.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--assembly--as_types.d.ts 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/assembly/as_types.d.ts",
+  "--assemblyscript_react_rust--contract--assembly--as_types.d.ts",
   "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/assembly/index.ts 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--assembly--index.ts 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/assembly/index.ts",
+  "--assemblyscript_react_rust--contract--assembly--index.ts",
   "/*
  * Example smart contract written in AssemblyScript
  *
@@ -2166,9 +2166,9 @@ export function set_greeting(message: string): void {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/assembly/tsconfig.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--assembly--tsconfig.json 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/assembly/tsconfig.json",
+  "--assemblyscript_react_rust--contract--assembly--tsconfig.json",
   "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
@@ -2179,9 +2179,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/contract/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--contract--package.json 1`] = `
 Array [
-  "/assemblyscript_react_rust/contract/package.json",
+  "--assemblyscript_react_rust--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -2200,9 +2200,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/App.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--App.js 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/App.js",
+  "--assemblyscript_react_rust--frontend--App.js",
   "import 'regenerator-runtime/runtime';
 import React from 'react';
 
@@ -2273,9 +2273,9 @@ export default function App() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/assets/favicon.ico 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/assets/favicon.ico",
+  "--assemblyscript_react_rust--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -2319,9 +2319,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/assets/global.css 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--assets--global.css 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/assets/global.css",
+  "--assemblyscript_react_rust--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -2499,23 +2499,23 @@ li {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/assets/logo-black.svg",
+  "--assemblyscript_react_rust--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/assets/logo-white.svg",
+  "--assemblyscript_react_rust--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/index.html 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--index.html 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/index.html",
+  "--assemblyscript_react_rust--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -2535,9 +2535,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/index.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--index.js 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/index.js",
+  "--assemblyscript_react_rust--frontend--index.js",
   "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -2557,9 +2557,9 @@ window.nearInitPromise = initContract()
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/near-api.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--near-api.js 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/near-api.js",
+  "--assemblyscript_react_rust--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
@@ -2614,9 +2614,9 @@ export async function getGreetingFromContract() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/near-config.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--near-config.js 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/near-config.js",
+  "--assemblyscript_react_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 export function getConfig(env) {
@@ -2682,9 +2682,9 @@ export function getConfig(env) {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--package.json 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/package.json",
+  "--assemblyscript_react_rust--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -2732,9 +2732,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/frontend/ui-components.js 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--ui-components.js 1`] = `
 Array [
-  "/assemblyscript_react_rust/frontend/ui-components.js",
+  "--assemblyscript_react_rust--frontend--ui-components.js",
   "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
@@ -2799,9 +2799,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/assemblyscript_react_rust/integration-tests/Cargo.toml",
+  "--assemblyscript_react_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -2828,9 +2828,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/assemblyscript_react_rust/integration-tests/src/tests.rs",
+  "--assemblyscript_react_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -2902,9 +2902,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'assemblyscript' 'react' 'rust': /assemblyscript_react_rust/package.json 1`] = `
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--package.json 1`] = `
 Array [
-  "/assemblyscript_react_rust/package.json",
+  "--assemblyscript_react_rust--package.json",
   "{
   \\"name\\": \\"assemblyscript_react_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -2928,9 +2928,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--.gitignore 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/.gitignore",
+  "--assemblyscript_vanilla_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -2966,9 +2966,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/.gitpod.yml 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--.gitpod.yml 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/.gitpod.yml",
+  "--assemblyscript_vanilla_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -2979,9 +2979,9 @@ ports:
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/README.md 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--README.md 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/README.md",
+  "--assemblyscript_vanilla_js--README.md",
   "near-blank-project
 ==================
 
@@ -3086,18 +3086,18 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--.gitignore 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/.gitignore",
+  "--assemblyscript_vanilla_js--contract--.gitignore",
   "node_modules
 build
 ",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/README.md 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--README.md 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/README.md",
+  "--assemblyscript_vanilla_js--contract--README.md",
   "Hello NEAR!
 ===========
 
@@ -3128,16 +3128,16 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/as-pect.config.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--as-pect.config.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/as-pect.config.js",
+  "--assemblyscript_vanilla_js--contract--as-pect.config.js",
   "module.exports = require('near-sdk-as/imports');",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/asconfig.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--asconfig.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/asconfig.json",
+  "--assemblyscript_vanilla_js--contract--asconfig.json",
   "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
@@ -3145,16 +3145,16 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--assembly--__tests__--as-pect.d.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/assembly/__tests__/as-pect.d.ts",
+  "--assemblyscript_vanilla_js--contract--assembly--__tests__--as-pect.d.ts",
   "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/assembly/__tests__/main.spec.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--assembly--__tests__--main.spec.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/assembly/__tests__/main.spec.ts",
+  "--assemblyscript_vanilla_js--contract--assembly--__tests__--main.spec.ts",
   "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
@@ -3169,16 +3169,16 @@ describe('Greeting ', () => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/assembly/as_types.d.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--assembly--as_types.d.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/assembly/as_types.d.ts",
+  "--assemblyscript_vanilla_js--contract--assembly--as_types.d.ts",
   "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/assembly/index.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--assembly--index.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/assembly/index.ts",
+  "--assemblyscript_vanilla_js--contract--assembly--index.ts",
   "/*
  * Example smart contract written in AssemblyScript
  *
@@ -3205,9 +3205,9 @@ export function set_greeting(message: string): void {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/assembly/tsconfig.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--assembly--tsconfig.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/assembly/tsconfig.json",
+  "--assemblyscript_vanilla_js--contract--assembly--tsconfig.json",
   "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
@@ -3218,9 +3218,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/contract/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--contract--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/contract/package.json",
+  "--assemblyscript_vanilla_js--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -3239,9 +3239,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/assets/favicon.ico 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/assets/favicon.ico",
+  "--assemblyscript_vanilla_js--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -3285,9 +3285,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/assets/global.css 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--assets--global.css 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/assets/global.css",
+  "--assemblyscript_vanilla_js--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -3465,23 +3465,23 @@ li {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/assets/logo-black.svg",
+  "--assemblyscript_vanilla_js--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/assets/logo-white.svg",
+  "--assemblyscript_vanilla_js--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/index.html 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--index.html 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/index.html",
+  "--assemblyscript_vanilla_js--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -3572,9 +3572,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/index.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--index.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/index.js",
+  "--assemblyscript_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import {
   initContract,
@@ -3657,9 +3657,9 @@ function signedInFlow() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/near-api.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--near-api.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/near-api.js",
+  "--assemblyscript_vanilla_js--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
@@ -3714,9 +3714,9 @@ export async function getGreetingFromContract(){
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/near-config.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--near-config.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/near-config.js",
+  "--assemblyscript_vanilla_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 function getConfig(env) {
@@ -3783,9 +3783,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/frontend/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/frontend/package.json",
+  "--assemblyscript_vanilla_js--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -3807,9 +3807,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/integration-tests/ava.config.cjs",
+  "--assemblyscript_vanilla_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -3823,9 +3823,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/integration-tests/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--integration-tests--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/integration-tests/package.json",
+  "--assemblyscript_vanilla_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -3847,9 +3847,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/integration-tests/src/main.ava.ts",
+  "--assemblyscript_vanilla_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -3897,9 +3897,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'js': /assemblyscript_vanilla_js/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_js/package.json",
+  "--assemblyscript_vanilla_js--package.json",
   "{
   \\"name\\": \\"assemblyscript_vanilla_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -3923,9 +3923,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--.gitignore 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/.gitignore",
+  "--assemblyscript_vanilla_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -3961,9 +3961,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/.gitpod.yml 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--.gitpod.yml 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/.gitpod.yml",
+  "--assemblyscript_vanilla_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -3974,9 +3974,9 @@ ports:
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/README.md 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--README.md 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/README.md",
+  "--assemblyscript_vanilla_rust--README.md",
   "near-blank-project
 ==================
 
@@ -4081,18 +4081,18 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/.gitignore 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--.gitignore 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/.gitignore",
+  "--assemblyscript_vanilla_rust--contract--.gitignore",
   "node_modules
 build
 ",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/README.md 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--README.md 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/README.md",
+  "--assemblyscript_vanilla_rust--contract--README.md",
   "Hello NEAR!
 ===========
 
@@ -4123,16 +4123,16 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/as-pect.config.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--as-pect.config.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/as-pect.config.js",
+  "--assemblyscript_vanilla_rust--contract--as-pect.config.js",
   "module.exports = require('near-sdk-as/imports');",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/asconfig.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--asconfig.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/asconfig.json",
+  "--assemblyscript_vanilla_rust--contract--asconfig.json",
   "{
   \\"extends\\": \\"near-sdk-as/asconfig.json\\"
 }
@@ -4140,16 +4140,16 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/assembly/__tests__/as-pect.d.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--assembly--__tests__--as-pect.d.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/assembly/__tests__/as-pect.d.ts",
+  "--assemblyscript_vanilla_rust--contract--assembly--__tests__--as-pect.d.ts",
   "/// <reference types=\\"@as-pect/assembly/types/as-pect\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/assembly/__tests__/main.spec.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--assembly--__tests__--main.spec.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/assembly/__tests__/main.spec.ts",
+  "--assemblyscript_vanilla_rust--contract--assembly--__tests__--main.spec.ts",
   "import { set_greeting, get_greeting } from '..';
 
 describe('Greeting ', () => {
@@ -4164,16 +4164,16 @@ describe('Greeting ', () => {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/assembly/as_types.d.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--assembly--as_types.d.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/assembly/as_types.d.ts",
+  "--assemblyscript_vanilla_rust--contract--assembly--as_types.d.ts",
   "/// <reference types=\\"near-sdk-as/assembly/as_types\\" />",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/assembly/index.ts 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--assembly--index.ts 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/assembly/index.ts",
+  "--assemblyscript_vanilla_rust--contract--assembly--index.ts",
   "/*
  * Example smart contract written in AssemblyScript
  *
@@ -4200,9 +4200,9 @@ export function set_greeting(message: string): void {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/assembly/tsconfig.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--assembly--tsconfig.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/assembly/tsconfig.json",
+  "--assemblyscript_vanilla_rust--contract--assembly--tsconfig.json",
   "{
   \\"extends\\": \\"assemblyscript/std/assembly.json\\",
   \\"include\\": [
@@ -4213,9 +4213,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/contract/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--contract--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/contract/package.json",
+  "--assemblyscript_vanilla_rust--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -4234,9 +4234,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/assets/favicon.ico 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/assets/favicon.ico",
+  "--assemblyscript_vanilla_rust--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -4280,9 +4280,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/assets/global.css 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--assets--global.css 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/assets/global.css",
+  "--assemblyscript_vanilla_rust--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -4460,23 +4460,23 @@ li {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/assets/logo-black.svg",
+  "--assemblyscript_vanilla_rust--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/assets/logo-white.svg",
+  "--assemblyscript_vanilla_rust--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/index.html 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--index.html 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/index.html",
+  "--assemblyscript_vanilla_rust--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -4567,9 +4567,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/index.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--index.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/index.js",
+  "--assemblyscript_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import {
   initContract,
@@ -4652,9 +4652,9 @@ function signedInFlow() {
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/near-api.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--near-api.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/near-api.js",
+  "--assemblyscript_vanilla_rust--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
@@ -4709,9 +4709,9 @@ export async function getGreetingFromContract(){
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/near-config.js 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--near-config.js 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/near-config.js",
+  "--assemblyscript_vanilla_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 function getConfig(env) {
@@ -4778,9 +4778,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/frontend/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/frontend/package.json",
+  "--assemblyscript_vanilla_rust--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -4802,9 +4802,9 @@ Array [
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/integration-tests/Cargo.toml",
+  "--assemblyscript_vanilla_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -4831,9 +4831,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/integration-tests/src/tests.rs",
+  "--assemblyscript_vanilla_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -4905,9 +4905,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'assemblyscript' 'vanilla' 'rust': /assemblyscript_vanilla_rust/package.json 1`] = `
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--package.json 1`] = `
 Array [
-  "/assemblyscript_vanilla_rust/package.json",
+  "--assemblyscript_vanilla_rust--package.json",
   "{
   \\"name\\": \\"assemblyscript_vanilla_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -4931,9 +4931,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/.gitignore 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--.gitignore 1`] = `
 Array [
-  "/js_none_js/.gitignore",
+  "--js_none_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -4969,9 +4969,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/.gitpod.yml 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--.gitpod.yml 1`] = `
 Array [
-  "/js_none_js/.gitpod.yml",
+  "--js_none_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -4982,9 +4982,9 @@ ports:
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/README.md 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--README.md 1`] = `
 Array [
-  "/js_none_js/README.md",
+  "--js_none_js--README.md",
   "near-blank-project
 ==================
 
@@ -5089,9 +5089,9 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/contract/.gitignore 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--contract--.gitignore 1`] = `
 Array [
-  "/js_none_js/contract/.gitignore",
+  "--js_none_js--contract--.gitignore",
   "node_modules
 build
 neardev
@@ -5099,9 +5099,9 @@ neardev
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/contract/README.md 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--contract--README.md 1`] = `
 Array [
-  "/js_none_js/contract/README.md",
+  "--js_none_js--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -5129,9 +5129,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/contract/babel.config.json 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--contract--babel.config.json 1`] = `
 Array [
-  "/js_none_js/contract/babel.config.json",
+  "--js_none_js--contract--babel.config.json",
   "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
@@ -5142,9 +5142,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/contract/package.json 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--contract--package.json 1`] = `
 Array [
-  "/js_none_js/contract/package.json",
+  "--js_none_js--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -5167,9 +5167,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/contract/src/contract.ts 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--contract--src--contract.ts 1`] = `
 Array [
-  "/js_none_js/contract/src/contract.ts",
+  "--js_none_js--contract--src--contract.ts",
   "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
@@ -5205,9 +5205,9 @@ class MyContract extends NearContract {
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/contract/tsconfig.json 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--contract--tsconfig.json 1`] = `
 Array [
-  "/js_none_js/contract/tsconfig.json",
+  "--js_none_js--contract--tsconfig.json",
   "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
@@ -5221,9 +5221,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/js_none_js/integration-tests/ava.config.cjs",
+  "--js_none_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -5237,9 +5237,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/integration-tests/package.json 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--integration-tests--package.json 1`] = `
 Array [
-  "/js_none_js/integration-tests/package.json",
+  "--js_none_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -5261,9 +5261,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/js_none_js/integration-tests/src/main.ava.ts",
+  "--js_none_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -5313,9 +5313,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js' 'none' 'js': /js_none_js/package.json 1`] = `
+exports[`create 'js' 'none' 'js': --js_none_js--package.json 1`] = `
 Array [
-  "/js_none_js/package.json",
+  "--js_none_js--package.json",
   "{
   \\"name\\": \\"js_none_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -5337,9 +5337,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/.gitignore 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--.gitignore 1`] = `
 Array [
-  "/js_none_rust/.gitignore",
+  "--js_none_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -5375,9 +5375,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/.gitpod.yml 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--.gitpod.yml 1`] = `
 Array [
-  "/js_none_rust/.gitpod.yml",
+  "--js_none_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -5388,9 +5388,9 @@ ports:
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/README.md 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--README.md 1`] = `
 Array [
-  "/js_none_rust/README.md",
+  "--js_none_rust--README.md",
   "near-blank-project
 ==================
 
@@ -5495,9 +5495,9 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/contract/.gitignore 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--.gitignore 1`] = `
 Array [
-  "/js_none_rust/contract/.gitignore",
+  "--js_none_rust--contract--.gitignore",
   "node_modules
 build
 neardev
@@ -5505,9 +5505,9 @@ neardev
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/contract/README.md 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--README.md 1`] = `
 Array [
-  "/js_none_rust/contract/README.md",
+  "--js_none_rust--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -5535,9 +5535,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/contract/babel.config.json 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--babel.config.json 1`] = `
 Array [
-  "/js_none_rust/contract/babel.config.json",
+  "--js_none_rust--contract--babel.config.json",
   "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
@@ -5548,9 +5548,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/contract/package.json 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--package.json 1`] = `
 Array [
-  "/js_none_rust/contract/package.json",
+  "--js_none_rust--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -5573,9 +5573,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/contract/src/contract.ts 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--src--contract.ts 1`] = `
 Array [
-  "/js_none_rust/contract/src/contract.ts",
+  "--js_none_rust--contract--src--contract.ts",
   "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
@@ -5611,9 +5611,9 @@ class MyContract extends NearContract {
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/contract/tsconfig.json 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--tsconfig.json 1`] = `
 Array [
-  "/js_none_rust/contract/tsconfig.json",
+  "--js_none_rust--contract--tsconfig.json",
   "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
@@ -5627,9 +5627,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/js_none_rust/integration-tests/Cargo.toml",
+  "--js_none_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -5656,9 +5656,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/js_none_rust/integration-tests/src/tests.rs",
+  "--js_none_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -5736,9 +5736,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': /js_none_rust/package.json 1`] = `
+exports[`create 'js' 'none' 'rust': --js_none_rust--package.json 1`] = `
 Array [
-  "/js_none_rust/package.json",
+  "--js_none_rust--package.json",
   "{
   \\"name\\": \\"js_none_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -5760,9 +5760,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/.gitignore 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--.gitignore 1`] = `
 Array [
-  "/js_react_js/.gitignore",
+  "--js_react_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -5798,9 +5798,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/.gitpod.yml 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--.gitpod.yml 1`] = `
 Array [
-  "/js_react_js/.gitpod.yml",
+  "--js_react_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -5811,9 +5811,9 @@ ports:
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/README.md 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--README.md 1`] = `
 Array [
-  "/js_react_js/README.md",
+  "--js_react_js--README.md",
   "near-blank-project
 ==================
 
@@ -5918,9 +5918,9 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/contract/.gitignore 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--contract--.gitignore 1`] = `
 Array [
-  "/js_react_js/contract/.gitignore",
+  "--js_react_js--contract--.gitignore",
   "node_modules
 build
 neardev
@@ -5928,9 +5928,9 @@ neardev
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/contract/README.md 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--contract--README.md 1`] = `
 Array [
-  "/js_react_js/contract/README.md",
+  "--js_react_js--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -5958,9 +5958,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/contract/babel.config.json 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--contract--babel.config.json 1`] = `
 Array [
-  "/js_react_js/contract/babel.config.json",
+  "--js_react_js--contract--babel.config.json",
   "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
@@ -5971,9 +5971,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/contract/package.json 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--contract--package.json 1`] = `
 Array [
-  "/js_react_js/contract/package.json",
+  "--js_react_js--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -5996,9 +5996,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/contract/src/contract.ts 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--contract--src--contract.ts 1`] = `
 Array [
-  "/js_react_js/contract/src/contract.ts",
+  "--js_react_js--contract--src--contract.ts",
   "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
@@ -6034,9 +6034,9 @@ class MyContract extends NearContract {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/contract/tsconfig.json 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--contract--tsconfig.json 1`] = `
 Array [
-  "/js_react_js/contract/tsconfig.json",
+  "--js_react_js--contract--tsconfig.json",
   "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
@@ -6050,9 +6050,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/App.js 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--App.js 1`] = `
 Array [
-  "/js_react_js/frontend/App.js",
+  "--js_react_js--frontend--App.js",
   "import 'regenerator-runtime/runtime';
 import React from 'react';
 
@@ -6123,9 +6123,9 @@ export default function App() {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/assets/favicon.ico 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/js_react_js/frontend/assets/favicon.ico",
+  "--js_react_js--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -6169,9 +6169,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/assets/global.css 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--assets--global.css 1`] = `
 Array [
-  "/js_react_js/frontend/assets/global.css",
+  "--js_react_js--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -6349,23 +6349,23 @@ li {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/js_react_js/frontend/assets/logo-black.svg",
+  "--js_react_js--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/js_react_js/frontend/assets/logo-white.svg",
+  "--js_react_js--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/index.html 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--index.html 1`] = `
 Array [
-  "/js_react_js/frontend/index.html",
+  "--js_react_js--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -6385,9 +6385,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/index.js 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--index.js 1`] = `
 Array [
-  "/js_react_js/frontend/index.js",
+  "--js_react_js--frontend--index.js",
   "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -6407,9 +6407,9 @@ window.nearInitPromise = initContract()
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/near-api.js 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--near-api.js 1`] = `
 Array [
-  "/js_react_js/frontend/near-api.js",
+  "--js_react_js--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
@@ -6464,9 +6464,9 @@ export async function getGreetingFromContract() {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/near-config.js 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--near-config.js 1`] = `
 Array [
-  "/js_react_js/frontend/near-config.js",
+  "--js_react_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 export function getConfig(env) {
@@ -6532,9 +6532,9 @@ export function getConfig(env) {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/package.json 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--package.json 1`] = `
 Array [
-  "/js_react_js/frontend/package.json",
+  "--js_react_js--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -6582,9 +6582,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/frontend/ui-components.js 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--ui-components.js 1`] = `
 Array [
-  "/js_react_js/frontend/ui-components.js",
+  "--js_react_js--frontend--ui-components.js",
   "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
@@ -6649,9 +6649,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/js_react_js/integration-tests/ava.config.cjs",
+  "--js_react_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -6665,9 +6665,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/integration-tests/package.json 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--integration-tests--package.json 1`] = `
 Array [
-  "/js_react_js/integration-tests/package.json",
+  "--js_react_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -6689,9 +6689,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/js_react_js/integration-tests/src/main.ava.ts",
+  "--js_react_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -6741,9 +6741,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js' 'react' 'js': /js_react_js/package.json 1`] = `
+exports[`create 'js' 'react' 'js': --js_react_js--package.json 1`] = `
 Array [
-  "/js_react_js/package.json",
+  "--js_react_js--package.json",
   "{
   \\"name\\": \\"js_react_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -6767,9 +6767,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/.gitignore 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--.gitignore 1`] = `
 Array [
-  "/js_react_rust/.gitignore",
+  "--js_react_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -6805,9 +6805,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/.gitpod.yml 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--.gitpod.yml 1`] = `
 Array [
-  "/js_react_rust/.gitpod.yml",
+  "--js_react_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -6818,9 +6818,9 @@ ports:
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/README.md 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--README.md 1`] = `
 Array [
-  "/js_react_rust/README.md",
+  "--js_react_rust--README.md",
   "near-blank-project
 ==================
 
@@ -6925,9 +6925,9 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/contract/.gitignore 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--.gitignore 1`] = `
 Array [
-  "/js_react_rust/contract/.gitignore",
+  "--js_react_rust--contract--.gitignore",
   "node_modules
 build
 neardev
@@ -6935,9 +6935,9 @@ neardev
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/contract/README.md 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--README.md 1`] = `
 Array [
-  "/js_react_rust/contract/README.md",
+  "--js_react_rust--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -6965,9 +6965,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/contract/babel.config.json 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--babel.config.json 1`] = `
 Array [
-  "/js_react_rust/contract/babel.config.json",
+  "--js_react_rust--contract--babel.config.json",
   "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
@@ -6978,9 +6978,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/contract/package.json 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--package.json 1`] = `
 Array [
-  "/js_react_rust/contract/package.json",
+  "--js_react_rust--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -7003,9 +7003,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/contract/src/contract.ts 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--src--contract.ts 1`] = `
 Array [
-  "/js_react_rust/contract/src/contract.ts",
+  "--js_react_rust--contract--src--contract.ts",
   "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
@@ -7041,9 +7041,9 @@ class MyContract extends NearContract {
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/contract/tsconfig.json 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--tsconfig.json 1`] = `
 Array [
-  "/js_react_rust/contract/tsconfig.json",
+  "--js_react_rust--contract--tsconfig.json",
   "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
@@ -7057,9 +7057,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/App.js 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--App.js 1`] = `
 Array [
-  "/js_react_rust/frontend/App.js",
+  "--js_react_rust--frontend--App.js",
   "import 'regenerator-runtime/runtime';
 import React from 'react';
 
@@ -7130,9 +7130,9 @@ export default function App() {
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/assets/favicon.ico 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/js_react_rust/frontend/assets/favicon.ico",
+  "--js_react_rust--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -7176,9 +7176,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/assets/global.css 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--assets--global.css 1`] = `
 Array [
-  "/js_react_rust/frontend/assets/global.css",
+  "--js_react_rust--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -7356,23 +7356,23 @@ li {
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/js_react_rust/frontend/assets/logo-black.svg",
+  "--js_react_rust--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/js_react_rust/frontend/assets/logo-white.svg",
+  "--js_react_rust--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/index.html 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--index.html 1`] = `
 Array [
-  "/js_react_rust/frontend/index.html",
+  "--js_react_rust--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -7392,9 +7392,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/index.js 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--index.js 1`] = `
 Array [
-  "/js_react_rust/frontend/index.js",
+  "--js_react_rust--frontend--index.js",
   "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -7414,9 +7414,9 @@ window.nearInitPromise = initContract()
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/near-api.js 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--near-api.js 1`] = `
 Array [
-  "/js_react_rust/frontend/near-api.js",
+  "--js_react_rust--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
@@ -7471,9 +7471,9 @@ export async function getGreetingFromContract() {
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/near-config.js 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--near-config.js 1`] = `
 Array [
-  "/js_react_rust/frontend/near-config.js",
+  "--js_react_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 export function getConfig(env) {
@@ -7539,9 +7539,9 @@ export function getConfig(env) {
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/package.json 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--package.json 1`] = `
 Array [
-  "/js_react_rust/frontend/package.json",
+  "--js_react_rust--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -7589,9 +7589,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/frontend/ui-components.js 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--ui-components.js 1`] = `
 Array [
-  "/js_react_rust/frontend/ui-components.js",
+  "--js_react_rust--frontend--ui-components.js",
   "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
@@ -7656,9 +7656,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/js_react_rust/integration-tests/Cargo.toml",
+  "--js_react_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -7685,9 +7685,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/js_react_rust/integration-tests/src/tests.rs",
+  "--js_react_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -7765,9 +7765,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': /js_react_rust/package.json 1`] = `
+exports[`create 'js' 'react' 'rust': --js_react_rust--package.json 1`] = `
 Array [
-  "/js_react_rust/package.json",
+  "--js_react_rust--package.json",
   "{
   \\"name\\": \\"js_react_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -7791,9 +7791,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/.gitignore 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--.gitignore 1`] = `
 Array [
-  "/js_vanilla_js/.gitignore",
+  "--js_vanilla_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -7829,9 +7829,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/.gitpod.yml 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--.gitpod.yml 1`] = `
 Array [
-  "/js_vanilla_js/.gitpod.yml",
+  "--js_vanilla_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -7842,9 +7842,9 @@ ports:
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/README.md 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--README.md 1`] = `
 Array [
-  "/js_vanilla_js/README.md",
+  "--js_vanilla_js--README.md",
   "near-blank-project
 ==================
 
@@ -7949,9 +7949,9 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/contract/.gitignore 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--.gitignore 1`] = `
 Array [
-  "/js_vanilla_js/contract/.gitignore",
+  "--js_vanilla_js--contract--.gitignore",
   "node_modules
 build
 neardev
@@ -7959,9 +7959,9 @@ neardev
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/contract/README.md 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--README.md 1`] = `
 Array [
-  "/js_vanilla_js/contract/README.md",
+  "--js_vanilla_js--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -7989,9 +7989,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/contract/babel.config.json 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--babel.config.json 1`] = `
 Array [
-  "/js_vanilla_js/contract/babel.config.json",
+  "--js_vanilla_js--contract--babel.config.json",
   "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
@@ -8002,9 +8002,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/contract/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--package.json 1`] = `
 Array [
-  "/js_vanilla_js/contract/package.json",
+  "--js_vanilla_js--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -8027,9 +8027,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/contract/src/contract.ts 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--src--contract.ts 1`] = `
 Array [
-  "/js_vanilla_js/contract/src/contract.ts",
+  "--js_vanilla_js--contract--src--contract.ts",
   "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
@@ -8065,9 +8065,9 @@ class MyContract extends NearContract {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/contract/tsconfig.json 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--tsconfig.json 1`] = `
 Array [
-  "/js_vanilla_js/contract/tsconfig.json",
+  "--js_vanilla_js--contract--tsconfig.json",
   "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
@@ -8081,9 +8081,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/assets/favicon.ico 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/js_vanilla_js/frontend/assets/favicon.ico",
+  "--js_vanilla_js--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -8127,9 +8127,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/assets/global.css 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--assets--global.css 1`] = `
 Array [
-  "/js_vanilla_js/frontend/assets/global.css",
+  "--js_vanilla_js--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -8307,23 +8307,23 @@ li {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/js_vanilla_js/frontend/assets/logo-black.svg",
+  "--js_vanilla_js--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/js_vanilla_js/frontend/assets/logo-white.svg",
+  "--js_vanilla_js--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/index.html 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--index.html 1`] = `
 Array [
-  "/js_vanilla_js/frontend/index.html",
+  "--js_vanilla_js--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -8414,9 +8414,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/index.js 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--index.js 1`] = `
 Array [
-  "/js_vanilla_js/frontend/index.js",
+  "--js_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import {
   initContract,
@@ -8499,9 +8499,9 @@ function signedInFlow() {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/near-api.js 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--near-api.js 1`] = `
 Array [
-  "/js_vanilla_js/frontend/near-api.js",
+  "--js_vanilla_js--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
@@ -8556,9 +8556,9 @@ export async function getGreetingFromContract(){
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/near-config.js 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--near-config.js 1`] = `
 Array [
-  "/js_vanilla_js/frontend/near-config.js",
+  "--js_vanilla_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 function getConfig(env) {
@@ -8625,9 +8625,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/frontend/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--package.json 1`] = `
 Array [
-  "/js_vanilla_js/frontend/package.json",
+  "--js_vanilla_js--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -8649,9 +8649,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/js_vanilla_js/integration-tests/ava.config.cjs",
+  "--js_vanilla_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -8665,9 +8665,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/integration-tests/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--integration-tests--package.json 1`] = `
 Array [
-  "/js_vanilla_js/integration-tests/package.json",
+  "--js_vanilla_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -8689,9 +8689,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/js_vanilla_js/integration-tests/src/main.ava.ts",
+  "--js_vanilla_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -8741,9 +8741,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': /js_vanilla_js/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--package.json 1`] = `
 Array [
-  "/js_vanilla_js/package.json",
+  "--js_vanilla_js--package.json",
   "{
   \\"name\\": \\"js_vanilla_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -8767,9 +8767,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/.gitignore 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--.gitignore 1`] = `
 Array [
-  "/js_vanilla_rust/.gitignore",
+  "--js_vanilla_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -8805,9 +8805,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/.gitpod.yml 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--.gitpod.yml 1`] = `
 Array [
-  "/js_vanilla_rust/.gitpod.yml",
+  "--js_vanilla_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -8818,9 +8818,9 @@ ports:
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/README.md 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--README.md 1`] = `
 Array [
-  "/js_vanilla_rust/README.md",
+  "--js_vanilla_rust--README.md",
   "near-blank-project
 ==================
 
@@ -8925,9 +8925,9 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/contract/.gitignore 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--.gitignore 1`] = `
 Array [
-  "/js_vanilla_rust/contract/.gitignore",
+  "--js_vanilla_rust--contract--.gitignore",
   "node_modules
 build
 neardev
@@ -8935,9 +8935,9 @@ neardev
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/contract/README.md 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--README.md 1`] = `
 Array [
-  "/js_vanilla_rust/contract/README.md",
+  "--js_vanilla_rust--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -8965,9 +8965,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/contract/babel.config.json 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--babel.config.json 1`] = `
 Array [
-  "/js_vanilla_rust/contract/babel.config.json",
+  "--js_vanilla_rust--contract--babel.config.json",
   "{
   \\"plugins\\": [
     \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
@@ -8978,9 +8978,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/contract/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--package.json 1`] = `
 Array [
-  "/js_vanilla_rust/contract/package.json",
+  "--js_vanilla_rust--contract--package.json",
   "{
   \\"name\\": \\"hello_near\\",
   \\"version\\": \\"1.0.0\\",
@@ -9003,9 +9003,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/contract/src/contract.ts 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--src--contract.ts 1`] = `
 Array [
-  "/js_vanilla_rust/contract/src/contract.ts",
+  "--js_vanilla_rust--contract--src--contract.ts",
   "import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
 // The @NearBindgen decorator allows this code to compile to Base64.
@@ -9041,9 +9041,9 @@ class MyContract extends NearContract {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/contract/tsconfig.json 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--tsconfig.json 1`] = `
 Array [
-  "/js_vanilla_rust/contract/tsconfig.json",
+  "--js_vanilla_rust--contract--tsconfig.json",
   "{
   \\"compilerOptions\\": {
     \\"experimentalDecorators\\": true,
@@ -9057,9 +9057,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/assets/favicon.ico 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/assets/favicon.ico",
+  "--js_vanilla_rust--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -9103,9 +9103,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/assets/global.css 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--assets--global.css 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/assets/global.css",
+  "--js_vanilla_rust--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -9283,23 +9283,23 @@ li {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/assets/logo-black.svg",
+  "--js_vanilla_rust--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/assets/logo-white.svg",
+  "--js_vanilla_rust--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/index.html 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--index.html 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/index.html",
+  "--js_vanilla_rust--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -9390,9 +9390,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/index.js 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--index.js 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/index.js",
+  "--js_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import {
   initContract,
@@ -9475,9 +9475,9 @@ function signedInFlow() {
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/near-api.js 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--near-api.js 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/near-api.js",
+  "--js_vanilla_rust--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
@@ -9532,9 +9532,9 @@ export async function getGreetingFromContract(){
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/near-config.js 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--near-config.js 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/near-config.js",
+  "--js_vanilla_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 function getConfig(env) {
@@ -9601,9 +9601,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/frontend/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--package.json 1`] = `
 Array [
-  "/js_vanilla_rust/frontend/package.json",
+  "--js_vanilla_rust--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -9625,9 +9625,9 @@ Array [
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/js_vanilla_rust/integration-tests/Cargo.toml",
+  "--js_vanilla_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -9654,9 +9654,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/js_vanilla_rust/integration-tests/src/tests.rs",
+  "--js_vanilla_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -9734,9 +9734,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': /js_vanilla_rust/package.json 1`] = `
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--package.json 1`] = `
 Array [
-  "/js_vanilla_rust/package.json",
+  "--js_vanilla_rust--package.json",
   "{
   \\"name\\": \\"js_vanilla_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -9760,9 +9760,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/.gitignore 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--.gitignore 1`] = `
 Array [
-  "/rust_none_js/.gitignore",
+  "--rust_none_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -9798,9 +9798,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/.gitpod.yml 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--.gitpod.yml 1`] = `
 Array [
-  "/rust_none_js/.gitpod.yml",
+  "--rust_none_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -9811,9 +9811,9 @@ ports:
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/README.md 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--README.md 1`] = `
 Array [
-  "/rust_none_js/README.md",
+  "--rust_none_js--README.md",
   "near-blank-project
 ==================
 
@@ -9918,26 +9918,26 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/contract/.cargo/config 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--.cargo--config 1`] = `
 Array [
-  "/rust_none_js/contract/.cargo/config",
+  "--rust_none_js--contract--.cargo--config",
   "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/contract/.gitignore 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--.gitignore 1`] = `
 Array [
-  "/rust_none_js/contract/.gitignore",
+  "--rust_none_js--contract--.gitignore",
   "target
 ",
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/contract/Cargo.toml 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--Cargo.toml 1`] = `
 Array [
-  "/rust_none_js/contract/Cargo.toml",
+  "--rust_none_js--contract--Cargo.toml",
   "[package]
 name = \\"hello_near\\"
 version = \\"1.0.0\\"
@@ -9965,9 +9965,9 @@ members = []
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/contract/README.md 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--README.md 1`] = `
 Array [
-  "/rust_none_js/contract/README.md",
+  "--rust_none_js--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -9996,9 +9996,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/contract/src/lib.rs 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--src--lib.rs 1`] = `
 Array [
-  "/rust_none_js/contract/src/lib.rs",
+  "--rust_none_js--contract--src--lib.rs",
   "/*
  * Example smart contract written in RUST
  *
@@ -10075,9 +10075,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/rust_none_js/integration-tests/ava.config.cjs",
+  "--rust_none_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -10091,9 +10091,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/integration-tests/package.json 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--integration-tests--package.json 1`] = `
 Array [
-  "/rust_none_js/integration-tests/package.json",
+  "--rust_none_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -10115,9 +10115,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/rust_none_js/integration-tests/src/main.ava.ts",
+  "--rust_none_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -10165,9 +10165,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'rust' 'none' 'js': /rust_none_js/package.json 1`] = `
+exports[`create 'rust' 'none' 'js': --rust_none_js--package.json 1`] = `
 Array [
-  "/rust_none_js/package.json",
+  "--rust_none_js--package.json",
   "{
   \\"name\\": \\"rust_none_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -10189,9 +10189,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/.gitignore 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--.gitignore 1`] = `
 Array [
-  "/rust_none_rust/.gitignore",
+  "--rust_none_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -10227,9 +10227,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/.gitpod.yml 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--.gitpod.yml 1`] = `
 Array [
-  "/rust_none_rust/.gitpod.yml",
+  "--rust_none_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -10240,9 +10240,9 @@ ports:
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/README.md 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--README.md 1`] = `
 Array [
-  "/rust_none_rust/README.md",
+  "--rust_none_rust--README.md",
   "near-blank-project
 ==================
 
@@ -10347,26 +10347,26 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/contract/.cargo/config 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--.cargo--config 1`] = `
 Array [
-  "/rust_none_rust/contract/.cargo/config",
+  "--rust_none_rust--contract--.cargo--config",
   "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/contract/.gitignore 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--.gitignore 1`] = `
 Array [
-  "/rust_none_rust/contract/.gitignore",
+  "--rust_none_rust--contract--.gitignore",
   "target
 ",
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/contract/Cargo.toml 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--Cargo.toml 1`] = `
 Array [
-  "/rust_none_rust/contract/Cargo.toml",
+  "--rust_none_rust--contract--Cargo.toml",
   "[package]
 name = \\"hello_near\\"
 version = \\"1.0.0\\"
@@ -10394,9 +10394,9 @@ members = []
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/contract/README.md 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--README.md 1`] = `
 Array [
-  "/rust_none_rust/contract/README.md",
+  "--rust_none_rust--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -10425,9 +10425,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/contract/src/lib.rs 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--src--lib.rs 1`] = `
 Array [
-  "/rust_none_rust/contract/src/lib.rs",
+  "--rust_none_rust--contract--src--lib.rs",
   "/*
  * Example smart contract written in RUST
  *
@@ -10504,9 +10504,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/rust_none_rust/integration-tests/Cargo.toml",
+  "--rust_none_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -10533,9 +10533,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/rust_none_rust/integration-tests/src/tests.rs",
+  "--rust_none_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -10607,9 +10607,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust' 'none' 'rust': /rust_none_rust/package.json 1`] = `
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--package.json 1`] = `
 Array [
-  "/rust_none_rust/package.json",
+  "--rust_none_rust--package.json",
   "{
   \\"name\\": \\"rust_none_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -10631,9 +10631,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/.gitignore 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--.gitignore 1`] = `
 Array [
-  "/rust_react_js/.gitignore",
+  "--rust_react_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -10669,9 +10669,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/.gitpod.yml 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--.gitpod.yml 1`] = `
 Array [
-  "/rust_react_js/.gitpod.yml",
+  "--rust_react_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -10682,9 +10682,9 @@ ports:
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/README.md 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--README.md 1`] = `
 Array [
-  "/rust_react_js/README.md",
+  "--rust_react_js--README.md",
   "near-blank-project
 ==================
 
@@ -10789,26 +10789,26 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/contract/.cargo/config 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--.cargo--config 1`] = `
 Array [
-  "/rust_react_js/contract/.cargo/config",
+  "--rust_react_js--contract--.cargo--config",
   "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/contract/.gitignore 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--.gitignore 1`] = `
 Array [
-  "/rust_react_js/contract/.gitignore",
+  "--rust_react_js--contract--.gitignore",
   "target
 ",
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/contract/Cargo.toml 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--Cargo.toml 1`] = `
 Array [
-  "/rust_react_js/contract/Cargo.toml",
+  "--rust_react_js--contract--Cargo.toml",
   "[package]
 name = \\"hello_near\\"
 version = \\"1.0.0\\"
@@ -10836,9 +10836,9 @@ members = []
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/contract/README.md 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--README.md 1`] = `
 Array [
-  "/rust_react_js/contract/README.md",
+  "--rust_react_js--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -10867,9 +10867,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/contract/src/lib.rs 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--src--lib.rs 1`] = `
 Array [
-  "/rust_react_js/contract/src/lib.rs",
+  "--rust_react_js--contract--src--lib.rs",
   "/*
  * Example smart contract written in RUST
  *
@@ -10946,9 +10946,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/App.js 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--App.js 1`] = `
 Array [
-  "/rust_react_js/frontend/App.js",
+  "--rust_react_js--frontend--App.js",
   "import 'regenerator-runtime/runtime';
 import React from 'react';
 
@@ -11019,9 +11019,9 @@ export default function App() {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/assets/favicon.ico 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/rust_react_js/frontend/assets/favicon.ico",
+  "--rust_react_js--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -11065,9 +11065,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/assets/global.css 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--assets--global.css 1`] = `
 Array [
-  "/rust_react_js/frontend/assets/global.css",
+  "--rust_react_js--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -11245,23 +11245,23 @@ li {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/rust_react_js/frontend/assets/logo-black.svg",
+  "--rust_react_js--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/rust_react_js/frontend/assets/logo-white.svg",
+  "--rust_react_js--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/index.html 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--index.html 1`] = `
 Array [
-  "/rust_react_js/frontend/index.html",
+  "--rust_react_js--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -11281,9 +11281,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/index.js 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--index.js 1`] = `
 Array [
-  "/rust_react_js/frontend/index.js",
+  "--rust_react_js--frontend--index.js",
   "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -11303,9 +11303,9 @@ window.nearInitPromise = initContract()
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/near-api.js 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--near-api.js 1`] = `
 Array [
-  "/rust_react_js/frontend/near-api.js",
+  "--rust_react_js--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
@@ -11360,9 +11360,9 @@ export async function getGreetingFromContract() {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/near-config.js 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--near-config.js 1`] = `
 Array [
-  "/rust_react_js/frontend/near-config.js",
+  "--rust_react_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 export function getConfig(env) {
@@ -11428,9 +11428,9 @@ export function getConfig(env) {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/package.json 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--package.json 1`] = `
 Array [
-  "/rust_react_js/frontend/package.json",
+  "--rust_react_js--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -11478,9 +11478,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/frontend/ui-components.js 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--ui-components.js 1`] = `
 Array [
-  "/rust_react_js/frontend/ui-components.js",
+  "--rust_react_js--frontend--ui-components.js",
   "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
@@ -11545,9 +11545,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/rust_react_js/integration-tests/ava.config.cjs",
+  "--rust_react_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -11561,9 +11561,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/integration-tests/package.json 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--integration-tests--package.json 1`] = `
 Array [
-  "/rust_react_js/integration-tests/package.json",
+  "--rust_react_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -11585,9 +11585,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/rust_react_js/integration-tests/src/main.ava.ts",
+  "--rust_react_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -11635,9 +11635,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'rust' 'react' 'js': /rust_react_js/package.json 1`] = `
+exports[`create 'rust' 'react' 'js': --rust_react_js--package.json 1`] = `
 Array [
-  "/rust_react_js/package.json",
+  "--rust_react_js--package.json",
   "{
   \\"name\\": \\"rust_react_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -11661,9 +11661,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/.gitignore 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--.gitignore 1`] = `
 Array [
-  "/rust_react_rust/.gitignore",
+  "--rust_react_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -11699,9 +11699,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/.gitpod.yml 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--.gitpod.yml 1`] = `
 Array [
-  "/rust_react_rust/.gitpod.yml",
+  "--rust_react_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -11712,9 +11712,9 @@ ports:
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/README.md 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--README.md 1`] = `
 Array [
-  "/rust_react_rust/README.md",
+  "--rust_react_rust--README.md",
   "near-blank-project
 ==================
 
@@ -11819,26 +11819,26 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/contract/.cargo/config 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--.cargo--config 1`] = `
 Array [
-  "/rust_react_rust/contract/.cargo/config",
+  "--rust_react_rust--contract--.cargo--config",
   "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/contract/.gitignore 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--.gitignore 1`] = `
 Array [
-  "/rust_react_rust/contract/.gitignore",
+  "--rust_react_rust--contract--.gitignore",
   "target
 ",
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/contract/Cargo.toml 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--Cargo.toml 1`] = `
 Array [
-  "/rust_react_rust/contract/Cargo.toml",
+  "--rust_react_rust--contract--Cargo.toml",
   "[package]
 name = \\"hello_near\\"
 version = \\"1.0.0\\"
@@ -11866,9 +11866,9 @@ members = []
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/contract/README.md 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--README.md 1`] = `
 Array [
-  "/rust_react_rust/contract/README.md",
+  "--rust_react_rust--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -11897,9 +11897,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/contract/src/lib.rs 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--src--lib.rs 1`] = `
 Array [
-  "/rust_react_rust/contract/src/lib.rs",
+  "--rust_react_rust--contract--src--lib.rs",
   "/*
  * Example smart contract written in RUST
  *
@@ -11976,9 +11976,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/App.js 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--App.js 1`] = `
 Array [
-  "/rust_react_rust/frontend/App.js",
+  "--rust_react_rust--frontend--App.js",
   "import 'regenerator-runtime/runtime';
 import React from 'react';
 
@@ -12049,9 +12049,9 @@ export default function App() {
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/assets/favicon.ico 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/rust_react_rust/frontend/assets/favicon.ico",
+  "--rust_react_rust--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -12095,9 +12095,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/assets/global.css 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--assets--global.css 1`] = `
 Array [
-  "/rust_react_rust/frontend/assets/global.css",
+  "--rust_react_rust--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -12275,23 +12275,23 @@ li {
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/rust_react_rust/frontend/assets/logo-black.svg",
+  "--rust_react_rust--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/rust_react_rust/frontend/assets/logo-white.svg",
+  "--rust_react_rust--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/index.html 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--index.html 1`] = `
 Array [
-  "/rust_react_rust/frontend/index.html",
+  "--rust_react_rust--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -12311,9 +12311,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/index.js 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--index.js 1`] = `
 Array [
-  "/rust_react_rust/frontend/index.js",
+  "--rust_react_rust--frontend--index.js",
   "import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -12333,9 +12333,9 @@ window.nearInitPromise = initContract()
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/near-api.js 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--near-api.js 1`] = `
 Array [
-  "/rust_react_rust/frontend/near-api.js",
+  "--rust_react_rust--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './near-config';
 
@@ -12390,9 +12390,9 @@ export async function getGreetingFromContract() {
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/near-config.js 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--near-config.js 1`] = `
 Array [
-  "/rust_react_rust/frontend/near-config.js",
+  "--rust_react_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 export function getConfig(env) {
@@ -12458,9 +12458,9 @@ export function getConfig(env) {
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/package.json 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--package.json 1`] = `
 Array [
-  "/rust_react_rust/frontend/package.json",
+  "--rust_react_rust--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -12508,9 +12508,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/frontend/ui-components.js 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--ui-components.js 1`] = `
 Array [
-  "/rust_react_rust/frontend/ui-components.js",
+  "--rust_react_rust--frontend--ui-components.js",
   "import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
@@ -12575,9 +12575,9 @@ export function EducationalText() {
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/rust_react_rust/integration-tests/Cargo.toml",
+  "--rust_react_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -12604,9 +12604,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/rust_react_rust/integration-tests/src/tests.rs",
+  "--rust_react_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -12678,9 +12678,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust' 'react' 'rust': /rust_react_rust/package.json 1`] = `
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--package.json 1`] = `
 Array [
-  "/rust_react_rust/package.json",
+  "--rust_react_rust--package.json",
   "{
   \\"name\\": \\"rust_react_rust\\",
   \\"version\\": \\"1.0.0\\",
@@ -12704,9 +12704,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/.gitignore 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--.gitignore 1`] = `
 Array [
-  "/rust_vanilla_js/.gitignore",
+  "--rust_vanilla_js--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -12742,9 +12742,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/.gitpod.yml 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--.gitpod.yml 1`] = `
 Array [
-  "/rust_vanilla_js/.gitpod.yml",
+  "--rust_vanilla_js--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -12755,9 +12755,9 @@ ports:
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/README.md 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--README.md 1`] = `
 Array [
-  "/rust_vanilla_js/README.md",
+  "--rust_vanilla_js--README.md",
   "near-blank-project
 ==================
 
@@ -12862,26 +12862,26 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/contract/.cargo/config 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--.cargo--config 1`] = `
 Array [
-  "/rust_vanilla_js/contract/.cargo/config",
+  "--rust_vanilla_js--contract--.cargo--config",
   "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/contract/.gitignore 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--.gitignore 1`] = `
 Array [
-  "/rust_vanilla_js/contract/.gitignore",
+  "--rust_vanilla_js--contract--.gitignore",
   "target
 ",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/contract/Cargo.toml 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--Cargo.toml 1`] = `
 Array [
-  "/rust_vanilla_js/contract/Cargo.toml",
+  "--rust_vanilla_js--contract--Cargo.toml",
   "[package]
 name = \\"hello_near\\"
 version = \\"1.0.0\\"
@@ -12909,9 +12909,9 @@ members = []
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/contract/README.md 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--README.md 1`] = `
 Array [
-  "/rust_vanilla_js/contract/README.md",
+  "--rust_vanilla_js--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -12940,9 +12940,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/contract/src/lib.rs 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--src--lib.rs 1`] = `
 Array [
-  "/rust_vanilla_js/contract/src/lib.rs",
+  "--rust_vanilla_js--contract--src--lib.rs",
   "/*
  * Example smart contract written in RUST
  *
@@ -13019,9 +13019,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/assets/favicon.ico 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/assets/favicon.ico",
+  "--rust_vanilla_js--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -13065,9 +13065,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/assets/global.css 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--assets--global.css 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/assets/global.css",
+  "--rust_vanilla_js--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -13245,23 +13245,23 @@ li {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/assets/logo-black.svg",
+  "--rust_vanilla_js--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/assets/logo-white.svg",
+  "--rust_vanilla_js--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/index.html 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--index.html 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/index.html",
+  "--rust_vanilla_js--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -13352,9 +13352,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/index.js 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--index.js 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/index.js",
+  "--rust_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import {
   initContract,
@@ -13437,9 +13437,9 @@ function signedInFlow() {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/near-api.js 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--near-api.js 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/near-api.js",
+  "--rust_vanilla_js--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
@@ -13494,9 +13494,9 @@ export async function getGreetingFromContract(){
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/near-config.js 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--near-config.js 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/near-config.js",
+  "--rust_vanilla_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 function getConfig(env) {
@@ -13563,9 +13563,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/frontend/package.json 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--package.json 1`] = `
 Array [
-  "/rust_vanilla_js/frontend/package.json",
+  "--rust_vanilla_js--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -13587,9 +13587,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/integration-tests/ava.config.cjs 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--integration-tests--ava.config.cjs 1`] = `
 Array [
-  "/rust_vanilla_js/integration-tests/ava.config.cjs",
+  "--rust_vanilla_js--integration-tests--ava.config.cjs",
   "require(\\"util\\").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
@@ -13603,9 +13603,9 @@ module.exports = {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/integration-tests/package.json 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--integration-tests--package.json 1`] = `
 Array [
-  "/rust_vanilla_js/integration-tests/package.json",
+  "--rust_vanilla_js--integration-tests--package.json",
   "{
   \\"name\\": \\"ava-testing\\",
   \\"version\\": \\"1.0.0\\",
@@ -13627,9 +13627,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/integration-tests/src/main.ava.ts 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
-  "/rust_vanilla_js/integration-tests/src/main.ava.ts",
+  "--rust_vanilla_js--integration-tests--src--main.ava.ts",
   "import { Worker, NEAR, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
@@ -13677,9 +13677,9 @@ test('changes the message', async (t) => {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'js': /rust_vanilla_js/package.json 1`] = `
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--package.json 1`] = `
 Array [
-  "/rust_vanilla_js/package.json",
+  "--rust_vanilla_js--package.json",
   "{
   \\"name\\": \\"rust_vanilla_js\\",
   \\"version\\": \\"1.0.0\\",
@@ -13703,9 +13703,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/.gitignore 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--.gitignore 1`] = `
 Array [
-  "/rust_vanilla_rust/.gitignore",
+  "--rust_vanilla_rust--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Developer note: near.gitignore will be renamed to .gitignore upon project creation
 # dependencies
@@ -13741,9 +13741,9 @@ yarn-error.log*
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/.gitpod.yml 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--.gitpod.yml 1`] = `
 Array [
-  "/rust_vanilla_rust/.gitpod.yml",
+  "--rust_vanilla_rust--.gitpod.yml",
   "tasks:
   - init: npm dev
     command: npm run dev
@@ -13754,9 +13754,9 @@ ports:
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/README.md 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--README.md 1`] = `
 Array [
-  "/rust_vanilla_rust/README.md",
+  "--rust_vanilla_rust--README.md",
   "near-blank-project
 ==================
 
@@ -13861,26 +13861,26 @@ On Windows, if you're seeing an error containing \`EPERM\` it may be related to 
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/contract/.cargo/config 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--.cargo--config 1`] = `
 Array [
-  "/rust_vanilla_rust/contract/.cargo/config",
+  "--rust_vanilla_rust--contract--.cargo--config",
   "[build]
 rustflags = [\\"-C\\", \\"link-args=-s\\"]
 ",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/contract/.gitignore 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--.gitignore 1`] = `
 Array [
-  "/rust_vanilla_rust/contract/.gitignore",
+  "--rust_vanilla_rust--contract--.gitignore",
   "target
 ",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/contract/Cargo.toml 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--Cargo.toml 1`] = `
 Array [
-  "/rust_vanilla_rust/contract/Cargo.toml",
+  "--rust_vanilla_rust--contract--Cargo.toml",
   "[package]
 name = \\"hello_near\\"
 version = \\"1.0.0\\"
@@ -13908,9 +13908,9 @@ members = []
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/contract/README.md 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--README.md 1`] = `
 Array [
-  "/rust_vanilla_rust/contract/README.md",
+  "--rust_vanilla_rust--contract--README.md",
   "Hello NEAR!
 =================================
 
@@ -13939,9 +13939,9 @@ Exploring The Code
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/contract/src/lib.rs 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--src--lib.rs 1`] = `
 Array [
-  "/rust_vanilla_rust/contract/src/lib.rs",
+  "--rust_vanilla_rust--contract--src--lib.rs",
   "/*
  * Example smart contract written in RUST
  *
@@ -14018,9 +14018,9 @@ mod tests {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/assets/favicon.ico 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--assets--favicon.ico 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/assets/favicon.ico",
+  "--rust_vanilla_rust--frontend--assets--favicon.ico",
   "�PNG
 
    
@@ -14064,9 +14064,9 @@ klZ8u�̲_+��	c��p����t����߰isg�\\\\�0��
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/assets/global.css 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--assets--global.css 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/assets/global.css",
+  "--rust_vanilla_rust--frontend--assets--global.css",
   "* {
   box-sizing: border-box;
 }
@@ -14244,23 +14244,23 @@ li {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/assets/logo-black.svg 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--assets--logo-black.svg 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/assets/logo-black.svg",
+  "--rust_vanilla_rust--frontend--assets--logo-black.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#24272a\\"/><stop offset=\\".42\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#24272a\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#24272a\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#24272a\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/assets/logo-white.svg 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--assets--logo-white.svg 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/assets/logo-white.svg",
+  "--rust_vanilla_rust--frontend--assets--logo-white.svg",
   "<svg viewBox=\\"0 0 288 288\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><linearGradient id=\\"a\\" gradientUnits=\\"userSpaceOnUse\\" x1=\\"76.81\\" x2=\\"211.16\\" y1=\\"211.17\\" y2=\\"76.81\\"><stop offset=\\".21\\" stop-color=\\"#fff\\"/><stop offset=\\".42\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".59\\" stop-color=\\"#fff\\" stop-opacity=\\"0\\"/><stop offset=\\".81\\" stop-color=\\"#fff\\"/></linearGradient><path d=\\"m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z\\" fill=\\"url(#a)\\"/><path d=\\"m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z\\" fill=\\"#fff\\"/></svg>",
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/index.html 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--index.html 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/index.html",
+  "--rust_vanilla_rust--frontend--index.html",
   "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -14351,9 +14351,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/index.js 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--index.js 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/index.js",
+  "--rust_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import {
   initContract,
@@ -14436,9 +14436,9 @@ function signedInFlow() {
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/near-api.js 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--near-api.js 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/near-api.js",
+  "--rust_vanilla_rust--frontend--near-api.js",
   "import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import getConfig from './near-config';
 
@@ -14493,9 +14493,9 @@ export async function getGreetingFromContract(){
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/near-config.js 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--near-config.js 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/near-config.js",
+  "--rust_vanilla_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
 function getConfig(env) {
@@ -14562,9 +14562,9 @@ module.exports = getConfig;
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/frontend/package.json 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--package.json 1`] = `
 Array [
-  "/rust_vanilla_rust/frontend/package.json",
+  "--rust_vanilla_rust--frontend--package.json",
   "{
   \\"name\\": \\"my-near-app\\",
   \\"version\\": \\"1.0.0\\",
@@ -14586,9 +14586,9 @@ Array [
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/integration-tests/Cargo.toml 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--integration-tests--Cargo.toml 1`] = `
 Array [
-  "/rust_vanilla_rust/integration-tests/Cargo.toml",
+  "--rust_vanilla_rust--integration-tests--Cargo.toml",
   "[package]
 name = \\"integration-tests\\"
 version = \\"1.0.0\\"
@@ -14615,9 +14615,9 @@ path = \\"src/tests.rs\\"
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/integration-tests/src/tests.rs 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--integration-tests--src--tests.rs 1`] = `
 Array [
-  "/rust_vanilla_rust/integration-tests/src/tests.rs",
+  "--rust_vanilla_rust--integration-tests--src--tests.rs",
   "use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
@@ -14689,9 +14689,9 @@ async fn test_changes_message(
 ]
 `;
 
-exports[`create 'rust' 'vanilla' 'rust': /rust_vanilla_rust/package.json 1`] = `
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--package.json 1`] = `
 Array [
-  "/rust_vanilla_rust/package.json",
+  "--rust_vanilla_rust--package.json",
   "{
   \\"name\\": \\"rust_vanilla_rust\\",
   \\"version\\": \\"1.0.0\\",
