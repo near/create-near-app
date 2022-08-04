@@ -2,6 +2,10 @@ import chalk from 'chalk';
 import {trackingMessage} from './tracking';
 import {Contract, Frontend, ProjectName} from './types';
 
+if (process.env.NEAR_NO_COLOR) {
+  chalk.level = 0;
+}
+
 export const show = (...args: unknown[]) => console.log(...args);
 
 export const welcome = () => show(chalk`{blue ======================================================}
@@ -18,20 +22,20 @@ Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
 export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
-export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
+export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}` : ''}`;
 export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
 {green ======================================================}
 ✅  Success! Created '${projectName}'
    ${successContractToText(contract)}${successFrontendToText(frontend)}.
 ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : ''}
   {bold {bgYellow {black Your next steps}}}:
-   ${!install ? chalk`- Run {blue npm {bold run deps-install}} to install dependencies in all directories\n`: ''}
+   ${!install ? chalk`- Run {blue npm {bold run deps-install}} to install dependencies in all directories\n` : ''}
    - {inverse Test your contract} in NEAR SandBox:
          {blue npm {bold test}}
    - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
          {blue npm {bold run deploy}}
    ${frontend !== 'none' ? chalk`- {inverse Start your frontend}:
-         {blue npm {bold start}}\n`: ''}
+         {blue npm {bold start}}\n` : ''}
 🧠 See {bold {greenBright README.md}} to explore further.`);
 
 export const argsError = () => show(chalk`{red Arguments error}
@@ -49,7 +53,7 @@ export const assemblyscriptWarning = () => show(chalk`{bgYellow {black Notice:}}
 
 export const directoryExists = (dirName: string) => show(chalk`{red This directory already exists! ${dirName}}`);
 
-export const creatingApp = () =>  show(chalk`\n...creating a new NEAR app...`);
+export const creatingApp = () => show(chalk`\n...creating a new NEAR app...`);
 
 export const depsInstall = () => show(chalk`
 {green Installing dependencies in a few folders, this might take a while...}

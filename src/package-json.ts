@@ -33,18 +33,18 @@ function basePackage({contract, frontend, tests, projectName}: PackageBuildParam
   };
 }
 
-const startScript = (hasFrontend: boolean) => hasFrontend ? {
+const startScript = (hasFrontend: boolean): Entries => hasFrontend ? {
   'start': 'cd frontend && npm run start'
 } : {};
 
-const buildScript = (hasFrontend: boolean) => hasFrontend ? {
+const buildScript = (hasFrontend: boolean): Entries => hasFrontend ? {
   'build': 'npm run build:contract && npm run build:web',
   'build:web': 'cd frontend && npm run build',
 } : {
   'build': 'npm run build:contract',
 };
 
-const buildContractScript = (contract: Contract) => {
+const buildContractScript = (contract: Contract): Entries => {
   switch (contract) {
     case 'assemblyscript':
       return {
@@ -58,12 +58,10 @@ const buildContractScript = (contract: Contract) => {
       return {
         'build:contract': 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release',
       };
-    default:
-      return {};
   }
 };
 
-const deployScript = (contract: Contract) => {
+const deployScript = (contract: Contract): Entries => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':
@@ -74,24 +72,20 @@ const deployScript = (contract: Contract) => {
       return {
         'deploy': 'npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm',
       };
-    default:
-      return {};
   }
 };
 
-const unitTestScripts = (contract: Contract) => {
+const unitTestScripts = (contract: Contract): Entries => {
   switch (contract) {
     case 'js':
     case 'assemblyscript':
       return {'test:unit': 'cd contract && npm test'};
     case 'rust':
       return {'test:unit': 'cd contract && cargo test'};
-    default:
-      return {};
   }
 };
 
-const integrationTestScripts = (contract: Contract, tests: TestingFramework) => {
+const integrationTestScripts = (contract: Contract, tests: TestingFramework): Entries => {
   switch (contract) {
     case 'assemblyscript':
       if (tests === 'js') {
@@ -123,12 +117,10 @@ const integrationTestScripts = (contract: Contract, tests: TestingFramework) => 
           'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
         };
       }
-    default:
-      return {};
   }
 };
 
-const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: TestingFramework) => {
+const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: TestingFramework): Entries => {
   switch (contract) {
     case 'assemblyscript':
       if (hasFrontend) {

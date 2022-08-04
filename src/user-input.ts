@@ -1,4 +1,13 @@
-import {ProjectName, UserConfig} from './types';
+import {
+  Contract,
+  CONTRACTS,
+  Frontend,
+  FRONTENDS,
+  ProjectName,
+  TESTING_FRAMEWORKS,
+  TestingFramework,
+  UserConfig
+} from './types';
 import chalk from 'chalk';
 import prompt, {PromptObject} from 'prompts';
 import {program} from 'commander';
@@ -35,9 +44,9 @@ export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
   const hasAllArgs = hasAllOptions && hasProjectName;
   const hasNoArgs = !hasPartialOptions && !hasProjectName;
   const optionsAreValid = hasAllOptions
-    && ['react', 'vanilla', 'none'].includes(frontend)
-    && ['js', 'rust', 'assemblyscript'].includes(contract)
-    && ['js', 'rust'].includes(tests);
+    && FRONTENDS.includes(frontend)
+    && CONTRACTS.includes(contract)
+    && TESTING_FRAMEWORKS.includes(tests);
 
   if (hasNoArgs) {
     return 'none';
@@ -48,35 +57,39 @@ export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
   }
 }
 
+type Choices<T> = {title: string, value: T}[];
+const contractChoices: Choices<Contract> = [
+  {title: 'JavaScript', value: 'js'},
+  {title: 'Rust', value: 'rust'},
+  {title: 'AssemblyScript', value: 'assemblyscript'},
+];
+const testsChoices: Choices<TestingFramework> = [
+  {title: 'Rust Sandbox Tests', value: 'rust'},
+  {title: 'JavaScript Sandbox Tests', value: 'js'},
+];
+const frontendChoices: Choices<Frontend> = [
+  {title: 'React.js', value: 'react'},
+  {title: 'Vanilla JavaScript', value: 'vanilla'},
+  {title: 'No frontend', value: 'none'},
+];
 const userPrompts: PromptObject[] = [
   {
     type: 'select',
     name: 'contract',
     message: 'Select your smart-contract language',
-    choices: [
-      {title: 'JavaScript', value: 'js'},
-      {title: 'Rust', value: 'rust'},
-      {title: 'AssemblyScript', value: 'assemblyscript'},
-    ]
+    choices: contractChoices,
   },
   {
     type: prev => prev === 'rust' ? 'select' : null,
     name: 'tests',
     message: 'Select language for Sandbox Test',
-    choices: [
-      {title: 'Rust Sandbox Tests', value: 'rust'},
-      {title: 'JavaScript Sandbox Tests', value: 'js'},
-    ]
+    choices: testsChoices,
   },
   {
     type: 'select',
     name: 'frontend',
     message: 'Select a template for your frontend',
-    choices: [
-      {title: 'React.js', value: 'react'},
-      {title: 'Vanilla JavaScript', value: 'vanilla'},
-      {title: 'No frontend', value: 'none'},
-    ]
+    choices: frontendChoices,
   },
   {
     type: 'text',

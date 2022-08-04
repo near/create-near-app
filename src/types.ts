@@ -1,6 +1,9 @@
 export type Contract = 'assemblyscript' | 'js' | 'rust';
+export const CONTRACTS: Contract[] = ['assemblyscript', 'js', 'rust'];
 export type Frontend = 'react' | 'vanilla' | 'none';
+export const FRONTENDS: Frontend[] = ['react', 'vanilla', 'none'];
 export type TestingFramework = 'rust' | 'js';
+export const TESTING_FRAMEWORKS: TestingFramework[] = ['rust', 'js'];
 export type ProjectName = string;
 export interface UserConfig {
   contract: Contract;
