@@ -40,13 +40,11 @@ npx create-near-app <projectName> --contract rust|js|assemblyscript --frontend r
 
 export const unsupportedNodeVersion = (supported: string) => show(chalk`{red We support node.js version ${supported} or later}`);
 
-export const windowsWarning = () => show(chalk
-`{bgYellow {black Notice: On Win32 please use WSL (Windows Subsystem for Linux).}}
+export const windowsWarning = () => show(chalk`{bgYellow {black Notice: On Win32 please use WSL (Windows Subsystem for Linux).}}
 https://docs.microsoft.com/en-us/windows/wsl/install
 Exiting now.`);
 
-export const assemblyscriptWarning = () => show(chalk
-`{bgYellow {black Notice:}} AssemblyScript will be deprecated soon and isn't supported on all platforms.
+export const assemblyscriptWarning = () => show(chalk`{bgYellow {black Notice:}} AssemblyScript will be deprecated soon and isn't supported on all platforms.
         {bold Consider writing smart contracts in JavaScript}`);
 
 export const directoryExists = (dirName: string) => show(chalk`{red This directory already exists! ${dirName}}`);
