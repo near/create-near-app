@@ -2,16 +2,16 @@ import chalk from 'chalk';
 import {trackingMessage} from './tracking';
 import {Contract, Frontend, ProjectName} from './types';
 
-export const log = (...args: unknown[]) => console.log(...args);
+export const show = (...args: unknown[]) => console.log(...args);
 
-export const welcome = () => log(chalk`{blue ======================================================}
+export const welcome = () => show(chalk`{blue ======================================================}
 👋 {bold {green Welcome to NEAR!}} Learn more: https://docs.near.org/
 🔧 Let's get your dApp ready.
 {blue ======================================================}
 (${trackingMessage})
 `);
 
-export const setupFailed = () => log(chalk`{bold {red ==========================================}}
+export const setupFailed = () => show(chalk`{bold {red ==========================================}}
 {red ⛔️ There was a problem during NEAR project setup}.
 Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
@@ -19,7 +19,7 @@ Notice: some platforms aren't supported (yet).
 
 export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
 export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
-export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => log(chalk`
+export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
 {green ======================================================}
 ✅  Success! Created '${projectName}'
    ${successContractToText(contract)}${successFrontendToText(frontend)}.
@@ -34,22 +34,27 @@ ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {gr
          {blue npm {bold start}}\n`: ''}
 🧠 See {bold {greenBright README.md}} to explore further.`);
 
-export const argsError = () => log(chalk`{red Arguments error}
+export const argsError = () => show(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:
 npx create-near-app <projectName> --contract rust|js|assemblyscript --frontend react|vanilla|none --tests js|rust`);
 
-export const unsupportedNodeVersion = (supported: string) => log(chalk`{red We support node.js version ${supported} or later}`);
+export const unsupportedNodeVersion = (supported: string) => show(chalk`{red We support node.js version ${supported} or later}`);
 
-export const windowsWarning = () => log(chalk`👉 Notice: On Windows we recommend using WSL.`);
+export const windowsWarning = () => show(chalk
+`{bgYellow {black Notice: On Win32 please use WSL (Windows Subsystem for Linux).}}
+https://docs.microsoft.com/en-us/windows/wsl/install
+Exiting now.`);
 
-export const assemblyscriptWarning = () => log(chalk`👉 Notice: AssemblyScript is not supported on all platforms.`);
+export const assemblyscriptWarning = () => show(chalk
+`{bgYellow {black Notice:}} AssemblyScript will be deprecated soon and isn't supported on all platforms.
+        {bold Consider writing smart contracts in JavaScript}`);
 
-export const directoryExists = (dirName: string) => log(chalk`{red This directory already exists! ${dirName}}`);
+export const directoryExists = (dirName: string) => show(chalk`{red This directory already exists! ${dirName}}`);
 
-export const creatingApp = () =>  log(chalk`\n...creating a new NEAR app...`);
+export const creatingApp = () =>  show(chalk`\n...creating a new NEAR app...`);
 
-export const depsInstall = () => log(chalk`
+export const depsInstall = () => show(chalk`
 {green Installing dependencies in a few folders, this might take a while...}
 `);
 
-export const depsInstallError = () => log(chalk.red('Error installing NEAR project dependencies'));
+export const depsInstallError = () => show(chalk.red('Error installing NEAR project dependencies'));

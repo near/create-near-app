@@ -85,12 +85,10 @@ const userPrompts: PromptObject[] = [
     initial: 'hello-near',
   },
   {
-    type: 'toggle',
+    type: 'confirm',
     name: 'install',
     message: chalk`Run {bold {blue 'npm install'}} now?`,
     initial: true,
-    active: 'yes',
-    inactive: 'no'
   },
 ];
 
@@ -143,6 +141,7 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   if (process.platform === 'win32') {
     // TODO: track windows
     show.windowsWarning();
+    return null;
   }
 
   // Get user input
