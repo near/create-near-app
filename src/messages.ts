@@ -19,13 +19,21 @@ Notice: some platforms aren't supported (yet).
 
 export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
 export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}`: ''}`;
-export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend) => log(chalk`
+export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => log(chalk`
+{green ======================================================}
 ✅  Success! Created '${projectName}'
    ${successContractToText(contract)}${successFrontendToText(frontend)}.
-🧠 See {bold {green README.md}} to get started.
-${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}` : ''}
-Happy Hacking! 👍
-{blue ======================================================}`);
+${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : ''}
+👉 {bold {bgYellow {black Your next steps}}}:
+   ${!install ? chalk`- Run {blue npm {bold run deps-install}} to install dependencies in all directories\n`: ''}
+   - {inverse Test your contract} in NEAR SandBox:
+         {blue npm {bold test}}
+   - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
+         {blue npm {bold run deploy}}
+   ${frontend !== 'none' ? chalk`- {inverse Start your frontend}:
+         {blue npm {bold start}}\n`: ''}
+🧠 See {bold {greenBright README.md}} to explore further.
+{green ======================================================}`);
 
 export const argsError = () => log(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:

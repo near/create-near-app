@@ -16,11 +16,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run `npm run start`. This will run a dev server.
+If you have a frontend, run `npm start`. This will run a dev server.
 
 
 Exploring The Code

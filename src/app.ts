@@ -1,6 +1,6 @@
 import path from 'path';
 import {createProject, runDepsInstall} from './make';
-import {promptAndGetConfig, showDepsInstallPrompt,} from './user-input';
+import {promptAndGetConfig,} from './user-input';
 import * as show from './messages';
 
 (async function () {
@@ -14,10 +14,9 @@ import * as show from './messages';
       contract,
       frontend,
       tests,
-      install
+      install,
     },
     projectPath,
-    isFromPrompts,
   } = promptResult;
 
   show.creatingApp();
@@ -41,19 +40,14 @@ import * as show from './messages';
     console.error(e);
     createSuccess = false;
   }
+  if (install) {
+    await runDepsInstall(projectPath);
+  }
 
   if (createSuccess) {
-    show.setupSuccess(projectPath, contract, frontend);
+    show.setupSuccess(projectPath, contract, frontend, install);
   } else {
     show.setupFailed();
     return;
-  }
-  if (install) {
-    await runDepsInstall(projectPath);
-  } else if (isFromPrompts) {
-    const {depsInstall} = await showDepsInstallPrompt();
-    if (depsInstall) {
-      await runDepsInstall(projectPath);
-    }
   }
 })();

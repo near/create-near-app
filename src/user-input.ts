@@ -84,12 +84,18 @@ const userPrompts: PromptObject[] = [
     message: 'Name your project (this will create a directory with that name)',
     initial: 'hello-near',
   },
+  {
+    type: 'toggle',
+    name: 'install',
+    message: chalk`Run {bold {blue 'npm install'}} now?`,
+    initial: true,
+    active: 'yes',
+    inactive: 'no'
+  },
 ];
 
 export async function getUserAnswers() {
-  const [contract, frontend, tests, projectName] = userPrompts;
-
-  const answers = await prompt([contract, frontend, tests, projectName]);
+  const answers = await prompt(userPrompts);
   if (!answers.tests) {
     answers.tests = answers.contract !== 'rust' ? 'js' : 'rust';
   }
@@ -99,23 +105,6 @@ export async function getUserAnswers() {
 export async function showProjectNamePrompt() {
   const [, , , projectName] = userPrompts;
   const answers = await prompt([projectName]);
-  return answers;
-}
-
-export async function showDepsInstallPrompt() {
-  const questions: PromptObject[] = [
-    {
-      type: 'toggle',
-      name: 'depsInstall',
-      // message: chalk`One last thing:\n  There are few package.json files with dependencies. We can run {bold {blue 'yarn install'}} for you.\n  Run {bold {blue 'yarn install'}} now? (To do it yourself: {blue 'yarn run deps-install'}).\n  \n`,
-      message: chalk`Run {bold {blue 'npm install'}} now in all folders? (To do it yourself: {blue 'npm run deps-install'}).\n`,
-      initial: true,
-      active: 'yes',
-      inactive: 'no'
-    },
-  ];
-
-  const answers = await prompt(questions);
   return answers;
 }
 
@@ -133,7 +122,6 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   let isFromPrompts = false;
   // process cli args
   const args = await getUserArgs();
-  const {install} = args;
   const argsValid = validateUserArgs(args);
   if (argsValid === 'error') {
     show.argsError();
@@ -183,7 +171,7 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
       }
     }
   }
-  return {config: {...config, install}, projectPath: path, isFromPrompts};
+  return {config, projectPath: path, isFromPrompts};
 }
 
 export const projectPath = (projectName: ProjectName) => `${process.cwd()}/${projectName}`;

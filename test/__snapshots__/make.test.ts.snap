@@ -72,11 +72,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -497,11 +497,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -935,11 +935,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -1961,11 +1961,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -3000,11 +3000,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -3995,11 +3995,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5003,11 +5003,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5157,7 +5157,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-3\\"
+    \\"near-sdk-js\\": \\"0.4.0-4\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -5409,11 +5409,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5563,7 +5563,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-3\\"
+    \\"near-sdk-js\\": \\"0.4.0-4\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -5832,11 +5832,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -5986,7 +5986,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-3\\"
+    \\"near-sdk-js\\": \\"0.4.0-4\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -6839,11 +6839,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -6993,7 +6993,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-3\\"
+    \\"near-sdk-js\\": \\"0.4.0-4\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -7863,11 +7863,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -8017,7 +8017,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-3\\"
+    \\"near-sdk-js\\": \\"0.4.0-4\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -8839,11 +8839,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -8993,7 +8993,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-3\\"
+    \\"near-sdk-js\\": \\"0.4.0-4\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -9832,11 +9832,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -10261,11 +10261,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -10703,11 +10703,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -11733,11 +11733,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -12776,11 +12776,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
@@ -13775,11 +13775,11 @@ Build and deploy your contract to TestNet with a temporary dev account:
 
     npm run deploy
 
-Test your contract tests:
+Test your contract:
 
     npm test
 
-If you have a frontend, run \`npm run start\`. This will run a dev server.
+If you have a frontend, run \`npm start\`. This will run a dev server.
 
 
 Exploring The Code
