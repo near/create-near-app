@@ -24,7 +24,7 @@ export const setupSuccess = (projectName: ProjectName, contract: Contract, front
 ✅  Success! Created '${projectName}'
    ${successContractToText(contract)}${successFrontendToText(frontend)}.
 ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : ''}
-👉 {bold {bgYellow {black Your next steps}}}:
+  {bold {bgYellow {black Your next steps}}}:
    ${!install ? chalk`- Run {blue npm {bold run deps-install}} to install dependencies in all directories\n`: ''}
    - {inverse Test your contract} in NEAR SandBox:
          {blue npm {bold test}}
@@ -32,8 +32,7 @@ ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {gr
          {blue npm {bold run deploy}}
    ${frontend !== 'none' ? chalk`- {inverse Start your frontend}:
          {blue npm {bold start}}\n`: ''}
-🧠 See {bold {greenBright README.md}} to explore further.
-{green ======================================================}`);
+🧠 See {bold {greenBright README.md}} to explore further.`);
 
 export const argsError = () => log(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:

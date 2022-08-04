@@ -131,6 +131,19 @@ const integrationTestScripts = (contract: Contract, tests: TestingFramework) => 
 const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: TestingFramework) => {
   switch (contract) {
     case 'assemblyscript':
+      if (hasFrontend) {
+        if (tests === 'js') {
+          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
+        } else {
+          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ../frontend && npm install && cd ..'};
+        }
+      } else {
+        if (tests === 'js') {
+          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ..'};
+        } else {
+          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ..'};
+        }
+      }
     case 'js':
       if (hasFrontend) {
         if (tests === 'js') {

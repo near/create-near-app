@@ -48,7 +48,7 @@ export default function App() {
         <h1>
           The contract says: <span className="greeting">{valueFromBlockchain}</span>
         </h1>
-        <form onSubmit={changeGreeting} className='change'>
+        <form onSubmit={changeGreeting} className="change">
           <label>Change greeting:</label>
           <div>
             <input
@@ -56,7 +56,10 @@ export default function App() {
               defaultValue={valueFromBlockchain}
               id="greetingInput"
             />
-            <button>Save</button>
+            <button>
+              <span>Save</span>
+              <div className="loader"></div>
+            </button>
           </div>
         </form>
         <EducationalText/>
