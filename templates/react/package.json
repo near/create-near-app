@@ -21,7 +21,7 @@
     "@babel/preset-react": "~7.17.12",
     "ava": "^4.2.0",
     "env-cmd": "~10.1.0",
-    "near-cli": "~3.3.0",
+    "near-cli": "~3.4.1",
     "near-workspaces": "^2.0.0",
     "nodemon": "~2.0.16",
     "parcel": "^2.6.0",
