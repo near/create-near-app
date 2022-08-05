@@ -29,14 +29,17 @@ export const setupSuccess = (projectName: ProjectName, contract: Contract, front
    ${successContractToText(contract)}${successFrontendToText(frontend)}.
 ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : ''}
   {bold {bgYellow {black Your next steps}}}:
-   ${!install ? chalk`- Run {blue npm {bold run deps-install}} to install dependencies in all directories\n` : ''}
+   - {inverse Navigate to your project}:
+         {blue cd {bold ${projectName}}}
+   ${!install ? chalk`- {inverse Install all dependencies}
+         {blue npm {bold run deps-install}}` : 'Then:'}
    - {inverse Test your contract} in NEAR SandBox:
          {blue npm {bold test}}
    - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
          {blue npm {bold run deploy}}
    ${frontend !== 'none' ? chalk`- {inverse Start your frontend}:
          {blue npm {bold start}}\n` : ''}
-🧠 See {bold {greenBright README.md}} to explore further.`);
+🧠 Read {bold {greenBright README.md}} to explore further.`);
 
 export const argsError = () => show(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:
@@ -48,15 +51,12 @@ export const windowsWarning = () => show(chalk`{bgYellow {black Notice: On Win32
 https://docs.microsoft.com/en-us/windows/wsl/install
 Exiting now.`);
 
-export const assemblyscriptWarning = () => show(chalk`{bgYellow {black Notice:}} AssemblyScript will be deprecated soon and isn't supported on all platforms.
-        {bold Consider writing smart contracts in JavaScript}`);
-
 export const directoryExists = (dirName: string) => show(chalk`{red This directory already exists! ${dirName}}`);
 
-export const creatingApp = () => show(chalk`\n...creating a new NEAR app...`);
+export const creatingApp = () => show(chalk`\nCreating a new {bold NEAR dApp}`);
 
 export const depsInstall = () => show(chalk`
-{green Installing dependencies in a few folders, this might take a while...}
+{green Installing dependencies in a few folders, this might take a while.}
 `);
 
 export const depsInstallError = () => show(chalk.red('Error installing NEAR project dependencies'));
