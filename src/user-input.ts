@@ -170,18 +170,10 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   trackUsage(frontend, contract);
 
   let path = projectPath(config.projectName);
-  // If dir exists keep asking user
+  // If dir exists warn and exit
   if (fs.existsSync(path)) {
-    if (!isFromPrompts) {
-      show.directoryExists(path);
-      return null;
-    } else {
-      while (fs.existsSync(path)) {
-        show.directoryExists(path);
-        const {projectName: newProjectName} = await showProjectNamePrompt();
-        config.projectName = newProjectName;
-      }
-    }
+    show.directoryExists(path);
+    return null;
   }
   return {config, projectPath: path, isFromPrompts};
 }

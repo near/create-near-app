@@ -21,10 +21,6 @@ import * as show from './messages';
 
   show.creatingApp();
 
-  if (contract === 'assemblyscript') {
-    show.assemblyscriptWarning();
-  }
-
   let createSuccess;
   try {
     createSuccess = await createProject({
