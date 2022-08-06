@@ -3,13 +3,15 @@ import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({greeting="Hello"}:{greeting: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = greeting;
   }
+
+  default(){ return new MyContract({greeting: "Hello"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -17,7 +19,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(`Saving greeting ${message}`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -25,7 +27,7 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(`The current greeting is ${this.my_greeting}`);
-    return this.my_greeting;
+    near.log(`The current greeting is ${this.greeting}`);
+    return this.greeting;
   }
 }
