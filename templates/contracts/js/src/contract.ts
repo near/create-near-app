@@ -5,13 +5,13 @@ import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 class MyContract extends NearContract {
   greeting: string;
 
-  constructor({greeting="Hello"}:{greeting: string}) {
+  constructor({message="Hello"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.greeting = greeting;
+    this.greeting = message;
   }
 
-  default(){ return new MyContract({greeting: "Hello"}) }
+  default(){ return new MyContract({message: "Hello"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
