@@ -4,25 +4,17 @@ jobs:
   tests:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
-        contract: [assemblyscript, rust]
-        frontend: ['vanilla', 'react', 'none']
+        platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
         node-version: '16'
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: wasm32-unknown-unknown
     - name: Install modules
-      run: yarn
+      run: npm install
     - name: Run tests
       env:
-        CONTRACT: ${{ matrix.contract }}
-        FRONTEND: ${{ matrix.frontend }}
         NEAR_ENV: ci 
         IS_GITHUB_ACTION: true
-      run: yarn test
+      run: npm test

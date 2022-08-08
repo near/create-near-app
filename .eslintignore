@@ -1,2 +1,8 @@
 dist
 node_modules
+templates/contracts/js/src/contract.ts
+templates/integration-tests/shared/js-tests/src/main.ava.ts
+templates/integration-tests/overrides/js-contract/js-tests/src/main.ava.ts
+src/*.js
+jest.config.js
+_testrun

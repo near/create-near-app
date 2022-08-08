@@ -1,0 +1,18 @@
+{
+  "name": "hello_near",
+  "version": "1.0.0",
+  "license": "(MIT AND Apache-2.0)",
+  "type": "module",
+  "scripts": {
+    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
+    "deploy": "npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME",
+    "test": "echo use integration-tests"
+  },
+  "dependencies": {
+    "near-cli": "^3.4.0",
+    "near-sdk-js": "0.4.0-5"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}

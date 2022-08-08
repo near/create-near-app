@@ -1,11 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+dist
+_testrun
 
 # dependencies
 node_modules
 /.pnp
 .pnp.js
-out
-package-lock.json
+templates/out
 /neardev
 # testing
 /coverage
@@ -23,7 +24,6 @@ tmp-project
 .env.test.local
 .env.production.local
 .idea
-/templates/**/yarn.lock
 /templates/*/neardev/dev-account*
 
 npm-debug.log*

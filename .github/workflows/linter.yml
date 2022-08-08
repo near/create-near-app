@@ -6,6 +6,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: yarn
+      run: npm install
     - name: Run ESLint
-      run: yarn lint --max-warnings 0
+      run: npm run lint --max-warnings=0

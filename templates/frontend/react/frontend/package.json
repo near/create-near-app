@@ -1,0 +1,44 @@
+{
+  "name": "my-near-app",
+  "version": "1.0.0",
+  "license": "(MIT AND Apache-2.0)",
+  "scripts": {
+    "start": "echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open",
+    "build": "parcel build index.html --public-url ./"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@types/node": "^18.6.2",
+    "ava": "^4.2.0",
+    "react-test-renderer": "^18.1.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2",
+    "nodemon": "^2.0.16",
+    "parcel": "^2.6.0",
+    "process": "^0.11.10",
+    "env-cmd": "^10.1.0"
+  },
+  "dependencies": {
+    "near-api-js": "^0.44.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "regenerator-runtime": "^0.13.9"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.13.8"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

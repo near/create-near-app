@@ -12,6 +12,7 @@ rules:
   indent:
     - warn
     - 2
+    - { "SwitchCase": 1 }
   linebreak-style:
     - warn
     - unix
@@ -20,7 +21,7 @@ rules:
     - single
   semi:
     - warn
-    - never
+    - always
   no-console: off
 globals:
   Cookies: true
@@ -36,6 +37,3 @@ globals:
   testSettings: true
   walletAccount: true
   window: true
-settings:
-  react:
-    version: detect
