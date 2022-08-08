@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "near-cli": "^3.4.0",
-    "near-sdk-js": "0.4.0-4"
+    "near-sdk-js": "0.4.0-5"
   },
   "devDependencies": {
     "typescript": "^4.7.4"
