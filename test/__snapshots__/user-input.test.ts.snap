@@ -28,12 +28,16 @@ https://docs.microsoft.com/en-us/windows/wsl/install
 Exiting now.",
   ],
   Array [
-    "
-Creating a new [1mNEAR dApp[22m",
+    "[43m[30mNotice:[39m[49m AssemblyScript will be deprecated soon and isn't supported on all platforms.
+        [1mConsider writing smart contracts in JavaScript[22m",
   ],
   Array [
     "
-[32mInstalling dependencies in a few folders, this might take a while.[39m
+...creating a new NEAR app...",
+  ],
+  Array [
+    "
+[32mInstalling dependencies in a few folders, this might take a while...[39m
 ",
   ],
   Array [
@@ -62,16 +66,14 @@ Array [
    with a smart contract in [1mAssemblyScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -85,15 +87,13 @@ Array [
    with a smart contract in [1mAssemblyScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -107,16 +107,14 @@ Array [
    with a smart contract in [1mAssemblyScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -130,15 +128,13 @@ Array [
    with a smart contract in [1mAssemblyScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -152,10 +148,8 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -163,7 +157,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -177,9 +171,7 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -187,7 +179,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -201,10 +193,8 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -212,7 +202,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -226,9 +216,7 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -236,7 +224,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -250,10 +238,8 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -261,7 +247,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -275,9 +261,7 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -285,7 +269,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -299,10 +283,8 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -310,7 +292,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -324,9 +306,7 @@ Array [
    with a smart contract in [1mAssemblyScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -334,7 +314,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -348,16 +328,14 @@ Array [
    with a smart contract in [1mJavaScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -371,15 +349,13 @@ Array [
    with a smart contract in [1mJavaScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -393,16 +369,14 @@ Array [
    with a smart contract in [1mJavaScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -416,15 +390,13 @@ Array [
    with a smart contract in [1mJavaScript[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -438,10 +410,8 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -449,7 +419,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -463,9 +433,7 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -473,7 +441,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -487,10 +455,8 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -498,7 +464,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -512,9 +478,7 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -522,7 +486,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -536,10 +500,8 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -547,7 +509,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -561,9 +523,7 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -571,7 +531,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -585,10 +545,8 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -596,7 +554,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -610,9 +568,7 @@ Array [
    with a smart contract in [1mJavaScript[22m and a frontend template.
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -620,7 +576,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -635,16 +591,14 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -659,15 +613,13 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -682,16 +634,14 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -706,15 +656,13 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -729,10 +677,8 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -740,7 +686,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -755,9 +701,7 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -765,7 +709,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -780,10 +724,8 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -791,7 +733,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -806,9 +748,7 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -816,7 +756,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -831,10 +771,8 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -842,7 +780,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -857,9 +795,7 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -867,7 +803,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -882,10 +818,8 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+   - Run [34mnpm [39m[34m[1minstall[22m[39m to install dependencies in all directories
+
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -893,7 +827,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;
@@ -908,9 +842,7 @@ Array [
 🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
+   
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -918,7 +850,7 @@ Array [
    - [7mStart your frontend[27m:
          [34mnpm [39m[34m[1mstart[22m[39m
 
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+🧠 See [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]
 `;

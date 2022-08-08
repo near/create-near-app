@@ -8,7 +8,7 @@ const tracker = mixpanel.init(MIXPANEL_TOKEN);
 
 export const trackingMessage = chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you is shared`;
 
-// TODO: track different failures & deps-install usage
+// TODO: track different failures & install usage
 export const trackUsage = async (frontend: Frontend, contract: Contract) => {
   // prevents logging from CI
   if (process.env.NEAR_ENV === 'ci' || process.env.NODE_ENV === 'ci') {
