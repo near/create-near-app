@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  tests-bash:
+  e2e:
     strategy:
       fail-fast: false
       matrix:
