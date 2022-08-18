@@ -28,16 +28,12 @@ https://docs.microsoft.com/en-us/windows/wsl/install
 Exiting now.",
   ],
   Array [
-    "[43m[30mNotice:[39m[49m AssemblyScript will be deprecated soon and isn't supported on all platforms.
-        [1mConsider writing smart contracts in JavaScript[22m",
+    "
+Creating a new [1mNEAR dApp[22m",
   ],
   Array [
     "
-...creating a new NEAR app...",
-  ],
-  Array [
-    "
-[32mInstalling dependencies in a few folders, this might take a while...[39m
+[32mInstalling dependencies in a few folders, this might take a while.[39m
 ",
   ],
   Array [

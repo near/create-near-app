@@ -5405,7 +5405,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-4\\"
+    \\"near-sdk-js\\": \\"0.4.0-5\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -5423,13 +5423,15 @@ Array [
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({message=\\"Hello\\"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = message;
   }
+
+  default(){ return new MyContract({message: \\"Hello\\"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -5437,7 +5439,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(\`Saving greeting \${message}\`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -5445,8 +5447,8 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(\`The current greeting is \${this.my_greeting}\`);
-    return this.my_greeting;
+    near.log(\`The current greeting is \${this.greeting}\`);
+    return this.greeting;
   }
 }
 ",
@@ -5811,7 +5813,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-4\\"
+    \\"near-sdk-js\\": \\"0.4.0-5\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -5829,13 +5831,15 @@ Array [
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({message=\\"Hello\\"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = message;
   }
+
+  default(){ return new MyContract({message: \\"Hello\\"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -5843,7 +5847,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(\`Saving greeting \${message}\`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -5851,8 +5855,8 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(\`The current greeting is \${this.my_greeting}\`);
-    return this.my_greeting;
+    near.log(\`The current greeting is \${this.greeting}\`);
+    return this.greeting;
   }
 }
 ",
@@ -6234,7 +6238,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-4\\"
+    \\"near-sdk-js\\": \\"0.4.0-5\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -6252,13 +6256,15 @@ Array [
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({message=\\"Hello\\"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = message;
   }
+
+  default(){ return new MyContract({message: \\"Hello\\"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -6266,7 +6272,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(\`Saving greeting \${message}\`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -6274,8 +6280,8 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(\`The current greeting is \${this.my_greeting}\`);
-    return this.my_greeting;
+    near.log(\`The current greeting is \${this.greeting}\`);
+    return this.greeting;
   }
 }
 ",
@@ -7302,7 +7308,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-4\\"
+    \\"near-sdk-js\\": \\"0.4.0-5\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -7320,13 +7326,15 @@ Array [
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({message=\\"Hello\\"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = message;
   }
+
+  default(){ return new MyContract({message: \\"Hello\\"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -7334,7 +7342,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(\`Saving greeting \${message}\`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -7342,8 +7350,8 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(\`The current greeting is \${this.my_greeting}\`);
-    return this.my_greeting;
+    near.log(\`The current greeting is \${this.greeting}\`);
+    return this.greeting;
   }
 }
 ",
@@ -8387,7 +8395,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-4\\"
+    \\"near-sdk-js\\": \\"0.4.0-5\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -8405,13 +8413,15 @@ Array [
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({message=\\"Hello\\"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = message;
   }
+
+  default(){ return new MyContract({message: \\"Hello\\"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -8419,7 +8429,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(\`Saving greeting \${message}\`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -8427,8 +8437,8 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(\`The current greeting is \${this.my_greeting}\`);
-    return this.my_greeting;
+    near.log(\`The current greeting is \${this.greeting}\`);
+    return this.greeting;
   }
 }
 ",
@@ -9426,7 +9436,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.4.0-4\\"
+    \\"near-sdk-js\\": \\"0.4.0-5\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -9444,13 +9454,15 @@ Array [
 // The @NearBindgen decorator allows this code to compile to Base64.
 @NearBindgen
 class MyContract extends NearContract {
-  my_greeting: string;
+  greeting: string;
 
-  constructor() {
+  constructor({message=\\"Hello\\"}:{message: string}) {
     //execute the NEAR Contract's constructor
     super();
-    this.my_greeting = 'Hello';
+    this.greeting = message;
   }
+
+  default(){ return new MyContract({message: \\"Hello\\"}) }
 
   // @call indicates that this is a 'change method' or a function
   // that changes state on the blockchain. Change methods cost gas.
@@ -9458,7 +9470,7 @@ class MyContract extends NearContract {
   @call
   set_greeting({ message }: { message: string }): void {
     near.log(\`Saving greeting \${message}\`);
-    this.my_greeting = message;
+    this.greeting = message;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -9466,8 +9478,8 @@ class MyContract extends NearContract {
   // and do not cost gas.
   @view
   get_greeting(): string {
-    near.log(\`The current greeting is \${this.my_greeting}\`);
-    return this.my_greeting;
+    near.log(\`The current greeting is \${this.greeting}\`);
+    return this.greeting;
   }
 }
 ",

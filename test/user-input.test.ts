@@ -10,7 +10,6 @@ describe('messages', () => {
     show.setupFailed();
     show.argsError();
     show.windowsWarning();
-    show.assemblyscriptWarning();
     show.creatingApp();
     show.depsInstall();
     show.depsInstallError();
