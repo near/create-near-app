@@ -16,13 +16,13 @@ jobs:
         exclude:
         - frontend: vanilla
         - frontend: none
-        include:
-        - contract: js
-          frontend: vanilla
-          tests: js
-        - contract: js
-          frontend: none
-          tests: js
+#        include:
+#        - contract: js
+#          frontend: vanilla
+#          tests: js
+#        - contract: js
+#          frontend: none
+#          tests: js
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 60
     steps:
