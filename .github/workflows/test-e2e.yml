@@ -1,6 +1,9 @@
 name: Tests E2E
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'master'
 
 jobs:
   e2e:
