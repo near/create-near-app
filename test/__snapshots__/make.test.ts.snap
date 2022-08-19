@@ -11128,8 +11128,7 @@ Array [
     \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
-    \\"postinstall\\": \\"npm install\\"
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\"
   },
   \\"devDependencies\\": {
     \\"near-cli\\": \\"^3.3.0\\"

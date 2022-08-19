@@ -12,10 +12,10 @@ jobs:
         contract: [ js, rust, assemblyscript ]
         frontend: [ react, vanilla, none ]
         tests: [ js, rust ]
-        exclude:
-        - frontend: vanilla
-        - frontend: none
-        - contract: assemblyscript
+#        exclude:
+#        - frontend: vanilla
+#        - frontend: none
+#        - contract: assemblyscript
 #        include:
 #        - contract: js
 #          frontend: vanilla

@@ -161,7 +161,7 @@ const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: Testi
         if (tests === 'js') {
           return {'postinstall': 'cd ./integration-tests && npm install && cd ..'};
         } else {
-          return {'postinstall': 'npm install'};
+          return {};
         }
       }
   }
