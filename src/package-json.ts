@@ -125,43 +125,43 @@ const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: Testi
     case 'assemblyscript':
       if (hasFrontend) {
         if (tests === 'js') {
-          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ../frontend && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ../frontend && npm install && cd ..'};
         }
       } else {
         if (tests === 'js') {
-          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install && cd contract && npm install --ignore-scripts && cd ..'};
+          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ..'};
         }
       }
     case 'js':
       if (hasFrontend) {
         if (tests === 'js') {
-          return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install && cd contract && npm install && cd ../frontend && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install && cd ../frontend && npm install && cd ..'};
         }
       } else {
         if (tests === 'js') {
-          return {'deps-install': 'npm install && cd contract && npm install && cd ../integration-tests && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install && cd ../integration-tests && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install && cd contract && npm install && cd ..'};
+          return {'postinstall': 'cd contract && npm install && cd ..'};
         }
       }
     case 'rust':
       if (hasFrontend) {
         if (tests === 'js') {
-          return {'deps-install': 'npm install && cd frontend && npm install && cd ../integration-tests && npm install && cd ..'};
+          return {'postinstall': 'cd frontend && npm install && cd ../integration-tests && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install && cd frontend && npm install && cd ..'};
+          return {'postinstall': 'cd frontend && npm install && cd ..'};
         }
       } else {
         if (tests === 'js') {
-          return {'deps-install': 'npm install && cd ./integration-tests && npm install && cd ..'};
+          return {'postinstall': 'cd ./integration-tests && npm install && cd ..'};
         } else {
-          return {'deps-install': 'npm install'};
+          return {};
         }
       }
   }

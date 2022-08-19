@@ -9,7 +9,7 @@ Quick Start
 
 If you haven't installed dependencies during setup:
 
-    npm run deps-install
+    npm install
 
 
 Build and deploy your contract to TestNet with a temporary dev account:

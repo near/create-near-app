@@ -65,7 +65,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -110,7 +110,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -155,7 +155,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -204,7 +204,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -253,7 +253,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -302,7 +302,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -351,7 +351,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -396,7 +396,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -441,7 +441,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -490,7 +490,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -539,7 +539,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -588,7 +588,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -638,7 +638,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -685,7 +685,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -732,7 +732,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -783,7 +783,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -834,7 +834,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
@@ -885,7 +885,7 @@ Array [
    - [7mNavigate to your project[27m:
          [34mcd [39m[34m[1mmy_project_name[22m[39m
    - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1mrun deps-install[22m[39m
+         [34mnpm [39m[34m[1minstall[22m[39m
    - [7mTest your contract[27m in NEAR SandBox:
          [34mnpm [39m[34m[1mtest[22m[39m
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
