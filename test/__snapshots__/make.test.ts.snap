@@ -1654,6 +1654,12 @@ Array [
   "--assemblyscript_react_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 export function getConfig(env) {
   switch (env) {
 
@@ -1725,7 +1731,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -2741,6 +2747,12 @@ Array [
   "--assemblyscript_react_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 export function getConfig(env) {
   switch (env) {
 
@@ -2812,7 +2824,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -3904,6 +3916,12 @@ Array [
   "--assemblyscript_vanilla_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
@@ -3976,7 +3994,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -4962,6 +4980,12 @@ Array [
   "--assemblyscript_vanilla_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
@@ -5034,7 +5058,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -6784,6 +6808,12 @@ Array [
   "--js_react_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 export function getConfig(env) {
   switch (env) {
 
@@ -6855,7 +6885,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -7854,6 +7884,12 @@ Array [
   "--js_react_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 export function getConfig(env) {
   switch (env) {
 
@@ -7925,7 +7961,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -9004,6 +9040,12 @@ Array [
   "--js_vanilla_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
@@ -9076,7 +9118,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -10045,6 +10087,12 @@ Array [
   "--js_vanilla_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
@@ -10117,7 +10165,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -11933,6 +11981,12 @@ Array [
   "--rust_react_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 export function getConfig(env) {
   switch (env) {
 
@@ -12004,7 +12058,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -13024,6 +13078,12 @@ Array [
   "--rust_react_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 export function getConfig(env) {
   switch (env) {
 
@@ -13095,7 +13155,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -14191,6 +14251,12 @@ Array [
   "--rust_vanilla_js--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
@@ -14263,7 +14329,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -15253,6 +15319,12 @@ Array [
   "--rust_vanilla_rust--frontend--near-config.js",
   "const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (\`npm run deploy\`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
@@ -15325,7 +15397,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {

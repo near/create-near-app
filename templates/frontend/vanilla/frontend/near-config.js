@@ -1,5 +1,11 @@
 const CONTRACT_NAME = process.env.CONTRACT_NAME;
 
+if (!CONTRACT_NAME) {
+  const errorMessage = 'ERROR: CONTRACT_NAME not defined. Did you run deploy script (`npm run deploy`)? README.md contains more info about it.';
+  alert(errorMessage);
+  throw new Error(errorMessage);
+}
+
 function getConfig(env) {
   switch (env) {
     case 'production':
