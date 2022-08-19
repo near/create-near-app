@@ -10453,7 +10453,7 @@ authors = [\\"Near Inc <hello@near.org>\\"]
 edition = \\"2021\\"
 
 [lib]
-crate-type = [\\"cdylib\\", \\"rlib\\"]
+crate-type = [\\"cdylib\\"]
 
 [dependencies]
 near-sdk = \\"4.0.0\\"
@@ -10882,7 +10882,7 @@ authors = [\\"Near Inc <hello@near.org>\\"]
 edition = \\"2021\\"
 
 [lib]
-crate-type = [\\"cdylib\\", \\"rlib\\"]
+crate-type = [\\"cdylib\\"]
 
 [dependencies]
 near-sdk = \\"4.0.0\\"
@@ -11324,7 +11324,7 @@ authors = [\\"Near Inc <hello@near.org>\\"]
 edition = \\"2021\\"
 
 [lib]
-crate-type = [\\"cdylib\\", \\"rlib\\"]
+crate-type = [\\"cdylib\\"]
 
 [dependencies]
 near-sdk = \\"4.0.0\\"
@@ -12415,7 +12415,7 @@ authors = [\\"Near Inc <hello@near.org>\\"]
 edition = \\"2021\\"
 
 [lib]
-crate-type = [\\"cdylib\\", \\"rlib\\"]
+crate-type = [\\"cdylib\\"]
 
 [dependencies]
 near-sdk = \\"4.0.0\\"
@@ -13519,7 +13519,7 @@ authors = [\\"Near Inc <hello@near.org>\\"]
 edition = \\"2021\\"
 
 [lib]
-crate-type = [\\"cdylib\\", \\"rlib\\"]
+crate-type = [\\"cdylib\\"]
 
 [dependencies]
 near-sdk = \\"4.0.0\\"
@@ -14581,7 +14581,7 @@ authors = [\\"Near Inc <hello@near.org>\\"]
 edition = \\"2021\\"
 
 [lib]
-crate-type = [\\"cdylib\\", \\"rlib\\"]
+crate-type = [\\"cdylib\\"]
 
 [dependencies]
 near-sdk = \\"4.0.0\\"
