@@ -2,11 +2,8 @@ name: Tests E2E
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - 'master'
 jobs:
-  tests-bash:
+  e2e:
     strategy:
       fail-fast: false
       matrix:
@@ -15,16 +12,17 @@ jobs:
         contract: [ js, rust, assemblyscript ]
         frontend: [ react, vanilla, none ]
         tests: [ js, rust ]
-#        exclude:
-#          - frontend: vanilla
-#          - frontend: none
+        exclude:
+        - frontend: vanilla
+        - frontend: none
+        - contract: assemblyscript
 #        include:
-#          - contract: js
-#            frontend: vanilla
-#            tests: js
-#          - contract: js
-#            frontend: none
-#            tests: js
+#        - contract: js
+#          frontend: vanilla
+#          tests: js
+#        - contract: js
+#          frontend: none
+#          tests: js
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 60
     steps:
