@@ -354,7 +354,7 @@ Array [
 exports[`create 'assemblyscript' 'none' 'js': --assemblyscript_none_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--assemblyscript_none_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -1877,7 +1877,7 @@ Array [
 exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--assemblyscript_react_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -4035,7 +4035,7 @@ Array [
 exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--assemblyscript_vanilla_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -5514,7 +5514,7 @@ Array [
 exports[`create 'js' 'none' 'js': --js_none_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--js_none_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -7007,7 +7007,7 @@ Array [
 exports[`create 'js' 'react' 'js': --js_react_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--js_react_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -9135,7 +9135,7 @@ Array [
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--js_vanilla_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -10626,7 +10626,7 @@ Array [
 exports[`create 'rust' 'none' 'js': --rust_none_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--rust_none_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -12157,7 +12157,7 @@ Array [
 exports[`create 'rust' 'react' 'js': --rust_react_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--rust_react_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
@@ -14323,7 +14323,7 @@ Array [
 exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--integration-tests--src--main.ava.ts 1`] = `
 Array [
   "--rust_vanilla_js--integration-tests--src--main.ava.ts",
-  "import { Worker, NEAR, NearAccount } from 'near-workspaces';
+  "import { Worker, NearAccount } from 'near-workspaces';
 import anyTest, { TestFn } from 'ava';
 
 const test = anyTest as TestFn<{
