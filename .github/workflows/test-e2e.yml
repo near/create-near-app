@@ -48,7 +48,6 @@ jobs:
           cd _testrun
           npm run build
       - name: Test template
-        if: matrix.platform != 'macos-latest'
         env:
           NEAR_ENV: ci
           IS_GITHUB_ACTION: true
