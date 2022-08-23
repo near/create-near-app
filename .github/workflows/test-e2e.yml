@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   e2e:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     strategy:
       fail-fast: false
       matrix:
