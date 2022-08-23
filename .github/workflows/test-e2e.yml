@@ -7,8 +7,13 @@ on:
   pull_request:
     types: [ opened, reopened ]
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   e2e:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     strategy:
       fail-fast: false
       matrix:

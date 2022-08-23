@@ -17,6 +17,8 @@ To create a new NEAR project run this and follow interactive prompts:
 
     npx create-near-app
 
+> If you've previously installed `create-near-app` globally via `npm install -g create-near-app`, please uninstall the package using `npm uninstall -g create-near-app` to ensure that `npx` always uses the latest version.
+
 Follow the instructions in the README.md in the project you just created! 🚀
 
 You can create contracts written in:
