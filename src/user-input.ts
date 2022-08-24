@@ -59,13 +59,13 @@ export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
 
 type Choices<T> = {title: string, value: T}[];
 const contractChoices: Choices<Contract> = [
-  {title: 'JavaScript', value: 'js'},
+  {title: 'TypeScript', value: 'js'},
   {title: 'Rust', value: 'rust'},
   {title: 'AssemblyScript', value: 'assemblyscript'},
 ];
 const testsChoices: Choices<TestingFramework> = [
   {title: 'Rust Sandbox Tests', value: 'rust'},
-  {title: 'JavaScript Sandbox Tests', value: 'js'},
+  {title: 'TypeScript Sandbox Tests', value: 'js'},
 ];
 const frontendChoices: Choices<Frontend> = [
   {title: 'React.js', value: 'react'},
