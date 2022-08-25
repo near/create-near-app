@@ -2,6 +2,8 @@
 
 ./build.sh
 
+echo ">> Deploying contract"
+
 # Deploy the contract with an auto-generated development account
 rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy

@@ -54,6 +54,13 @@ jobs:
         run: |
           cd _testrun
           npm run build
+      - name: Deploy template
+        env:
+          NEAR_ENV: ci
+          IS_GITHUB_ACTION: true
+        run: |
+          cd _testrun
+          npm run deploy
       - name: Test template
         env:
           NEAR_ENV: ci
