@@ -11011,7 +11011,7 @@ Array [
 
 echo \\">> Deploying contract\\"
 
-npx near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -11465,7 +11465,7 @@ Array [
 
 echo \\">> Deploying contract\\"
 
-npx near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -11931,7 +11931,7 @@ Array [
 
 echo \\">> Deploying contract\\"
 
-npx near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -13083,7 +13083,7 @@ Array [
 
 echo \\">> Deploying contract\\"
 
-npx near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -14248,7 +14248,7 @@ Array [
 
 echo \\">> Deploying contract\\"
 
-npx near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -15371,7 +15371,7 @@ Array [
 
 echo \\">> Deploying contract\\"
 
-npx near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
