@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "scripts": {
-    "start": "echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open",
+    "start": "./start.sh",
     "build": "parcel build index.html --public-url ./"
   },
   "devDependencies": {

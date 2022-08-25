@@ -1731,7 +1731,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -1770,6 +1770,36 @@ Array [
     ]
   }
 }",
+]
+`;
+
+exports[`create 'assemblyscript' 'react' 'js': --assemblyscript_react_js--frontend--start.sh 1`] = `
+Array [
+  "--assemblyscript_react_js--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -2824,7 +2854,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -2863,6 +2893,36 @@ Array [
     ]
   }
 }",
+]
+`;
+
+exports[`create 'assemblyscript' 'react' 'rust': --assemblyscript_react_rust--frontend--start.sh 1`] = `
+Array [
+  "--assemblyscript_react_rust--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -3994,7 +4054,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -4007,6 +4067,36 @@ Array [
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
+]
+`;
+
+exports[`create 'assemblyscript' 'vanilla' 'js': --assemblyscript_vanilla_js--frontend--start.sh 1`] = `
+Array [
+  "--assemblyscript_vanilla_js--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -5058,7 +5148,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -5071,6 +5161,36 @@ Array [
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
+]
+`;
+
+exports[`create 'assemblyscript' 'vanilla' 'rust': --assemblyscript_vanilla_rust--frontend--start.sh 1`] = `
+Array [
+  "--assemblyscript_vanilla_rust--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -5414,6 +5534,35 @@ Array [
 ]
 `;
 
+exports[`create 'js' 'none' 'js': --js_none_js--contract--build.sh 1`] = `
+Array [
+  "--js_none_js--contract--build.sh",
+  "#!/bin/sh
+
+near-sdk-js build src/contract.ts build/hello_near.wasm",
+]
+`;
+
+exports[`create 'js' 'none' 'js': --js_none_js--contract--deploy.sh 1`] = `
+Array [
+  "--js_none_js--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+
+# Deploy the contract with an auto-generated development account
+rm -rf neardev
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile build/hello_near.wasm
+
+export $(cat ./neardev/dev-account.env)
+
+near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
+
+echo $CONTRACT_NAME",
+]
+`;
+
 exports[`create 'js' 'none' 'js': --js_none_js--contract--package.json 1`] = `
 Array [
   "--js_none_js--contract--package.json",
@@ -5423,8 +5572,8 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"./build.sh\\",
+    \\"deploy\\": \\"./deploy.sh\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
@@ -5822,6 +5971,35 @@ Array [
 ]
 `;
 
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--build.sh 1`] = `
+Array [
+  "--js_none_rust--contract--build.sh",
+  "#!/bin/sh
+
+near-sdk-js build src/contract.ts build/hello_near.wasm",
+]
+`;
+
+exports[`create 'js' 'none' 'rust': --js_none_rust--contract--deploy.sh 1`] = `
+Array [
+  "--js_none_rust--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+
+# Deploy the contract with an auto-generated development account
+rm -rf neardev
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile build/hello_near.wasm
+
+export $(cat ./neardev/dev-account.env)
+
+near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
+
+echo $CONTRACT_NAME",
+]
+`;
+
 exports[`create 'js' 'none' 'rust': --js_none_rust--contract--package.json 1`] = `
 Array [
   "--js_none_rust--contract--package.json",
@@ -5831,8 +6009,8 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"./build.sh\\",
+    \\"deploy\\": \\"./deploy.sh\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
@@ -6247,6 +6425,35 @@ Array [
 ]
 `;
 
+exports[`create 'js' 'react' 'js': --js_react_js--contract--build.sh 1`] = `
+Array [
+  "--js_react_js--contract--build.sh",
+  "#!/bin/sh
+
+near-sdk-js build src/contract.ts build/hello_near.wasm",
+]
+`;
+
+exports[`create 'js' 'react' 'js': --js_react_js--contract--deploy.sh 1`] = `
+Array [
+  "--js_react_js--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+
+# Deploy the contract with an auto-generated development account
+rm -rf neardev
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile build/hello_near.wasm
+
+export $(cat ./neardev/dev-account.env)
+
+near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
+
+echo $CONTRACT_NAME",
+]
+`;
+
 exports[`create 'js' 'react' 'js': --js_react_js--contract--package.json 1`] = `
 Array [
   "--js_react_js--contract--package.json",
@@ -6256,8 +6463,8 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"./build.sh\\",
+    \\"deploy\\": \\"./deploy.sh\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
@@ -6885,7 +7092,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -6924,6 +7131,36 @@ Array [
     ]
   }
 }",
+]
+`;
+
+exports[`create 'js' 'react' 'js': --js_react_js--frontend--start.sh 1`] = `
+Array [
+  "--js_react_js--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -7323,6 +7560,35 @@ Array [
 ]
 `;
 
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--build.sh 1`] = `
+Array [
+  "--js_react_rust--contract--build.sh",
+  "#!/bin/sh
+
+near-sdk-js build src/contract.ts build/hello_near.wasm",
+]
+`;
+
+exports[`create 'js' 'react' 'rust': --js_react_rust--contract--deploy.sh 1`] = `
+Array [
+  "--js_react_rust--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+
+# Deploy the contract with an auto-generated development account
+rm -rf neardev
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile build/hello_near.wasm
+
+export $(cat ./neardev/dev-account.env)
+
+near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
+
+echo $CONTRACT_NAME",
+]
+`;
+
 exports[`create 'js' 'react' 'rust': --js_react_rust--contract--package.json 1`] = `
 Array [
   "--js_react_rust--contract--package.json",
@@ -7332,8 +7598,8 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"./build.sh\\",
+    \\"deploy\\": \\"./deploy.sh\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
@@ -7961,7 +8227,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -8000,6 +8266,36 @@ Array [
     ]
   }
 }",
+]
+`;
+
+exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--start.sh 1`] = `
+Array [
+  "--js_react_rust--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -8416,6 +8712,35 @@ Array [
 ]
 `;
 
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--build.sh 1`] = `
+Array [
+  "--js_vanilla_js--contract--build.sh",
+  "#!/bin/sh
+
+near-sdk-js build src/contract.ts build/hello_near.wasm",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--deploy.sh 1`] = `
+Array [
+  "--js_vanilla_js--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+
+# Deploy the contract with an auto-generated development account
+rm -rf neardev
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile build/hello_near.wasm
+
+export $(cat ./neardev/dev-account.env)
+
+near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
+
+echo $CONTRACT_NAME",
+]
+`;
+
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--package.json 1`] = `
 Array [
   "--js_vanilla_js--contract--package.json",
@@ -8425,8 +8750,8 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"./build.sh\\",
+    \\"deploy\\": \\"./deploy.sh\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
@@ -9118,7 +9443,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -9131,6 +9456,36 @@ Array [
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--start.sh 1`] = `
+Array [
+  "--js_vanilla_js--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -9463,6 +9818,35 @@ Array [
 ]
 `;
 
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--build.sh 1`] = `
+Array [
+  "--js_vanilla_rust--contract--build.sh",
+  "#!/bin/sh
+
+near-sdk-js build src/contract.ts build/hello_near.wasm",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--deploy.sh 1`] = `
+Array [
+  "--js_vanilla_rust--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+
+# Deploy the contract with an auto-generated development account
+rm -rf neardev
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile build/hello_near.wasm
+
+export $(cat ./neardev/dev-account.env)
+
+near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
+
+echo $CONTRACT_NAME",
+]
+`;
+
 exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--package.json 1`] = `
 Array [
   "--js_vanilla_rust--contract--package.json",
@@ -9472,8 +9856,8 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"type\\": \\"module\\",
   \\"scripts\\": {
-    \\"build\\": \\"near-sdk-js build src/contract.ts build/hello_near.wasm\\",
-    \\"deploy\\": \\"npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME\\",
+    \\"build\\": \\"./build.sh\\",
+    \\"deploy\\": \\"./deploy.sh\\",
     \\"test\\": \\"echo use integration-tests\\"
   },
   \\"dependencies\\": {
@@ -10165,7 +10549,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -10178,6 +10562,36 @@ Array [
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--start.sh 1`] = `
+Array [
+  "--js_vanilla_rust--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -10552,6 +10966,26 @@ Exploring The Code
 ]
 `;
 
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--build.sh 1`] = `
+Array [
+  "--rust_none_js--contract--build.sh",
+  "#!/bin/sh
+
+rustup target add wasm32-unknown-unknown
+cargo build --all --target wasm32-unknown-unknown --release",
+]
+`;
+
+exports[`create 'rust' 'none' 'js': --rust_none_js--contract--deploy.sh 1`] = `
+Array [
+  "--rust_none_js--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+]
+`;
+
 exports[`create 'rust' 'none' 'js': --rust_none_js--contract--src--lib.rs 1`] = `
 Array [
   "--rust_none_js--contract--src--lib.rs",
@@ -10729,9 +11163,9 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && ./deploy.sh\\",
     \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test  -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
@@ -10981,6 +11415,26 @@ Exploring The Code
 ]
 `;
 
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--build.sh 1`] = `
+Array [
+  "--rust_none_rust--contract--build.sh",
+  "#!/bin/sh
+
+rustup target add wasm32-unknown-unknown
+cargo build --all --target wasm32-unknown-unknown --release",
+]
+`;
+
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--deploy.sh 1`] = `
+Array [
+  "--rust_none_rust--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+]
+`;
+
 exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--src--lib.rs 1`] = `
 Array [
   "--rust_none_rust--contract--src--lib.rs",
@@ -11171,9 +11625,9 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && ./deploy.sh\\",
     \\"build\\": \\"npm run build:contract\\",
-    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\"
@@ -11419,6 +11873,26 @@ Exploring The Code
   [correct target]: https://docs.near.org/develop/prerequisites#rust-and-wasm
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
+]
+`;
+
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--build.sh 1`] = `
+Array [
+  "--rust_react_js--contract--build.sh",
+  "#!/bin/sh
+
+rustup target add wasm32-unknown-unknown
+cargo build --all --target wasm32-unknown-unknown --release",
+]
+`;
+
+exports[`create 'rust' 'react' 'js': --rust_react_js--contract--deploy.sh 1`] = `
+Array [
+  "--rust_react_js--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -12058,7 +12532,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -12097,6 +12571,36 @@ Array [
     ]
   }
 }",
+]
+`;
+
+exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--start.sh 1`] = `
+Array [
+  "--rust_react_js--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -12266,10 +12770,10 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"cd frontend && npm run start\\",
-    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && ./deploy.sh\\",
     \\"build\\": \\"npm run build:contract && npm run build:web\\",
     \\"build:web\\": \\"cd frontend && npm run build\\",
-    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test  -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
@@ -12516,6 +13020,26 @@ Exploring The Code
   [correct target]: https://docs.near.org/develop/prerequisites#rust-and-wasm
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
+]
+`;
+
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--build.sh 1`] = `
+Array [
+  "--rust_react_rust--contract--build.sh",
+  "#!/bin/sh
+
+rustup target add wasm32-unknown-unknown
+cargo build --all --target wasm32-unknown-unknown --release",
+]
+`;
+
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--deploy.sh 1`] = `
+Array [
+  "--rust_react_rust--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -13155,7 +13679,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -13194,6 +13718,36 @@ Array [
     ]
   }
 }",
+]
+`;
+
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--start.sh 1`] = `
+Array [
+  "--rust_react_rust--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -13376,10 +13930,10 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"cd frontend && npm run start\\",
-    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && ./deploy.sh\\",
     \\"build\\": \\"npm run build:contract && npm run build:web\\",
     \\"build:web\\": \\"cd frontend && npm run build\\",
-    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
@@ -13626,6 +14180,26 @@ Exploring The Code
   [correct target]: https://docs.near.org/develop/prerequisites#rust-and-wasm
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--build.sh 1`] = `
+Array [
+  "--rust_vanilla_js--contract--build.sh",
+  "#!/bin/sh
+
+rustup target add wasm32-unknown-unknown
+cargo build --all --target wasm32-unknown-unknown --release",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--deploy.sh 1`] = `
+Array [
+  "--rust_vanilla_js--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -14329,7 +14903,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -14342,6 +14916,36 @@ Array [
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--start.sh 1`] = `
+Array [
+  "--rust_vanilla_js--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -14444,10 +15048,10 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"cd frontend && npm run start\\",
-    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && ./deploy.sh\\",
     \\"build\\": \\"npm run build:contract && npm run build:web\\",
     \\"build:web\\": \\"cd frontend && npm run build\\",
-    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test  -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
@@ -14694,6 +15298,26 @@ Exploring The Code
   [correct target]: https://docs.near.org/develop/prerequisites#rust-and-wasm
   [cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 ",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--build.sh 1`] = `
+Array [
+  "--rust_vanilla_rust--contract--build.sh",
+  "#!/bin/sh
+
+rustup target add wasm32-unknown-unknown
+cargo build --all --target wasm32-unknown-unknown --release",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--deploy.sh 1`] = `
+Array [
+  "--rust_vanilla_rust--contract--deploy.sh",
+  "#!/bin/sh
+
+./build.sh
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
 ]
 `;
 
@@ -15397,7 +16021,7 @@ Array [
   \\"version\\": \\"1.0.0\\",
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
-    \\"start\\": \\"echo The app is starting! && env-cmd --silent -f ../contract/neardev/dev-account.env parcel index.html --open\\",
+    \\"start\\": \\"./start.sh\\",
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
@@ -15410,6 +16034,36 @@ Array [
     \\"near-api-js\\": \\"^0.44.2\\"
   }
 }",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--start.sh 1`] = `
+Array [
+  "--rust_vanilla_rust--frontend--start.sh",
+  "#!/bin/sh
+
+CONTRACT_DIRECTORY=../contract
+DEV_ACCOUNT_FILE=\\"\${CONTRACT_DIRECTORY}/neardev/dev-account.env\\"
+
+start () {
+  echo The app is starting!
+  env-cmd -f $DEV_ACCOUNT_FILE parcel index.html --open
+}
+
+alert () {
+  echo \\"======================================================\\"
+  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
+  echo \\"Did you deploy your contract ?\\"
+  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"======================================================\\"
+}
+
+if [ -f \\"$DEV_ACCOUNT_FILE\\" ]; then
+  start
+else
+  alert
+fi
+",
 ]
 `;
 
@@ -15525,10 +16179,10 @@ Array [
   \\"license\\": \\"(MIT AND Apache-2.0)\\",
   \\"scripts\\": {
     \\"start\\": \\"cd frontend && npm run start\\",
-    \\"deploy\\": \\"npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm\\",
+    \\"deploy\\": \\"cd contract && ./deploy.sh\\",
     \\"build\\": \\"npm run build:contract && npm run build:web\\",
     \\"build:web\\": \\"cd frontend && npm run build\\",
-    \\"build:contract\\": \\"cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release\\",
+    \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
     \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",

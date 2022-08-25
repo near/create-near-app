@@ -56,7 +56,7 @@ const buildContractScript = (contract: Contract): Entries => {
       };
     case 'rust':
       return {
-        'build:contract': 'cd contract && rustup target add wasm32-unknown-unknown && cargo build --all --target wasm32-unknown-unknown --release',
+        'build:contract': 'cd contract && ./build.sh',
       };
   }
 };
@@ -70,7 +70,7 @@ const deployScript = (contract: Contract): Entries => {
       };
     case 'rust':
       return {
-        'deploy': 'npm run build:contract && cd contract && near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm',
+        'deploy': 'cd contract && ./deploy.sh',
       };
   }
 };

@@ -4,8 +4,8 @@
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
-    "deploy": "npm run build && rm -rf neardev && near dev-deploy --wasmFile build/hello_near.wasm && export $(cat ./neardev/dev-account.env) && near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1 && echo $CONTRACT_NAME",
+    "build": "./build.sh",
+    "deploy": "./deploy.sh",
     "test": "echo use integration-tests"
   },
   "dependencies": {

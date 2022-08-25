@@ -23,38 +23,48 @@ export async function createFiles({contract, frontend, tests, projectPath, verbo
 
   // copy frontend
   if (frontend !== 'none') {
-    const sourceTemplateDir = `${rootDir}/frontend/${frontend}`;
-    await copyDir(sourceTemplateDir, projectPath, {verbose, skip: skip.map(f => path.join(sourceTemplateDir, f))});
+    const sourceFrontendDir = path.resolve(`${rootDir}/frontend/${frontend}`);
+    const sourceSharedFrontendDir = path.resolve(`${rootDir}/frontend/shared`);
+    const targetFrontendDir = path.resolve(`${projectPath}/frontend`);
+    fs.mkdirSync(targetFrontendDir, { recursive: true });
+    await copyDir(sourceFrontendDir, targetFrontendDir, {verbose, skip: skip.map(f => path.join(sourceFrontendDir, f))});
+    await copyDir(sourceSharedFrontendDir, targetFrontendDir, {verbose, skip: skip.map(f => path.join(sourceSharedFrontendDir, f))});
   }
 
   // shared files
-  const sourceSharedDir = `${rootDir}/shared`;
+  const sourceSharedDir = path.resolve(rootDir, 'shared');
   await copyDir(sourceSharedDir, projectPath, {verbose, skip: skip.map(f => path.join(sourceSharedDir, f))});
 
   // copy contract files
-  const contractSourceDir = `${rootDir}/contracts/${contract}`;
-  await copyDir(contractSourceDir, `${projectPath}/contract`, {
+  const sourceContractDir = path.resolve(rootDir, 'contracts', contract);
+  const targetContractDir = path.resolve(projectPath, 'contract');
+  fs.mkdirSync(targetContractDir, { recursive: true });
+  await copyDir(sourceContractDir, targetContractDir, {
     verbose,
-    skip: skip.map(f => path.join(contractSourceDir, f))
+    skip: skip.map(f => path.join(sourceContractDir, f))
   });
 
+  // tests dir
+  const targetTestDir = path.resolve(projectPath, 'integration-tests');
+  fs.mkdirSync(targetTestDir, { recursive: true });
+
   // copy tests - shared files
-  let sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/shared/${tests}-tests`);
-  await copyDir(sourceTestSharedDir, `${projectPath}/integration-tests/`, {
+  const sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/shared/${tests}-tests`);
+  await copyDir(sourceTestSharedDir, targetTestDir, {
     verbose,
     skip: skip.map(f => path.join(sourceTestSharedDir, f))
   });
   // copy tests - overrides files
   let sourceTestOverridesDir = path.resolve(`${rootDir}/integration-tests/overrides/${contract}-contract/${tests}-tests`);
   if (fs.existsSync(sourceTestOverridesDir)) {
-    await copyDir(sourceTestOverridesDir, `${projectPath}/integration-tests/`, {
+    await copyDir(sourceTestOverridesDir, targetTestDir, {
       verbose,
       skip: skip.map(f => path.join(sourceTestOverridesDir, f))
     });
   }
 
   // add .gitignore
-  await renameFile(`${projectPath}/near.gitignore`, `${projectPath}/.gitignore`);
+  await renameFile(`${projectPath}/template.gitignore`, `${projectPath}/.gitignore`);
 }
 
 export const renameFile = async function (oldPath: string, newPath: string) {
