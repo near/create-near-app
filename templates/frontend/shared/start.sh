@@ -9,10 +9,13 @@ start () {
 }
 
 alert () {
+  GREEN='\033[1;32m'
+  NC='\033[0m' # No Color
+
   echo "======================================================"
-  echo "Can't find the dev-account credentials file (${DEV_ACCOUNT_FILE})"
-  echo "Did you deploy your contract ?"
-  echo ">> Run 'npm run deploy' from your 'contract' directory"
+  echo "It looks like you didn't deploy your contract"
+  echo ">> Run ${GREEN}'npm run deploy'${NC} from the your project's root directory"
+  echo "This frontend template works with contracts deployed to NEAR TestNet"
   echo "======================================================"
 }
 

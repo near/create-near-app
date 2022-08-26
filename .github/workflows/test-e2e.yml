@@ -40,6 +40,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.nodejs }}
+      - name: Prepare
+        run: |
+          mkdir -p ~/.near-config
+          echo "{\"trackingEnabled\": false,\"trackingAccountID\": false}" >| ~/.near-config/settings.json
       - name: Install modules
         run: |
           npm install
@@ -54,13 +58,13 @@ jobs:
         run: |
           cd _testrun
           npm run build
-#      - name: Deploy template
-#        env:
-#          NEAR_ENV: ci
-#          IS_GITHUB_ACTION: true
-#        run: |
-#          cd _testrun
-#          npm run deploy
+      - name: Deploy template
+        env:
+          NEAR_ENV: ci
+          IS_GITHUB_ACTION: true
+        run: |
+          cd _testrun
+          npm run deploy
       - name: Test template
         env:
           NEAR_ENV: ci

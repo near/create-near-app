@@ -1787,10 +1787,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -2910,10 +2913,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -4084,10 +4090,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -5178,10 +5187,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -5541,7 +5553,8 @@ Array [
 
 echo \\">> Building contract\\"
 
-near-sdk-js build src/contract.ts build/hello_near.wasm",
+near-sdk-js build src/contract.ts build/hello_near.wasm
+",
 ]
 `;
 
@@ -5552,18 +5565,21 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-# Deploy the contract with an auto-generated development account
-rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
 
-export $(cat ./neardev/dev-account.env)
+export CONTRACT_NAME=$(cat ./neardev/dev-account)
 
+# js contracts always need to be initialized
 near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
-
-echo $CONTRACT_NAME",
+",
 ]
 `;
 
@@ -5982,7 +5998,8 @@ Array [
 
 echo \\">> Building contract\\"
 
-near-sdk-js build src/contract.ts build/hello_near.wasm",
+near-sdk-js build src/contract.ts build/hello_near.wasm
+",
 ]
 `;
 
@@ -5993,18 +6010,21 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-# Deploy the contract with an auto-generated development account
-rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
 
-export $(cat ./neardev/dev-account.env)
+export CONTRACT_NAME=$(cat ./neardev/dev-account)
 
+# js contracts always need to be initialized
 near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
-
-echo $CONTRACT_NAME",
+",
 ]
 `;
 
@@ -6440,7 +6460,8 @@ Array [
 
 echo \\">> Building contract\\"
 
-near-sdk-js build src/contract.ts build/hello_near.wasm",
+near-sdk-js build src/contract.ts build/hello_near.wasm
+",
 ]
 `;
 
@@ -6451,18 +6472,21 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-# Deploy the contract with an auto-generated development account
-rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
 
-export $(cat ./neardev/dev-account.env)
+export CONTRACT_NAME=$(cat ./neardev/dev-account)
 
+# js contracts always need to be initialized
 near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
-
-echo $CONTRACT_NAME",
+",
 ]
 `;
 
@@ -7160,10 +7184,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -7579,7 +7606,8 @@ Array [
 
 echo \\">> Building contract\\"
 
-near-sdk-js build src/contract.ts build/hello_near.wasm",
+near-sdk-js build src/contract.ts build/hello_near.wasm
+",
 ]
 `;
 
@@ -7590,18 +7618,21 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-# Deploy the contract with an auto-generated development account
-rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
 
-export $(cat ./neardev/dev-account.env)
+export CONTRACT_NAME=$(cat ./neardev/dev-account)
 
+# js contracts always need to be initialized
 near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
-
-echo $CONTRACT_NAME",
+",
 ]
 `;
 
@@ -8299,10 +8330,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -8735,7 +8769,8 @@ Array [
 
 echo \\">> Building contract\\"
 
-near-sdk-js build src/contract.ts build/hello_near.wasm",
+near-sdk-js build src/contract.ts build/hello_near.wasm
+",
 ]
 `;
 
@@ -8746,18 +8781,21 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-# Deploy the contract with an auto-generated development account
-rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
 
-export $(cat ./neardev/dev-account.env)
+export CONTRACT_NAME=$(cat ./neardev/dev-account)
 
+# js contracts always need to be initialized
 near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
-
-echo $CONTRACT_NAME",
+",
 ]
 `;
 
@@ -9493,10 +9531,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -9845,7 +9886,8 @@ Array [
 
 echo \\">> Building contract\\"
 
-near-sdk-js build src/contract.ts build/hello_near.wasm",
+near-sdk-js build src/contract.ts build/hello_near.wasm
+",
 ]
 `;
 
@@ -9856,18 +9898,21 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-# Deploy the contract with an auto-generated development account
-rm -rf neardev
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
 
-export $(cat ./neardev/dev-account.env)
+export CONTRACT_NAME=$(cat ./neardev/dev-account)
 
+# js contracts always need to be initialized
 near call $CONTRACT_NAME init --accountId $CONTRACT_NAME --deposit 1
-
-echo $CONTRACT_NAME",
+",
 ]
 `;
 
@@ -10603,10 +10648,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -10998,7 +11046,8 @@ Array [
 echo \\">> Building contract\\"
 
 rustup target add wasm32-unknown-unknown
-cargo build --all --target wasm32-unknown-unknown --release",
+cargo build --all --target wasm32-unknown-unknown --release
+",
 ]
 `;
 
@@ -11009,9 +11058,16 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
+",
 ]
 `;
 
@@ -11452,7 +11508,8 @@ Array [
 echo \\">> Building contract\\"
 
 rustup target add wasm32-unknown-unknown
-cargo build --all --target wasm32-unknown-unknown --release",
+cargo build --all --target wasm32-unknown-unknown --release
+",
 ]
 `;
 
@@ -11463,9 +11520,16 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
+",
 ]
 `;
 
@@ -11918,7 +11982,8 @@ Array [
 echo \\">> Building contract\\"
 
 rustup target add wasm32-unknown-unknown
-cargo build --all --target wasm32-unknown-unknown --release",
+cargo build --all --target wasm32-unknown-unknown --release
+",
 ]
 `;
 
@@ -11929,9 +11994,16 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
+",
 ]
 `;
 
@@ -12627,10 +12699,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -13070,7 +13145,8 @@ Array [
 echo \\">> Building contract\\"
 
 rustup target add wasm32-unknown-unknown
-cargo build --all --target wasm32-unknown-unknown --release",
+cargo build --all --target wasm32-unknown-unknown --release
+",
 ]
 `;
 
@@ -13081,9 +13157,16 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
+",
 ]
 `;
 
@@ -13779,10 +13862,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -14235,7 +14321,8 @@ Array [
 echo \\">> Building contract\\"
 
 rustup target add wasm32-unknown-unknown
-cargo build --all --target wasm32-unknown-unknown --release",
+cargo build --all --target wasm32-unknown-unknown --release
+",
 ]
 `;
 
@@ -14246,9 +14333,16 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
+",
 ]
 `;
 
@@ -14982,10 +15076,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
@@ -15358,7 +15455,8 @@ Array [
 echo \\">> Building contract\\"
 
 rustup target add wasm32-unknown-unknown
-cargo build --all --target wasm32-unknown-unknown --release",
+cargo build --all --target wasm32-unknown-unknown --release
+",
 ]
 `;
 
@@ -15369,9 +15467,16 @@ Array [
 
 ./build.sh
 
+if [ $? -ne 0 ]; then
+  echo \\">> Error building contract\\"
+  exit 1
+fi
+
 echo \\">> Deploying contract\\"
 
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
+# https://docs.near.org/tools/near-cli#near-dev-deploy
+near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
+",
 ]
 `;
 
@@ -16105,10 +16210,13 @@ start () {
 }
 
 alert () {
+  GREEN='\\\\033[1;32m'
+  NC='\\\\033[0m' # No Color
+
   echo \\"======================================================\\"
-  echo \\"Can't find the dev-account credentials file (\${DEV_ACCOUNT_FILE})\\"
-  echo \\"Did you deploy your contract ?\\"
-  echo \\">> Run 'npm run deploy' from your 'contract' directory\\"
+  echo \\"It looks like you didn't deploy your contract\\"
+  echo \\">> Run \${GREEN}'npm run deploy'\${NC} from the your project's root directory\\"
+  echo \\"This frontend template works with contracts deployed to NEAR TestNet\\"
   echo \\"======================================================\\"
 }
 
