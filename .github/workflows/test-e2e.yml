@@ -44,8 +44,6 @@ jobs:
         run: |
           mkdir -p ~/.near-config
           echo "{\"trackingEnabled\": false,\"trackingAccountID\": false}" >| ~/.near-config/settings.json
-          mkdir -p ~/.near-credentials/shared-test
-          echo "{\"account_id\":\"test.near\",\"private_key\":\"ed25519:2wyRcSwSuHtRVmkMCGjPwnzZmQLeXLzLLyED1NDMt4BjnKgQL6tF85yBx6Jr26D2dUNeC716RBoTxntVHsegogYw\"}" >| ~/.near-credentials/shared-test/test.near
       - name: Install modules
         run: |
           npm install
@@ -60,13 +58,13 @@ jobs:
         run: |
           cd _testrun
           npm run build
-      - name: Deploy template
-        env:
-          NEAR_ENV: ci
-          IS_GITHUB_ACTION: true
-        run: |
-          cd _testrun
-          npm run deploy
+#      - name: Deploy template
+#        env:
+#          NEAR_ENV: ci
+#          IS_GITHUB_ACTION: true
+#        run: |
+#          cd _testrun
+#          npm run deploy
       - name: Test template
         env:
           NEAR_ENV: ci
