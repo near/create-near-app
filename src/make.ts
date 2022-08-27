@@ -1,23 +1,24 @@
-import {CreateProjectParams} from './types';
+import {CreateProjectParams, PackageManager} from './types';
 import * as show from './messages';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import {ncp} from 'ncp';
 import path from 'path';
 import {buildPackageJson} from './package-json';
+import { exec } from 'child_process';
 
-export async function createProject({contract, frontend, tests, projectPath, projectName, verbose, rootDir}: CreateProjectParams): Promise<boolean> {
+export async function createProject({contract, frontend, tests, packageManager, projectPath, projectName, verbose, rootDir}: CreateProjectParams): Promise<boolean> {
   // Create files in the project folder
-  await createFiles({contract, frontend, projectName, tests, projectPath, verbose, rootDir});
+  await createFiles({contract, frontend, projectName, tests, packageManager, projectPath, verbose, rootDir});
 
   // Create package.json
-  const packageJson = buildPackageJson({contract, frontend, tests, projectName});
+  const packageJson = buildPackageJson({contract, frontend, tests, packageManager, projectName});
   fs.writeFileSync(path.resolve(projectPath, 'package.json'), Buffer.from(JSON.stringify(packageJson, null, 2)));
 
   return true;
 }
 
-export async function createFiles({contract, frontend, tests, projectPath, verbose, rootDir}: CreateProjectParams) {
+export async function createFiles({contract, frontend, tests, packageManager, projectPath, verbose, rootDir}: CreateProjectParams) {
   // skip build artifacts and symlinks
   const skip = ['.cache', 'dist', 'out', 'node_modules'];
 
@@ -37,7 +38,7 @@ export async function createFiles({contract, frontend, tests, projectPath, verbo
 
   // copy contract files
   const sourceContractDir = path.resolve(rootDir, 'contracts', contract);
-  const targetContractDir = path.resolve(projectPath, 'contract');
+  const targetContractDir = path.resolve(projectPath, 'contracts');
   fs.mkdirSync(targetContractDir, { recursive: true });
   await copyDir(sourceContractDir, targetContractDir, {
     verbose,
@@ -65,11 +66,34 @@ export async function createFiles({contract, frontend, tests, projectPath, verbo
 
   // add .gitignore
   await renameFile(`${projectPath}/template.gitignore`, `${projectPath}/.gitignore`);
+
+  // remove unecessary files
+  if (packageManager !== 'pnpm') {
+    await removeFile(`${projectPath}/pnpm-workspace.yaml`);
+  }
+
+  // upgrade yarn to latest version
+  if (packageManager === 'yarn') {
+    await upgradeYarn(projectPath);
+  }
 }
 
 export const renameFile = async function (oldPath: string, newPath: string) {
   return new Promise<void>((resolve, reject) => {
     fs.rename(oldPath, newPath, err => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      resolve();
+    });
+  });
+};
+
+export const removeFile = async function (path: string) {
+  return new Promise<void>((resolve, reject) => {
+    fs.unlink(path, err => {
       if (err) {
         console.error(err);
         reject(err);
@@ -110,10 +134,10 @@ export function copyDir(source: string, dest: string, {skip, verbose}: {skip: st
   });
 }
 
-export async function runDepsInstall(projectPath: string) {
+export async function runDepsInstall(packageManager: PackageManager, projectPath: string) {
   show.depsInstall();
   const npmCommandArgs = ['install'];
-  await new Promise<void>((resolve, reject) => spawn('npm', npmCommandArgs, {
+  await new Promise<void>((resolve, reject) => spawn(packageManager, npmCommandArgs, {
     cwd: projectPath,
     stdio: 'inherit',
   }).on('close', (code: number) => {
@@ -122,6 +146,29 @@ export async function runDepsInstall(projectPath: string) {
       reject(code);
     } else {
       resolve();
+    }
+  }));
+}
+
+export async function upgradeYarn(projectPath: string) {
+  const command = 'set version berry && yarn plugin import workspace-tools && yarn plugin import typescript'
+  const yarnrcFile = path.resolve(projectPath, '.yarnrc.yml');
+  await new Promise<void>((resolve, reject) => spawn('yarn', command.split(' '), {
+    cwd: projectPath,
+    stdio: 'inherit',
+  }).on('close', (code: number) => {
+    if (code !== 0) {
+      show.yarnUpgradeError();
+      reject(code);
+    } else {
+      fs.appendFile(yarnrcFile, 'nodeLinker: node-modules', (err) => {
+        if (err) {
+          show.yarnUpgradeError();
+          reject(code);
+        } else {
+          resolve();
+        }
+      });
     }
   }));
 }

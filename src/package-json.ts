@@ -1,30 +1,30 @@
-import {Contract, CreateProjectParams, TestingFramework} from './types';
+import {Contract, CreateProjectParams, PackageManager, TestingFramework} from './types';
 
 type Entries = Record<string, unknown>;
-type PackageBuildParams = Pick<CreateProjectParams, 'contract' | 'frontend' | 'tests' | 'projectName'>;
+type PackageBuildParams = Pick<CreateProjectParams, 'contract' | 'frontend' | 'tests' | 'packageManager' | 'projectName'>;
 
-export function buildPackageJson({contract, frontend, tests, projectName}: PackageBuildParams): Entries {
+export function buildPackageJson({contract, frontend, tests, packageManager, projectName}: PackageBuildParams): Entries {
   const result = basePackage({
-    contract, frontend, tests, projectName,
+    contract, frontend, tests, packageManager, projectName,
   });
   return result;
 }
 
-function basePackage({contract, frontend, tests, projectName}: PackageBuildParams): Entries {
+function basePackage({contract, frontend, tests, packageManager, projectName}: PackageBuildParams): Entries {
   const hasFrontend = frontend !== 'none';
   return {
     'name': projectName,
     'version': '1.0.0',
     'license': '(MIT AND Apache-2.0)',
+    ...workspaces(packageManager),
     'scripts': {
-      ...startScript(hasFrontend),
-      ...deployScript(contract),
-      ...buildScript(hasFrontend),
-      ...buildContractScript(contract),
-      'test': 'npm run test:unit && npm run test:integration',
-      ...unitTestScripts(contract),
-      ...integrationTestScripts(contract, tests),
-      ...npmInstallScript(contract, hasFrontend, tests),
+      ...startScript(packageManager, hasFrontend),
+      ...deployScript(packageManager, contract),
+      ...buildScript(packageManager, hasFrontend),
+      ...buildContractScript(packageManager, contract),
+      ...testScript(packageManager),
+      ...unitTestScripts(packageManager, contract),
+      ...integrationTestScripts(packageManager, contract, tests),
     },
     'devDependencies': {
       'near-cli': '^3.3.0',
@@ -33,136 +33,199 @@ function basePackage({contract, frontend, tests, projectName}: PackageBuildParam
   };
 }
 
-const startScript = (hasFrontend: boolean): Entries => hasFrontend ? {
-  'start': 'cd frontend && npm run start'
-} : {};
+const workspaces = (packageManager: PackageManager): Entries => {
+  switch (packageManager) {
+    case 'pnpm':
+      return {};
+    case 'yarn':
+    case 'npm':
+      return {
+        'workspaces': [
+          "contracts",
+          "frontend",
+          "integration-tests"
+        ]
+      };
+  }
+}
 
-const buildScript = (hasFrontend: boolean): Entries => hasFrontend ? {
-  'build': 'npm run build:contract && npm run build:web',
-  'build:web': 'cd frontend && npm run build',
-} : {
-  'build': 'npm run build:contract',
-};
+const startScript = (packageManager: PackageManager, hasFrontend: boolean): Entries => {
+  if (!hasFrontend) return {}
+  switch (packageManager) {
+    case 'pnpm':
+      return { 'start': packageManager + ' --recursive --if-present start' }
+    case 'yarn':
+      return { 'start': packageManager + ' workspaces foreach start' }
+    case 'npm':
+      return { 'start': packageManager + ' start --workspaces' }
+  }
+}
 
-const buildContractScript = (contract: Contract): Entries => {
+const buildScript = (packageManager: PackageManager, hasFrontend: boolean): Entries => {
+  switch (packageManager) {
+    case 'pnpm':
+      return { 'build': packageManager + ' --recursive --if-present build' }
+    case 'yarn':
+      return { 'build': packageManager + ' workspaces foreach build' }
+    case 'npm':
+      return { 'build': packageManager + ' build --workspaces' }
+  }
+}
+
+const buildContractScript = (packageManager: PackageManager, contract: Contract): Entries => {
   switch (contract) {
     case 'assemblyscript':
-      return {
-        'build:contract': 'cd contract && npm run build',
-      };
     case 'js':
-      return {
-        'build:contract': 'cd contract && npm run build',
-      };
+      switch (packageManager) {
+        case 'pnpm':
+          return {
+            'build:contracts': 'pnpm --filter @hello_near/contracts build',
+          }
+        case 'yarn':
+          return {
+            'build:contracts': 'yarn workspace @hello_near/contracts build',
+          }
+        case 'npm':
+          return {
+            'build:contracts': 'npm run build --workspace=@hello_near/contracts',
+          }
+      }
     case 'rust':
       return {
-        'build:contract': 'cd contract && ./build.sh',
+        'build:contracts': 'cd contracts && ./build.sh',
       };
   }
 };
 
-const deployScript = (contract: Contract): Entries => {
+const deployScript = (packageManager: PackageManager, contract: Contract): Entries => {
   switch (contract) {
     case 'assemblyscript':
     case 'js':
-      return {
-        'deploy': 'cd contract && npm run deploy',
-      };
+      switch (packageManager) {
+        case 'pnpm':
+          return {
+            'deploy': 'pnpm --recursive run deploy',
+          }
+        case 'yarn':
+          return {
+            'deploy': 'yarn workspaces foreach deploy',
+          }
+        case 'npm':
+          return {
+            'deploy': 'npm run deploy --workspaces',
+          }
+      }
     case 'rust':
       return {
-        'deploy': 'cd contract && ./deploy.sh',
+        'deploy': 'cd contracts && ./deploy.sh',
       };
   }
 };
 
-const unitTestScripts = (contract: Contract): Entries => {
+const unitTestScripts = (packageManager: PackageManager, contract: Contract): Entries => {
   switch (contract) {
     case 'js':
     case 'assemblyscript':
-      return {'test:unit': 'cd contract && npm test'};
+      switch (packageManager) {
+        case 'pnpm':
+          return {
+            'test:unit': 'pnpm --recursive run test',
+          }
+        case 'yarn':
+          return {
+            'test:unit': 'yarn workspaces foreach test',
+          }
+        case 'npm':
+          return {
+            'test:unit': 'npm run test --workspaces',
+          }
+      }
     case 'rust':
-      return {'test:unit': 'cd contract && cargo test'};
+      return {'test:unit': 'cd contracts && cargo test'};
   }
 };
 
-const integrationTestScripts = (contract: Contract, tests: TestingFramework): Entries => {
+const integrationTestScripts = (packageManager: PackageManager, contract: Contract, tests: TestingFramework): Entries => {
   switch (contract) {
     case 'assemblyscript':
       if (tests === 'js') {
-        return {
-          'test:integration': 'npm run build:contract && cd integration-tests && npm test -- -- "./contract/build/release/hello_near.wasm"',
-        };
+        switch (packageManager) {
+          case 'pnpm':
+            return {
+              'test:integration': 'pnpm build:contracts && pnpm test -- -- "./contract/build/release/hello_near.wasm"',
+            }
+          case 'yarn':
+            return {
+              'test:integration': 'yarn build:contracts && yarn test -- -- "./contract/build/release/hello_near.wasm"',
+            }
+          case 'npm':
+            return {
+              'test:integration': 'npm run build:contracts && npm run test -- -- "./contract/build/release/hello_near.wasm"',
+            }
+        }
       } else {
         return {
-          'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/build/release/hello_near.wasm"',
+          'test:integration': 'npm run build:contracts && cd integration-tests && cargo run --example integration-tests "../contract/build/release/hello_near.wasm"',
         };
       }
     case 'js':
       if (tests === 'js') {
-        return {
-          'test:integration': 'npm run build:contract && cd integration-tests && npm test  -- -- "./contract/build/hello_near.wasm"',
-        };
+        switch (packageManager) {
+          case 'pnpm':
+            return {
+              'test:integration': 'pnpm build:contracts && pnpm test -- -- "./contract/build/hello_near.wasm"',
+            }
+          case 'yarn':
+            return {
+              'test:integration': 'yarn build:contracts && yarn test -- -- "./contract/build/hello_near.wasm"',
+            }
+          case 'npm':
+            return {
+              'test:integration': 'npm run build:contracts && npm run test -- -- "./contract/build/hello_near.wasm"',
+            }
+        }
       } else {
         return {
-          'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/build/hello_near.wasm"',
+          'test:integration': 'npm run build:contracts && cd integration-tests && cargo run --example integration-tests "../contract/build/hello_near.wasm"',
         };
       }
     case 'rust':
       if (tests === 'js') {
-        return {
-          'test:integration': 'npm run build:contract && cd integration-tests && npm test  -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
-        };
+        switch (packageManager) {
+          case 'pnpm':
+            return {
+              'test:integration': 'pnpm build:contracts && pnpm test -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+            }
+          case 'yarn':
+            return {
+              'test:integration': 'yarn build:contracts && yarn test -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+            }
+          case 'npm':
+            return {
+              'test:integration': 'npm run build:contracts && npm run test -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+            }
+        }
       } else {
         return {
-          'test:integration': 'npm run build:contract && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
+          'test:integration': 'npm run build:contracts && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
         };
       }
   }
 };
 
-const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: TestingFramework): Entries => {
-  switch (contract) {
-    case 'assemblyscript':
-      if (hasFrontend) {
-        if (tests === 'js') {
-          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
-        } else {
-          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ../frontend && npm install && cd ..'};
-        }
-      } else {
-        if (tests === 'js') {
-          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ../integration-tests && npm install && cd ..'};
-        } else {
-          return {'postinstall': 'cd contract && npm install --ignore-scripts && cd ..'};
-        }
+const testScript = (packageManager: PackageManager): Entries => {
+  switch (packageManager) {
+    case 'pnpm':
+      return {
+        'test': 'pnpm test:unit && pnpm test:integration',
       }
-    case 'js':
-      if (hasFrontend) {
-        if (tests === 'js') {
-          return {'postinstall': 'cd contract && npm install && cd ../integration-tests && npm install && cd ../frontend && npm install && cd ..'};
-        } else {
-          return {'postinstall': 'cd contract && npm install && cd ../frontend && npm install && cd ..'};
-        }
-      } else {
-        if (tests === 'js') {
-          return {'postinstall': 'cd contract && npm install && cd ../integration-tests && npm install && cd ..'};
-        } else {
-          return {'postinstall': 'cd contract && npm install && cd ..'};
-        }
+    case 'yarn':
+      return {
+        'test': 'yarn test:unit && yarn test:integration',
       }
-    case 'rust':
-      if (hasFrontend) {
-        if (tests === 'js') {
-          return {'postinstall': 'cd frontend && npm install && cd ../integration-tests && npm install && cd ..'};
-        } else {
-          return {'postinstall': 'cd frontend && npm install && cd ..'};
-        }
-      } else {
-        if (tests === 'js') {
-          return {'postinstall': 'cd ./integration-tests && npm install && cd ..'};
-        } else {
-          return {};
-        }
+    case 'npm':
+      return {
+        'test': 'npm run test:unit && npm run test:integration',
       }
   }
-};
+}

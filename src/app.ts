@@ -14,6 +14,7 @@ import * as show from './messages';
       contract,
       frontend,
       tests,
+      packageManager,
       install,
     },
     projectPath,
@@ -27,6 +28,7 @@ import * as show from './messages';
       contract,
       frontend,
       tests,
+      packageManager,
       projectName,
       verbose: false,
       rootDir: path.resolve(__dirname, '../templates'),
@@ -37,11 +39,11 @@ import * as show from './messages';
     createSuccess = false;
   }
   if (install) {
-    await runDepsInstall(projectPath);
+    await runDepsInstall(packageManager, projectPath);
   }
 
   if (createSuccess) {
-    show.setupSuccess(projectName, contract, frontend, install);
+    show.setupSuccess(projectName, packageManager, contract, frontend, install);
   } else {
     show.setupFailed();
     return;

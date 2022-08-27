@@ -6,7 +6,8 @@ import {
   ProjectName,
   TESTING_FRAMEWORKS,
   TestingFramework,
-  UserConfig
+  UserConfig,
+  PackageManager
 } from './types';
 import chalk from 'chalk';
 import prompt, {PromptObject} from 'prompts';
@@ -22,6 +23,7 @@ export async function getUserArgs(): Promise<UserConfig> {
     .option('--contract <contract>')
     .option('--frontend <frontend>')
     .option('--tests <tests>')
+    .option('--package-manager <packageManager>')
     .option('--install');
 
 
@@ -29,8 +31,8 @@ export async function getUserArgs(): Promise<UserConfig> {
 
   const options = program.opts();
   const [projectName] = program.args;
-  const {contract, frontend, tests, install} = options;
-  return {contract, frontend, projectName, tests, install};
+  const {contract, frontend, tests, packageManager, install} = options;
+  return {contract, frontend, projectName, tests, packageManager, install};
 }
 
 export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
@@ -72,6 +74,11 @@ const frontendChoices: Choices<Frontend> = [
   {title: 'Vanilla JavaScript', value: 'vanilla'},
   {title: 'No frontend', value: 'none'},
 ];
+const packageManagerChoices: Choices<PackageManager> = [
+  {title: 'Npm', value: 'npm'},
+  {title: 'Yarn', value: 'yarn'},
+  {title: 'Pnpm', value: 'pnpm'},
+];
 const userPrompts: PromptObject[] = [
   {
     type: 'select',
@@ -92,6 +99,12 @@ const userPrompts: PromptObject[] = [
     choices: frontendChoices,
   },
   {
+    type: 'select',
+    name: 'packageManager',
+    message: 'Select the package manager you want to use',
+    choices: packageManagerChoices,
+  },
+  {
     type: 'text',
     name: 'projectName',
     message: 'Name your project (this will create a directory with that name)',
@@ -100,7 +113,7 @@ const userPrompts: PromptObject[] = [
   {
     type: 'confirm',
     name: 'install',
-    message: chalk`Run {bold {blue 'npm install'}} now?`,
+    message: (_, values) => chalk`Run {bold {blue '${values.packageManager} install'}} now?`,
     initial: true,
   },
 ];

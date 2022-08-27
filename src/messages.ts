@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import {trackingMessage} from './tracking';
-import {Contract, Frontend, ProjectName} from './types';
+import {Contract, Frontend, PackageManager, ProjectName} from './types';
 
 if (process.env.NEAR_NO_COLOR) {
   chalk.level = 0;
@@ -23,7 +23,7 @@ Notice: some platforms aren't supported (yet).
 
 export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
 export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}` : ''}`;
-export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
+export const setupSuccess = (projectName: ProjectName, packageManager: PackageManager, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
 {green ======================================================}
 ✅  Success! Created '${projectName}'
    ${successContractToText(contract)}${successFrontendToText(frontend)}.
@@ -32,13 +32,13 @@ ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {gr
    - {inverse Navigate to your project}:
          {blue cd {bold ${projectName}}}
    ${!install ? chalk`- {inverse Install all dependencies}
-         {blue npm {bold install}}` : 'Then:'}
+         {blue ${packageManager} {bold install}}` : 'Then:'}
    - {inverse Test your contract} in NEAR SandBox:
-         {blue npm {bold test}}
+         {blue ${packageManager} {bold test}}
    - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
-         {blue npm {bold run deploy}}
+         {blue ${packageManager} {bold run deploy}}
    ${frontend !== 'none' ? chalk`- {inverse Start your frontend}:
-         {blue npm {bold start}}\n` : ''}
+         {blue ${packageManager} {bold start}}\n` : ''}
 🧠 Read {bold {greenBright README.md}} to explore further.`);
 
 export const argsError = () => show(chalk`{red Arguments error}
@@ -56,7 +56,9 @@ export const directoryExists = (dirName: string) => show(chalk`{red This directo
 export const creatingApp = () => show(chalk`\nCreating a new {bold NEAR dApp}`);
 
 export const depsInstall = () => show(chalk`
-{green Installing dependencies in a few folders, this might take a while.}
+{green Installing dependencies, this might take a while.}
 `);
 
 export const depsInstallError = () => show(chalk.red('Error installing NEAR project dependencies'));
+
+export const yarnUpgradeError = () => show(chalk.red('Error upgrade Yarn'));

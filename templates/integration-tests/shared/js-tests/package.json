@@ -1,5 +1,5 @@
 {
-  "name": "ava-testing",
+  "name": "@hello_near/ava-testing",
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "scripts": {
