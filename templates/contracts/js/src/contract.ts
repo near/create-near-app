@@ -1,6 +1,6 @@
 import { NearBindgen, NearContract, near, call, view } from 'near-sdk-js';
 
-// The @NearBindgen decorator allows this code to compile to Base64.
+// @NearBindgen adds helper functions to the class which Babel uses to generate the contract interface
 @NearBindgen
 class MyContract extends NearContract {
   greeting: string;
