@@ -3,26 +3,26 @@ import { Contract } from './near-interface';
 import { Wallet } from './near-wallet';
 
 // create the Wallet and the Contract
-window.wallet = new Wallet({contractId: process.env.CONTRACT_NAME});
-window.contract = new Contract({wallet: window.wallet})
+const wallet = new Wallet({contractId: process.env.CONTRACT_NAME});
+const contract = new Contract({wallet: wallet});
 
 // Setup on page load
 window.onload = async () => {
-  let isSignedIn = await wallet.startUp()
+  let isSignedIn = await wallet.startUp();
 
   if(isSignedIn){
-    signedInFlow()
+    signedInFlow();
   }else{
-    signedOutFlow()
+    signedOutFlow();
   }
 
   fetchGreeting();
-}
+};
 
 // Button clicks
 document.querySelector('form').onsubmit = doUserAction;
-document.querySelector('#sign-in-button').onclick = () => { wallet.signIn() }
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut() } 
+document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
+document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); }; 
 
 // Take the new greeting and send it to the contract
 async function doUserAction(event) {
@@ -30,14 +30,14 @@ async function doUserAction(event) {
   const { greeting } = event.target.elements;
 
   document.querySelector('#signed-in-flow main')
-          .classList.add('please-wait');
+    .classList.add('please-wait');
 
   await contract.setGreeting(greeting.value);
 
   // ===== Fetch the data from the blockchain =====
   await fetchGreeting();
   document.querySelector('#signed-in-flow main')
-          .classList.remove('please-wait');
+    .classList.remove('please-wait');
 }
 
 // Get greeting from the contract on chain

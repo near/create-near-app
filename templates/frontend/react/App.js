@@ -32,7 +32,7 @@ export default function App({ isSignedIn, contract, wallet }) {
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
     contract.setGreeting(greetingInput.value)
-      .then(async () => {return contract.getGreeting()})
+      .then(async () => {return contract.getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);

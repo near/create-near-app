@@ -7,9 +7,9 @@ import { Contract } from './near-interface';
 const reactRoot = createRoot(document.querySelector('#root'));
 
 // create the Wallet and the Contract
-const contractId = process.env.CONTRACT_NAME
+const contractId = process.env.CONTRACT_NAME;
 const wallet = new Wallet({contractId: contractId});
-const contract = new Contract({wallet: wallet})
+const contract = new Contract({wallet: wallet});
 
 window.onload = wallet.startUp()
   .then((isSignedIn) => {
