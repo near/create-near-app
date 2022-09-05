@@ -1,7 +1,6 @@
-import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
-export function SignInPrompt({greeting}) {
+export function SignInPrompt({greeting, onClick}) {
   return (
     <main>
       <h1>
@@ -22,15 +21,15 @@ export function SignInPrompt({greeting}) {
       </p>
       <br/>
       <p style={{ textAlign: 'center' }}>
-        <button onClick={signInWithNearWallet}>Sign in with NEAR Wallet</button>
+        <button onClick={onClick}>Sign in with NEAR Wallet</button>
       </p>
     </main>
   );
 }
 
-export function SignOutButton({accountId}) {
+export function SignOutButton({accountId, onClick}) {
   return (
-    <button style={{ float: 'right' }} onClick={signOutNearWallet}>
+    <button style={{ float: 'right' }} onClick={onClick}>
       Sign out {accountId}
     </button>
   );
