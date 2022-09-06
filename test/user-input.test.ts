@@ -23,7 +23,6 @@ describe('messages', () => {
 
     show.successContractToText('js');
     show.successContractToText('rust');
-    show.successContractToText('assemblyscript');
 
     show.successFrontendToText('react');
     show.successFrontendToText('vanilla');
@@ -40,9 +39,9 @@ describe('messages', () => {
 
 describe('test success message', () => {
   let showSpy;
-  const contracts = ['js', 'assemblyscript', 'rust'];
-  const frontends = ['react', 'vanilla', 'none'];
-  const tests = ['js', 'rust'];
+  const contracts: Contract[] = ['js', 'rust'];
+  const frontends: Frontend[] = ['react', 'vanilla', 'none'];
+  const tests: TestingFramework[] = ['js', 'rust'];
   const install = [true, false];
   // all combinations of the above
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.flatMap(t => install.map(i => ([c, f, t, i])))));
