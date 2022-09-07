@@ -33,6 +33,8 @@ ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {gr
          {blue cd {bold ${projectName}}}
    ${!install ? chalk`- {inverse Install all dependencies}
          {blue npm {bold install}}` : 'Then:'}
+   - {inverse Build your contract}:
+         {blue npm {bold run build}}
    - {inverse Test your contract} in NEAR SandBox:
          {blue npm {bold test}}
    - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
