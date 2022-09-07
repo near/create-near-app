@@ -1,6 +1,6 @@
 {
   "name": "create-near-app",
-  "version": "5.0.0-rc1.0",
+  "version": "4.1.0",
   "description": "Quickly scaffold your dApp on NEAR Blockchain",
   "main": "index.js",
   "engines": {
