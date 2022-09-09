@@ -21,7 +21,7 @@ Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : contract === 'js' ? 'JavaScript' : 'AssemblyScript'}}`;
+export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : 'JavaScript'}}`;
 export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}` : ''}`;
 export const setupSuccess = (projectName: ProjectName, packageManager: PackageManager, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
 {green ======================================================}
@@ -43,7 +43,7 @@ ${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {gr
 
 export const argsError = () => show(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:
-npx create-near-app <projectName> --contract rust|js|assemblyscript --frontend react|vanilla|none --tests js|rust`);
+npx create-near-app <projectName> --contract rust|js --frontend react|vanilla|none --tests js|rust`);
 
 export const unsupportedNodeVersion = (supported: string) => show(chalk`{red We support node.js version ${supported} or later}`);
 

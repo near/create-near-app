@@ -50,19 +50,11 @@ export async function createFiles({contract, frontend, tests, packageManager, pr
   fs.mkdirSync(targetTestDir, { recursive: true });
 
   // copy tests - shared files
-  const sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/shared/${tests}-tests`);
+  const sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/${tests}-tests`);
   await copyDir(sourceTestSharedDir, targetTestDir, {
     verbose,
     skip: skip.map(f => path.join(sourceTestSharedDir, f))
   });
-  // copy tests - overrides files
-  let sourceTestOverridesDir = path.resolve(`${rootDir}/integration-tests/overrides/${contract}-contract/${tests}-tests`);
-  if (fs.existsSync(sourceTestOverridesDir)) {
-    await copyDir(sourceTestOverridesDir, targetTestDir, {
-      verbose,
-      skip: skip.map(f => path.join(sourceTestOverridesDir, f))
-    });
-  }
 
   // add .gitignore
   await renameFile(`${projectPath}/template.gitignore`, `${projectPath}/.gitignore`);

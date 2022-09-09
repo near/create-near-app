@@ -1,7 +1,6 @@
-import { signInWithNearWallet, signOutNearWallet } from './near-api';
 import React from 'react';
 
-export function SignInPrompt({greeting}) {
+export function SignInPrompt({greeting, onClick}) {
   return (
     <main>
       <h1>
@@ -22,15 +21,15 @@ export function SignInPrompt({greeting}) {
       </p>
       <br/>
       <p style={{ textAlign: 'center' }}>
-        <button onClick={signInWithNearWallet}>Sign in with NEAR Wallet</button>
+        <button onClick={onClick}>Sign in with NEAR Wallet</button>
       </p>
     </main>
   );
 }
 
-export function SignOutButton({accountId}) {
+export function SignOutButton({accountId, onClick}) {
   return (
-    <button style={{ float: 'right' }} onClick={signOutNearWallet}>
+    <button style={{ float: 'right' }} onClick={onClick}>
       Sign out {accountId}
     </button>
   );
@@ -44,12 +43,12 @@ export function EducationalText() {
       </p>
       <ol>
         <li>
-          Look in <code>src/App.js</code> and <code>src/utils.js</code> – you'll see <code>get_greeting</code> and <code>set_greeting</code> being called on <code>contract</code>. What's this?
+          Look in <code>src/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
         </li>
         <li>
-          Ultimately, this <code>contract</code> code is defined in <code>assembly/main.ts</code> – this is the source code for your <a target="_blank" rel="noreferrer" href="https://docs.near.org/docs/develop/contracts/overview">smart contract</a>.</li>
+          Ultimately, this <code>contract</code> code is defined in <code>./contract</code> – this is the source code for your <a target="_blank" rel="noreferrer" href="https://docs.near.org/docs/develop/contracts/overview">smart contract</a>.</li>
         <li>
-          When you run <code>npm run dev</code>, the code in <code>assembly/main.ts</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to find the <code>dev</code> command.</li>
+          When you run <code>npm run deploy</code>, the code in <code>./contract</code> gets deployed to the NEAR testnet. You can see how this happens by looking in <code>package.json</code>.</li>
       </ol>
       <hr />
       <p>

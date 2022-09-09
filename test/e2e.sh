@@ -63,18 +63,6 @@ scaffold rust none js
 test "rust_none_js"
 
 
-## CONTRACT:ASSEMBLYSCRIPT SANDBOX:JS
-
-scaffold assemblyscript react js
-test "assemblyscript_react_js"
-
-scaffold assemblyscript vanilla js
-test "assemblyscript_vanilla_js"
-
-scaffold assemblyscript none js
-test "assemblyscript_none_js"
-
-
 ### CONTRACT:JS SANDBOX:RUST
 
 scaffold js react rust
@@ -97,14 +85,3 @@ test "rust_vanilla_rust"
 
 scaffold rust none rust
 test "rust_none_rust"
-
-## CONTRACT:ASSEMBLYSCRIPT SANDBOX:RUST
-
-scaffold assemblyscript react rust
-test "assemblyscript_react_rust"
-
-scaffold assemblyscript vanilla rust
-test "assemblyscript_vanilla_rust"
-
-scaffold assemblyscript none rust
-test "assemblyscript_none_rust"

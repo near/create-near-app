@@ -74,7 +74,6 @@ const buildScript = (packageManager: PackageManager, hasFrontend: boolean): Entr
 
 const buildContractScript = (packageManager: PackageManager, contract: Contract): Entries => {
   switch (contract) {
-    case 'assemblyscript':
     case 'js':
       switch (packageManager) {
         case 'pnpm':
@@ -99,7 +98,6 @@ const buildContractScript = (packageManager: PackageManager, contract: Contract)
 
 const deployScript = (packageManager: PackageManager, contract: Contract): Entries => {
   switch (contract) {
-    case 'assemblyscript':
     case 'js':
       switch (packageManager) {
         case 'pnpm':
@@ -125,7 +123,6 @@ const deployScript = (packageManager: PackageManager, contract: Contract): Entri
 const unitTestScripts = (packageManager: PackageManager, contract: Contract): Entries => {
   switch (contract) {
     case 'js':
-    case 'assemblyscript':
       switch (packageManager) {
         case 'pnpm':
           return {
@@ -147,70 +144,26 @@ const unitTestScripts = (packageManager: PackageManager, contract: Contract): En
 
 const integrationTestScripts = (packageManager: PackageManager, contract: Contract, tests: TestingFramework): Entries => {
   switch (contract) {
-    case 'assemblyscript':
-      if (tests === 'js') {
-        switch (packageManager) {
-          case 'pnpm':
-            return {
-              'test:integration': 'pnpm build:contracts && pnpm test -- -- "./contract/build/release/hello_near.wasm"',
-            }
-          case 'yarn':
-            return {
-              'test:integration': 'yarn build:contracts && yarn test -- -- "./contract/build/release/hello_near.wasm"',
-            }
-          case 'npm':
-            return {
-              'test:integration': 'npm run build:contracts && npm run test -- -- "./contract/build/release/hello_near.wasm"',
-            }
-        }
-      } else {
-        return {
-          'test:integration': 'npm run build:contracts && cd integration-tests && cargo run --example integration-tests "../contract/build/release/hello_near.wasm"',
-        };
-      }
     case 'js':
-      if (tests === 'js') {
-        switch (packageManager) {
-          case 'pnpm':
-            return {
-              'test:integration': 'pnpm build:contracts && pnpm test -- -- "./contract/build/hello_near.wasm"',
-            }
-          case 'yarn':
-            return {
-              'test:integration': 'yarn build:contracts && yarn test -- -- "./contract/build/hello_near.wasm"',
-            }
-          case 'npm':
-            return {
-              'test:integration': 'npm run build:contracts && npm run test -- -- "./contract/build/hello_near.wasm"',
-            }
-        }
-      } else {
-        return {
-          'test:integration': 'npm run build:contracts && cd integration-tests && cargo run --example integration-tests "../contract/build/hello_near.wasm"',
-        };
+      switch (packageManager) {
+        case 'pnpm':
+          return {
+            'test:integration': 'pnpm test -- -- "./contract/build/hello_near.wasm"',
+          }
+        case 'yarn':
+          return {
+            'test:integration': 'yarn test -- -- "./contract/build/hello_near.wasm"',
+          }
+        case 'npm':
+          return {
+            'test:integration': 'npm run test -- -- "./contract/build/hello_near.wasm"',
+          }
       }
     case 'rust':
-      if (tests === 'js') {
-        switch (packageManager) {
-          case 'pnpm':
-            return {
-              'test:integration': 'pnpm build:contracts && pnpm test -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
-            }
-          case 'yarn':
-            return {
-              'test:integration': 'yarn build:contracts && yarn test -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
-            }
-          case 'npm':
-            return {
-              'test:integration': 'npm run build:contracts && npm run test -- -- "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
-            }
-        }
-      } else {
-        return {
-          'test:integration': 'npm run build:contracts && cd integration-tests && cargo run --example integration-tests "../contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
-        };
+      return {
+        'test:integration': 'cargo run --example integration-tests "./contract/target/wasm32-unknown-unknown/release/hello_near.wasm"',
       }
-  }
+    }
 };
 
 const testScript = (packageManager: PackageManager): Entries => {

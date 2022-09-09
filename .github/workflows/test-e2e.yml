@@ -19,13 +19,12 @@ jobs:
       matrix:
         platform: [ ubuntu-latest, macos-latest ]
         nodejs: [ 16 ]
-        contract: [ js, rust, assemblyscript ]
+        contract: [ js, rust ]
         frontend: [ react, vanilla, none ]
         tests: [ js, rust ]
 #        exclude:
 #        - frontend: vanilla
 #        - frontend: none
-#        - contract: assemblyscript
 #        include:
 #        - contract: js
 #          frontend: vanilla
