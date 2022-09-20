@@ -312,7 +312,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0-0\\"
+    \\"near-sdk-js\\": \\"0.5.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -331,19 +331,18 @@ Array [
 class HelloNear {
   greeting: string = \\"Hello\\";
 
-  @view // This method is read-only and can be called for free
+  @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
     return this.greeting;
   }
 
-  @call // This method changes the state, for which it cost gas
+  @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
     // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
     this.greeting = message;
   }
-}
-",
+}",
 ]
 `;
 
@@ -789,7 +788,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0-0\\"
+    \\"near-sdk-js\\": \\"0.5.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -808,19 +807,18 @@ Array [
 class HelloNear {
   greeting: string = \\"Hello\\";
 
-  @view // This method is read-only and can be called for free
+  @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
     return this.greeting;
   }
 
-  @call // This method changes the state, for which it cost gas
+  @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
     // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
     this.greeting = message;
   }
-}
-",
+}",
 ]
 `;
 
@@ -1279,7 +1277,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0-0\\"
+    \\"near-sdk-js\\": \\"0.5.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -1298,19 +1296,18 @@ Array [
 class HelloNear {
   greeting: string = \\"Hello\\";
 
-  @view // This method is read-only and can be called for free
+  @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
     return this.greeting;
   }
 
-  @call // This method changes the state, for which it cost gas
+  @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
     // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
     this.greeting = message;
   }
-}
-",
+}",
 ]
 `;
 
@@ -1341,14 +1338,14 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, contract, wallet }) {
+export default function App({ isSignedIn, helloNEAR, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    contract.getGreeting()
+    helloNEAR.getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
@@ -1366,8 +1363,8 @@ export default function App({ isSignedIn, contract, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    contract.setGreeting(greetingInput.value)
-      .then(async () => {return contract.getGreeting();})
+    helloNEAR.setGreeting(greetingInput.value)
+      .then(async () => {return helloNEAR.getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
@@ -1379,7 +1376,7 @@ export default function App({ isSignedIn, contract, wallet }) {
       <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()}/>
       <main className={uiPleaseWait ? 'please-wait' : ''}>
         <h1>
-          The contract says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
+          The helloNEAR says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
         </h1>
         <form onSubmit={changeGreeting} className=\\"change\\">
           <label>Change greeting:</label>
@@ -1727,47 +1724,51 @@ Array [
 exports[`create 'js' 'react' 'js': --js_react_js--frontend--index.js 1`] = `
 Array [
   "--js_react_js--frontend--index.js",
-  "import React from 'react';
-import { createRoot } from 'react-dom/client';
+  "// React
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
+
+// NEAR
+import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
-import { Contract } from './near-interface';
 
-const reactRoot = createRoot(document.querySelector('#root'));
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
 
-// create the Wallet and the Contract
-const contractId = process.env.CONTRACT_NAME;
-const wallet = new Wallet({contractId: contractId});
-const contract = new Contract({wallet: wallet});
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
-window.onload = wallet.startUp()
-  .then((isSignedIn) => {
-    reactRoot.render(<App isSignedIn={isSignedIn} contract={contract} wallet={wallet} />);
-  })
-  .catch(e => {
-    reactRoot.render(<div style={{color: 'red'}}>Error: <code>{e.message}</code></div>);
-    console.error(e);
-  });
-",
+// Setup on page load
+window.onload = async () => {
+  const isSignedIn = await wallet.startUp()
+ 
+  ReactDOM.render(
+    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    document.getElementById('root')
+  );
+}",
 ]
 `;
 
 exports[`create 'js' 'react' 'js': --js_react_js--frontend--near-interface.js 1`] = `
 Array [
   "--js_react_js--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -1776,7 +1777,9 @@ Array [
 exports[`create 'js' 'react' 'js': --js_react_js--frontend--near-wallet.js 1`] = `
 Array [
   "--js_react_js--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -1797,28 +1800,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -1827,19 +1833,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -1854,12 +1860,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -1904,7 +1908,6 @@ Array [
     \\"@babel/preset-env\\": \\"^7.18.2\\",
     \\"@babel/preset-react\\": \\"^7.17.12\\",
     \\"@types/node\\": \\"^18.6.2\\",
-    \\"ava\\": \\"^4.2.0\\",
     \\"react-test-renderer\\": \\"^18.1.0\\",
     \\"ts-node\\": \\"^10.8.0\\",
     \\"typescript\\": \\"^4.7.2\\",
@@ -1918,17 +1921,17 @@ Array [
     \\"react\\": \\"^18.1.0\\",
     \\"react-dom\\": \\"^18.1.0\\",
     \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\"
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -2030,7 +2033,7 @@ export function EducationalText() {
       </p>
       <ol>
         <li>
-          Look in <code>src/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
+          Look in <code>frontend/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>./contract</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
@@ -2476,7 +2479,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0-0\\"
+    \\"near-sdk-js\\": \\"0.5.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -2495,19 +2498,18 @@ Array [
 class HelloNear {
   greeting: string = \\"Hello\\";
 
-  @view // This method is read-only and can be called for free
+  @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
     return this.greeting;
   }
 
-  @call // This method changes the state, for which it cost gas
+  @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
     // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
     this.greeting = message;
   }
-}
-",
+}",
 ]
 `;
 
@@ -2538,14 +2540,14 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, contract, wallet }) {
+export default function App({ isSignedIn, helloNEAR, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    contract.getGreeting()
+    helloNEAR.getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
@@ -2563,8 +2565,8 @@ export default function App({ isSignedIn, contract, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    contract.setGreeting(greetingInput.value)
-      .then(async () => {return contract.getGreeting();})
+    helloNEAR.setGreeting(greetingInput.value)
+      .then(async () => {return helloNEAR.getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
@@ -2576,7 +2578,7 @@ export default function App({ isSignedIn, contract, wallet }) {
       <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()}/>
       <main className={uiPleaseWait ? 'please-wait' : ''}>
         <h1>
-          The contract says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
+          The helloNEAR says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
         </h1>
         <form onSubmit={changeGreeting} className=\\"change\\">
           <label>Change greeting:</label>
@@ -2924,47 +2926,51 @@ Array [
 exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--index.js 1`] = `
 Array [
   "--js_react_rust--frontend--index.js",
-  "import React from 'react';
-import { createRoot } from 'react-dom/client';
+  "// React
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
+
+// NEAR
+import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
-import { Contract } from './near-interface';
 
-const reactRoot = createRoot(document.querySelector('#root'));
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
 
-// create the Wallet and the Contract
-const contractId = process.env.CONTRACT_NAME;
-const wallet = new Wallet({contractId: contractId});
-const contract = new Contract({wallet: wallet});
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
-window.onload = wallet.startUp()
-  .then((isSignedIn) => {
-    reactRoot.render(<App isSignedIn={isSignedIn} contract={contract} wallet={wallet} />);
-  })
-  .catch(e => {
-    reactRoot.render(<div style={{color: 'red'}}>Error: <code>{e.message}</code></div>);
-    console.error(e);
-  });
-",
+// Setup on page load
+window.onload = async () => {
+  const isSignedIn = await wallet.startUp()
+ 
+  ReactDOM.render(
+    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    document.getElementById('root')
+  );
+}",
 ]
 `;
 
 exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--near-interface.js 1`] = `
 Array [
   "--js_react_rust--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -2973,7 +2979,9 @@ Array [
 exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--near-wallet.js 1`] = `
 Array [
   "--js_react_rust--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -2994,28 +3002,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -3024,19 +3035,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -3051,12 +3062,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -3101,7 +3110,6 @@ Array [
     \\"@babel/preset-env\\": \\"^7.18.2\\",
     \\"@babel/preset-react\\": \\"^7.17.12\\",
     \\"@types/node\\": \\"^18.6.2\\",
-    \\"ava\\": \\"^4.2.0\\",
     \\"react-test-renderer\\": \\"^18.1.0\\",
     \\"ts-node\\": \\"^10.8.0\\",
     \\"typescript\\": \\"^4.7.2\\",
@@ -3115,17 +3123,17 @@ Array [
     \\"react\\": \\"^18.1.0\\",
     \\"react-dom\\": \\"^18.1.0\\",
     \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\"
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -3227,7 +3235,7 @@ export function EducationalText() {
       </p>
       <ol>
         <li>
-          Look in <code>src/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
+          Look in <code>frontend/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>./contract</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
@@ -3686,7 +3694,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0-0\\"
+    \\"near-sdk-js\\": \\"0.5.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -3705,19 +3713,18 @@ Array [
 class HelloNear {
   greeting: string = \\"Hello\\";
 
-  @view // This method is read-only and can be called for free
+  @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
     return this.greeting;
   }
 
-  @call // This method changes the state, for which it cost gas
+  @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
     // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
     this.greeting = message;
   }
-}
-",
+}",
 ]
 `;
 
@@ -4102,18 +4109,20 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>./frontend/index.js</code> – you'll see <code>getGreeting</code>
-          and <code>setGreeting</code> being called on <code>contract</code>.
+          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
+          and <code>set_greeting</code> being called on <code>contract</code>.
           What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in
-          <code>./contract</code> – this is the source code for your
+          <code>assembly/index.ts</code> – this is the source code for your
           <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the contract's code gets deployed
-          to the NEAR testnet. You can see how this happens by looking in <code>package.json</code>.
+          When you run <code>npm run dev</code>, the code in
+          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
+          can see how this happens by looking in <code>package.json</code> at the
+          <code>scripts</code> section to find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -4137,20 +4146,23 @@ exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--index.js 1`] = `
 Array [
   "--js_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
-import { Contract } from './near-interface';
 import { Wallet } from './near-wallet';
+import { HelloNEAR } from './near-interface';
 
-// create the Wallet and the Contract
-const wallet = new Wallet({contractId: process.env.CONTRACT_NAME});
-const contract = new Contract({wallet: wallet});
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
+
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
 // Setup on page load
 window.onload = async () => {
   let isSignedIn = await wallet.startUp();
 
-  if(isSignedIn){
+  if (isSignedIn) {
     signedInFlow();
-  }else{
+  } else {
     signedOutFlow();
   }
 
@@ -4160,7 +4172,7 @@ window.onload = async () => {
 // Button clicks
 document.querySelector('form').onsubmit = doUserAction;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); }; 
+document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
 // Take the new greeting and send it to the contract
 async function doUserAction(event) {
@@ -4170,7 +4182,7 @@ async function doUserAction(event) {
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await contract.setGreeting(greeting.value);
+  await helloNEAR.setGreeting(greeting.value);
 
   // ===== Fetch the data from the blockchain =====
   await fetchGreeting();
@@ -4180,7 +4192,7 @@ async function doUserAction(event) {
 
 // Get greeting from the contract on chain
 async function fetchGreeting() {
-  const currentGreeting = await contract.getGreeting();
+  const currentGreeting = await helloNEAR.getGreeting();
 
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
@@ -4208,19 +4220,20 @@ function signedInFlow() {
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--near-interface.js 1`] = `
 Array [
   "--js_vanilla_js--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -4229,7 +4242,9 @@ Array [
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--near-wallet.js 1`] = `
 Array [
   "--js_vanilla_js--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -4250,28 +4265,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -4280,19 +4298,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -4307,12 +4325,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -4353,26 +4369,28 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
+    \\"env-cmd\\": \\"^10.1.0\\",
+    \\"events\\": \\"^3.3.0\\",
     \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
-    \\"process\\": \\"^0.11.10\\",
-    \\"env-cmd\\": \\"^10.1.0\\"
+    \\"parcel\\": \\"^2.7.0\\",
+    \\"process\\": \\"^0.11.10\\"
   },
   \\"dependencies\\": {
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\",
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\",
     \\"near-api-js\\": \\"^0.44.2\\"
   }
-}",
+}
+",
 ]
 `;
 
@@ -4837,7 +4855,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0-0\\"
+    \\"near-sdk-js\\": \\"0.5.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\"
@@ -4856,19 +4874,18 @@ Array [
 class HelloNear {
   greeting: string = \\"Hello\\";
 
-  @view // This method is read-only and can be called for free
+  @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
     return this.greeting;
   }
 
-  @call // This method changes the state, for which it cost gas
+  @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
     // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
     this.greeting = message;
   }
-}
-",
+}",
 ]
 `;
 
@@ -5253,18 +5270,20 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>./frontend/index.js</code> – you'll see <code>getGreeting</code>
-          and <code>setGreeting</code> being called on <code>contract</code>.
+          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
+          and <code>set_greeting</code> being called on <code>contract</code>.
           What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in
-          <code>./contract</code> – this is the source code for your
+          <code>assembly/index.ts</code> – this is the source code for your
           <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the contract's code gets deployed
-          to the NEAR testnet. You can see how this happens by looking in <code>package.json</code>.
+          When you run <code>npm run dev</code>, the code in
+          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
+          can see how this happens by looking in <code>package.json</code> at the
+          <code>scripts</code> section to find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -5288,20 +5307,23 @@ exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--index.js 1`]
 Array [
   "--js_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
-import { Contract } from './near-interface';
 import { Wallet } from './near-wallet';
+import { HelloNEAR } from './near-interface';
 
-// create the Wallet and the Contract
-const wallet = new Wallet({contractId: process.env.CONTRACT_NAME});
-const contract = new Contract({wallet: wallet});
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
+
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
 // Setup on page load
 window.onload = async () => {
   let isSignedIn = await wallet.startUp();
 
-  if(isSignedIn){
+  if (isSignedIn) {
     signedInFlow();
-  }else{
+  } else {
     signedOutFlow();
   }
 
@@ -5311,7 +5333,7 @@ window.onload = async () => {
 // Button clicks
 document.querySelector('form').onsubmit = doUserAction;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); }; 
+document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
 // Take the new greeting and send it to the contract
 async function doUserAction(event) {
@@ -5321,7 +5343,7 @@ async function doUserAction(event) {
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await contract.setGreeting(greeting.value);
+  await helloNEAR.setGreeting(greeting.value);
 
   // ===== Fetch the data from the blockchain =====
   await fetchGreeting();
@@ -5331,7 +5353,7 @@ async function doUserAction(event) {
 
 // Get greeting from the contract on chain
 async function fetchGreeting() {
-  const currentGreeting = await contract.getGreeting();
+  const currentGreeting = await helloNEAR.getGreeting();
 
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
@@ -5359,19 +5381,20 @@ function signedInFlow() {
 exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--near-interface.js 1`] = `
 Array [
   "--js_vanilla_rust--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -5380,7 +5403,9 @@ Array [
 exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--near-wallet.js 1`] = `
 Array [
   "--js_vanilla_rust--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -5401,28 +5426,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -5431,19 +5459,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -5458,12 +5486,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -5504,26 +5530,28 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
+    \\"env-cmd\\": \\"^10.1.0\\",
+    \\"events\\": \\"^3.3.0\\",
     \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
-    \\"process\\": \\"^0.11.10\\",
-    \\"env-cmd\\": \\"^10.1.0\\"
+    \\"parcel\\": \\"^2.7.0\\",
+    \\"process\\": \\"^0.11.10\\"
   },
   \\"dependencies\\": {
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\",
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\",
     \\"near-api-js\\": \\"^0.44.2\\"
   }
-}",
+}
+",
 ]
 `;
 
@@ -7183,14 +7211,14 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, contract, wallet }) {
+export default function App({ isSignedIn, helloNEAR, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    contract.getGreeting()
+    helloNEAR.getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
@@ -7208,8 +7236,8 @@ export default function App({ isSignedIn, contract, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    contract.setGreeting(greetingInput.value)
-      .then(async () => {return contract.getGreeting();})
+    helloNEAR.setGreeting(greetingInput.value)
+      .then(async () => {return helloNEAR.getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
@@ -7221,7 +7249,7 @@ export default function App({ isSignedIn, contract, wallet }) {
       <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()}/>
       <main className={uiPleaseWait ? 'please-wait' : ''}>
         <h1>
-          The contract says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
+          The helloNEAR says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
         </h1>
         <form onSubmit={changeGreeting} className=\\"change\\">
           <label>Change greeting:</label>
@@ -7569,47 +7597,51 @@ Array [
 exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--index.js 1`] = `
 Array [
   "--rust_react_js--frontend--index.js",
-  "import React from 'react';
-import { createRoot } from 'react-dom/client';
+  "// React
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
+
+// NEAR
+import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
-import { Contract } from './near-interface';
 
-const reactRoot = createRoot(document.querySelector('#root'));
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
 
-// create the Wallet and the Contract
-const contractId = process.env.CONTRACT_NAME;
-const wallet = new Wallet({contractId: contractId});
-const contract = new Contract({wallet: wallet});
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
-window.onload = wallet.startUp()
-  .then((isSignedIn) => {
-    reactRoot.render(<App isSignedIn={isSignedIn} contract={contract} wallet={wallet} />);
-  })
-  .catch(e => {
-    reactRoot.render(<div style={{color: 'red'}}>Error: <code>{e.message}</code></div>);
-    console.error(e);
-  });
-",
+// Setup on page load
+window.onload = async () => {
+  const isSignedIn = await wallet.startUp()
+ 
+  ReactDOM.render(
+    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    document.getElementById('root')
+  );
+}",
 ]
 `;
 
 exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--near-interface.js 1`] = `
 Array [
   "--rust_react_js--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -7618,7 +7650,9 @@ Array [
 exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--near-wallet.js 1`] = `
 Array [
   "--rust_react_js--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -7639,28 +7673,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -7669,19 +7706,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -7696,12 +7733,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -7746,7 +7781,6 @@ Array [
     \\"@babel/preset-env\\": \\"^7.18.2\\",
     \\"@babel/preset-react\\": \\"^7.17.12\\",
     \\"@types/node\\": \\"^18.6.2\\",
-    \\"ava\\": \\"^4.2.0\\",
     \\"react-test-renderer\\": \\"^18.1.0\\",
     \\"ts-node\\": \\"^10.8.0\\",
     \\"typescript\\": \\"^4.7.2\\",
@@ -7760,17 +7794,17 @@ Array [
     \\"react\\": \\"^18.1.0\\",
     \\"react-dom\\": \\"^18.1.0\\",
     \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\"
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -7872,7 +7906,7 @@ export function EducationalText() {
       </p>
       <ol>
         <li>
-          Look in <code>src/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
+          Look in <code>frontend/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>./contract</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
@@ -8431,14 +8465,14 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, contract, wallet }) {
+export default function App({ isSignedIn, helloNEAR, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    contract.getGreeting()
+    helloNEAR.getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
@@ -8456,8 +8490,8 @@ export default function App({ isSignedIn, contract, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    contract.setGreeting(greetingInput.value)
-      .then(async () => {return contract.getGreeting();})
+    helloNEAR.setGreeting(greetingInput.value)
+      .then(async () => {return helloNEAR.getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
@@ -8469,7 +8503,7 @@ export default function App({ isSignedIn, contract, wallet }) {
       <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()}/>
       <main className={uiPleaseWait ? 'please-wait' : ''}>
         <h1>
-          The contract says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
+          The helloNEAR says: <span className=\\"greeting\\">{valueFromBlockchain}</span>
         </h1>
         <form onSubmit={changeGreeting} className=\\"change\\">
           <label>Change greeting:</label>
@@ -8817,47 +8851,51 @@ Array [
 exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--index.js 1`] = `
 Array [
   "--rust_react_rust--frontend--index.js",
-  "import React from 'react';
-import { createRoot } from 'react-dom/client';
+  "// React
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
+
+// NEAR
+import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
-import { Contract } from './near-interface';
 
-const reactRoot = createRoot(document.querySelector('#root'));
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
 
-// create the Wallet and the Contract
-const contractId = process.env.CONTRACT_NAME;
-const wallet = new Wallet({contractId: contractId});
-const contract = new Contract({wallet: wallet});
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
-window.onload = wallet.startUp()
-  .then((isSignedIn) => {
-    reactRoot.render(<App isSignedIn={isSignedIn} contract={contract} wallet={wallet} />);
-  })
-  .catch(e => {
-    reactRoot.render(<div style={{color: 'red'}}>Error: <code>{e.message}</code></div>);
-    console.error(e);
-  });
-",
+// Setup on page load
+window.onload = async () => {
+  const isSignedIn = await wallet.startUp()
+ 
+  ReactDOM.render(
+    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    document.getElementById('root')
+  );
+}",
 ]
 `;
 
 exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--near-interface.js 1`] = `
 Array [
   "--rust_react_rust--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -8866,7 +8904,9 @@ Array [
 exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--near-wallet.js 1`] = `
 Array [
   "--rust_react_rust--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -8887,28 +8927,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -8917,19 +8960,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -8944,12 +8987,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -8994,7 +9035,6 @@ Array [
     \\"@babel/preset-env\\": \\"^7.18.2\\",
     \\"@babel/preset-react\\": \\"^7.17.12\\",
     \\"@types/node\\": \\"^18.6.2\\",
-    \\"ava\\": \\"^4.2.0\\",
     \\"react-test-renderer\\": \\"^18.1.0\\",
     \\"ts-node\\": \\"^10.8.0\\",
     \\"typescript\\": \\"^4.7.2\\",
@@ -9008,17 +9048,17 @@ Array [
     \\"react\\": \\"^18.1.0\\",
     \\"react-dom\\": \\"^18.1.0\\",
     \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\"
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -9120,7 +9160,7 @@ export function EducationalText() {
       </p>
       <ol>
         <li>
-          Look in <code>src/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
+          Look in <code>frontend/App.js</code> - you'll see <code>getGreeting</code> and <code>setGreeting</code> being called on <code>contract</code>. What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in <code>./contract</code> – this is the source code for your <a target=\\"_blank\\" rel=\\"noreferrer\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.</li>
@@ -10046,18 +10086,20 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>./frontend/index.js</code> – you'll see <code>getGreeting</code>
-          and <code>setGreeting</code> being called on <code>contract</code>.
+          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
+          and <code>set_greeting</code> being called on <code>contract</code>.
           What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in
-          <code>./contract</code> – this is the source code for your
+          <code>assembly/index.ts</code> – this is the source code for your
           <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the contract's code gets deployed
-          to the NEAR testnet. You can see how this happens by looking in <code>package.json</code>.
+          When you run <code>npm run dev</code>, the code in
+          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
+          can see how this happens by looking in <code>package.json</code> at the
+          <code>scripts</code> section to find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -10081,20 +10123,23 @@ exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--index.js 1`]
 Array [
   "--rust_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
-import { Contract } from './near-interface';
 import { Wallet } from './near-wallet';
+import { HelloNEAR } from './near-interface';
 
-// create the Wallet and the Contract
-const wallet = new Wallet({contractId: process.env.CONTRACT_NAME});
-const contract = new Contract({wallet: wallet});
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
+
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
 // Setup on page load
 window.onload = async () => {
   let isSignedIn = await wallet.startUp();
 
-  if(isSignedIn){
+  if (isSignedIn) {
     signedInFlow();
-  }else{
+  } else {
     signedOutFlow();
   }
 
@@ -10104,7 +10149,7 @@ window.onload = async () => {
 // Button clicks
 document.querySelector('form').onsubmit = doUserAction;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); }; 
+document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
 // Take the new greeting and send it to the contract
 async function doUserAction(event) {
@@ -10114,7 +10159,7 @@ async function doUserAction(event) {
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await contract.setGreeting(greeting.value);
+  await helloNEAR.setGreeting(greeting.value);
 
   // ===== Fetch the data from the blockchain =====
   await fetchGreeting();
@@ -10124,7 +10169,7 @@ async function doUserAction(event) {
 
 // Get greeting from the contract on chain
 async function fetchGreeting() {
-  const currentGreeting = await contract.getGreeting();
+  const currentGreeting = await helloNEAR.getGreeting();
 
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
@@ -10152,19 +10197,20 @@ function signedInFlow() {
 exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--near-interface.js 1`] = `
 Array [
   "--rust_vanilla_js--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -10173,7 +10219,9 @@ Array [
 exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--near-wallet.js 1`] = `
 Array [
   "--rust_vanilla_js--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -10194,28 +10242,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -10224,19 +10275,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -10251,12 +10302,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -10297,26 +10346,28 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
+    \\"env-cmd\\": \\"^10.1.0\\",
+    \\"events\\": \\"^3.3.0\\",
     \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
-    \\"process\\": \\"^0.11.10\\",
-    \\"env-cmd\\": \\"^10.1.0\\"
+    \\"parcel\\": \\"^2.7.0\\",
+    \\"process\\": \\"^0.11.10\\"
   },
   \\"dependencies\\": {
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\",
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\",
     \\"near-api-js\\": \\"^0.44.2\\"
   }
-}",
+}
+",
 ]
 `;
 
@@ -11248,18 +11299,20 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>./frontend/index.js</code> – you'll see <code>getGreeting</code>
-          and <code>setGreeting</code> being called on <code>contract</code>.
+          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
+          and <code>set_greeting</code> being called on <code>contract</code>.
           What's this?
         </li>
         <li>
           Ultimately, this <code>contract</code> code is defined in
-          <code>./contract</code> – this is the source code for your
+          <code>assembly/index.ts</code> – this is the source code for your
           <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the contract's code gets deployed
-          to the NEAR testnet. You can see how this happens by looking in <code>package.json</code>.
+          When you run <code>npm run dev</code>, the code in
+          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
+          can see how this happens by looking in <code>package.json</code> at the
+          <code>scripts</code> section to find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -11283,20 +11336,23 @@ exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--index.js
 Array [
   "--rust_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
-import { Contract } from './near-interface';
 import { Wallet } from './near-wallet';
+import { HelloNEAR } from './near-interface';
 
-// create the Wallet and the Contract
-const wallet = new Wallet({contractId: process.env.CONTRACT_NAME});
-const contract = new Contract({wallet: wallet});
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
+
+// Abstract the logic of interacting with the contract to simplify your flow
+const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
 
 // Setup on page load
 window.onload = async () => {
   let isSignedIn = await wallet.startUp();
 
-  if(isSignedIn){
+  if (isSignedIn) {
     signedInFlow();
-  }else{
+  } else {
     signedOutFlow();
   }
 
@@ -11306,7 +11362,7 @@ window.onload = async () => {
 // Button clicks
 document.querySelector('form').onsubmit = doUserAction;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); }; 
+document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
 // Take the new greeting and send it to the contract
 async function doUserAction(event) {
@@ -11316,7 +11372,7 @@ async function doUserAction(event) {
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await contract.setGreeting(greeting.value);
+  await helloNEAR.setGreeting(greeting.value);
 
   // ===== Fetch the data from the blockchain =====
   await fetchGreeting();
@@ -11326,7 +11382,7 @@ async function doUserAction(event) {
 
 // Get greeting from the contract on chain
 async function fetchGreeting() {
-  const currentGreeting = await contract.getGreeting();
+  const currentGreeting = await helloNEAR.getGreeting();
 
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
@@ -11354,19 +11410,20 @@ function signedInFlow() {
 exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--near-interface.js 1`] = `
 Array [
   "--rust_vanilla_rust--frontend--near-interface.js",
-  "export class Contract{
-  wallet;
+  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
-  constructor({wallet}){
-    this.wallet = wallet;
+export class HelloNEAR {
+  constructor({ contractId, walletToUse }) {
+    this.contractId = contractId;
+    this.wallet = walletToUse;    
   }
 
-  async getGreeting(){
-    return await this.wallet.viewMethod({method: 'get_greeting'});
+  async getGreeting() {
+    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
   }
-  
-  async setGreeting(greeting){
-    return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
+
+  async setGreeting(greeting) {
+    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }",
 ]
@@ -11375,7 +11432,9 @@ Array [
 exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--near-wallet.js 1`] = `
 Array [
   "--rust_vanilla_rust--frontend--near-wallet.js",
-  "// near api js
+  "/* A helper file that simplifies using the wallet selector */
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector UI
@@ -11396,28 +11455,31 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   walletSelector;
   wallet;
-  accountId;
-  contractId;
+  network;
+  createAccessKeyFor;
 
-  constructor({contractId}){
-    this.contractId = contractId;
+  constructor({ createAccessKeyFor = undefined, network = 'testnet' }) {
+    // Login to a wallet passing a contractId will create a local
+    // key, so the user skips signing non-payable transactions.
+    // Omitting the accountId will result in the user being
+    // asked to sign all transactions.
+    this.createAccessKeyFor = createAccessKeyFor
+    this.network = 'testnet'
   }
 
   // To be called when the website loads
   async startUp() {
     this.walletSelector = await setupWalletSelector({
-      network: 'testnet',
+      network: this.network,
       modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-        setupLedger({ iconUrl: LedgerIconUrl })],
+      setupLedger({ iconUrl: LedgerIconUrl })],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
 
     if (isSignedIn) {
-      const { accounts } = this.walletSelector.store.getState();
-
       this.wallet = await this.walletSelector.wallet();
-      this.accountId = accounts[0].accountId;
+      this.accountId = this.walletSelector.store.getState().accounts[0].accountId;
     }
 
     return isSignedIn;
@@ -11426,19 +11488,19 @@ export class Wallet {
   // Sign-in method
   signIn() {
     const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(this.walletSelector, { contractId: this.contractId, description });
+    const modal = setupModal(this.walletSelector, { contractId: this.createAccessKeyFor, description });
     modal.show();
   }
 
   // Sign-out method
   signOut() {
     this.wallet.signOut();
-    this.wallet = this.accountId = this.contractId = null;
+    this.wallet = this.accountId = this.createAccessKeyFor = null;
     window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId = this.contractId, method, args = {} }) {
+  async viewMethod({ contractId, method, args = {} }) {
     const { network } = this.walletSelector.options;
     const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -11453,12 +11515,10 @@ export class Wallet {
   }
 
   // Call a method that changes the contract's state
-  async callMethod({ contractId = this.contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    const { accountId } = this.walletSelector.store.getState().accounts[0];
-
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the \\"FunctionCall\\" action
     return await this.wallet.signAndSendTransaction({
-      signerId: accountId,
+      signerId: this.accountId,
       receiverId: contractId,
       actions: [
         {
@@ -11499,26 +11559,28 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
+    \\"env-cmd\\": \\"^10.1.0\\",
+    \\"events\\": \\"^3.3.0\\",
     \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
-    \\"process\\": \\"^0.11.10\\",
-    \\"env-cmd\\": \\"^10.1.0\\"
+    \\"parcel\\": \\"^2.7.0\\",
+    \\"process\\": \\"^0.11.10\\"
   },
   \\"dependencies\\": {
-    \\"@near-wallet-selector/core\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^6.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^6.0.0\\",
+    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\",
     \\"near-api-js\\": \\"^0.44.2\\"
   }
-}",
+}
+",
 ]
 `;
 
