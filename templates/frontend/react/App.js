@@ -6,14 +6,14 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, contract, wallet }) {
+export default function App({ isSignedIn, helloNEAR, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    contract.getGreeting()
+    helloNEAR.getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
@@ -31,8 +31,8 @@ export default function App({ isSignedIn, contract, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    contract.setGreeting(greetingInput.value)
-      .then(async () => {return contract.getGreeting();})
+    helloNEAR.setGreeting(greetingInput.value)
+      .then(async () => {return helloNEAR.getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
@@ -44,7 +44,7 @@ export default function App({ isSignedIn, contract, wallet }) {
       <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()}/>
       <main className={uiPleaseWait ? 'please-wait' : ''}>
         <h1>
-          The contract says: <span className="greeting">{valueFromBlockchain}</span>
+          The helloNEAR says: <span className="greeting">{valueFromBlockchain}</span>
         </h1>
         <form onSubmit={changeGreeting} className="change">
           <label>Change greeting:</label>

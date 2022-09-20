@@ -7,10 +7,11 @@
     "build": "parcel build index.html --public-url ./"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "events": "^3.3.0",
     "nodemon": "^2.0.16",
-    "parcel": "^2.6.0",
-    "process": "^0.11.10",
-    "env-cmd": "^10.1.0"
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "@near-wallet-selector/core": "^7.0.0",
