@@ -44,7 +44,7 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
       <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()}/>
       <main className={uiPleaseWait ? 'please-wait' : ''}>
         <h1>
-          The helloNEAR says: <span className="greeting">{valueFromBlockchain}</span>
+          The contract says: <span className="greeting">{valueFromBlockchain}</span>
         </h1>
         <form onSubmit={changeGreeting} className="change">
           <label>Change greeting:</label>
