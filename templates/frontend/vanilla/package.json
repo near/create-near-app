@@ -7,23 +7,24 @@
     "build": "parcel build index.html --public-url ./"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "events": "^3.3.0",
     "nodemon": "^2.0.16",
-    "parcel": "^2.6.0",
-    "process": "^0.11.10",
-    "env-cmd": "^10.1.0"
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^6.0.0",
-    "@near-wallet-selector/ledger": "^6.0.0",
-    "@near-wallet-selector/math-wallet": "^6.0.0",
-    "@near-wallet-selector/meteor-wallet": "^6.0.0",
-    "@near-wallet-selector/modal-ui": "^6.0.0",
-    "@near-wallet-selector/my-near-wallet": "^6.0.0",
-    "@near-wallet-selector/near-wallet": "^6.0.0",
-    "@near-wallet-selector/nightly": "^6.0.0",
-    "@near-wallet-selector/nightly-connect": "^6.0.0",
-    "@near-wallet-selector/sender": "^6.0.0",
-    "@near-wallet-selector/wallet-connect": "^6.0.0",
+    "@near-wallet-selector/core": "^7.0.0",
+    "@near-wallet-selector/ledger": "^7.0.0",
+    "@near-wallet-selector/math-wallet": "^7.0.0",
+    "@near-wallet-selector/meteor-wallet": "^7.0.0",
+    "@near-wallet-selector/modal-ui": "^7.0.0",
+    "@near-wallet-selector/my-near-wallet": "^7.0.0",
+    "@near-wallet-selector/near-wallet": "^7.0.0",
+    "@near-wallet-selector/nightly": "^7.0.0",
+    "@near-wallet-selector/nightly-connect": "^7.0.0",
+    "@near-wallet-selector/sender": "^7.0.0",
+    "@near-wallet-selector/wallet-connect": "^7.0.0",
     "near-api-js": "^0.44.2"
   }
 }
