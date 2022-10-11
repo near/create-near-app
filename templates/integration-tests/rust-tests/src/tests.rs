@@ -1,8 +1,7 @@
 use std::{env, fs};
 use near_units::parse_near;
 use serde_json::json;
-use workspaces::prelude::*;
-use workspaces::{network::Sandbox, Account, Contract, Worker};
+use workspaces::{Account, Contract};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -16,26 +15,25 @@ async fn main() -> anyhow::Result<()> {
     // create accounts
     let account = worker.dev_create_account().await?;
     let alice = account
-        .create_subaccount(&worker, "alice")
+        .create_subaccount( "alice")
         .initial_balance(parse_near!("30 N"))
         .transact()
         .await?
         .into_result()?;
 
     // begin tests
-    test_default_message(&alice, &contract, &worker).await?;
-    test_changes_message(&alice, &contract, &worker).await?;
+    test_default_message(&alice, &contract).await?;
+    test_changes_message(&alice, &contract).await?;
     Ok(())
 }
 
 async fn test_default_message(
     user: &Account,
     contract: &Contract,
-    worker: &Worker<Sandbox>,
 ) -> anyhow::Result<()> {
     let message: String = user
-        .call(&worker, contract.id(), "get_greeting")
-        .args_json(json!({}))?
+        .call( contract.id(), "get_greeting")
+        .args_json(json!({}))
         .transact()
         .await?
         .json()?;
@@ -48,16 +46,16 @@ async fn test_default_message(
 async fn test_changes_message(
     user: &Account,
     contract: &Contract,
-    worker: &Worker<Sandbox>,
 ) -> anyhow::Result<()> {
-    user.call(&worker, contract.id(), "set_greeting")
-        .args_json(json!({"message": "Howdy"}))?
+    user.call(contract.id(), "set_greeting")
+        .args_json(json!({"message": "Howdy"}))
         .transact()
-        .await?;
+        .await?
+        .into_result()?;
 
     let message: String = user
-        .call(&worker, contract.id(), "get_greeting")
-        .args_json(json!({}))?
+        .call(contract.id(), "get_greeting")
+        .args_json(json!({}))
         .transact()
         .await?
         .json()?;
