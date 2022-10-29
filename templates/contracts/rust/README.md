@@ -78,7 +78,7 @@ near view <dev-account> get_greeting
 
 ```bash
 # Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
+near call <dev-account> set_greeting '{"message":"howdy"}' --accountId <dev-account>
 ```
 
 **Tip:** If you would like to call `set_greeting` using your own account, first login into NEAR using:
