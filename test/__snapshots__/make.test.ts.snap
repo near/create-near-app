@@ -312,10 +312,11 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0\\"
+    \\"near-sdk-js\\": \\"0.6.0\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\",
+    \\"ts-morph\\": \\"^16.0.0\\"
   }
 }
 ",
@@ -788,10 +789,11 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0\\"
+    \\"near-sdk-js\\": \\"0.6.0\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\",
+    \\"ts-morph\\": \\"^16.0.0\\"
   }
 }
 ",
@@ -1275,10 +1277,11 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0\\"
+    \\"near-sdk-js\\": \\"0.6.0\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\",
+    \\"ts-morph\\": \\"^16.0.0\\"
   }
 }
 ",
@@ -2477,10 +2480,11 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0\\"
+    \\"near-sdk-js\\": \\"0.6.0\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\",
+    \\"ts-morph\\": \\"^16.0.0\\"
   }
 }
 ",
@@ -3690,10 +3694,11 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0\\"
+    \\"near-sdk-js\\": \\"0.6.0\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\",
+    \\"ts-morph\\": \\"^16.0.0\\"
   }
 }
 ",
@@ -4851,10 +4856,11 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.5.0\\"
+    \\"near-sdk-js\\": \\"0.6.0\\"
   },
   \\"devDependencies\\": {
-    \\"typescript\\": \\"^4.7.4\\"
+    \\"typescript\\": \\"^4.7.4\\",
+    \\"ts-morph\\": \\"^16.0.0\\"
   }
 }
 ",
