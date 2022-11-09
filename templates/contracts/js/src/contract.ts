@@ -1,3 +1,4 @@
+// Find all our documentation at https://docs.near.org
 import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
@@ -10,9 +11,8 @@ class HelloNear {
   }
 
   @call({}) // This method changes the state, for which it cost gas
-  set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
-    near.log(`Saving greeting ${message}`);
-    this.greeting = message;
+  set_greeting({ greeting }: { greeting: string }): void {
+    near.log(`Saving greeting ${greeting}`);
+    this.greeting = greeting;
   }
 }
