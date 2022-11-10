@@ -24,7 +24,7 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.1.2",
     "commander": "^9.4.0",
     "cross-spawn": "^7.0.3",
     "mixpanel": "^0.16.0",
