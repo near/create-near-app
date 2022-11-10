@@ -1,11 +1,4 @@
-/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -36,7 +29,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as "howdy", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!("Saving greeting {}", message);
         self.message = message;
     }

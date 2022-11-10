@@ -326,22 +326,22 @@ Array [
 exports[`create 'js' 'none' 'js': --js_none_js--contract--src--contract.ts 1`] = `
 Array [
   "--js_none_js--contract--src--contract.ts",
-  "import { NearBindgen, near, call, view } from 'near-sdk-js';
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = \\"Hello\\";
+  message: string = \\"Hello\\";
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
-    return this.greeting;
+    return this.message;
   }
 
   @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
-    this.greeting = message;
+    this.message = message;
   }
 }",
 ]
@@ -803,22 +803,22 @@ Array [
 exports[`create 'js' 'none' 'rust': --js_none_rust--contract--src--contract.ts 1`] = `
 Array [
   "--js_none_rust--contract--src--contract.ts",
-  "import { NearBindgen, near, call, view } from 'near-sdk-js';
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = \\"Hello\\";
+  message: string = \\"Hello\\";
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
-    return this.greeting;
+    return this.message;
   }
 
   @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
-    this.greeting = message;
+    this.message = message;
   }
 }",
 ]
@@ -1291,22 +1291,22 @@ Array [
 exports[`create 'js' 'react' 'js': --js_react_js--contract--src--contract.ts 1`] = `
 Array [
   "--js_react_js--contract--src--contract.ts",
-  "import { NearBindgen, near, call, view } from 'near-sdk-js';
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = \\"Hello\\";
+  message: string = \\"Hello\\";
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
-    return this.greeting;
+    return this.message;
   }
 
   @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
-    this.greeting = message;
+    this.message = message;
   }
 }",
 ]
@@ -1339,20 +1339,21 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, helloNEAR, wallet }) {
+export default function App({ isSignedIn, contractId, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    helloNEAR.getGreeting()
+    getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
         setUiPleaseWait(false);
       });
-  }, []);
+    }
+  , []);
 
   /// If user not signed-in with wallet - show prompt
   if (!isSignedIn) {
@@ -1364,12 +1365,19 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    helloNEAR.setGreeting(greetingInput.value)
-      .then(async () => {return helloNEAR.getGreeting();})
+    
+    // use the wallet to send the greeting to the contract
+    wallet.callMethod({ method: 'set_greeting', args: { message: greetingInput.value }, contractId })
+      .then(async () => {return getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
       });
+  }
+
+  function getGreeting(){
+    // use the wallet to query the contract's greeting
+    return wallet.viewMethod({ method: 'get_greeting', contractId })
   }
 
   return (
@@ -1397,8 +1405,7 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
       </main>
     </>
   );
-}
-",
+}",
 ]
 `;
 
@@ -1731,46 +1738,22 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 // NEAR
-import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
  
   ReactDOM.render(
-    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
     document.getElementById('root')
   );
-}",
-]
-`;
-
-exports[`create 'js' 'react' 'js': --js_react_js--frontend--near-interface.js 1`] = `
-Array [
-  "--js_react_js--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -2494,22 +2477,22 @@ Array [
 exports[`create 'js' 'react' 'rust': --js_react_rust--contract--src--contract.ts 1`] = `
 Array [
   "--js_react_rust--contract--src--contract.ts",
-  "import { NearBindgen, near, call, view } from 'near-sdk-js';
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = \\"Hello\\";
+  message: string = \\"Hello\\";
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
-    return this.greeting;
+    return this.message;
   }
 
   @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
-    this.greeting = message;
+    this.message = message;
   }
 }",
 ]
@@ -2542,20 +2525,21 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, helloNEAR, wallet }) {
+export default function App({ isSignedIn, contractId, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    helloNEAR.getGreeting()
+    getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
         setUiPleaseWait(false);
       });
-  }, []);
+    }
+  , []);
 
   /// If user not signed-in with wallet - show prompt
   if (!isSignedIn) {
@@ -2567,12 +2551,19 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    helloNEAR.setGreeting(greetingInput.value)
-      .then(async () => {return helloNEAR.getGreeting();})
+    
+    // use the wallet to send the greeting to the contract
+    wallet.callMethod({ method: 'set_greeting', args: { message: greetingInput.value }, contractId })
+      .then(async () => {return getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
       });
+  }
+
+  function getGreeting(){
+    // use the wallet to query the contract's greeting
+    return wallet.viewMethod({ method: 'get_greeting', contractId })
   }
 
   return (
@@ -2600,8 +2591,7 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
       </main>
     </>
   );
-}
-",
+}",
 ]
 `;
 
@@ -2934,46 +2924,22 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 // NEAR
-import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
  
   ReactDOM.render(
-    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
     document.getElementById('root')
   );
-}",
-]
-`;
-
-exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--near-interface.js 1`] = `
-Array [
-  "--js_react_rust--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -3708,22 +3674,22 @@ Array [
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--src--contract.ts 1`] = `
 Array [
   "--js_vanilla_js--contract--src--contract.ts",
-  "import { NearBindgen, near, call, view } from 'near-sdk-js';
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = \\"Hello\\";
+  message: string = \\"Hello\\";
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
-    return this.greeting;
+    return this.message;
   }
 
   @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
-    this.greeting = message;
+    this.message = message;
   }
 }",
 ]
@@ -4148,14 +4114,12 @@ Array [
   "--js_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import { Wallet } from './near-wallet';
-import { HelloNEAR } from './near-interface';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME;
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
@@ -4167,75 +4131,56 @@ window.onload = async () => {
     signedOutFlow();
   }
 
-  fetchGreeting();
+  getGreeting();
 };
 
 // Button clicks
-document.querySelector('form').onsubmit = doUserAction;
+document.querySelector('form').onsubmit = setGreeting;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
-// Take the new greeting and send it to the contract
-async function doUserAction(event) {
+async function setGreeting(event) {
+  // handle UI
   event.preventDefault();
   const { greeting } = event.target.elements;
 
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await helloNEAR.setGreeting(greeting.value);
+  // use the wallet to send the greeting to the Smart Contract
+  await wallet.callMethod({ method: 'set_greeting', args: { message: greeting.value }, contractId: CONTRACT_ADDRESS });
 
-  // ===== Fetch the data from the blockchain =====
-  await fetchGreeting();
-  document.querySelector('#signed-in-flow main')
-    .classList.remove('please-wait');
+  // query the new greeting
+  await getGreeting();
+
+  // handle UI stuff
+  document.querySelector('#signed-in-flow main').classList.remove('please-wait');
 }
 
-// Get greeting from the contract on chain
-async function fetchGreeting() {
-  const currentGreeting = await helloNEAR.getGreeting();
+async function getGreeting() {
+  // use the wallet to query the Smart Contract
+  const currentGreeting = await wallet.viewMethod({ method: 'get_greeting', contractId: CONTRACT_ADDRESS });
 
+  // handle UI stuff
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
     el.value = currentGreeting;
   });
 }
 
-// Display the signed-out-flow container
+// UI: Display the signed-out-flow container
 function signedOutFlow() {
   document.querySelector('#signed-in-flow').style.display = 'none';
   document.querySelector('#signed-out-flow').style.display = 'block';
 }
 
-// Displaying the signed in flow container and fill in account-specific data
+// UI: Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
   document.querySelector('#signed-out-flow').style.display = 'none';
   document.querySelector('#signed-in-flow').style.display = 'block';
   document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
     el.innerText = wallet.accountId;
   });
-}",
-]
-`;
-
-exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--near-interface.js 1`] = `
-Array [
-  "--js_vanilla_js--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -4870,22 +4815,22 @@ Array [
 exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--src--contract.ts 1`] = `
 Array [
   "--js_vanilla_rust--contract--src--contract.ts",
-  "import { NearBindgen, near, call, view } from 'near-sdk-js';
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = \\"Hello\\";
+  message: string = \\"Hello\\";
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
-    return this.greeting;
+    return this.message;
   }
 
   @call({}) // This method changes the state, for which it cost gas
   set_greeting({ message }: { message: string }): void {
-    // Record a log permanently to the blockchain!
     near.log(\`Saving greeting \${message}\`);
-    this.greeting = message;
+    this.message = message;
   }
 }",
 ]
@@ -5310,14 +5255,12 @@ Array [
   "--js_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import { Wallet } from './near-wallet';
-import { HelloNEAR } from './near-interface';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME;
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
@@ -5329,75 +5272,56 @@ window.onload = async () => {
     signedOutFlow();
   }
 
-  fetchGreeting();
+  getGreeting();
 };
 
 // Button clicks
-document.querySelector('form').onsubmit = doUserAction;
+document.querySelector('form').onsubmit = setGreeting;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
-// Take the new greeting and send it to the contract
-async function doUserAction(event) {
+async function setGreeting(event) {
+  // handle UI
   event.preventDefault();
   const { greeting } = event.target.elements;
 
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await helloNEAR.setGreeting(greeting.value);
+  // use the wallet to send the greeting to the Smart Contract
+  await wallet.callMethod({ method: 'set_greeting', args: { message: greeting.value }, contractId: CONTRACT_ADDRESS });
 
-  // ===== Fetch the data from the blockchain =====
-  await fetchGreeting();
-  document.querySelector('#signed-in-flow main')
-    .classList.remove('please-wait');
+  // query the new greeting
+  await getGreeting();
+
+  // handle UI stuff
+  document.querySelector('#signed-in-flow main').classList.remove('please-wait');
 }
 
-// Get greeting from the contract on chain
-async function fetchGreeting() {
-  const currentGreeting = await helloNEAR.getGreeting();
+async function getGreeting() {
+  // use the wallet to query the Smart Contract
+  const currentGreeting = await wallet.viewMethod({ method: 'get_greeting', contractId: CONTRACT_ADDRESS });
 
+  // handle UI stuff
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
     el.value = currentGreeting;
   });
 }
 
-// Display the signed-out-flow container
+// UI: Display the signed-out-flow container
 function signedOutFlow() {
   document.querySelector('#signed-in-flow').style.display = 'none';
   document.querySelector('#signed-out-flow').style.display = 'block';
 }
 
-// Displaying the signed in flow container and fill in account-specific data
+// UI: Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
   document.querySelector('#signed-out-flow').style.display = 'none';
   document.querySelector('#signed-in-flow').style.display = 'block';
   document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
     el.innerText = wallet.accountId;
   });
-}",
-]
-`;
-
-exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--near-interface.js 1`] = `
-Array [
-  "--js_vanilla_rust--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -6055,14 +5979,7 @@ near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wa
 exports[`create 'rust' 'none' 'js': --rust_none_js--contract--src--lib.rs 1`] = `
 Array [
   "--rust_none_js--contract--src--lib.rs",
-  "/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+  "// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -6093,7 +6010,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as \\"howdy\\", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!(\\"Saving greeting {}\\", message);
         self.message = message;
     }
@@ -6583,14 +6499,7 @@ near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wa
 exports[`create 'rust' 'none' 'rust': --rust_none_rust--contract--src--lib.rs 1`] = `
 Array [
   "--rust_none_rust--contract--src--lib.rs",
-  "/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+  "// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -6621,7 +6530,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as \\"howdy\\", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!(\\"Saving greeting {}\\", message);
         self.message = message;
     }
@@ -7122,14 +7030,7 @@ near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wa
 exports[`create 'rust' 'react' 'js': --rust_react_js--contract--src--lib.rs 1`] = `
 Array [
   "--rust_react_js--contract--src--lib.rs",
-  "/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+  "// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -7160,7 +7061,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as \\"howdy\\", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!(\\"Saving greeting {}\\", message);
         self.message = message;
     }
@@ -7209,20 +7109,21 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, helloNEAR, wallet }) {
+export default function App({ isSignedIn, contractId, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    helloNEAR.getGreeting()
+    getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
         setUiPleaseWait(false);
       });
-  }, []);
+    }
+  , []);
 
   /// If user not signed-in with wallet - show prompt
   if (!isSignedIn) {
@@ -7234,12 +7135,19 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    helloNEAR.setGreeting(greetingInput.value)
-      .then(async () => {return helloNEAR.getGreeting();})
+    
+    // use the wallet to send the greeting to the contract
+    wallet.callMethod({ method: 'set_greeting', args: { message: greetingInput.value }, contractId })
+      .then(async () => {return getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
       });
+  }
+
+  function getGreeting(){
+    // use the wallet to query the contract's greeting
+    return wallet.viewMethod({ method: 'get_greeting', contractId })
   }
 
   return (
@@ -7267,8 +7175,7 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
       </main>
     </>
   );
-}
-",
+}",
 ]
 `;
 
@@ -7601,46 +7508,22 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 // NEAR
-import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
  
   ReactDOM.render(
-    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
     document.getElementById('root')
   );
-}",
-]
-`;
-
-exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--near-interface.js 1`] = `
-Array [
-  "--rust_react_js--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -8376,14 +8259,7 @@ near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wa
 exports[`create 'rust' 'react' 'rust': --rust_react_rust--contract--src--lib.rs 1`] = `
 Array [
   "--rust_react_rust--contract--src--lib.rs",
-  "/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+  "// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -8414,7 +8290,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as \\"howdy\\", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!(\\"Saving greeting {}\\", message);
         self.message = message;
     }
@@ -8463,20 +8338,21 @@ import './assets/global.css';
 import { EducationalText, SignInPrompt, SignOutButton } from './ui-components';
 
 
-export default function App({ isSignedIn, helloNEAR, wallet }) {
+export default function App({ isSignedIn, contractId, wallet }) {
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
-    helloNEAR.getGreeting()
+    getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
       .finally(() => {
         setUiPleaseWait(false);
       });
-  }, []);
+    }
+  , []);
 
   /// If user not signed-in with wallet - show prompt
   if (!isSignedIn) {
@@ -8488,12 +8364,19 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
     e.preventDefault();
     setUiPleaseWait(true);
     const { greetingInput } = e.target.elements;
-    helloNEAR.setGreeting(greetingInput.value)
-      .then(async () => {return helloNEAR.getGreeting();})
+    
+    // use the wallet to send the greeting to the contract
+    wallet.callMethod({ method: 'set_greeting', args: { message: greetingInput.value }, contractId })
+      .then(async () => {return getGreeting();})
       .then(setValueFromBlockchain)
       .finally(() => {
         setUiPleaseWait(false);
       });
+  }
+
+  function getGreeting(){
+    // use the wallet to query the contract's greeting
+    return wallet.viewMethod({ method: 'get_greeting', contractId })
   }
 
   return (
@@ -8521,8 +8404,7 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
       </main>
     </>
   );
-}
-",
+}",
 ]
 `;
 
@@ -8855,46 +8737,22 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 // NEAR
-import { HelloNEAR } from './near-interface';
 import { Wallet } from './near-wallet';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
  
   ReactDOM.render(
-    <App isSignedIn={isSignedIn} helloNEAR={helloNEAR} wallet={wallet} />,
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
     document.getElementById('root')
   );
-}",
-]
-`;
-
-exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--near-interface.js 1`] = `
-Array [
-  "--rust_react_rust--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -9641,14 +9499,7 @@ near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wa
 exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--contract--src--lib.rs 1`] = `
 Array [
   "--rust_vanilla_js--contract--src--lib.rs",
-  "/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+  "// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -9679,7 +9530,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as \\"howdy\\", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!(\\"Saving greeting {}\\", message);
         self.message = message;
     }
@@ -10120,14 +9970,12 @@ Array [
   "--rust_vanilla_js--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import { Wallet } from './near-wallet';
-import { HelloNEAR } from './near-interface';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME;
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
@@ -10139,75 +9987,56 @@ window.onload = async () => {
     signedOutFlow();
   }
 
-  fetchGreeting();
+  getGreeting();
 };
 
 // Button clicks
-document.querySelector('form').onsubmit = doUserAction;
+document.querySelector('form').onsubmit = setGreeting;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
-// Take the new greeting and send it to the contract
-async function doUserAction(event) {
+async function setGreeting(event) {
+  // handle UI
   event.preventDefault();
   const { greeting } = event.target.elements;
 
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await helloNEAR.setGreeting(greeting.value);
+  // use the wallet to send the greeting to the Smart Contract
+  await wallet.callMethod({ method: 'set_greeting', args: { message: greeting.value }, contractId: CONTRACT_ADDRESS });
 
-  // ===== Fetch the data from the blockchain =====
-  await fetchGreeting();
-  document.querySelector('#signed-in-flow main')
-    .classList.remove('please-wait');
+  // query the new greeting
+  await getGreeting();
+
+  // handle UI stuff
+  document.querySelector('#signed-in-flow main').classList.remove('please-wait');
 }
 
-// Get greeting from the contract on chain
-async function fetchGreeting() {
-  const currentGreeting = await helloNEAR.getGreeting();
+async function getGreeting() {
+  // use the wallet to query the Smart Contract
+  const currentGreeting = await wallet.viewMethod({ method: 'get_greeting', contractId: CONTRACT_ADDRESS });
 
+  // handle UI stuff
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
     el.value = currentGreeting;
   });
 }
 
-// Display the signed-out-flow container
+// UI: Display the signed-out-flow container
 function signedOutFlow() {
   document.querySelector('#signed-in-flow').style.display = 'none';
   document.querySelector('#signed-out-flow').style.display = 'block';
 }
 
-// Displaying the signed in flow container and fill in account-specific data
+// UI: Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
   document.querySelector('#signed-out-flow').style.display = 'none';
   document.querySelector('#signed-in-flow').style.display = 'block';
   document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
     el.innerText = wallet.accountId;
   });
-}",
-]
-`;
-
-exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--near-interface.js 1`] = `
-Array [
-  "--rust_vanilla_js--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
@@ -10854,14 +10683,7 @@ near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wa
 exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--contract--src--lib.rs 1`] = `
 Array [
   "--rust_vanilla_rust--contract--src--lib.rs",
-  "/*
- * Example smart contract written in RUST
- *
- * Learn more about writing NEAR smart contracts with Rust:
- * https://near-docs.io/develop/Contract
- *
- */
-
+  "// Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
@@ -10892,7 +10714,6 @@ impl Contract {
 
     // Public method - accepts a greeting, such as \\"howdy\\", and records it
     pub fn set_greeting(&mut self, message: String) {
-        // Use env::log to record logs permanently to the blockchain!
         log!(\\"Saving greeting {}\\", message);
         self.message = message;
     }
@@ -11333,14 +11154,12 @@ Array [
   "--rust_vanilla_rust--frontend--index.js",
   "import 'regenerator-runtime/runtime';
 import { Wallet } from './near-wallet';
-import { HelloNEAR } from './near-interface';
+
+const CONTRACT_ADDRESS = process.env.CONTRACT_NAME;
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-// Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
 
 // Setup on page load
 window.onload = async () => {
@@ -11352,75 +11171,56 @@ window.onload = async () => {
     signedOutFlow();
   }
 
-  fetchGreeting();
+  getGreeting();
 };
 
 // Button clicks
-document.querySelector('form').onsubmit = doUserAction;
+document.querySelector('form').onsubmit = setGreeting;
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
-// Take the new greeting and send it to the contract
-async function doUserAction(event) {
+async function setGreeting(event) {
+  // handle UI
   event.preventDefault();
   const { greeting } = event.target.elements;
 
   document.querySelector('#signed-in-flow main')
     .classList.add('please-wait');
 
-  await helloNEAR.setGreeting(greeting.value);
+  // use the wallet to send the greeting to the Smart Contract
+  await wallet.callMethod({ method: 'set_greeting', args: { message: greeting.value }, contractId: CONTRACT_ADDRESS });
 
-  // ===== Fetch the data from the blockchain =====
-  await fetchGreeting();
-  document.querySelector('#signed-in-flow main')
-    .classList.remove('please-wait');
+  // query the new greeting
+  await getGreeting();
+
+  // handle UI stuff
+  document.querySelector('#signed-in-flow main').classList.remove('please-wait');
 }
 
-// Get greeting from the contract on chain
-async function fetchGreeting() {
-  const currentGreeting = await helloNEAR.getGreeting();
+async function getGreeting() {
+  // use the wallet to query the Smart Contract
+  const currentGreeting = await wallet.viewMethod({ method: 'get_greeting', contractId: CONTRACT_ADDRESS });
 
+  // handle UI stuff
   document.querySelectorAll('[data-behavior=greeting]').forEach(el => {
     el.innerText = currentGreeting;
     el.value = currentGreeting;
   });
 }
 
-// Display the signed-out-flow container
+// UI: Display the signed-out-flow container
 function signedOutFlow() {
   document.querySelector('#signed-in-flow').style.display = 'none';
   document.querySelector('#signed-out-flow').style.display = 'block';
 }
 
-// Displaying the signed in flow container and fill in account-specific data
+// UI: Displaying the signed in flow container and fill in account-specific data
 function signedInFlow() {
   document.querySelector('#signed-out-flow').style.display = 'none';
   document.querySelector('#signed-in-flow').style.display = 'block';
   document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
     el.innerText = wallet.accountId;
   });
-}",
-]
-`;
-
-exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--near-interface.js 1`] = `
-Array [
-  "--rust_vanilla_rust--frontend--near-interface.js",
-  "/* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
-
-export class HelloNEAR {
-  constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
-    this.wallet = walletToUse;    
-  }
-
-  async getGreeting() {
-    return await this.wallet.viewMethod({ contractId: this.contractId, method: 'get_greeting' });
-  }
-
-  async setGreeting(greeting) {
-    return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
-  }
 }",
 ]
 `;
