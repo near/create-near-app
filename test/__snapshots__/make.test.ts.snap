@@ -253,19 +253,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'none' 'js': --js_none_js--contract--babel.config.json 1`] = `
-Array [
-  "--js_none_js--contract--babel.config.json",
-  "{
-  \\"plugins\\": [
-    \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
-    [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
-  ],
-  \\"presets\\": [\\"@babel/preset-typescript\\"]
-}",
-]
-`;
-
 exports[`create 'js' 'none' 'js': --js_none_js--contract--build.sh 1`] = `
 Array [
   "--js_none_js--contract--build.sh",
@@ -312,7 +299,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.6.0\\"
+    \\"near-sdk-js\\": \\"0.7.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\",
@@ -730,19 +717,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': --js_none_rust--contract--babel.config.json 1`] = `
-Array [
-  "--js_none_rust--contract--babel.config.json",
-  "{
-  \\"plugins\\": [
-    \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
-    [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
-  ],
-  \\"presets\\": [\\"@babel/preset-typescript\\"]
-}",
-]
-`;
-
 exports[`create 'js' 'none' 'rust': --js_none_rust--contract--build.sh 1`] = `
 Array [
   "--js_none_rust--contract--build.sh",
@@ -789,7 +763,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.6.0\\"
+    \\"near-sdk-js\\": \\"0.7.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\",
@@ -1218,19 +1192,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'react' 'js': --js_react_js--contract--babel.config.json 1`] = `
-Array [
-  "--js_react_js--contract--babel.config.json",
-  "{
-  \\"plugins\\": [
-    \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
-    [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
-  ],
-  \\"presets\\": [\\"@babel/preset-typescript\\"]
-}",
-]
-`;
-
 exports[`create 'js' 'react' 'js': --js_react_js--contract--build.sh 1`] = `
 Array [
   "--js_react_js--contract--build.sh",
@@ -1277,7 +1238,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.6.0\\"
+    \\"near-sdk-js\\": \\"0.7.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\",
@@ -1733,8 +1694,7 @@ exports[`create 'js' 'react' 'js': --js_react_js--frontend--index.js 1`] = `
 Array [
   "--js_react_js--frontend--index.js",
   "// React
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
 // NEAR
@@ -1745,14 +1705,15 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
 const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
- 
-  ReactDOM.render(
-    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
-    document.getElementById('root')
+
+  root.render(
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />
   );
 }",
 ]
@@ -1888,34 +1849,34 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"^7.18.2\\",
-    \\"@babel/preset-env\\": \\"^7.18.2\\",
-    \\"@babel/preset-react\\": \\"^7.17.12\\",
-    \\"@types/node\\": \\"^18.6.2\\",
-    \\"react-test-renderer\\": \\"^18.1.0\\",
-    \\"ts-node\\": \\"^10.8.0\\",
-    \\"typescript\\": \\"^4.7.2\\",
-    \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
+    \\"@babel/core\\": \\"^7.20.12\\",
+    \\"@babel/preset-env\\": \\"^7.20.2\\",
+    \\"@babel/preset-react\\": \\"^7.18.6\\",
+    \\"@types/node\\": \\"^18.13.0\\",
+    \\"react-test-renderer\\": \\"^18.2.0\\",
+    \\"ts-node\\": \\"^10.9.1\\",
+    \\"typescript\\": \\"^4.9.5\\",
+    \\"nodemon\\": \\"^2.0.20\\",
+    \\"parcel\\": \\"^2.8.3\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"^0.44.2\\",
-    \\"react\\": \\"^18.1.0\\",
-    \\"react-dom\\": \\"^18.1.0\\",
-    \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
+    \\"near-api-js\\": \\"^1.1.0\\",
+    \\"react\\": \\"^18.2.0\\",
+    \\"react-dom\\": \\"^18.2.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.11\\",
+    \\"@near-wallet-selector/core\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.8.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -2404,19 +2365,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': --js_react_rust--contract--babel.config.json 1`] = `
-Array [
-  "--js_react_rust--contract--babel.config.json",
-  "{
-  \\"plugins\\": [
-    \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
-    [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
-  ],
-  \\"presets\\": [\\"@babel/preset-typescript\\"]
-}",
-]
-`;
-
 exports[`create 'js' 'react' 'rust': --js_react_rust--contract--build.sh 1`] = `
 Array [
   "--js_react_rust--contract--build.sh",
@@ -2463,7 +2411,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.6.0\\"
+    \\"near-sdk-js\\": \\"0.7.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\",
@@ -2919,8 +2867,7 @@ exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--index.js 1`] = `
 Array [
   "--js_react_rust--frontend--index.js",
   "// React
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
 // NEAR
@@ -2931,14 +2878,15 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
 const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
- 
-  ReactDOM.render(
-    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
-    document.getElementById('root')
+
+  root.render(
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />
   );
 }",
 ]
@@ -3074,34 +3022,34 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"^7.18.2\\",
-    \\"@babel/preset-env\\": \\"^7.18.2\\",
-    \\"@babel/preset-react\\": \\"^7.17.12\\",
-    \\"@types/node\\": \\"^18.6.2\\",
-    \\"react-test-renderer\\": \\"^18.1.0\\",
-    \\"ts-node\\": \\"^10.8.0\\",
-    \\"typescript\\": \\"^4.7.2\\",
-    \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
+    \\"@babel/core\\": \\"^7.20.12\\",
+    \\"@babel/preset-env\\": \\"^7.20.2\\",
+    \\"@babel/preset-react\\": \\"^7.18.6\\",
+    \\"@types/node\\": \\"^18.13.0\\",
+    \\"react-test-renderer\\": \\"^18.2.0\\",
+    \\"ts-node\\": \\"^10.9.1\\",
+    \\"typescript\\": \\"^4.9.5\\",
+    \\"nodemon\\": \\"^2.0.20\\",
+    \\"parcel\\": \\"^2.8.3\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"^0.44.2\\",
-    \\"react\\": \\"^18.1.0\\",
-    \\"react-dom\\": \\"^18.1.0\\",
-    \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
+    \\"near-api-js\\": \\"^1.1.0\\",
+    \\"react\\": \\"^18.2.0\\",
+    \\"react-dom\\": \\"^18.2.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.11\\",
+    \\"@near-wallet-selector/core\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.8.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -3601,19 +3549,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--babel.config.json 1`] = `
-Array [
-  "--js_vanilla_js--contract--babel.config.json",
-  "{
-  \\"plugins\\": [
-    \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
-    [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
-  ],
-  \\"presets\\": [\\"@babel/preset-typescript\\"]
-}",
-]
-`;
-
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--build.sh 1`] = `
 Array [
   "--js_vanilla_js--contract--build.sh",
@@ -3660,7 +3595,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.6.0\\"
+    \\"near-sdk-js\\": \\"0.7.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\",
@@ -4742,19 +4677,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--babel.config.json 1`] = `
-Array [
-  "--js_vanilla_rust--contract--babel.config.json",
-  "{
-  \\"plugins\\": [
-    \\"near-sdk-js/lib/build-tools/near-bindgen-exporter\\",
-    [\\"@babel/plugin-proposal-decorators\\", {\\"version\\": \\"legacy\\"}]
-  ],
-  \\"presets\\": [\\"@babel/preset-typescript\\"]
-}",
-]
-`;
-
 exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--build.sh 1`] = `
 Array [
   "--js_vanilla_rust--contract--build.sh",
@@ -4801,7 +4723,7 @@ Array [
   },
   \\"dependencies\\": {
     \\"near-cli\\": \\"^3.4.0\\",
-    \\"near-sdk-js\\": \\"0.6.0\\"
+    \\"near-sdk-js\\": \\"0.7.0\\"
   },
   \\"devDependencies\\": {
     \\"typescript\\": \\"^4.7.4\\",
@@ -7503,8 +7425,7 @@ exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--index.js 1`] = `
 Array [
   "--rust_react_js--frontend--index.js",
   "// React
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
 // NEAR
@@ -7515,14 +7436,15 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
 const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
- 
-  ReactDOM.render(
-    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
-    document.getElementById('root')
+
+  root.render(
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />
   );
 }",
 ]
@@ -7658,34 +7580,34 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"^7.18.2\\",
-    \\"@babel/preset-env\\": \\"^7.18.2\\",
-    \\"@babel/preset-react\\": \\"^7.17.12\\",
-    \\"@types/node\\": \\"^18.6.2\\",
-    \\"react-test-renderer\\": \\"^18.1.0\\",
-    \\"ts-node\\": \\"^10.8.0\\",
-    \\"typescript\\": \\"^4.7.2\\",
-    \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
+    \\"@babel/core\\": \\"^7.20.12\\",
+    \\"@babel/preset-env\\": \\"^7.20.2\\",
+    \\"@babel/preset-react\\": \\"^7.18.6\\",
+    \\"@types/node\\": \\"^18.13.0\\",
+    \\"react-test-renderer\\": \\"^18.2.0\\",
+    \\"ts-node\\": \\"^10.9.1\\",
+    \\"typescript\\": \\"^4.9.5\\",
+    \\"nodemon\\": \\"^2.0.20\\",
+    \\"parcel\\": \\"^2.8.3\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"^0.44.2\\",
-    \\"react\\": \\"^18.1.0\\",
-    \\"react-dom\\": \\"^18.1.0\\",
-    \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
+    \\"near-api-js\\": \\"^1.1.0\\",
+    \\"react\\": \\"^18.2.0\\",
+    \\"react-dom\\": \\"^18.2.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.11\\",
+    \\"@near-wallet-selector/core\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.8.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
@@ -8732,8 +8654,7 @@ exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--index.js 1`]
 Array [
   "--rust_react_rust--frontend--index.js",
   "// React
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
 // NEAR
@@ -8744,14 +8665,15 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_NAME
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
 const wallet = new Wallet({ createAccessKeyFor: CONTRACT_ADDRESS })
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp()
- 
-  ReactDOM.render(
-    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />,
-    document.getElementById('root')
+
+  root.render(
+    <App isSignedIn={isSignedIn} contractId={CONTRACT_ADDRESS} wallet={wallet} />
   );
 }",
 ]
@@ -8887,34 +8809,34 @@ Array [
     \\"build\\": \\"parcel build index.html --public-url ./\\"
   },
   \\"devDependencies\\": {
-    \\"@babel/core\\": \\"^7.18.2\\",
-    \\"@babel/preset-env\\": \\"^7.18.2\\",
-    \\"@babel/preset-react\\": \\"^7.17.12\\",
-    \\"@types/node\\": \\"^18.6.2\\",
-    \\"react-test-renderer\\": \\"^18.1.0\\",
-    \\"ts-node\\": \\"^10.8.0\\",
-    \\"typescript\\": \\"^4.7.2\\",
-    \\"nodemon\\": \\"^2.0.16\\",
-    \\"parcel\\": \\"^2.6.0\\",
+    \\"@babel/core\\": \\"^7.20.12\\",
+    \\"@babel/preset-env\\": \\"^7.20.2\\",
+    \\"@babel/preset-react\\": \\"^7.18.6\\",
+    \\"@types/node\\": \\"^18.13.0\\",
+    \\"react-test-renderer\\": \\"^18.2.0\\",
+    \\"ts-node\\": \\"^10.9.1\\",
+    \\"typescript\\": \\"^4.9.5\\",
+    \\"nodemon\\": \\"^2.0.20\\",
+    \\"parcel\\": \\"^2.8.3\\",
     \\"process\\": \\"^0.11.10\\",
     \\"env-cmd\\": \\"^10.1.0\\"
   },
   \\"dependencies\\": {
-    \\"near-api-js\\": \\"^0.44.2\\",
-    \\"react\\": \\"^18.1.0\\",
-    \\"react-dom\\": \\"^18.1.0\\",
-    \\"regenerator-runtime\\": \\"^0.13.9\\",
-    \\"@near-wallet-selector/core\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/ledger\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/math-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/modal-ui\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/near-wallet\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/nightly-connect\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/sender\\": \\"^7.0.0\\",
-    \\"@near-wallet-selector/wallet-connect\\": \\"^7.0.0\\"
+    \\"near-api-js\\": \\"^1.1.0\\",
+    \\"react\\": \\"^18.2.0\\",
+    \\"react-dom\\": \\"^18.2.0\\",
+    \\"regenerator-runtime\\": \\"^0.13.11\\",
+    \\"@near-wallet-selector/core\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/ledger\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/math-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/meteor-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/modal-ui\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/my-near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/near-wallet\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/nightly-connect\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/sender\\": \\"^7.8.0\\",
+    \\"@near-wallet-selector/wallet-connect\\": \\"^7.8.0\\"
   },
   \\"resolutions\\": {
     \\"@babel/preset-env\\": \\"7.13.8\\"
