@@ -13,7 +13,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 

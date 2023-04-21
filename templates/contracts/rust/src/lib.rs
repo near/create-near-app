@@ -13,9 +13,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
