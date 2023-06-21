@@ -466,7 +466,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && cd integration-tests && npm install && cd .. && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -474,6 +474,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'none' 'js': --js_none_js--rust-toolchain.toml 1`] = `
+Array [
+  "--js_none_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -954,7 +963,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && echo rs tests && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -962,6 +971,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'none' 'rust': --js_none_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--js_none_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -2140,7 +2158,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -2148,6 +2166,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'react' 'js': --js_react_js--rust-toolchain.toml 1`] = `
+Array [
+  "--js_react_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -3337,7 +3364,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -3345,6 +3372,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'react' 'rust': --js_react_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--js_react_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -4478,7 +4514,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -4486,6 +4522,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--rust-toolchain.toml 1`] = `
+Array [
+  "--js_vanilla_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -5630,7 +5675,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -5638,6 +5683,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--js_vanilla_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -6150,7 +6204,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && cd integration-tests && npm install && cd .. && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -6158,6 +6212,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'none' 'js': --rust_none_js--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_none_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -6681,7 +6744,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && echo rs tests && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -6689,6 +6752,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_none_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -7910,7 +7982,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -7918,6 +7990,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'react' 'js': --rust_react_js--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_react_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -9150,7 +9231,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -9158,6 +9239,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_react_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -10334,7 +10424,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -10342,6 +10432,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_vanilla_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -11529,7 +11628,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -11537,5 +11636,14 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_vanilla_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
