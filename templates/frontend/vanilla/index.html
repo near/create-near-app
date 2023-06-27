@@ -60,20 +60,17 @@
       </p>
       <ol>
         <li>
-          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
-          and <code>set_greeting</code> being called on <code>contract</code>.
-          What's this?
+          Look in <code>index.js</code> - you will see a <code>Wallet</code> object being created and used 
+          to interact with the methods <code>set_greeting</code> and <code>get_greeting</code>.
         </li>
         <li>
-          Ultimately, this <code>contract</code> code is defined in
-          <code>assembly/index.ts</code> – this is the source code for your
-          <a target="_blank" href="https://docs.near.org/docs/develop/contracts/overview">smart contract</a>.
+          These method live in the <a target="_blank" href="https://docs.near.org/docs/develop/contracts/overview">smart contract</a>,
+          who's code is defined in the <code>contract/</code> folder.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the code in
-          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
-          can see how this happens by looking in <code>package.json</code> at the
-          <code>scripts</code> section to find the <code>dev</code> command.
+          When you run <code>npm run start</code>, the code in <code>contract/</code> gets deployed to the NEAR testnet.
+          You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to
+          find the <code>dev</code> command.
         </li>
       </ol>
       <hr>

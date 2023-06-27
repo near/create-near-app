@@ -466,7 +466,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && cd integration-tests && npm install && cd .. && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -474,6 +474,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'none' 'js': --js_none_js--rust-toolchain.toml 1`] = `
+Array [
+  "--js_none_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -954,7 +963,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && echo rs tests && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -962,6 +971,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'none' 'rust': --js_none_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--js_none_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -1766,15 +1784,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -1800,8 +1813,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -2140,7 +2152,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -2148,6 +2160,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'react' 'js': --js_react_js--rust-toolchain.toml 1`] = `
+Array [
+  "--js_react_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -2952,15 +2973,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -2986,8 +3002,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -3337,7 +3352,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -3345,6 +3360,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'react' 'rust': --js_react_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--js_react_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -4076,20 +4100,17 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
-          and <code>set_greeting</code> being called on <code>contract</code>.
-          What's this?
+          Look in <code>index.js</code> - you will see a <code>Wallet</code> object being created and used 
+          to interact with the methods <code>set_greeting</code> and <code>get_greeting</code>.
         </li>
         <li>
-          Ultimately, this <code>contract</code> code is defined in
-          <code>assembly/index.ts</code> – this is the source code for your
-          <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
+          These method live in the <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>,
+          who's code is defined in the <code>contract/</code> folder.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the code in
-          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
-          can see how this happens by looking in <code>package.json</code> at the
-          <code>scripts</code> section to find the <code>dev</code> command.
+          When you run <code>npm run start</code>, the code in <code>contract/</code> gets deployed to the NEAR testnet.
+          You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to
+          find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -4193,15 +4214,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -4227,8 +4243,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -4478,7 +4493,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -4486,6 +4501,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--rust-toolchain.toml 1`] = `
+Array [
+  "--js_vanilla_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -5217,20 +5241,17 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
-          and <code>set_greeting</code> being called on <code>contract</code>.
-          What's this?
+          Look in <code>index.js</code> - you will see a <code>Wallet</code> object being created and used 
+          to interact with the methods <code>set_greeting</code> and <code>get_greeting</code>.
         </li>
         <li>
-          Ultimately, this <code>contract</code> code is defined in
-          <code>assembly/index.ts</code> – this is the source code for your
-          <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
+          These method live in the <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>,
+          who's code is defined in the <code>contract/</code> folder.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the code in
-          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
-          can see how this happens by looking in <code>package.json</code> at the
-          <code>scripts</code> section to find the <code>dev</code> command.
+          When you run <code>npm run start</code>, the code in <code>contract/</code> gets deployed to the NEAR testnet.
+          You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to
+          find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -5334,15 +5355,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -5368,8 +5384,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -5630,7 +5645,7 @@ Array [
     \\"build:contract\\": \\"cd contract && npm run build\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && npm test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/build/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && cd contract && npm install\\"
   },
   \\"devDependencies\\": {
@@ -5638,6 +5653,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--js_vanilla_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -6150,7 +6174,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && cd integration-tests && npm install && cd .. && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -6158,6 +6182,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'none' 'js': --rust_none_js--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_none_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -6681,7 +6714,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"echo no frontend && echo rs tests && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -6689,6 +6722,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'none' 'rust': --rust_none_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_none_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -7536,15 +7578,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -7570,8 +7607,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -7910,7 +7946,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -7918,6 +7954,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'react' 'js': --rust_react_js--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_react_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -8765,15 +8810,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -8799,8 +8839,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -9150,7 +9189,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -9158,6 +9197,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'react' 'rust': --rust_react_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_react_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -9932,20 +9980,17 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
-          and <code>set_greeting</code> being called on <code>contract</code>.
-          What's this?
+          Look in <code>index.js</code> - you will see a <code>Wallet</code> object being created and used 
+          to interact with the methods <code>set_greeting</code> and <code>get_greeting</code>.
         </li>
         <li>
-          Ultimately, this <code>contract</code> code is defined in
-          <code>assembly/index.ts</code> – this is the source code for your
-          <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
+          These method live in the <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>,
+          who's code is defined in the <code>contract/</code> folder.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the code in
-          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
-          can see how this happens by looking in <code>package.json</code> at the
-          <code>scripts</code> section to find the <code>dev</code> command.
+          When you run <code>npm run start</code>, the code in <code>contract/</code> gets deployed to the NEAR testnet.
+          You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to
+          find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -10049,15 +10094,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -10083,8 +10123,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -10334,7 +10373,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && npm test -- -- \\\\\\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -10342,6 +10381,15 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_vanilla_js--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
 
@@ -11116,20 +11164,17 @@ Array [
       </p>
       <ol>
         <li>
-          Look in <code>index.js</code> and <code>near-api.js</code> – you'll see <code>get_greeting</code>
-          and <code>set_greeting</code> being called on <code>contract</code>.
-          What's this?
+          Look in <code>index.js</code> - you will see a <code>Wallet</code> object being created and used 
+          to interact with the methods <code>set_greeting</code> and <code>get_greeting</code>.
         </li>
         <li>
-          Ultimately, this <code>contract</code> code is defined in
-          <code>assembly/index.ts</code> – this is the source code for your
-          <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>.
+          These method live in the <a target=\\"_blank\\" href=\\"https://docs.near.org/docs/develop/contracts/overview\\">smart contract</a>,
+          who's code is defined in the <code>contract/</code> folder.
         </li>
         <li>
-          When you run <code>npm run dev</code>, the code in
-          <code>assembly/index.ts</code> gets deployed to the NEAR testnet. You
-          can see how this happens by looking in <code>package.json</code> at the
-          <code>scripts</code> section to find the <code>dev</code> command.
+          When you run <code>npm run start</code>, the code in <code>contract/</code> gets deployed to the NEAR testnet.
+          You can see how this happens by looking in <code>package.json</code> at the <code>scripts</code> section to
+          find the <code>dev</code> command.
         </li>
       </ol>
       <hr>
@@ -11233,15 +11278,10 @@ Array [
 // near api js
 import { providers } from 'near-api-js';
 
-// wallet selector UI
+// wallet selector
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import LedgerIconUrl from '@near-wallet-selector/ledger/assets/ledger-icon.png';
-import MyNearIconUrl from '@near-wallet-selector/my-near-wallet/assets/my-near-wallet-icon.png';
-
-// wallet selector options
 import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 const THIRTY_TGAS = '30000000000000';
@@ -11267,8 +11307,7 @@ export class Wallet {
   async startUp() {
     this.walletSelector = await setupWalletSelector({
       network: this.network,
-      modules: [setupMyNearWallet({ iconUrl: MyNearIconUrl }),
-      setupLedger({ iconUrl: LedgerIconUrl })],
+      modules: [setupMyNearWallet()],
     });
 
     const isSignedIn = this.walletSelector.isSignedIn();
@@ -11529,7 +11568,7 @@ Array [
     \\"build:contract\\": \\"cd contract && ./build.sh\\",
     \\"test\\": \\"npm run test:unit && npm run test:integration\\",
     \\"test:unit\\": \\"cd contract && cargo test\\",
-    \\"test:integration\\": \\"cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
+    \\"test:integration\\": \\"npm run build:contract && cd integration-tests && cargo run --example integration-tests \\\\\\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\\\\\"\\",
     \\"postinstall\\": \\"cd frontend && npm install && cd .. && echo rs tests && echo rs contract\\"
   },
   \\"devDependencies\\": {
@@ -11537,5 +11576,14 @@ Array [
   },
   \\"dependencies\\": {}
 }",
+]
+`;
+
+exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--rust-toolchain.toml 1`] = `
+Array [
+  "--rust_vanilla_rust--rust-toolchain.toml",
+  "[toolchain]
+channel = \\"1.69\\"
+",
 ]
 `;
