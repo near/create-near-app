@@ -44,15 +44,17 @@ const buildScript = (hasFrontend: boolean): Entries => hasFrontend ? {
   'build': 'npm run build:contract',
 };
 
+const buildContractScriptName = 'build:contract';
+
 const buildContractScript = (contract: Contract): Entries => {
   switch (contract) {
     case 'js':
       return {
-        'build:contract': 'cd contract && npm run build',
+        [buildContractScriptName]: 'cd contract && npm run build',
       };
     case 'rust':
       return {
-        'build:contract': 'cd contract && ./build.sh',
+        [buildContractScriptName]: 'cd contract && ./build.sh',
       };
   }
 };
@@ -93,7 +95,7 @@ const integrationTestScripts = (contract: Contract, tests: TestingFramework): En
   }
 
   return {
-    'test:integration': `cd integration-tests && ${run_test}`,
+    'test:integration': `npm run ${buildContractScriptName} && cd integration-tests && ${run_test}`,
   };
 };
 

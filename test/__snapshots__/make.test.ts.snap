@@ -253,19 +253,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'none' 'js': --js_none_js--contract--babel.config.json 1`] = `
-[
-  "--js_none_js--contract--babel.config.json",
-  "{
-  "plugins": [
-    "near-sdk-js/lib/build-tools/near-bindgen-exporter",
-    ["@babel/plugin-proposal-decorators", {"version": "legacy"}]
-  ],
-  "presets": ["@babel/preset-typescript"]
-}",
-]
-`;
-
 exports[`create 'js' 'none' 'js': --js_none_js--contract--build.sh 1`] = `
 [
   "--js_none_js--contract--build.sh",
@@ -311,8 +298,8 @@ exports[`create 'js' 'none' 'js': --js_none_js--contract--package.json 1`] = `
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -466,7 +453,7 @@ exports[`create 'js' 'none' 'js': --js_none_js--package.json 1`] = `
     "build:contract": "cd contract && npm run build",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
-    "test:integration": "cd integration-tests && npm test -- -- \\"./contract/build/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && npm test -- -- \\"./contract/build/hello_near.wasm\\"",
     "postinstall": "echo no frontend && cd integration-tests && npm install && cd .. && cd contract && npm install"
   },
   "devDependencies": {
@@ -739,19 +726,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'none' 'rust': --js_none_rust--contract--babel.config.json 1`] = `
-[
-  "--js_none_rust--contract--babel.config.json",
-  "{
-  "plugins": [
-    "near-sdk-js/lib/build-tools/near-bindgen-exporter",
-    ["@babel/plugin-proposal-decorators", {"version": "legacy"}]
-  ],
-  "presets": ["@babel/preset-typescript"]
-}",
-]
-`;
-
 exports[`create 'js' 'none' 'rust': --js_none_rust--contract--build.sh 1`] = `
 [
   "--js_none_rust--contract--build.sh",
@@ -797,8 +771,8 @@ exports[`create 'js' 'none' 'rust': --js_none_rust--contract--package.json 1`] =
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -963,7 +937,7 @@ exports[`create 'js' 'none' 'rust': --js_none_rust--package.json 1`] = `
     "build:contract": "cd contract && npm run build",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
-    "test:integration": "cd integration-tests && cargo run --example integration-tests \\"../contract/build/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \\"../contract/build/hello_near.wasm\\"",
     "postinstall": "echo no frontend && echo rs tests && cd contract && npm install"
   },
   "devDependencies": {
@@ -1236,19 +1210,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'react' 'js': --js_react_js--contract--babel.config.json 1`] = `
-[
-  "--js_react_js--contract--babel.config.json",
-  "{
-  "plugins": [
-    "near-sdk-js/lib/build-tools/near-bindgen-exporter",
-    ["@babel/plugin-proposal-decorators", {"version": "legacy"}]
-  ],
-  "presets": ["@babel/preset-typescript"]
-}",
-]
-`;
-
 exports[`create 'js' 'react' 'js': --js_react_js--contract--build.sh 1`] = `
 [
   "--js_react_js--contract--build.sh",
@@ -1294,8 +1255,8 @@ exports[`create 'js' 'react' 'js': --js_react_js--contract--package.json 1`] = `
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -1911,6 +1872,7 @@ exports[`create 'js' 'react' 'js': --js_react_js--frontend--package.json 1`] = `
     "nodemon": "^2.0.22",
     "parcel": "^2.9.3",
     "process": "^0.11.10",
+    "punycode": "^1.4.1",
     "react-test-renderer": "^18.2.0",
     "stream-http": "^3.1.0",
     "ts-node": "^10.9.1",
@@ -2150,7 +2112,7 @@ exports[`create 'js' 'react' 'js': --js_react_js--package.json 1`] = `
     "build:contract": "cd contract && npm run build",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
-    "test:integration": "cd integration-tests && npm test -- -- \\"./contract/build/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && npm test -- -- \\"./contract/build/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install"
   },
   "devDependencies": {
@@ -2423,19 +2385,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'react' 'rust': --js_react_rust--contract--babel.config.json 1`] = `
-[
-  "--js_react_rust--contract--babel.config.json",
-  "{
-  "plugins": [
-    "near-sdk-js/lib/build-tools/near-bindgen-exporter",
-    ["@babel/plugin-proposal-decorators", {"version": "legacy"}]
-  ],
-  "presets": ["@babel/preset-typescript"]
-}",
-]
-`;
-
 exports[`create 'js' 'react' 'rust': --js_react_rust--contract--build.sh 1`] = `
 [
   "--js_react_rust--contract--build.sh",
@@ -2481,8 +2430,8 @@ exports[`create 'js' 'react' 'rust': --js_react_rust--contract--package.json 1`]
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -3098,6 +3047,7 @@ exports[`create 'js' 'react' 'rust': --js_react_rust--frontend--package.json 1`]
     "nodemon": "^2.0.22",
     "parcel": "^2.9.3",
     "process": "^0.11.10",
+    "punycode": "^1.4.1",
     "react-test-renderer": "^18.2.0",
     "stream-http": "^3.1.0",
     "ts-node": "^10.9.1",
@@ -3348,7 +3298,7 @@ exports[`create 'js' 'react' 'rust': --js_react_rust--package.json 1`] = `
     "build:contract": "cd contract && npm run build",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
-    "test:integration": "cd integration-tests && cargo run --example integration-tests \\"../contract/build/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \\"../contract/build/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && echo rs tests && cd contract && npm install"
   },
   "devDependencies": {
@@ -3621,19 +3571,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--babel.config.json 1`] = `
-[
-  "--js_vanilla_js--contract--babel.config.json",
-  "{
-  "plugins": [
-    "near-sdk-js/lib/build-tools/near-bindgen-exporter",
-    ["@babel/plugin-proposal-decorators", {"version": "legacy"}]
-  ],
-  "presets": ["@babel/preset-typescript"]
-}",
-]
-`;
-
 exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--build.sh 1`] = `
 [
   "--js_vanilla_js--contract--build.sh",
@@ -3679,8 +3616,8 @@ exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--contract--package.json 1`]
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -4331,6 +4268,7 @@ exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--frontend--package.json 1`]
     "https-browserify": "^1.0.0",
     "nodemon": "^2.0.16",
     "parcel": "^2.7.0",
+    "punycode": "^1.4.1",
     "process": "^0.11.10",
     "stream-http": "^3.1.0",
     "url": "^0.11.0"
@@ -4486,7 +4424,7 @@ exports[`create 'js' 'vanilla' 'js': --js_vanilla_js--package.json 1`] = `
     "build:contract": "cd contract && npm run build",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
-    "test:integration": "cd integration-tests && npm test -- -- \\"./contract/build/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && npm test -- -- \\"./contract/build/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install"
   },
   "devDependencies": {
@@ -4759,19 +4697,6 @@ and then use the logged account to sign the transaction: \`--accountId <your-acc
 ]
 `;
 
-exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--babel.config.json 1`] = `
-[
-  "--js_vanilla_rust--contract--babel.config.json",
-  "{
-  "plugins": [
-    "near-sdk-js/lib/build-tools/near-bindgen-exporter",
-    ["@babel/plugin-proposal-decorators", {"version": "legacy"}]
-  ],
-  "presets": ["@babel/preset-typescript"]
-}",
-]
-`;
-
 exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--build.sh 1`] = `
 [
   "--js_vanilla_rust--contract--build.sh",
@@ -4817,8 +4742,8 @@ exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--contract--package.json
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -5469,6 +5394,7 @@ exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--frontend--package.json
     "https-browserify": "^1.0.0",
     "nodemon": "^2.0.16",
     "parcel": "^2.7.0",
+    "punycode": "^1.4.1",
     "process": "^0.11.10",
     "stream-http": "^3.1.0",
     "url": "^0.11.0"
@@ -5635,7 +5561,7 @@ exports[`create 'js' 'vanilla' 'rust': --js_vanilla_rust--package.json 1`] = `
     "build:contract": "cd contract && npm run build",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
-    "test:integration": "cd integration-tests && cargo run --example integration-tests \\"../contract/build/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \\"../contract/build/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && echo rs tests && cd contract && npm install"
   },
   "devDependencies": {
@@ -6164,7 +6090,7 @@ exports[`create 'rust' 'none' 'js': --rust_none_js--package.json 1`] = `
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "cd integration-tests && npm test -- -- \\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && npm test -- -- \\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
     "postinstall": "echo no frontend && cd integration-tests && npm install && cd .. && echo rs contract"
   },
   "devDependencies": {
@@ -6704,7 +6630,7 @@ exports[`create 'rust' 'none' 'rust': --rust_none_rust--package.json 1`] = `
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "cd integration-tests && cargo run --example integration-tests \\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
     "postinstall": "echo no frontend && echo rs tests && echo rs contract"
   },
   "devDependencies": {
@@ -7695,6 +7621,7 @@ exports[`create 'rust' 'react' 'js': --rust_react_js--frontend--package.json 1`]
     "nodemon": "^2.0.22",
     "parcel": "^2.9.3",
     "process": "^0.11.10",
+    "punycode": "^1.4.1",
     "react-test-renderer": "^18.2.0",
     "stream-http": "^3.1.0",
     "ts-node": "^10.9.1",
@@ -7934,7 +7861,7 @@ exports[`create 'rust' 'react' 'js': --rust_react_js--package.json 1`] = `
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "cd integration-tests && npm test -- -- \\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && npm test -- -- \\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && echo rs contract"
   },
   "devDependencies": {
@@ -8925,6 +8852,7 @@ exports[`create 'rust' 'react' 'rust': --rust_react_rust--frontend--package.json
     "nodemon": "^2.0.22",
     "parcel": "^2.9.3",
     "process": "^0.11.10",
+    "punycode": "^1.4.1",
     "react-test-renderer": "^18.2.0",
     "stream-http": "^3.1.0",
     "ts-node": "^10.9.1",
@@ -9175,7 +9103,7 @@ exports[`create 'rust' 'react' 'rust': --rust_react_rust--package.json 1`] = `
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "cd integration-tests && cargo run --example integration-tests \\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && echo rs tests && echo rs contract"
   },
   "devDependencies": {
@@ -10201,6 +10129,7 @@ exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--frontend--package.json
     "https-browserify": "^1.0.0",
     "nodemon": "^2.0.16",
     "parcel": "^2.7.0",
+    "punycode": "^1.4.1",
     "process": "^0.11.10",
     "stream-http": "^3.1.0",
     "url": "^0.11.0"
@@ -10356,7 +10285,7 @@ exports[`create 'rust' 'vanilla' 'js': --rust_vanilla_js--package.json 1`] = `
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "cd integration-tests && npm test -- -- \\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && npm test -- -- \\"./contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && echo rs contract"
   },
   "devDependencies": {
@@ -11382,6 +11311,7 @@ exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--frontend--package.
     "https-browserify": "^1.0.0",
     "nodemon": "^2.0.16",
     "parcel": "^2.7.0",
+    "punycode": "^1.4.1",
     "process": "^0.11.10",
     "stream-http": "^3.1.0",
     "url": "^0.11.0"
@@ -11548,7 +11478,7 @@ exports[`create 'rust' 'vanilla' 'rust': --rust_vanilla_rust--package.json 1`] =
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "cd integration-tests && cargo run --example integration-tests \\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \\"../contract/target/wasm32-unknown-unknown/release/hello_near.wasm\\"",
     "postinstall": "cd frontend && npm install && cd .. && echo rs tests && echo rs contract"
   },
   "devDependencies": {
