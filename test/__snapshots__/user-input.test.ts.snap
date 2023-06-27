@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`messages snapshot basic messages 1`] = `
-Array [
-  Array [
+[
+  [
     "[34m======================================================[39m
 👋 [1m[32mWelcome to NEAR![39m[22m Learn more: https://docs.near.org/
 🔧 Let's get your dApp ready.
@@ -10,52 +10,52 @@ Array [
 (NEAR collects anonymous information on the commands used. No personal information that could identify you is shared)
 ",
   ],
-  Array [
+  [
     "[1m[31m==========================================[39m[22m
 [31m⛔️ There was a problem during NEAR project setup[39m.
 Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 [1m[31m==========================================[39m[22m",
   ],
-  Array [
+  [
     "[31mArguments error[39m
 Run [34mnpx create-near-app[39m without arguments, or use:
 npx create-near-app <projectName> --contract rust|js --frontend react|vanilla|none --tests js|rust",
   ],
-  Array [
+  [
     "[43m[30mNotice: On Win32 please use WSL (Windows Subsystem for Linux).[39m[49m
 https://docs.microsoft.com/en-us/windows/wsl/install
 Exiting now.",
   ],
-  Array [
+  [
     "
 Creating a new [1mNEAR dApp[22m",
   ],
-  Array [
+  [
     "
 [32mInstalling dependencies in a few folders, this might take a while.[39m
 ",
   ],
-  Array [
+  [
     "[31mError installing NEAR project dependencies[39m",
   ],
 ]
 `;
 
 exports[`messages snapshot messages with params 1`] = `
-Array [
-  Array [
+[
+  [
     "[31mWe support node.js version 55.789 or later[39m",
   ],
-  Array [
+  [
     "[31mThis directory already exists! /a/b/c/d[39m",
   ],
 ]
 `;
 
 exports[`test success message test matrix 'js' 'none' 'js' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -79,8 +79,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'none' 'js' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -103,8 +103,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'none' 'rust' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -128,8 +128,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'none' 'rust' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -152,8 +152,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'react' 'js' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -179,8 +179,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'react' 'js' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -205,8 +205,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'react' 'rust' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -232,8 +232,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'react' 'rust' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -258,8 +258,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'vanilla' 'js' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -285,8 +285,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'vanilla' 'js' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -311,8 +311,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'vanilla' 'rust' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -338,8 +338,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'js' 'vanilla' 'rust' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -364,8 +364,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'none' 'js' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -390,8 +390,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'none' 'js' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -415,8 +415,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'none' 'rust' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -441,8 +441,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'none' 'rust' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -466,8 +466,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'react' 'js' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -494,8 +494,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'react' 'js' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -521,8 +521,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'react' 'rust' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -549,8 +549,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'react' 'rust' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -576,8 +576,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'vanilla' 'js' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -604,8 +604,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'vanilla' 'js' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -631,8 +631,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'vanilla' 'rust' false 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
@@ -659,8 +659,8 @@ Array [
 `;
 
 exports[`test success message test matrix 'rust' 'vanilla' 'rust' true 1`] = `
-Array [
-  Array [
+[
+  [
     "
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
