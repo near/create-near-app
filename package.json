@@ -16,6 +16,7 @@
   "scripts": {
     "start": "npm run build && node index.js",
     "build": "tsc",
+    "fx": "jest -u",
     "test": "npm run build && FORCE_COLOR=1 jest --runInBand",
     "test-e2e": "npm run build && ./test/e2e.sh",
     "lint": "eslint .",
@@ -24,7 +25,7 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "chalk": "^5.2.0",
+    "chalk": "^4.1.2",
     "commander": "^11.0.0",
     "cross-spawn": "^7.0.3",
     "mixpanel": "^0.17.0",
