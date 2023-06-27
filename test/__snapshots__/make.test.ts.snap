@@ -5804,7 +5804,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
@@ -5934,9 +5934,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
@@ -6333,7 +6333,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
@@ -6463,9 +6463,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
@@ -6873,7 +6873,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
@@ -7003,9 +7003,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
@@ -8104,7 +8104,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
@@ -8234,9 +8234,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
@@ -9346,7 +9346,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
@@ -9476,9 +9476,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
@@ -10528,7 +10528,7 @@ pub struct Contract {
 
 impl Default for Contract {
     fn default() -> Self {
-        Self{greeting: DEFAULT_GREETING.to_string()}
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
@@ -10658,9 +10658,9 @@ pub struct Contract {
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
+impl Default for Contract {
+    fn default() -> Self {
+        Self { message: DEFAULT_MESSAGE.to_string() }
     }
 }
 
