@@ -9,8 +9,8 @@
     "test": "echo use integration-tests"
   },
   "dependencies": {
-    "near-cli": "^3.4.0",
-    "near-sdk-js": "0.6.0"
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
