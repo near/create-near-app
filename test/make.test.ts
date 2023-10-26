@@ -5,8 +5,8 @@ import {createProject} from '../src/make';
 import {Contract, Frontend, TestingFramework} from '../src/types';
 
 describe('create', () => {
-  const contracts: Contract[] = ['js', 'rust'];
-  const frontends: Frontend[] = ['react', 'vanilla', 'none'];
+  const contracts: Contract[] = ['js', 'rust', 'none'];
+  const frontends: Frontend[] = ['gateway', 'vanilla', 'none'];
   const tests: TestingFramework[] = ['js', 'rust'];
   // all combinations of the above
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.map(t => ([c, f, t]))));

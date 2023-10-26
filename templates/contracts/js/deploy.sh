@@ -11,3 +11,8 @@ echo ">> Deploying contract"
 
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near dev-deploy --wasmFile build/hello_near.wasm
+
+# if ../frontend folder exists, copy the env file there
+if [ -d "../frontend" ]; then
+    (echo ; cat ./neardev/dev-account.env) >> ../frontend/.env
+fi

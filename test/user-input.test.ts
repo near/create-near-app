@@ -24,7 +24,7 @@ describe('messages', () => {
     show.successContractToText('js');
     show.successContractToText('rust');
 
-    show.successFrontendToText('react');
+    show.successFrontendToText('gateway');
     show.successFrontendToText('vanilla');
     show.successFrontendToText('none');
 
@@ -39,8 +39,8 @@ describe('messages', () => {
 
 describe('test success message', () => {
   let showSpy;
-  const contracts: Contract[] = ['js', 'rust'];
-  const frontends: Frontend[] = ['react', 'vanilla', 'none'];
+  const contracts: Contract[] = ['js', 'rust', 'none'];
+  const frontends: Frontend[] = ['gateway', 'vanilla', 'none'];
   const tests: TestingFramework[] = ['js', 'rust'];
   const install = [true, false];
   // all combinations of the above

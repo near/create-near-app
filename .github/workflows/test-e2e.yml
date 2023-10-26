@@ -20,18 +20,8 @@ jobs:
         platform: [ ubuntu-latest, macos-latest ]
         nodejs: [ 16 ]
         contract: [ js, rust ]
-        frontend: [ react, vanilla, none ]
+        frontend: [ none ]
         tests: [ js, rust ]
-#        exclude:
-#        - frontend: vanilla
-#        - frontend: none
-#        include:
-#        - contract: js
-#          frontend: vanilla
-#          tests: js
-#        - contract: js
-#          frontend: none
-#          tests: js
     runs-on: ${{ matrix.platform }}
     timeout-minutes: 60
     steps:
@@ -57,13 +47,6 @@ jobs:
         run: |
           cd _testrun
           npm run build
-#      - name: Deploy template
-#        env:
-#          NEAR_ENV: ci
-#          IS_GITHUB_ACTION: true
-#        run: |
-#          cd _testrun
-#          npm run deploy
       - name: Test template
         env:
           NEAR_ENV: ci
@@ -71,57 +54,3 @@ jobs:
         run: |
           cd _testrun
           npm run test
-
-#  tests-wsl:
-#    defaults:
-#      run:
-#        shell: wsl-bash {0}
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        platform: [ windows-latest ]
-#        nodejs: [ 16 ]
-#        contract: [ js, rust ]
-#        frontend: [ react, vanilla, none ]
-#        tests: [ js, rust ]
-#        exclude:
-#          - contract: js
-#          - tests: js
-#    runs-on: ${{ matrix.platform }}
-#    timeout-minutes: 60
-#    steps:
-#      - name: Setup WSL
-#        uses: Vampire/setup-wsl@v1.3.1
-#        with:
-#          distribution: Ubuntu-22.04
-#      - uses: actions/checkout@v2
-#      - name: Setup node
-#        run: |
-#          sudo apt-get install curl
-#          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-#          sudo apt-get install -y nodejs
-#      - name: rust-toolchain
-#        uses: actions-rs/toolchain@v1.0.6
-#        with:
-#          toolchain: stable
-#      - name: Install modules
-#        run: |
-#          npm install
-#          npm run build
-#      - name: Scaffold template
-#        run: |
-#          node index.js _testrun --contract ${{ matrix.contract }} --frontend ${{ matrix.frontend }} --tests ${{ matrix.tests }} --install
-#      - name: Build template
-#        env:
-#          NEAR_ENV: ci
-#          IS_GITHUB_ACTION: true
-#        run: |
-#          cd _testrun
-#          npm run build
-#      - name: Test template
-#        env:
-#          NEAR_ENV: ci
-#          IS_GITHUB_ACTION: true
-#        run: |
-#          cd _testrun
-#          npm run test

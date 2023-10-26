@@ -20,7 +20,6 @@ if ! node "${app_dir}/index.js" "${1}_${2}_${3}" --contract $1 --frontend $2 --t
 echo "build"
 cd $dirname || exit 42
 if ! npm run build ; then exit 42; fi
-# echo "deploy"
-# if ! npm run deploy ; then exit 42; fi
+
 echo "test"
 if ! npm test ; then exit 42; fi

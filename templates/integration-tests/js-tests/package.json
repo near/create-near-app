@@ -2,6 +2,9 @@
   "name": "ava-testing",
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "ava"
   },

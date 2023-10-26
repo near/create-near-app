@@ -34,7 +34,7 @@ function basePackage({contract, frontend, tests, projectName}: PackageBuildParam
 }
 
 const startScript = (hasFrontend: boolean): Entries => hasFrontend ? {
-  'start': 'cd frontend && npm run start'
+  'start': 'cd frontend && npm run dev'
 } : {};
 
 const buildScript = (hasFrontend: boolean): Entries => hasFrontend ? {
@@ -56,6 +56,10 @@ const buildContractScript = (contract: Contract): Entries => {
       return {
         [buildContractScriptName]: 'cd contract && ./build.sh',
       };
+    case 'none':
+      return {
+        [buildContractScriptName]: 'echo "No contract to build"',
+      };
   }
 };
 
@@ -69,6 +73,10 @@ const deployScript = (contract: Contract): Entries => {
       return {
         'deploy': 'cd contract && ./deploy.sh',
       };
+    case 'none':
+      return {
+        'deploy': 'echo "No contract to deploy"',
+      };
   }
 };
 
@@ -78,10 +86,16 @@ const unitTestScripts = (contract: Contract): Entries => {
       return {'test:unit': 'cd contract && npm test'};
     case 'rust':
       return {'test:unit': 'cd contract && cargo test'};
-  }
+    case 'none':
+      return {'test:unit': 'echo "No contract to test"'};
+  }  
 };
 
 const integrationTestScripts = (contract: Contract, tests: TestingFramework): Entries => {
+  if (contract === 'none') {
+    return {'test:integration': 'echo "No contract to test"'};
+  }
+
   let wasm_path: String = '';
   switch (contract) {
     case 'js': wasm_path = 'contract/build/hello_near.wasm'; break;
@@ -109,6 +123,8 @@ const npmInstallScript = (contract: Contract, hasFrontend: boolean, tests: Testi
       contract_install = 'cd contract && npm install'; break;
     case 'rust':
       contract_install = 'echo rs contract'; break;
+    case 'none':
+      contract_install = 'echo no contract'; break;
   }
 
   return {

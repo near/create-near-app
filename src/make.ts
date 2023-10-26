@@ -7,6 +7,7 @@ import path from 'path';
 import {buildPackageJson} from './package-json';
 
 export async function createProject({contract, frontend, tests, projectPath, projectName, verbose, rootDir}: CreateProjectParams): Promise<boolean> {
+  
   // Create files in the project folder
   await createFiles({contract, frontend, projectName, tests, projectPath, verbose, rootDir});
 
@@ -36,24 +37,27 @@ export async function createFiles({contract, frontend, tests, projectPath, verbo
   await copyDir(sourceSharedDir, projectPath, {verbose, skip: skip.map(f => path.join(sourceSharedDir, f))});
 
   // copy contract files
-  const sourceContractDir = path.resolve(rootDir, 'contracts', contract);
-  const targetContractDir = path.resolve(projectPath, 'contract');
-  fs.mkdirSync(targetContractDir, { recursive: true });
-  await copyDir(sourceContractDir, targetContractDir, {
-    verbose,
-    skip: skip.map(f => path.join(sourceContractDir, f))
-  });
-
+  if(contract !== 'none') {
+    const sourceContractDir = path.resolve(rootDir, 'contracts', contract);
+    const targetContractDir = path.resolve(projectPath, 'contract');
+    fs.mkdirSync(targetContractDir, { recursive: true });
+    await copyDir(sourceContractDir, targetContractDir, {
+      verbose,
+      skip: skip.map(f => path.join(sourceContractDir, f))
+    });
+  }
   // tests dir
-  const targetTestDir = path.resolve(projectPath, 'integration-tests');
-  fs.mkdirSync(targetTestDir, { recursive: true });
+  if(contract !== 'none') {
+    const targetTestDir = path.resolve(projectPath, 'integration-tests');
+    fs.mkdirSync(targetTestDir, { recursive: true });
 
-  // copy tests - shared files
-  const sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/${tests}-tests`);
-  await copyDir(sourceTestSharedDir, targetTestDir, {
-    verbose,
-    skip: skip.map(f => path.join(sourceTestSharedDir, f))
-  });
+    // copy tests - shared files
+    const sourceTestSharedDir = path.resolve(`${rootDir}/integration-tests/${tests}-tests`);
+    await copyDir(sourceTestSharedDir, targetTestDir, {
+      verbose,
+      skip: skip.map(f => path.join(sourceTestSharedDir, f))
+    });
+  }
 
   // add .gitignore
   await renameFile(`${projectPath}/template.gitignore`, `${projectPath}/.gitignore`);

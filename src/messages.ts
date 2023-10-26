@@ -21,8 +21,8 @@ Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-export const successContractToText = (contract: Contract) => chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : 'JavaScript'}}`;
-export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'react' ? chalk`{bold  in React.js}` : ''}`;
+export const successContractToText = (contract: Contract) => contract === 'none' ? '' : chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : 'JavaScript'}}`;
+export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'gateway' ? chalk`{bold  in React.js}` : ''}`;
 export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
 {green ======================================================}
 ✅  Success! Created '${projectName}'

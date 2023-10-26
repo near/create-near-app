@@ -2,35 +2,35 @@
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen};
 
-// Define the default message
-const DEFAULT_MESSAGE: &str = "Hello";
+// Define the default greeting
+const DEFAULT_GREETING: &str = "Hello";
 
 // Define the contract structure
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
-    message: String,
+    greeting: String,
 }
 
 // Define the default, which automatically initializes the contract
 impl Default for Contract {
     fn default() -> Self {
-        Self { message: DEFAULT_MESSAGE.to_string() }
+        Self { greeting: DEFAULT_GREETING.to_string() }
     }
 }
 
 // Implement the contract structure
 #[near_bindgen]
 impl Contract {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+    // Public method - returns the greeting saved, defaulting to DEFAULT_GREETING
     pub fn get_greeting(&self) -> String {
-        return self.message.clone();
+        return self.greeting.clone();
     }
 
     // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn set_greeting(&mut self, message: String) {
-        log!("Saving greeting {}", message);
-        self.message = message;
+    pub fn set_greeting(&mut self, greeting: String) {
+        log!("Saving greeting {}", greeting);
+        self.greeting = greeting;
     }
 }
 

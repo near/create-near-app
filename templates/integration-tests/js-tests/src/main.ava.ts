@@ -32,13 +32,13 @@ test.afterEach.always(async (t) => {
 
 test('returns the default greeting', async (t) => {
   const { contract } = t.context.accounts;
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Hello');
+  const greeting: string = await contract.view('get_greeting', {});
+  t.is(greeting, 'Hello');
 });
 
-test('changes the message', async (t) => {
+test('changes the greeting', async (t) => {
   const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { message: 'Howdy' });
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Howdy');
+  await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
+  const greeting: string = await contract.view('get_greeting', {});
+  t.is(greeting, 'Howdy');
 });

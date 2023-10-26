@@ -57,38 +57,39 @@ export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
   }
 }
 
-type Choices<T> = {title: string, value: T}[];
+type Choices<T> = {title: string, description?: string, value: T}[];
 const contractChoices: Choices<Contract> = [
-  {title: 'TypeScript', value: 'js'},
-  {title: 'Rust', value: 'rust'},
+  {title: 'Yes, in TypeScript', description: 'Build a Near contract using javascript/typescript', value: 'js'},
+  {title: 'Yes, in Rust', description: 'Build a Near contract using Rust' , value: 'rust'},
+  {title: 'No', description: 'You are not building a Near smart contract' , value: 'none'},
 ];
 const testsChoices: Choices<TestingFramework> = [
-  {title: 'Rust Sandbox Tests', value: 'rust'},
-  {title: 'TypeScript Sandbox Tests', value: 'js'},
+  {title: 'Tests written in Rust', value: 'rust'},
+  {title: 'Tests written in Javascript', value: 'js'},
 ];
 const frontendChoices: Choices<Frontend> = [
-  {title: 'React.js', value: 'react'},
-  {title: 'Vanilla JavaScript', value: 'vanilla'},
-  {title: 'No frontend', value: 'none'},
+  {title: 'Composable web app (Gateway)' , description:'Leverage next.js and web3 components to create multi-chain apps', value: 'gateway'},
+  {title: 'Vanilla web app', description:'Interact with the Near blockchain using a simple web app' , value: 'vanilla'},
+  {title: 'No frontend', description:'Build a smart contract with no frontend', value: 'none'},
 ];
 const userPrompts: PromptObject[] = [
   {
     type: 'select',
+    name: 'frontend',
+    message: 'Frontend: What kind of App are you building?',
+    choices: frontendChoices,
+  },
+  {
+    type: 'select',
     name: 'contract',
-    message: 'Select your smart-contract language',
+    message: 'Contract: Are you building a NEAR contract?',
     choices: contractChoices,
   },
   {
     type: prev => prev === 'rust' ? 'select' : null,
     name: 'tests',
-    message: 'Select language for Sandbox Test',
+    message: 'Sandbox Testing: Which language do you prefer to test your contract?',
     choices: testsChoices,
-  },
-  {
-    type: 'select',
-    name: 'frontend',
-    message: 'Select a template for your frontend',
-    choices: frontendChoices,
   },
   {
     type: 'text',

@@ -1,0 +1,68 @@
+@import 'bootstrap';
+
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/Mona-Sans.woff2') format('woff2 supports variations'),
+    url('/fonts/Mona-Sans.woff2') format('woff2-variations');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/fonts/FKGrotesk.woff2') format('woff2 supports variations'),
+    url('/fonts/FKGrotesk.woff2') format('woff2-variations');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+}
+
+body,
+html {
+  --body-top-padding: 24px;
+  -webkit-font-smoothing: antialiased;
+  color: var(--sand12);
+  font: var(--text-base);
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.btn {
+  text-decoration: none;
+}
+
+#near-wallet-selector-modal .open {
+  z-index: 1001;
+}
+
+#w3m-modal {
+  z-index: 1002;
+}
+
+#launcher {
+  color-scheme: light;
+  width: 48px;
+  height: 50px;
+  padding: 0px;
+  margin: 10px 20px;
+  position: fixed;
+  bottom: 10px;
+  overflow: visible;
+  opacity: 1;
+  border: 0px;
+  z-index: 999998;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition-property: opacity, top, bottom;
+  right: 10px;
+}
+
+@media (max-width: 650px) {
+  #launcher {
+    right: 2px;
+    bottom: 10px;
+  }
+}

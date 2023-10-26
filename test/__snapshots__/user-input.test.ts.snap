@@ -53,6 +53,112 @@ exports[`messages snapshot messages with params 1`] = `
 ]
 `;
 
+exports[`test success message test matrix 'js' 'gateway' 'js' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'js' 'gateway' 'js' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'js' 'gateway' 'rust' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'js' 'gateway' 'rust' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
 exports[`test success message test matrix 'js' 'none' 'js' false 1`] = `
 [
   [
@@ -151,112 +257,6 @@ exports[`test success message test matrix 'js' 'none' 'rust' true 1`] = `
 ]
 `;
 
-exports[`test success message test matrix 'js' 'react' 'js' false 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1minstall[22m[39m
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'js' 'react' 'js' true 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'js' 'react' 'rust' false 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1minstall[22m[39m
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'js' 'react' 'rust' true 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mJavaScript[22m and a frontend template[1m in React.js[22m.
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
 exports[`test success message test matrix 'js' 'vanilla' 'js' false 1`] = `
 [
   [
@@ -344,6 +344,426 @@ exports[`test success message test matrix 'js' 'vanilla' 'rust' true 1`] = `
 [32m======================================================[39m
 ✅  Success! Created 'my_project_name'
    with a smart contract in [1mJavaScript[22m and a frontend template.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'gateway' 'js' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'gateway' 'js' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'gateway' 'rust' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'gateway' 'rust' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template[1m in React.js[22m.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'none' 'js' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   .
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'none' 'js' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   .
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'none' 'rust' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   .
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'none' 'rust' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   .
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'vanilla' 'js' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'vanilla' 'js' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'vanilla' 'rust' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'vanilla' 'rust' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+    and a frontend template.
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'rust' 'gateway' 'js' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
+🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'rust' 'gateway' 'js' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
+🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   Then:
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'rust' 'gateway' 'rust' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
+🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
+
+  [1m[43m[30mYour next steps[39m[49m[22m:
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mnpm [39m[34m[1minstall[22m[39m
+   - [7mBuild your contract[27m:
+         [34mnpm [39m[34m[1mrun build[22m[39m
+   - [7mTest your contract[27m in NEAR SandBox:
+         [34mnpm [39m[34m[1mtest[22m[39m
+   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
+         [34mnpm [39m[34m[1mrun deploy[22m[39m
+   - [7mStart your frontend[27m:
+         [34mnpm [39m[34m[1mstart[22m[39m
+
+🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'rust' 'gateway' 'rust' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name'
+   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
+🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
 
   [1m[43m[30mYour next steps[39m[49m[22m:
    - [7mNavigate to your project[27m:
@@ -460,116 +880,6 @@ exports[`test success message test matrix 'rust' 'none' 'rust' true 1`] = `
    - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
          [34mnpm [39m[34m[1mrun deploy[22m[39m
    
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'rust' 'react' 'js' false 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
-🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1minstall[22m[39m
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'rust' 'react' 'js' true 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
-🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'rust' 'react' 'rust' false 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
-🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   - [7mInstall all dependencies[27m
-         [34mnpm [39m[34m[1minstall[22m[39m
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
-🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
-  ],
-]
-`;
-
-exports[`test success message test matrix 'rust' 'react' 'rust' true 1`] = `
-[
-  [
-    "
-[32m======================================================[39m
-✅  Success! Created 'my_project_name'
-   with a smart contract in [1mRust[22m and a frontend template[1m in React.js[22m.
-🦀 If you are new to Rust please visit [1m[32mhttps://www.rust-lang.org [39m[22m
-
-  [1m[43m[30mYour next steps[39m[49m[22m:
-   - [7mNavigate to your project[27m:
-         [34mcd [39m[34m[1mmy_project_name[22m[39m
-   Then:
-   - [7mBuild your contract[27m:
-         [34mnpm [39m[34m[1mrun build[22m[39m
-   - [7mTest your contract[27m in NEAR SandBox:
-         [34mnpm [39m[34m[1mtest[22m[39m
-   - [7mDeploy your contract[27m to NEAR TestNet with a temporary dev account:
-         [34mnpm [39m[34m[1mrun deploy[22m[39m
-   - [7mStart your frontend[27m:
-         [34mnpm [39m[34m[1mstart[22m[39m
-
 🧠 Read [1m[92mREADME.md[39m[22m to explore further.",
   ],
 ]

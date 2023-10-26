@@ -24,64 +24,14 @@ test () {
   if ! npm test ; then exit 42; fi
 }
 
-buildweb () {
-  dirname="${root_dir}/${1}"
-  cd $dirname || exit 42
-  echo "buildweb: ${dirname}"
-  if ! npm run build:web ; then exit 42; fi
-}
-
-deploy () {
-  dirname="${root_dir}/${1}"
-  cd $dirname || exit 42
-  echo "test: ${dirname}"
-  if ! npm run deploy ; then exit 42; fi
-}
-
-
 ## CONTRACT:JS SANDBOX:JS
-
-scaffold js react js
-test "js_react_js"
-
-scaffold js vanilla js
-test "js_vanilla_js"
-
 scaffold js none js
 test "js_none_js"
 
-
 ## CONTRACT:RUST SANDBOX:JS
-
-scaffold rust react js
-test "rust_react_js"
-
-scaffold rust vanilla js
-test "rust_vanilla_js"
-
 scaffold rust none js
 test "rust_none_js"
 
-
-### CONTRACT:JS SANDBOX:RUST
-
-scaffold js react rust
-test "js_react_rust"
-
-scaffold js vanilla rust
-test "js_vanilla_rust"
-
-scaffold js none rust
-test "js_none_rust"
-
-
-## CONTRACT:RUST SANDBOX:RUST
-
-scaffold rust react rust
-test "rust_react_rust"
-
-scaffold rust vanilla rust
-test "rust_vanilla_rust"
-
+### CONTRACT:RUST SANDBOX:RUST
 scaffold rust none rust
 test "rust_none_rust"
