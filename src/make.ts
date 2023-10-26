@@ -25,11 +25,9 @@ export async function createFiles({contract, frontend, tests, projectPath, verbo
   // copy frontend
   if (frontend !== 'none') {
     const sourceFrontendDir = path.resolve(`${rootDir}/frontend/${frontend}`);
-    const sourceSharedFrontendDir = path.resolve(`${rootDir}/frontend/shared`);
     const targetFrontendDir = path.resolve(`${projectPath}/frontend`);
     fs.mkdirSync(targetFrontendDir, { recursive: true });
     await copyDir(sourceFrontendDir, targetFrontendDir, {verbose, skip: skip.map(f => path.join(sourceFrontendDir, f))});
-    await copyDir(sourceSharedFrontendDir, targetFrontendDir, {verbose, skip: skip.map(f => path.join(sourceSharedFrontendDir, f))});
   }
 
   // shared files
