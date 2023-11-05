@@ -8,44 +8,52 @@ if (process.env.NEAR_NO_COLOR) {
 
 export const show = (...args: unknown[]) => console.log(...args);
 
-export const welcome = () => show(chalk`{blue ======================================================}
-👋 {bold {green Welcome to NEAR!}} Learn more: https://docs.near.org/
-🔧 Let's get your dApp ready.
+export const welcome = () => show(chalk`
 {blue ======================================================}
-(${trackingMessage})
-`);
+👋 {bold {green Welcome to Near!}} Learn more: https://docs.near.org/
+🔧 Let's get your project ready.
+{blue ======================================================}
+(${trackingMessage})`);
 
 export const setupFailed = () => show(chalk`{bold {red ==========================================}}
-{red ⛔️ There was a problem during NEAR project setup}.
+{red ⛔️ There was a problem during the project setup}.
 Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-export const successContractToText = (contract: Contract) => contract === 'none' ? '' : chalk`with a smart contract in {bold ${contract === 'rust' ? 'Rust' : 'JavaScript'}}`;
-export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk` and a frontend template${frontend === 'gateway' ? chalk`{bold  in React.js}` : ''}`;
+export const successContractToText = (contract: Contract) => contract === 'none' ? '' : chalk`a smart contract in {bold ${contract === 'rs' ? 'Rust' : 'Typescript'}}`;
+export const successFrontendToText = (frontend: Frontend) => frontend === 'none' ? '' : chalk`a gateway using ${frontend === 'next' ? 'NextJS + React' : 'Vanilla-JS'}`;
 export const setupSuccess = (projectName: ProjectName, contract: Contract, frontend: Frontend, install: boolean) => show(chalk`
 {green ======================================================}
-✅  Success! Created '${projectName}'
-   ${successContractToText(contract)}${successFrontendToText(frontend)}.
-${contract === 'rust' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : ''}
-  {bold {bgYellow {black Your next steps}}}:
+✅  Success! Created '${projectName}', ${successContractToText(contract)}${successFrontendToText(frontend)}.
+${contract === 'rs' ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n` : ''}
+{bold {bgYellow {black Next steps}}}:
+${contractInstructions(projectName, contract, install)}${gatewayInstructions(projectName, frontend, install)}`);
+
+export const contractInstructions = (projectName: ProjectName, contract: Contract, install: boolean) => contract === 'none' ? '' : chalk`
    - {inverse Navigate to your project}:
          {blue cd {bold ${projectName}}}
-   ${!install ? chalk`- {inverse Install all dependencies}
+${contract ==='ts' && !install ? chalk`   - {inverse Install all dependencies}
          {blue npm {bold install}}` : 'Then:'}
    - {inverse Build your contract}:
-         {blue npm {bold run build}}
-   - {inverse Test your contract} in NEAR SandBox:
-         {blue npm {bold test}}
+         ${contract === 'ts' ? chalk`{blue npm {bold run build}}` : chalk`{blue {bold ./build.sh}}`}
+   - {inverse Test your contract} in the Sandbox:
+         ${contract === 'ts' ? chalk`{blue npm {bold run test}}` : chalk`{blue {bold ./test.sh}}`}
    - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
-         {blue npm {bold run deploy}}
-   ${frontend !== 'none' ? chalk`- {inverse Start your frontend}:
-         {blue npm {bold start}}\n` : ''}
-🧠 Read {bold {greenBright README.md}} to explore further.`);
+         ${contract === 'ts' ? chalk`{blue npm {bold run deploy}}` : chalk`{blue {bold ./deploy.sh}}`}
+🧠 Read {bold {greenBright README.md}} to explore further`;
+
+export const gatewayInstructions = (projectName: ProjectName, frontend: Frontend, install: boolean) => frontend === 'none' ? '' : chalk`
+   - {inverse Navigate to your project}:
+         {blue cd {bold ${projectName}}}
+${!install ? chalk`   - {inverse Install all dependencies}
+         {blue pnpm {bold install}}` : 'Then:'}
+   - {inverse Start your app}:
+         {blue pnpm {bold run dev}}`;
 
 export const argsError = () => show(chalk`{red Arguments error}
 Run {blue npx create-near-app} without arguments, or use:
-npx create-near-app <projectName> --contract rust|js --frontend react|vanilla|none --tests js|rust`);
+npx create-near-app <projectName> --frontend next|vanilla|none --contract rs|ts|none --tests rs|ts|none`);
 
 export const unsupportedNodeVersion = (supported: string) => show(chalk`{red We support node.js version ${supported} or later}`);
 

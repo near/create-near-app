@@ -25,13 +25,13 @@ test () {
 }
 
 ## CONTRACT:JS SANDBOX:JS
-scaffold js none js
-test "js_none_js"
+scaffold js none ts
+test "js_none_ts"
 
-## CONTRACT:RUST SANDBOX:JS
-scaffold rust none js
-test "rust_none_js"
+## CONTRACT:RUST SANDBOX:TS
+scaffold rust none ts
+test "rust_none_ts"
 
 ### CONTRACT:RUST SANDBOX:RUST
-scaffold rust none rust
-test "rust_none_rust"
+scaffold rust none rs
+test "rust_none_rs"

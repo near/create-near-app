@@ -24,7 +24,7 @@ describe('messages', () => {
     show.successContractToText('js');
     show.successContractToText('rust');
 
-    show.successFrontendToText('gateway');
+    show.successFrontendToText('next');
     show.successFrontendToText('vanilla');
     show.successFrontendToText('none');
 
@@ -40,8 +40,8 @@ describe('messages', () => {
 describe('test success message', () => {
   let showSpy;
   const contracts: Contract[] = ['js', 'rust', 'none'];
-  const frontends: Frontend[] = ['gateway', 'vanilla', 'none'];
-  const tests: TestingFramework[] = ['js', 'rust'];
+  const frontends: Frontend[] = ['next', 'vanilla', 'none'];
+  const tests: TestingFramework[] = ['ts', 'rs'];
   const install = [true, false];
   // all combinations of the above
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.flatMap(t => install.map(i => ([c, f, t, i])))));

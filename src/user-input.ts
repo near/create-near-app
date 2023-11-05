@@ -1,4 +1,5 @@
 import {
+  App,
   Contract,
   CONTRACTS,
   Frontend,
@@ -9,35 +10,35 @@ import {
   UserConfig
 } from './types';
 import chalk from 'chalk';
-import prompt, {PromptObject} from 'prompts';
-import {program} from 'commander';
+import prompt, { PromptObject } from 'prompts';
+import { program } from 'commander';
 import * as show from './messages';
 import semver from 'semver';
-import {trackUsage} from './tracking';
+import { trackUsage } from './tracking';
 import fs from 'fs';
 
 export async function getUserArgs(): Promise<UserConfig> {
   program
     .argument('[projectName]')
-    .option('--contract <contract>')
-    .option('--frontend <frontend>')
-    .option('--tests <tests>')
-    .option('--install');
-
+    .option('--contract [ts|rs|none]')
+    .option('--frontend [next|vanilla|none]')
+    .option('--tests [rs|ts|none]')
+    .option('--install')
+    .addHelpText('after', 'You can create a frontend or a contract with tests');
 
   program.parse();
 
   const options = program.opts();
   const [projectName] = program.args;
-  const {contract, frontend, tests, install} = options;
-  return {contract, frontend, projectName, tests, install};
+  const { contract, frontend, tests, install } = options;
+  return { contract, frontend, projectName, tests, install };
 }
 
 export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
   if (args === null) {
     return 'error';
   }
-  const {projectName, contract, frontend, tests} = args;
+  const { projectName, contract, frontend, tests } = args;
   const hasAllOptions = contract !== undefined && frontend !== undefined;
   const hasPartialOptions = contract !== undefined || frontend !== undefined;
   const hasProjectName = projectName !== undefined;
@@ -57,125 +58,129 @@ export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
   }
 }
 
-type Choices<T> = {title: string, description?: string, value: T}[];
+type Choices<T> = { title: string, description?: string, value: T }[];
+
+const appChoices: Choices<App> = [
+  { title: 'A Near Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
+  { title: 'A Near Gateway (Web App)', description: 'A multi-chain App that talks with Near contracts and Near components', value: 'gateway' },
+];
 const contractChoices: Choices<Contract> = [
-  {title: 'Yes, in TypeScript', description: 'Build a Near contract using javascript/typescript', value: 'js'},
-  {title: 'Yes, in Rust', description: 'Build a Near contract using Rust' , value: 'rust'},
-  {title: 'No', description: 'You are not building a Near smart contract' , value: 'none'},
+  { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
+  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs' },
 ];
 const testsChoices: Choices<TestingFramework> = [
-  {title: 'Tests written in Rust', value: 'rust'},
-  {title: 'Tests written in Javascript', value: 'js'},
+  { title: 'Tests written in Rust', value: 'rs' },
+  { title: 'Tests written in Typescript', value: 'ts' },
 ];
 const frontendChoices: Choices<Frontend> = [
-  {title: 'Composable web app (Gateway)' , description:'Leverage next.js and web3 components to create multi-chain apps', value: 'gateway'},
-  {title: 'Vanilla web app', description:'Interact with the Near blockchain using a simple web app' , value: 'vanilla'},
-  {title: 'No frontend', description:'Build a smart contract with no frontend', value: 'none'},
+  { title: 'NextJs + React', description: 'A composable app built using Next.js, React and Near components', value: 'next' },
+  { title: 'Vanilla JS', description: 'A framework-less web app with limited capabilities.', value: 'vanilla' },
 ];
-const userPrompts: PromptObject[] = [
-  {
-    type: 'select',
-    name: 'frontend',
-    message: 'Frontend: What kind of App are you building?',
-    choices: frontendChoices,
-  },
+
+const appPrompt: PromptObject = {
+  type: 'select',
+  name: 'app',
+  message: 'What do you want to build?',
+  choices: appChoices,
+};
+
+const frontendPrompt: PromptObject = {
+  type: 'select',
+  name: 'frontend',
+  message: 'Select a framework for your frontend (Gateway)',
+  choices: frontendChoices,
+};
+
+const contractPrompt: PromptObject[] = [
   {
     type: 'select',
     name: 'contract',
-    message: 'Contract: Are you building a NEAR contract?',
+    message: 'Select a smart contract template for your project',
     choices: contractChoices,
   },
   {
-    type: prev => prev === 'rust' ? 'select' : null,
+    type: prev => prev === 'rs' ? 'select' : null,
     name: 'tests',
     message: 'Sandbox Testing: Which language do you prefer to test your contract?',
     choices: testsChoices,
-  },
-  {
-    type: 'text',
-    name: 'projectName',
-    message: 'Name your project (this will create a directory with that name)',
-    initial: 'hello-near',
-  },
-  {
-    type: 'confirm',
-    name: 'install',
-    message: chalk`Run {bold {blue 'npm install'}} now?`,
-    initial: true,
-  },
+  }
 ];
 
-export async function getUserAnswers() {
-  const answers = await prompt(userPrompts);
-  if (!answers.tests) {
-    answers.tests = answers.contract !== 'rust' ? 'js' : 'rust';
-  }
-  return answers;
-}
+const namePrompts: PromptObject = {
+  type: 'text',
+  name: 'projectName',
+  message: 'Name your project (we will create a directory with that name)',
+  initial: 'hello-near',
+};
 
-export async function showProjectNamePrompt() {
-  const [, , , projectName] = userPrompts;
-  const answers = await prompt([projectName]);
-  return answers;
-}
+const npmPrompt: PromptObject = {
+  type: 'confirm',
+  name: 'install',
+  message: chalk`Run {bold {blue 'npm install'}} now?`,
+  initial: true,
+};
 
-export function userAnswersAreValid(answers: Partial<UserConfig>): answers is UserConfig {
-  const {contract, frontend, projectName, tests} = answers;
-  if ([contract, frontend, projectName, tests].includes(undefined)) {
-    return false;
+const promptUser = async (prompts: PromptObject | PromptObject[]): Promise<prompt.Answers<string>> => {
+  // Prompt, and exit if user cancels
+  return prompt(prompts, { onCancel: () => process.exit(0) });
+};
+
+export async function getUserAnswers(): Promise<UserConfig> {
+  // Either the user wants a gateway or a contract
+  const { app } = await promptUser(appPrompt);
+
+  if (app === 'gateway') {
+    // If gateway, ask for the framework to use
+    const { frontend, projectName, install } = await promptUser([frontendPrompt, namePrompts, npmPrompt]);
+    return { frontend, contract: 'none', tests: 'none', projectName, install };
   } else {
-    return true;
+    // If contract, ask for the language for the contract and tests
+    let {contract, tests} = await promptUser(contractPrompt);
+    tests = contract === 'ts'? 'ts' : tests;
+    const { projectName } = await promptUser(namePrompts);
+    const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
+    return { frontend: 'none', contract, tests, projectName, install };
   }
 }
 
-export async function promptAndGetConfig(): Promise<{ config: UserConfig, projectPath: string, isFromPrompts: boolean } | null> {
-  let config: UserConfig | null = null;
-  let isFromPrompts = false;
-  // process cli args
-  const args = await getUserArgs();
-  const argsValid = validateUserArgs(args);
-  if (argsValid === 'error') {
-    show.argsError();
-    return null;
-  } else if (argsValid === 'ok') {
-    config = args as UserConfig;
-  }
-
-  show.welcome();
-
-  const nodeVersion = process.version;
+export async function promptAndGetConfig(): Promise<{ config: UserConfig, projectPath: string } | void> {
   const supportedNodeVersion = require('../package.json').engines.node;
-  if (!semver.satisfies(nodeVersion, supportedNodeVersion)) {
-    show.unsupportedNodeVersion(supportedNodeVersion);
-    // TODO: track unsupported versions
-    return null;
+  if (!semver.satisfies(process.version, supportedNodeVersion)) {
+    return show.unsupportedNodeVersion(supportedNodeVersion);
   }
 
   if (process.platform === 'win32') {
-    // TODO: track windows
-    show.windowsWarning();
-    return null;
+    return show.windowsWarning();
   }
 
-  // Get user input
-  if (config === null) {
-    const userInput = await getUserAnswers();
-    isFromPrompts = true;
-    if (!userAnswersAreValid(userInput)) {
-      throw new Error(`Invalid prompt. ${JSON.stringify(userInput)}`);
-    }
-    config = userInput;
+  // process cli args
+  let args = await getUserArgs();
+
+  if( args.contract && (!args.tests || args.frontend) ){
+    return show.argsError();
   }
-  const {frontend, contract} = config as UserConfig;
+
+  if( args.frontend && (args.tests || args.contract) ){
+    return show.argsError();
+  }
+
+  // If no args, prompt user
+  if( !args.contract && !args.frontend ){
+    show.welcome();
+    args = await getUserAnswers();
+  }
+
+  // track user input
+  const { frontend, contract } = args;
   trackUsage(frontend, contract);
 
-  let path = projectPath(config.projectName);
-  // If dir exists warn and exit
+  let path = projectPath(args.projectName);
+
   if (fs.existsSync(path)) {
-    show.directoryExists(path);
-    return null;
+    return show.directoryExists(path);
   }
-  return {config, projectPath: path, isFromPrompts};
+
+  return { config: args, projectPath: path };
 }
 
 export const projectPath = (projectName: ProjectName) => `${process.cwd()}/${projectName}`;
