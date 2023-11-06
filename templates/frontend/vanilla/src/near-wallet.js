@@ -24,8 +24,8 @@ export class Wallet {
     // key, so the user skips signing non-payable transactions.
     // Omitting the accountId will result in the user being
     // asked to sign all transactions.
-    this.createAccessKeyFor = createAccessKeyFor
-    this.network = network
+    this.createAccessKeyFor = createAccessKeyFor;
+    this.network = network;
     this.selector = setupWalletSelector({
       network: this.network,
       modules: [setupMyNearWallet()],

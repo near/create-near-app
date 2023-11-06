@@ -1,12 +1,11 @@
 import { create as createStore } from 'zustand';
-import { distinctUntilChanged, map } from "rxjs";
+import { distinctUntilChanged, map } from 'rxjs';
 import { providers } from 'near-api-js';
 import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupModal } from '@near-wallet-selector/modal-ui';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
 
-import { NetworkId } from '@/config';
 import { useEffect, useState } from 'react';
 
 export const useWallet = createStore(set => ({
@@ -22,7 +21,7 @@ export const useWallet = createStore(set => ({
   setStoreSelector: ({ selector }) => set({ selector }),
 }));
 
-export function initWallet({ createAccessKeyFor }) {
+export function useInitWallet({ createAccessKeyFor, networkId }) {
   const setAuth = useWallet(store => store.setAuth);
   const setLogActions = useWallet(store => store.setLogActions);
   const setMethods = useWallet(store => store.setMethods);
@@ -30,22 +29,20 @@ export function initWallet({ createAccessKeyFor }) {
   const [selector, setSelector] = useState(undefined);
 
   useEffect(() => {
-    console.log('initWallet')
     const selector = setupWalletSelector({
-      network: NetworkId,
+      network: networkId,
       modules: [setupMyNearWallet(), setupHereWallet()]
-    })
+    });
 
     setSelector(selector);
     setStoreSelector({ selector });
-  }, []);
+  }, [networkId, setStoreSelector]);
 
   useEffect(() => {
-    console.log('selector then')
-    if(!selector) return;
-    
+    if (!selector) return;
+
     selector.then(walletSelector => {
-      const accounts = walletSelector.store.getState().accounts
+      const accounts = walletSelector.store.getState().accounts;
       const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
       setAuth({ signedAccountId });
 
@@ -55,37 +52,32 @@ export function initWallet({ createAccessKeyFor }) {
           distinctUntilChanged()
         )
         .subscribe((accounts) => {
-          console.log("accounts", accounts)
           const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
           setAuth({ signedAccountId });
         });
-    })
+    });
   }, [selector, setAuth]);
 
   useEffect(() => {
-    console.log('actions')
+    if (!selector) return;
 
-    if(!selector) return;
-  
     // defined logOut and logIn actions
     const logOut = async () => {
       const wallet = await (await selector).wallet();
       await wallet.signOut();
       setAuth({ signedAccountId: '' });
-    }
+    };
 
     const logIn = async () => {
       const modal = setupModal(await selector, { contractId: createAccessKeyFor });
       modal.show();
-    }
+    };
 
     setLogActions({ logOut, logIn });
-  }, [selector, setAuth]);
+  }, [createAccessKeyFor, selector, setAuth, setLogActions]);
 
   useEffect(() => {
-    console.log('methods')
-
-    if(!selector) return;
+    if (!selector) return;
 
     const viewMethod = async (contractId, method, args = {}) => {
       const { network } = (await selector).options;
@@ -99,7 +91,7 @@ export function initWallet({ createAccessKeyFor }) {
         finality: 'optimistic',
       });
       return JSON.parse(Buffer.from(res.result).toString());
-    }
+    };
 
     const callMethod = async (contractId, method, args = {}, gas = '30000000000000', deposit = 0) => {
       const wallet = await (await selector).wallet();
@@ -119,10 +111,10 @@ export function initWallet({ createAccessKeyFor }) {
         ],
       });
 
-      return providers.getTransactionLastResult(outcome)
-    }
+      return providers.getTransactionLastResult(outcome);
+    };
 
     setMethods({ viewMethod, callMethod });
 
-  }, [selector]);
+  }, [selector, setMethods]);
 }

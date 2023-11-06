@@ -1,16 +1,15 @@
-'use client'
-import './globals.css'
+'use client';
+import './globals.css';
 import '@near-wallet-selector/modal-ui/styles.css';
 
-import { ComponentMap, NetworkId } from '@/config';
+import { NetworkId } from '@/config';
 import { Navigation } from '@/components/navigation';
-import { initWallet } from '@/wallets/wallet-selector';
+import { useInitWallet } from '@/wallets/wallet-selector';
 
 export default function RootLayout({ children }) {
 
-  const createAccessKeyFor = ComponentMap[NetworkId].socialDB;
-  initWallet({ createAccessKeyFor });
-  
+  useInitWallet({ createAccessKeyFor: '', networkId: NetworkId });
+
   return (
     <html lang="en">
       <body>
@@ -18,5 +17,5 @@ export default function RootLayout({ children }) {
         {children}
       </body>
     </html>
-  )
+  );
 }

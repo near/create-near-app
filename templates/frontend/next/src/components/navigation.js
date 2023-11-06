@@ -7,17 +7,17 @@ import { useWallet } from '@/wallets/wallet-selector';
 
 export const Navigation = () => {
 
-  const { signedAccountId, logOut, logIn } = useWallet()
-  const [action, setAction] = useState(() => { })
-  const [label, setLabel] = useState('Loading...')
+  const { signedAccountId, logOut, logIn } = useWallet();
+  const [action, setAction] = useState(() => { });
+  const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
     if (signedAccountId) {
-      setAction(() => logOut)
-      setLabel(`Logout ${signedAccountId}`)
+      setAction(() => logOut);
+      setLabel(`Logout ${signedAccountId}`);
     } else {
-      setAction(() => logIn)
-      setLabel('Login')
+      setAction(() => logIn);
+      setLabel('Login');
     }
   }, [signedAccountId, logOut, logIn, setAction, setLabel]);
 
@@ -33,4 +33,4 @@ export const Navigation = () => {
       </div>
     </nav>
   );
-}
+};

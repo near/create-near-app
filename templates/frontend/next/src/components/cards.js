@@ -13,7 +13,7 @@ export const DocsCard = () => {
       </h2>
       <p>Learn how this application works, and what you can build on Near.</p>
     </a>);
-}
+};
 
 export const HelloNearCard = () => {
   return (
@@ -28,7 +28,7 @@ export const HelloNearCard = () => {
       <p>Discover how simple it is to interact with a Near smart contract.</p>
     </a>
   );
-}
+};
 
 export const HelloComponentsCard = () => {
   return (
@@ -42,5 +42,5 @@ export const HelloComponentsCard = () => {
       </h2>
       <p>See how Web3 components can help you to create multi-chain apps.</p>
     </a>
-  )
-}
+  );
+};

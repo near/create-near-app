@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import styles from '@/app/app.module.css'
+import styles from '@/app/app.module.css';
 import { DocsCard, HelloNearCard } from '@/components/cards';
 import { NetworkId, ComponentMap } from '@/config';
 
@@ -12,33 +12,33 @@ export default function HelloComponents() {
 
   return (
     <>
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Loading components from: &nbsp;
-          <code className={styles.code}>{socialComponents.socialDB}</code>
-        </p>
-      </div>
-      <div className={styles.center}>
-        <h1> <code>Multi-chain</code> Components Made Simple </h1>
-      </div>
-      <div className='row'>
-        <div class="col-6">
-          <Component src={socialComponents.HelloNear} />
-          <p class="my-4">&nbsp;</p>
-          <Component src={socialComponents.LoveNear} />
+      <main className={styles.main}>
+        <div className={styles.description}>
+          <p>
+            Loading components from: &nbsp;
+            <code className={styles.code}>{socialComponents.socialDB}</code>
+          </p>
         </div>
-        <div class="col-6">
-          <Component src={socialComponents.Lido} />
+        <div className={styles.center}>
+          <h1> <code>Multi-chain</code> Components Made Simple </h1>
         </div>
-      </div>
-      <hr />
+        <div className='row'>
+          <div class="col-6">
+            <Component src={socialComponents.HelloNear} />
+            <p class="my-4">&nbsp;</p>
+            <Component src={socialComponents.LoveNear} />
+          </div>
+          <div class="col-6">
+            <Component src={socialComponents.Lido} />
+          </div>
+        </div>
+        <hr />
 
-      <div className={styles.grid}>
-        <DocsCard />
-        <HelloNearCard />
-      </div>
-    </main>
+        <div className={styles.grid}>
+          <DocsCard />
+          <HelloNearCard />
+        </div>
+      </main>
     </>
   );
 }

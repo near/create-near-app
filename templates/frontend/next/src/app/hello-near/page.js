@@ -1,35 +1,35 @@
-'use client'
+'use client';
 import { DocsCard, HelloComponentsCard } from '@/components/cards';
 import { useWallet } from '@/wallets/wallet-selector';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { HelloNearContract, NetworkId } from '../../config';
-import styles from '../app.module.css'
+import styles from '../app.module.css';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract[NetworkId];
 
-export default function HelloNear({ }) {
-  const { signedAccountId, viewMethod, callMethod } = useWallet()
+export default function HelloNear() {
+  const { signedAccountId, viewMethod, callMethod } = useWallet();
 
-  const [greeting, setGreeting] = useState('loading...')
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [showSpinner, setShowSpinner] = useState(false)
+  const [greeting, setGreeting] = useState('loading...');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
     viewMethod && viewMethod(CONTRACT, 'get_greeting', {}).then(
       greeting => setGreeting(greeting)
-    )
-  }, [viewMethod])
+    );
+  }, [viewMethod]);
 
   useEffect(() => {
-    setLoggedIn(!!signedAccountId)
-  }, [signedAccountId])
+    setLoggedIn(!!signedAccountId);
+  }, [signedAccountId]);
 
   const saveGreeting = async () => {
-    setShowSpinner(true)
+    setShowSpinner(true);
     await callMethod(CONTRACT, 'set_greeting', { greeting });
-    setShowSpinner(false)
-  }
+    setShowSpinner(false);
+  };
 
   return (
     <main className={styles.main}>
@@ -43,7 +43,7 @@ export default function HelloNear({ }) {
       <div className={styles.center}>
         <h1 className="w-100"> The contract says: <code>{greeting}</code> </h1>
         <div className="input-group" hidden={!loggedIn}>
-          <input type="text" className="form-control w-20" placeholder="Store a new greeting" onChange={t => { setGreeting(t.target.value) }} />
+          <input type="text" className="form-control w-20" placeholder="Store a new greeting" onChange={t => { setGreeting(t.target.value); } } />
           <div className="input-group-append">
             <button className="btn btn-secondary" onClick={saveGreeting}>
               <span hidden={showSpinner}> Save </span>
@@ -60,5 +60,5 @@ export default function HelloNear({ }) {
         <HelloComponentsCard />
       </div>
     </main>
-  )
+  );
 }

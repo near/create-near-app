@@ -3,11 +3,7 @@ import { Wallet } from './near-wallet';
 import { useInitNear, Widget } from 'near-social-vm';
 import { useEffect } from 'react';
 
-const CONTRACT_ADDRESS = 'v1.social08.testnet';
-
-// When creating the wallet you can optionally ask to create an access key
-// Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({createAccessKeyFor: CONTRACT_ADDRESS, network: 'testnet'});
+const wallet = new Wallet({network: 'testnet'});
 
 export default function Component({ src }) {
 
@@ -46,8 +42,8 @@ window.onload = async () => {
 };
 
 // Button clicks
-document.querySelector('#sign-in-button').onclick = () => { wallet.signIn() };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut() };
+document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
+document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
 // UI: Display the signed-out container
 function signedOutUI() {
