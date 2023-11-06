@@ -61,8 +61,8 @@ export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
 type Choices<T> = { title: string, description?: string, value: T }[];
 
 const appChoices: Choices<App> = [
-  { title: 'A Near Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
   { title: 'A Near Gateway (Web App)', description: 'A multi-chain App that talks with Near contracts and Near components', value: 'gateway' },
+  { title: 'A Near Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
 ];
 const contractChoices: Choices<Contract> = [
   { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
