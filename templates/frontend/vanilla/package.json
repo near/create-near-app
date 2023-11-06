@@ -31,7 +31,7 @@
     "@near-wallet-selector/modal-ui": "^8.7.0",
     "@near-wallet-selector/my-near-wallet": "^8.7.0",
     "crypto-browserify": "^3.12.0",
-    "near-api-js": "^2.1.4",
+    "near-api-js": "^2.1.3",
     "near-social-vm": "github:NearSocial/VM#2.5.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
