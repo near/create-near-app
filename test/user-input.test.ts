@@ -21,8 +21,8 @@ describe('messages', () => {
   test('snapshot messages with params', () => {
     showSpy = jest.spyOn(show, 'show').mockImplementation(() => {});
 
-    show.successContractToText('js');
-    show.successContractToText('rust');
+    show.successContractToText('ts');
+    show.successContractToText('rs');
 
     show.successFrontendToText('next');
     show.successFrontendToText('vanilla');
@@ -39,9 +39,28 @@ describe('messages', () => {
 
 describe('test success message', () => {
   let showSpy;
-  const contracts: Contract[] = ['js', 'rust', 'none'];
-  const frontends: Frontend[] = ['next', 'vanilla', 'none'];
+  const contracts: Contract[] = ['ts', 'rs', 'none'];
+  const frontends: Frontend[] = ['none'];
   const tests: TestingFramework[] = ['ts', 'rs'];
+  const install = [true, false];
+  // all combinations of the above
+  const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.flatMap(t => install.map(i => ([c, f, t, i])))));
+  describe('test matrix', () => {
+    test.each(testMatrix)('%o %o %o %o', (c: Contract, f: Frontend, t: TestingFramework, i: boolean) => {
+      showSpy = jest.spyOn(show, 'show').mockImplementation(() => {});
+      show.setupSuccess('my_project_name', c, f, i);
+      expect(showSpy.mock.calls).toMatchSnapshot();
+      showSpy.mockClear();
+    });
+  });
+});
+
+
+describe('test success message', () => {
+  let showSpy;
+  const contracts: Contract[] = ['none'];
+  const frontends: Frontend[] = ['next', 'vanilla'];
+  const tests: TestingFramework[] = ['none'];
   const install = [true, false];
   // all combinations of the above
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.flatMap(t => install.map(i => ([c, f, t, i])))));
