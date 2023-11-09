@@ -1,0 +1,20 @@
+{
+  "name": "ava-testing",
+  "version": "1.0.0",
+  "license": "(MIT AND Apache-2.0)",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.4",
+    "@types/node": "^20.8.10",
+    "ava": "^5.3.1",
+    "near-workspaces": "^3.3.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {}
+}

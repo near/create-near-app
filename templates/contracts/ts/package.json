@@ -1,0 +1,23 @@
+{
+  "name": "hello_near",
+  "version": "1.0.0",
+  "license": "(MIT AND Apache-2.0)",
+  "engines": {
+    "node": "16.x"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
+    "deploy": "near dev-deploy --wasmFile build/hello_near.wasm",
+    "test": "cd sandbox-ts && $npm_execpath run test -- -- ../build/hello_near.wasm",
+    "postinstall": "cd sandbox-ts && $npm_execpath i"
+  },
+  "dependencies": {
+    "near-cli": "^3.4.2",
+    "near-sdk-js": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "ts-morph": "^20.0.0"
+  }
+}

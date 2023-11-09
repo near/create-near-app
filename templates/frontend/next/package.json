@@ -1,0 +1,43 @@
+{
+  "name": "hello-near",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@near-wallet-selector/core": "^8.5.1",
+    "@near-wallet-selector/here-wallet": "^8.5.1",
+    "@near-wallet-selector/modal-ui": "^8.5.1",
+    "@near-wallet-selector/my-near-wallet": "^8.5.1",
+    "@web3-onboard/core": "^2.20.2",
+    "@web3-onboard/injected-wallets": "^2.10.1",
+    "@web3-onboard/ledger": "^2.4.6",
+    "@web3-onboard/react": "^2.8.7",
+    "@web3-onboard/walletconnect": "^2.3.9",
+    "base64-js": "^1.5.1",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.1",
+    "ieee754": "^1.2.1",
+    "near-api-js": "^2.1.3",
+    "near-social-vm": "github:NearSocial/VM#2.5.2",
+    "next": "14.0.1",
+    "pino-pretty": "^10.2.3",
+    "react": "^18",
+    "react-bootstrap": "2.9.1",
+    "react-bootstrap-icons": "^1.10.3",
+    "react-dom": "^18",
+    "react-singleton-hook": "^4.0.1",
+    "zustand": "^4.4.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.53",
+    "eslint-config-next": "14.0.1"
+  }
+}

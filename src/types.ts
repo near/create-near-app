@@ -1,9 +1,11 @@
-export type Contract = 'js' | 'rust';
-export const CONTRACTS: Contract[] = ['js', 'rust'];
-export type Frontend = 'react' | 'vanilla' | 'none';
-export const FRONTENDS: Frontend[] = ['react', 'vanilla', 'none'];
-export type TestingFramework = 'rust' | 'js';
-export const TESTING_FRAMEWORKS: TestingFramework[] = ['rust', 'js'];
+export type Contract = 'ts' | 'rs' | 'none';
+export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
+export type Frontend = 'next' | 'vanilla' | 'none';
+export const FRONTENDS: Frontend[] = ['next', 'vanilla', 'none'];
+export type TestingFramework = 'rs' | 'ts' | 'none';
+export const TESTING_FRAMEWORKS: TestingFramework[] = ['rs', 'ts', 'none'];
+export type App = 'contract' | 'gateway';
+export const APPS: App[] = ['contract', 'gateway'];
 export type ProjectName = string;
 export interface UserConfig {
   contract: Contract;
@@ -12,12 +14,18 @@ export interface UserConfig {
   tests: TestingFramework;
   install: boolean;
 }
-export type CreateProjectParams = {
+
+export type CreateContractParams = {
   contract: Contract,
-  frontend: Frontend,
   tests: TestingFramework,
   projectPath: string,
   projectName: ProjectName,
-  verbose: boolean,
-  rootDir: string,
+  templatesDir: string,
+}
+
+export type CreateGatewayParams = {
+  frontend: Frontend,
+  projectPath: string,
+  projectName: ProjectName,
+  templatesDir: string,
 }

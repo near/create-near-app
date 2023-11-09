@@ -1,13 +1,12 @@
 import path from 'path';
-import {createProject, runDepsInstall} from './make';
-import {promptAndGetConfig,} from './user-input';
+import { createProject, runDepsInstall } from './make';
+import { promptAndGetConfig, } from './user-input';
 import * as show from './messages';
 
 (async function () {
-  const promptResult = await promptAndGetConfig();
-  if (promptResult === null) {
-    return;
-  }
+  const prompt = await promptAndGetConfig();
+  if (prompt === undefined) return;
+
   const {
     config: {
       projectName,
@@ -17,7 +16,7 @@ import * as show from './messages';
       install,
     },
     projectPath,
-  } = promptResult;
+  } = prompt;
 
   show.creatingApp();
 
@@ -28,22 +27,18 @@ import * as show from './messages';
       frontend,
       tests,
       projectName,
-      verbose: false,
-      rootDir: path.resolve(__dirname, '../templates'),
+      templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,
     });
   } catch (e) {
     console.error(e);
     createSuccess = false;
   }
-  if (install) {
-    await runDepsInstall(projectPath);
-  }
 
   if (createSuccess) {
+    install && await runDepsInstall(projectPath);
     show.setupSuccess(projectName, contract, frontend, install);
   } else {
-    show.setupFailed();
-    return;
+    return show.setupFailed();
   }
 })();

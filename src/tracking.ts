@@ -6,7 +6,7 @@ const MIXPANEL_TOKEN = 'df164f13212cbb0dfdae991da60e87f2';
 
 const tracker = mixpanel.init(MIXPANEL_TOKEN);
 
-export const trackingMessage = chalk`NEAR collects anonymous information on the commands used. No personal information that could identify you is shared`;
+export const trackingMessage = chalk`Near collects anonymous information on the commands used. No personal information that could identify you is shared`;
 
 // TODO: track different failures & install usage
 export const trackUsage = async (frontend: Frontend, contract: Contract) => {
