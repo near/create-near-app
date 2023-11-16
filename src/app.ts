@@ -26,7 +26,6 @@ import * as show from './messages';
       contract,
       frontend,
       tests,
-      projectName,
       templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,
     });

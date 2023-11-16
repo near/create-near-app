@@ -18,9 +18,10 @@ Notice: some platforms aren't supported (yet).
 [1m[31m==========================================[39m[22m",
   ],
   [
-    "[31mArguments error[39m
+    "[31mArguments error: [39m[31m[37mwrong args[39m[39m
+
 Run [34mnpx create-near-app[39m without arguments, or use:
-npx create-near-app <projectName> --frontend next|vanilla|none --contract rs|ts|none --tests rs|ts|none",
+npx create-near-app <projectName> [--frontend next|vanilla|none] [--contract rs|ts|none --tests rs|ts|none]",
   ],
   [
     "[43m[30mNotice: On Win32 please use WSL (Windows Subsystem for Linux).[39m[49m
