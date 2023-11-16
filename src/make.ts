@@ -5,23 +5,22 @@ import fs from 'fs';
 import { ncp } from 'ncp';
 import path from 'path';
 
-export async function createProject({ contract, frontend, tests, projectPath, projectName, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
+export async function createProject({ contract, frontend, tests, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
 
-  if(contract !== 'none'){
-    await createContract({ contract, tests, projectPath, projectName, templatesDir });
-  }else{
-    await createGateway({ frontend, projectPath, projectName, templatesDir });
+  if (contract !== 'none') {
+    await createContract({ contract, tests, projectPath, templatesDir });
+  } else {
+    await createGateway({ frontend, projectPath, templatesDir });
   }
 
   return true;
 }
 
-async function createContract({ contract, tests, projectPath, projectName, templatesDir }: CreateContractParams) {
+async function createContract({ contract, tests, projectPath, templatesDir }: CreateContractParams) {
   // contract folder
   const sourceContractDir = path.resolve(templatesDir, 'contracts', contract);
-  const targetContractDir = projectPath;
-  fs.mkdirSync(targetContractDir, { recursive: true });
-  await copyDir(sourceContractDir, targetContractDir);
+  fs.mkdirSync(projectPath, { recursive: true });
+  await copyDir(sourceContractDir, projectPath);
 
   // copy sandbox-test dir
   const targetTestDir = path.resolve(projectPath, `sandbox-${tests}`);
@@ -30,7 +29,7 @@ async function createContract({ contract, tests, projectPath, projectName, templ
   fs.mkdirSync(targetTestDir);
   await copyDir(sourceTestDir, targetTestDir);
 
-  if (contract === 'rs'){
+  if (contract === 'rs') {
     if (tests === 'rs') {
       // leave only one test script
       fs.unlinkSync(path.resolve(projectPath, 'test-ts.sh'));
@@ -41,7 +40,7 @@ async function createContract({ contract, tests, projectPath, projectName, templ
       const cargoToml = fs.readFileSync(cargoTomlPath).toString();
       const cargoTomlWithWorkspace = cargoToml + '\n[workspace]\nmembers = ["sandbox-rs"]';
       fs.writeFileSync(cargoTomlPath, cargoTomlWithWorkspace);
-    }else{
+    } else {
       // leave only one test script
       fs.unlinkSync(path.resolve(projectPath, 'test-rs.sh'));
       fs.renameSync(path.resolve(projectPath, 'test-ts.sh'), path.resolve(projectPath, 'test.sh'));
@@ -49,17 +48,16 @@ async function createContract({ contract, tests, projectPath, projectName, templ
   }
 }
 
-async function createGateway({ frontend, projectPath, projectName, templatesDir }: CreateGatewayParams) {
+async function createGateway({ frontend, projectPath, templatesDir }: CreateGatewayParams) {
   const sourceFrontendDir = path.resolve(`${templatesDir}/frontend/${frontend}`);
-  const targetFrontendDir = path.resolve(`${projectPath}`);
-  fs.mkdirSync(targetFrontendDir, { recursive: true });
-  await copyDir(sourceFrontendDir, targetFrontendDir);
+  fs.mkdirSync(projectPath, { recursive: true });
+  await copyDir(sourceFrontendDir, projectPath);
 }
 
 // Wrap `ncp` tool to wait for the copy to finish when using `await`
 export function copyDir(source: string, dest: string) {
   return new Promise<void>((resolve, reject) => {
-    ncp(source, dest, {  }, err => err? reject(err): resolve());
+    ncp(source, dest, {}, err => err ? reject(err) : resolve());
   });
 }
 

@@ -20,8 +20,8 @@ import fs from 'fs';
 export async function getUserArgs(): Promise<UserConfig> {
   program
     .argument('[projectName]')
-    .option('--contract [ts|rs|none]')
     .option('--frontend [next|vanilla|none]')
+    .option('--contract [ts|rs|none]')
     .option('--tests [rs|ts|none]')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
@@ -32,30 +32,6 @@ export async function getUserArgs(): Promise<UserConfig> {
   const [projectName] = program.args;
   const { contract, frontend, tests, install } = options;
   return { contract, frontend, projectName, tests, install };
-}
-
-export function validateUserArgs(args: UserConfig): 'error' | 'ok' | 'none' {
-  if (args === null) {
-    return 'error';
-  }
-  const { projectName, contract, frontend, tests } = args;
-  const hasAllOptions = contract !== undefined && frontend !== undefined;
-  const hasPartialOptions = contract !== undefined || frontend !== undefined;
-  const hasProjectName = projectName !== undefined;
-  const hasAllArgs = hasAllOptions && hasProjectName;
-  const hasNoArgs = !hasPartialOptions && !hasProjectName;
-  const optionsAreValid = hasAllOptions
-    && FRONTENDS.includes(frontend)
-    && CONTRACTS.includes(contract)
-    && TESTING_FRAMEWORKS.includes(tests);
-
-  if (hasNoArgs) {
-    return 'none';
-  } else if (hasAllArgs && optionsAreValid) {
-    return 'ok';
-  } else {
-    return 'error';
-  }
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
@@ -135,8 +111,8 @@ export async function getUserAnswers(): Promise<UserConfig> {
     return { frontend, contract: 'none', tests: 'none', projectName, install };
   } else {
     // If contract, ask for the language for the contract and tests
-    let {contract, tests} = await promptUser(contractPrompt);
-    tests = contract === 'ts'? 'ts' : tests;
+    let { contract, tests } = await promptUser(contractPrompt);
+    tests = contract === 'ts' ? 'ts' : tests;
     const { projectName } = await promptUser(namePrompts);
     const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
     return { frontend: 'none', contract, tests, projectName, install };
@@ -156,23 +132,22 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   // process cli args
   let args = await getUserArgs();
 
-  if( args.contract && (!args.tests || args.frontend) ){
-    return show.argsError();
-  }
-
-  if( args.frontend && (args.tests || args.contract) ){
-    return show.argsError();
-  }
-
   // If no args, prompt user
-  if( !args.contract && !args.frontend ){
+  if (!args.projectName) {
     show.welcome();
     args = await getUserAnswers();
   }
 
+  // Homogenizing terminal args with prompt args
+  args.contract = args.contract || 'none';
+  args.frontend = args.frontend || 'none';
+  args.tests = args.tests || 'none';
+
+  if (!validateUserArgs(args)) return;
+
   // track user input
-  const { frontend, contract } = args;
-  trackUsage(frontend, contract);
+  const { frontend, contract, tests } = args;
+  trackUsage(frontend, contract, tests);
 
   let path = projectPath(args.projectName);
 
@@ -184,3 +159,49 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
 }
 
 export const projectPath = (projectName: ProjectName) => `${process.cwd()}/${projectName}`;
+
+const validateUserArgs = (args: UserConfig) => {
+
+  if (!FRONTENDS.includes(args.frontend)) {
+    show.argsError(`Invalid frontend type: ${args.frontend}`);
+    return false;
+  }
+
+  if (!CONTRACTS.includes(args.contract)) {
+    show.argsError(`Invalid contract type: ${args.contract}`);
+    return false;
+  }
+
+  if (!TESTING_FRAMEWORKS.includes(args.tests)) {
+    show.argsError(`Invalid testing framework: ${args.tests}`);
+    return false;
+  }
+
+  if (!args.projectName) {
+    show.argsError('Please provide a project name');
+    return false;
+  }
+
+  if ((args.contract === 'none') === (args.frontend === 'none')) {
+    console.log(args.contract, args.frontend);
+    show.argsError('Please create a contract OR a frontend');
+    return false;
+  }
+
+  if (args.contract !== 'none' && args.tests === 'none') {
+    show.argsError('Please select a testing framework for your contract');
+    return false;
+  }
+
+  if (args.frontend !== 'none' && args.tests !== 'none') {
+    show.argsError('Remove the --tests flag when creating a frontend');
+    return false;
+  }
+
+  if (args.contract === 'ts' && args.tests === 'rs') {
+    show.argsError('We currently do not support creating a contract in TS with Rust tests, please create it manually');
+    return false;
+  }
+
+  return true;
+};

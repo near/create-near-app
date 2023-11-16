@@ -19,13 +19,11 @@ export type CreateContractParams = {
   contract: Contract,
   tests: TestingFramework,
   projectPath: string,
-  projectName: ProjectName,
   templatesDir: string,
 }
 
 export type CreateGatewayParams = {
   frontend: Frontend,
   projectPath: string,
-  projectName: ProjectName,
   templatesDir: string,
 }
