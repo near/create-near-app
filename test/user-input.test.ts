@@ -8,7 +8,7 @@ describe('messages', () => {
     showSpy = jest.spyOn(show, 'show').mockImplementation(() => {});
     show.welcome();
     show.setupFailed();
-    show.argsError();
+    show.argsError('wrong args');
     show.windowsWarning();
     show.creatingApp();
     show.depsInstall();

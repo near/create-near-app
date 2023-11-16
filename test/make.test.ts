@@ -22,7 +22,6 @@ describe('create contract', () => {
       contract,
       frontend,
       tests,
-      projectName,
       templatesDir: rootDir,
       projectPath,
     });
@@ -70,7 +69,6 @@ describe('create', () => {
       contract,
       frontend,
       tests,
-      projectName,
       templatesDir: rootDir,
       projectPath,
     });

@@ -2937,14 +2937,14 @@ channel = "1.69"
 exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--sandbox-ts--ava.config.cjs 1`] = `
 [
   "--rs_none_ts--sandbox-ts--ava.config.cjs",
-  "require("util").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+  "require('util').inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
-  timeout: "300000",
-  files: ["src/*.ava.ts"],
+  timeout: '300000',
+  files: ['src/*.ava.ts'],
   failWithoutAssertions: false,
-  extensions: ["ts"],
-  require: ["ts-node/register"],
+  extensions: ['ts'],
+  require: ['ts-node/register'],
 };
 ",
 ]
@@ -3508,14 +3508,14 @@ exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--package.json 1`] = `
 exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--sandbox-ts--ava.config.cjs 1`] = `
 [
   "--ts_none_ts--sandbox-ts--ava.config.cjs",
-  "require("util").inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+  "require('util').inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
 
 module.exports = {
-  timeout: "300000",
-  files: ["src/*.ava.ts"],
+  timeout: '300000',
+  files: ['src/*.ava.ts'],
   failWithoutAssertions: false,
-  extensions: ["ts"],
-  require: ["ts-node/register"],
+  extensions: ['ts'],
+  require: ['ts-node/register'],
 };
 ",
 ]
