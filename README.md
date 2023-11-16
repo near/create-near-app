@@ -1,5 +1,5 @@
 # Create NEAR App
-===============
+
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/nearprotocol/create-near-app) 
 
 Quickly build apps backed by the [NEAR](https://near.org) blockchain
@@ -7,7 +7,7 @@ Quickly build apps backed by the [NEAR](https://near.org) blockchain
 
 ## Prerequisites
 
-Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `16+`.
+Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
 
 Read about other [prerequisites](https://docs.near.org/develop/prerequisites) in our docs.
 
@@ -15,36 +15,45 @@ Read about other [prerequisites](https://docs.near.org/develop/prerequisites) in
 
 To create a new NEAR project run this and follow interactive prompts:
 
-    npx create-near-app
-
-> If you've previously installed `create-near-app` globally via `npm install -g create-near-app`, please uninstall the package using `npm uninstall -g create-near-app` to ensure that `npx` always uses the latest version.
+    npx create-near-app@latest
 
 Follow the instructions in the README.md in the project you just created! 🚀
 
+
+### Contracts
 You can create contracts written in:
+- `Javascript`
+- `Rust`.
 
-- [JavaScript](https://docs.near.org/develop/quickstart-guide)
-- [Rust](https://docs.near.org/develop/prerequisites)
-- AssemblyScript
+:::
+We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/develop/contracts/welcome) if you are new to NEAR contracts.
+:::
 
-You can create a frontend template in:
+For testing we use a sandboxed environment. You can write the tests in JavaScript or Rust.
+
+### WebApps
+
+You can create a web application in:
 
 - [React](https://reactjs.org/)
 - Vanilla JavaScript
 
-For testing we use a sandboxed environment of NEAR (called Workspaces).
-You can write the tests in JavaScript or Rust.
+:::
+We strongly recommend you to follow our [web app quickstart](https://docs.near.org/develop/integrate/welcome) if you are new to NEAR WebApps.
+:::
 
-### Using CLI arguments to run `create-near-app`
+> Consider using `pnpm` to handle the webapps, since it is much faster than `npm` and `yarn`.
+
+## Using CLI arguments to run `create-near-app`
 
 This CLI supports arguments to skip interactive prompts:
 
 ```shell
 npx create-near-app
   <project-name>
-  --contract js|rust|assemblyscript
-  --frontend vanilla|react|none
-  --tests js|rust
+  --frontend next|vanilla|none
+  --contract js|rs|none
+  --tests js|rs|none
   --install
 ```
 
