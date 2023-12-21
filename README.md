@@ -23,7 +23,7 @@ Follow the instructions in the README.md in the project you just created! 🚀
 ### Contracts
 You can create contracts written in:
 - `Javascript`
-- `Rust`.
+- `Rust`
 
 :::
 We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/develop/contracts/welcome) if you are new to NEAR contracts.
@@ -71,8 +71,8 @@ Check out our [documentation](https://docs.near.org) or chat with us on [Discord
 To make changes to `create-near-app` itself:
 
 * clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
-* in your terminal, enter one of the folders inside `templates`, such as `templates/vanilla`
-* now you can run `npm install` to install dependencies and `npm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
+* in your terminal, enter one of the folders inside `templates`, such as `templates/frontend/vanilla`
+* now you can run `pnpm install` to install dependencies and `pnpm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
 
 #### About commit messages
