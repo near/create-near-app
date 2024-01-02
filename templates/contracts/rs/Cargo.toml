@@ -11,6 +11,9 @@ crate-type = ["cdylib"]
 near-sdk = "4.1.1"
 uint = { version = "0.9.3", default-features = false }
 
+[patch.crates-io]
+parity-secp256k1 = { git = 'https://github.com/paritytech/rust-secp256k1.git' }
+
 [profile.release]
 codegen-units = 1
 opt-level = "z"
