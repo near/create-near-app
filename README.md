@@ -7,7 +7,7 @@ Quickly build apps backed by the [NEAR](https://near.org) blockchain
 
 ## Prerequisites
 
-Make sure you have a [current version of Node.js](https://nodejs.org/en/about/releases/) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
+Make sure you have a [current version of Node.js](https://nodejs.org) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
 
 Read about other [prerequisites](https://docs.near.org/develop/prerequisites) in our docs.
 
