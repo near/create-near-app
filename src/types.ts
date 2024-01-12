@@ -1,7 +1,7 @@
 export type Contract = 'ts' | 'rs' | 'none';
 export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
-export type Frontend = 'next' | 'vanilla' | 'none';
-export const FRONTENDS: Frontend[] = ['next', 'vanilla', 'none'];
+export type Frontend = 'next-app' | 'next-page' | 'vanilla' | 'none';
+export const FRONTENDS: Frontend[] = ['next-app' , 'next-page', 'vanilla', 'none'];
 export type TestingFramework = 'rs' | 'ts' | 'none';
 export const TESTING_FRAMEWORKS: TestingFramework[] = ['rs', 'ts', 'none'];
 export type App = 'contract' | 'gateway';
@@ -27,3 +27,7 @@ export type CreateGatewayParams = {
   projectPath: string,
   templatesDir: string,
 }
+
+export type FrontendMessage = {
+  [key in Exclude<Frontend, 'none'>]: string;
+};

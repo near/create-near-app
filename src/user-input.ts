@@ -48,8 +48,10 @@ const testsChoices: Choices<TestingFramework> = [
   { title: 'Tests written in Rust', value: 'rs' },
   { title: 'Tests written in Typescript', value: 'ts' },
 ];
+
 const frontendChoices: Choices<Frontend> = [
-  { title: 'NextJs + React', description: 'A composable app built using Next.js, React and Near components', value: 'next' },
+  { title: 'NextJs (Classic)', description: 'A composable app built using Next.js, React and Near components', value: 'next-page' },
+  { title: 'NextJS (App Router)', description: 'A composable app built using Next.js, React and Near components', value: 'next-app' },
   { title: 'Vanilla JS', description: 'A framework-less web app with limited capabilities.', value: 'vanilla' },
 ];
 
