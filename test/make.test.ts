@@ -53,7 +53,7 @@ describe('create contract', () => {
 
 describe('create', () => {
   const contracts: Contract[] = ['none'];
-  const frontends: Frontend[] = ['next', 'vanilla'];
+  const frontends: Frontend[] = ['next-app', 'next-page', 'vanilla'];
   const tests: TestingFramework[] = ['none'];
   // all combinations of the above
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.map(t => ([c, f, t]))));

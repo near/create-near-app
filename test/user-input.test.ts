@@ -24,7 +24,8 @@ describe('messages', () => {
     show.successContractToText('ts');
     show.successContractToText('rs');
 
-    show.successFrontendToText('next');
+    show.successFrontendToText('next-page');
+    show.successFrontendToText('next-app');
     show.successFrontendToText('vanilla');
     show.successFrontendToText('none');
 
@@ -59,7 +60,7 @@ describe('test success message', () => {
 describe('test success message', () => {
   let showSpy;
   const contracts: Contract[] = ['none'];
-  const frontends: Frontend[] = ['next', 'vanilla'];
+  const frontends: Frontend[] = ['next-page', 'next-app', 'vanilla'];
   const tests: TestingFramework[] = ['none'];
   const install = [true, false];
   // all combinations of the above
