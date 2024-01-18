@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`create 'none' 'next' 'none': --none_next_none--.gitignore 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--.gitignore 1`] = `
 [
-  "--none_next_none--.gitignore",
+  "--none_next-app_none--.gitignore",
   "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -43,9 +43,9 @@ next-env.d.ts
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--README.md 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--README.md 1`] = `
 [
-  "--none_next_none--README.md",
+  "--none_next-app_none--README.md",
   "This is a [Next.js](https://nextjs.org/) project bootstrapped with [\`create-next-app\`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -86,9 +86,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--jsconfig.json 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--jsconfig.json 1`] = `
 [
-  "--none_next_none--jsconfig.json",
+  "--none_next-app_none--jsconfig.json",
   "{
   "compilerOptions": {
     "paths": {
@@ -100,9 +100,9 @@ exports[`create 'none' 'next' 'none': --none_next_none--jsconfig.json 1`] = `
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--next.config.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--next.config.js 1`] = `
 [
-  "--none_next_none--next.config.js",
+  "--none_next-app_none--next.config.js",
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -113,9 +113,9 @@ module.exports = nextConfig;
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--package.json 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--package.json 1`] = `
 [
-  "--none_next_none--package.json",
+  "--none_next-app_none--package.json",
   "{
   "name": "hello-near",
   "version": "1.0.0",
@@ -163,17 +163,17 @@ exports[`create 'none' 'next' 'none': --none_next_none--package.json 1`] = `
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--public--near.svg 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--near.svg 1`] = `
 [
-  "--none_next_none--public--near.svg",
+  "--none_next-app_none--public--near.svg",
   "<svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1_1899)"><path d="M45.5211 4.46114C43.4964 4.46114 42.0241 4.93816 40.7733 6.03856L38.5644 7.94588C38.3803 8.09301 38.0121 8.20297 37.7549 7.98228C37.4969 7.76235 37.4604 7.46886 37.6811 7.17537L38.8589 5.41442C39.043 5.15733 38.8962 4.82743 38.5644 4.82743H35.7302C35.3992 4.82743 35.1413 5.08452 35.1413 5.41442V22.5841C35.1413 22.914 35.3992 23.1711 35.7302 23.1711H38.6748C39.0058 23.1711 39.2637 22.914 39.2637 22.5841V12.8988C39.2637 8.46006 42.9813 7.76311 44.3798 7.76311C47.3609 7.76311 48.4284 9.89112 48.4284 11.5049V22.5841C48.4284 22.914 48.6863 23.1711 49.0173 23.1711H51.9618C52.2928 23.1711 52.5508 22.914 52.5508 22.5841V11.1379C52.5508 7.029 49.8634 4.46114 45.5203 4.46114H45.5211Z" fill="black"/><path d="M64.5489 4.38757C58.8439 4.38757 55.2001 7.87307 55.2001 12.6053V15.2104C55.2001 20.1997 58.8439 23.6117 64.5489 23.6117C69.5912 23.6117 73.1246 21.0067 73.4929 17.4848C73.5302 17.1177 73.2723 16.8614 72.904 16.8614H70.0332C69.7753 16.8614 69.5546 17.0085 69.4808 17.2648C69.1126 18.4388 67.3831 20.1997 64.5489 20.1997C61.7146 20.1997 59.0645 18.1453 59.1011 15.2104L59.1383 11.9456C59.1749 9.48766 61.7519 7.80027 64.5489 7.80027C67.0887 7.80027 69.5546 9.23133 69.8118 11.5793C69.8331 11.8508 69.6459 12.0957 69.3774 12.1473L61.125 13.7437C60.794 13.8172 60.5361 14.1107 60.5361 14.477V14.5134C60.5361 14.8433 60.867 15.1368 61.3456 15.1368H73.1977C73.5233 15.1368 73.7866 14.8737 73.7866 14.5498V12.2391C73.7866 7.87383 69.9952 4.38833 64.5481 4.38833L64.5489 4.38757Z" fill="black"/><path d="M85.0863 4.38757C80.4853 4.38757 76.5105 7.0654 76.5105 10.5873C76.5105 10.8808 76.7685 11.1007 77.0994 11.1007H80.0805C80.375 11.1007 80.5956 10.8808 80.6329 10.5873C80.9274 8.97348 82.8782 7.79951 84.976 7.79951C87.4785 7.79951 89.1722 9.34053 89.1722 11.982V15.174C89.1722 18.4388 86.7427 20.0898 83.7243 20.0898C81.3687 20.0898 80.0067 19.2093 80.0067 17.7782C80.0067 16.5307 80.6694 15.4667 83.3926 14.8433L87.3309 13.7793C87.7356 13.6693 87.8832 13.3387 87.8094 12.9724C87.7729 12.6789 87.4419 12.5318 87.1467 12.5318H83.0616C79.6019 12.5318 76.105 14.7326 76.105 17.961V18.4744C76.105 21.7764 79.2337 23.5002 82.8037 23.5002C85.0855 23.5002 87.0364 22.6197 88.2507 21.5929L90.0548 20.0519C90.3492 19.7948 90.6437 19.7948 90.9008 20.0519C91.1215 20.2718 91.0477 20.6024 90.8636 20.8588L89.7595 22.5833C89.5754 22.8404 89.7223 23.1703 90.054 23.1703H92.7041C93.0351 23.1703 93.293 22.9132 93.293 22.5833V11.467C93.293 7.21177 90.2381 4.38681 85.0848 4.38681L85.0863 4.38757Z" fill="black"/><path d="M109.194 4.82819H105.071C103.636 4.82819 102.237 5.70866 101.243 6.55274L99.6243 7.94663C99.4401 8.09376 99.1084 8.20372 98.8877 8.0202C98.6298 7.83667 98.5195 7.46962 98.7409 7.17612L99.9187 5.41517C100.103 5.15808 99.956 4.82819 99.6243 4.82819H96.8638C96.5328 4.82819 96.2749 5.08528 96.2749 5.41517V22.5848C96.2749 22.9147 96.5328 23.1718 96.8638 23.1718H99.8822C100.213 23.1718 100.471 22.9147 100.471 22.5848V13.7801C100.471 10.0011 102.017 8.31369 105.367 8.31369H109.194C109.525 8.31369 109.783 8.0566 109.783 7.7267V5.41517C109.783 5.08528 109.525 4.82819 109.194 4.82819H109.194Z" fill="black"/><path d="M24.079 0.690475C23.0899 0.690475 22.1715 1.20162 21.6534 2.0419L16.0709 10.3029C15.889 10.5752 15.9628 10.9422 16.236 11.1235C16.4574 11.2706 16.7503 11.2524 16.952 11.0795L22.447 6.32901C22.5383 6.24711 22.679 6.25545 22.7612 6.34645C22.7985 6.38816 22.8183 6.44201 22.8183 6.49737V21.3707C22.8183 21.4935 22.7186 21.5921 22.5953 21.5921C22.5291 21.5921 22.4668 21.5633 22.4249 21.5125L5.81436 1.69457C5.27339 1.05829 4.47904 0.691234 3.64284 0.690475H3.0623C1.4911 0.690475 0.217407 1.96 0.217407 3.52605V24.4739C0.217407 26.04 1.4911 27.3095 3.0623 27.3095C4.05143 27.3095 4.9698 26.7984 5.48795 25.9581L11.0705 17.6971C11.2523 17.4248 11.1785 17.0578 10.9053 16.8765C10.6839 16.7294 10.391 16.7476 10.1894 16.9205L4.69436 21.671C4.60306 21.7529 4.4623 21.7445 4.38013 21.6535C4.34284 21.6118 4.32306 21.558 4.32382 21.5026V6.62554C4.32382 6.50268 4.42349 6.40409 4.54675 6.40409C4.61219 6.40409 4.67534 6.43291 4.71719 6.48372L21.3255 26.3054C21.8664 26.9417 22.6608 27.3088 23.497 27.3095H24.0775C25.6487 27.3103 26.9232 26.0415 26.9247 24.4755V3.52605C26.9247 1.96 25.651 0.690475 24.0798 0.690475H24.079Z" fill="black"/></g></svg>
 ",
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--public--near-logo.svg 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--near-logo.svg 1`] = `
 [
-  "--none_next_none--public--near-logo.svg",
+  "--none_next-app_none--public--near-logo.svg",
   "<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    width="26.707293"
@@ -221,23 +221,23 @@ exports[`create 'none' 'next' 'none': --none_next_none--public--near-logo.svg 1`
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--public--next.svg 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--next.svg 1`] = `
 [
-  "--none_next_none--public--next.svg",
+  "--none_next-app_none--public--next.svg",
   "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>",
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--public--vercel.svg 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--vercel.svg 1`] = `
 [
-  "--none_next_none--public--vercel.svg",
+  "--none_next-app_none--public--vercel.svg",
   "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>",
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--app.module.css 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--app.module.css 1`] = `
 [
-  "--none_next_none--src--app--app.module.css",
+  "--none_next-app_none--src--app--app.module.css",
   ".main {
   display: flex;
   flex-direction: column;
@@ -469,9 +469,9 @@ exports[`create 'none' 'next' 'none': --none_next_none--src--app--app.module.css
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--favicon.ico 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--favicon.ico 1`] = `
 [
-  "--none_next_none--src--app--favicon.ico",
+  "--none_next-app_none--src--app--favicon.ico",
   "�PNG
 
    
@@ -481,9 +481,9 @@ IHDR   @   @   �iq�  SIDATx�՛�m�0�?t��2�Fh4A�	�
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--globals.css 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--globals.css 1`] = `
 [
-  "--none_next_none--src--app--globals.css",
+  "--none_next-app_none--src--app--globals.css",
   "@import 'bootstrap';
 @import 'bootstrap-icons';
 
@@ -582,9 +582,9 @@ a {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--hello-components--page.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--hello-components--page.js 1`] = `
 [
-  "--none_next_none--src--app--hello-components--page.js",
+  "--none_next-app_none--src--app--hello-components--page.js",
   "import dynamic from 'next/dynamic';
 
 import styles from '@/app/app.module.css';
@@ -632,9 +632,9 @@ export default function HelloComponents() {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--hello-near--page.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--hello-near--page.js 1`] = `
 [
-  "--none_next_none--src--app--hello-near--page.js",
+  "--none_next-app_none--src--app--hello-near--page.js",
   "'use client';
 import { DocsCard, HelloComponentsCard } from '@/components/cards';
 import { useWallet } from '@/wallets/wallet-selector';
@@ -703,9 +703,9 @@ export default function HelloNear() {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--layout.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--layout.js 1`] = `
 [
-  "--none_next_none--src--app--layout.js",
+  "--none_next-app_none--src--app--layout.js",
   "'use client';
 import './globals.css';
 import '@near-wallet-selector/modal-ui/styles.css';
@@ -731,9 +731,9 @@ export default function RootLayout({ children }) {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--app--page.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--page.js 1`] = `
 [
-  "--none_next_none--src--app--page.js",
+  "--none_next-app_none--src--app--page.js",
   "import Image from 'next/image';
 import styles from './app.module.css';
 import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
@@ -775,9 +775,9 @@ export default function Home() {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--components--cards.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--components--cards.js 1`] = `
 [
-  "--none_next_none--src--components--cards.js",
+  "--none_next-app_none--src--components--cards.js",
   "import styles from '../app/app.module.css';
 
 export const DocsCard = () => {
@@ -827,9 +827,9 @@ export const HelloComponentsCard = () => {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--components--navigation.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--components--navigation.js 1`] = `
 [
-  "--none_next_none--src--components--navigation.js",
+  "--none_next-app_none--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -869,9 +869,9 @@ export const Navigation = () => {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--components--vm-component.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--components--vm-component.js 1`] = `
 [
-  "--none_next_none--src--components--vm-component.js",
+  "--none_next-app_none--src--components--vm-component.js",
   "'use client';
 import { useEffect } from 'react';
 import { useInitNear, Widget, EthersProviderContext } from 'near-social-vm';
@@ -902,9 +902,9 @@ export default function Component({ src }) {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--config.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--config.js 1`] = `
 [
-  "--none_next_none--src--config.js",
+  "--none_next-app_none--src--config.js",
   "export const NetworkId = 'testnet';
 
 export const HelloNearContract = {
@@ -929,9 +929,9 @@ export const ComponentMap = {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--wallets--wallet-selector.js 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--wallets--wallet-selector.js 1`] = `
 [
-  "--none_next_none--src--wallets--wallet-selector.js",
+  "--none_next-app_none--src--wallets--wallet-selector.js",
   "import { create as createStore } from 'zustand';
 import { distinctUntilChanged, map } from 'rxjs';
 import { providers } from 'near-api-js';
@@ -1055,9 +1055,1417 @@ export function useInitWallet({ createAccessKeyFor, networkId }) {
 ]
 `;
 
-exports[`create 'none' 'next' 'none': --none_next_none--src--wallets--web3-wallet.ts 1`] = `
+exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--wallets--web3-wallet.ts 1`] = `
 [
-  "--none_next_none--src--wallets--web3-wallet.ts",
+  "--none_next-app_none--src--wallets--web3-wallet.ts",
+  "'use client';
+import type { EIP1193Provider } from '@web3-onboard/core';
+import injectedModule from '@web3-onboard/injected-wallets';
+import ledgerModule from '@web3-onboard/ledger';
+import { init, useConnectWallet } from '@web3-onboard/react';
+import walletConnectModule from '@web3-onboard/walletconnect';
+import { useEffect, useState } from 'react';
+import { singletonHook } from 'react-singleton-hook';
+
+const web3onboardKey = 'web3-onboard:connectedWallets';
+
+const wcV2InitOptions: any = {
+  version: 2,
+  projectId: '72b7b3359ab477e339a070f615806aa6',
+  requiredChains: [1, 56],
+};
+
+const walletConnect = walletConnectModule(wcV2InitOptions);
+const ledger = ledgerModule(wcV2InitOptions);
+const injected = injectedModule();
+
+// initialize Onboard
+export const onboard = init({
+  wallets: [injected, walletConnect, ledger],
+  chains: [
+    {
+      id: 1,
+      token: 'ETH',
+      label: 'Ethereum Mainnet',
+      rpcUrl: 'https://rpc.ankr.com/eth',
+    },
+    {
+      id: 3,
+      token: 'ETH',
+      label: 'Ropsten - Ethereum Testnet',
+      rpcUrl: 'https://rpc.ankr.com/eth_ropsten',
+    },
+    {
+      id: 5,
+      token: 'ETH',
+      label: 'Goerli - Ethereum Testnet',
+      rpcUrl: 'https://rpc.ankr.com/eth_goerli',
+    },
+    {
+      id: 10,
+      token: 'ETH',
+      label: 'Optimism',
+      rpcUrl: 'https://rpc.ankr.com/optimism',
+    },
+    {
+      id: 420,
+      token: 'ETH',
+      label: 'Optimism Goerli Testnet',
+      rpcUrl: 'https://optimism-goerli.publicnode.com',
+    },
+    {
+      id: 56,
+      token: 'BNB',
+      label: 'Binance Smart Chain Mainnet',
+      rpcUrl: 'https://bsc.publicnode.com',
+    },
+    {
+      id: 97,
+      token: 'tBNB',
+      label: 'Binance Smart Chain Testnet',
+      rpcUrl: 'https://bsc-testnet.publicnode.com',
+    },
+    {
+      id: 1313161554,
+      token: 'ETH',
+      label: 'Aurora Mainnet',
+      rpcUrl: 'https://mainnet.aurora.dev',
+    },
+    {
+      id: 1313161555,
+      token: 'ETH',
+      label: 'Aurora Testnet',
+      rpcUrl: 'https://testnet.aurora.dev',
+    },
+    {
+      id: 137,
+      token: 'MATIC',
+      label: 'Polygon Mainnet',
+      rpcUrl: 'https://rpc.ankr.com/polygon',
+    },
+    {
+      id: 80001,
+      token: 'MATIC',
+      label: 'Polygon Testnet Mumbai',
+      rpcUrl: 'https://rpc.ankr.com/polygon_mumbai',
+    },
+    {
+      id: 280,
+      token: 'ETH',
+      label: 'zkSync Era Testnet',
+      rpcUrl: 'https://testnet.era.zksync.dev',
+    },
+    {
+      id: 324,
+      token: 'ETH',
+      label: 'zkSync Era Mainnet',
+      rpcUrl: 'https://zksync2-mainnet.zksync.io',
+    },
+    {
+      id: 1101,
+      token: 'ETH',
+      label: 'Polygon zkEVM',
+      rpcUrl: 'https://zkevm-rpc.com',
+    },
+    {
+      id: 1442,
+      token: 'ETH',
+      label: 'Polygon zkEVM Testnet',
+      rpcUrl: 'https://rpc.public.zkevm-test.net',
+    },
+    {
+      id: 42161,
+      token: 'ETH',
+      label: 'Arbitrum One Mainnet',
+      rpcUrl: 'https://arb1.arbitrum.io/rpc',
+    },
+    {
+      id: 42170,
+      token: 'ETH',
+      label: 'Arbitrum Nova',
+      rpcUrl: 'https://nova.arbitrum.io/rpc',
+    },
+    {
+      id: 421613,
+      token: 'AGOR',
+      label: 'Arbitrum Goerli',
+      rpcUrl: 'https://goerli-rollup.arbitrum.io/rpc',
+    },
+    {
+      id: 25,
+      token: 'CRO',
+      label: 'Cronos Mainnet Beta',
+      rpcUrl: 'https://evm.cronos.org',
+    },
+    {
+      id: 338,
+      token: 'TCRO',
+      label: 'Cronos Testnet',
+      rpcUrl: 'https://evm-t3.cronos.org',
+    },
+    {
+      id: 100,
+      token: 'XDAI',
+      label: 'Gnosis',
+      rpcUrl: 'https://rpc.ankr.com/gnosis',
+    },
+    {
+      id: 10200,
+      token: 'XDAI',
+      label: 'Gnosis Chiado Testnet',
+      rpcUrl: 'https://rpc.chiadochain.net',
+    },
+    {
+      id: 42220,
+      token: 'CELO',
+      label: 'Celo Mainnet',
+      rpcUrl: 'https://rpc.ankr.com/celo',
+    },
+    {
+      id: 44787,
+      token: 'CELO',
+      label: 'Celo Alfajores Testnet',
+      rpcUrl: 'https://alfajores-forno.celo-testnet.org',
+    },
+    {
+      id: 43114,
+      token: 'AVAX',
+      label: 'Avalanche C-Chain',
+      rpcUrl: 'https://rpc.ankr.com/avalanche',
+    },
+    {
+      id: 43113,
+      token: 'AVAX',
+      label: 'Avalanche Fuji Testnet',
+      rpcUrl: 'https://rpc.ankr.com/avalanche_fuji',
+    },
+    {
+      id: 250,
+      token: 'FTM',
+      label: 'Fantom Opera',
+      rpcUrl: 'https://rpc.ankr.com/fantom',
+    },
+    {
+      id: 4002,
+      token: 'FTM',
+      label: 'Fantom Testnet',
+      rpcUrl: 'https://rpc.ankr.com/fantom_testnet',
+    },
+    {
+      id: 1284,
+      token: 'GLMR',
+      label: 'Moonbeam',
+      rpcUrl: 'https://rpc.ankr.com/moonbeam',
+    },
+    {
+      id: 61,
+      token: 'ETC',
+      label: 'Ethereum Classic Mainnet',
+      rpcUrl: 'https://etc.rivet.link',
+    },
+    {
+      id: 84531,
+      token: 'ETH',
+      label: 'Base Goerli Testnet',
+      rpcUrl: 'https://goerli.base.org',
+    },
+    {
+      id: 8453,
+      token: 'ETH',
+      label: 'Base',
+      rpcUrl: 'https://mainnet.base.org',
+    },
+    {
+      id: 5001,
+      token: 'MNT',
+      label: 'Mantle Testnet',
+      rpcUrl: 'https://rpc.testnet.mantle.xyz',
+    },
+    {
+      id: 5000,
+      token: 'MNT',
+      label: 'Mantle',
+      rpcUrl: 'https://rpc.mantle.xyz',
+    },
+  ],
+  appMetadata: {
+    name: 'NEAR',
+    icon: '/next.svg',
+    description: 'NEAR',
+  },
+  theme: 'dark',
+  containerElements: {
+    // connectModal: '#near-social-navigation-bar',
+    // accountCenter: "#near-social-web3-account",
+  },
+});
+
+type EthersProviderContext = {
+  provider?: EIP1193Provider;
+  useConnectWallet: typeof useConnectWallet;
+};
+
+const defaultEthersProviderContext: EthersProviderContext = { useConnectWallet };
+
+export const useEthersProviderContext = singletonHook(defaultEthersProviderContext, () => {
+  const [{ wallet }] = useConnectWallet();
+  const [ethersProvider, setEthersProvider] = useState(defaultEthersProviderContext);
+
+  useEffect(() => {
+    (async () => {
+      if (typeof localStorage === 'undefined') return;
+
+      const walletsSub = onboard.state.select('wallets');
+
+      walletsSub.subscribe((wallets) => {
+        const connectedWallets = wallets.map(({ label }) => label);
+        localStorage.setItem(web3onboardKey, JSON.stringify(connectedWallets));
+      });
+
+      const previouslyConnectedWallets = JSON.parse(localStorage.getItem(web3onboardKey) || '[]');
+
+      if (previouslyConnectedWallets) {
+        // You can also auto connect "silently" and disable all onboard modals to avoid them flashing on page load
+        await onboard.connectWallet({
+          autoSelect: {
+            label: previouslyConnectedWallets[0],
+            disableModals: true,
+          },
+        });
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!wallet) return;
+
+    setEthersProvider({
+      provider: wallet.provider,
+      useConnectWallet,
+    });
+  }, [wallet]);
+
+  return ethersProvider;
+});",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--.gitignore 1`] = `
+[
+  "--none_next-page_none--.gitignore",
+  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--README.md 1`] = `
+[
+  "--none_next-page_none--README.md",
+  "This is a [Next.js](https://nextjs.org/) project bootstrapped with [\`create-next-app\`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+\`\`\`bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+\`\`\`
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying \`app/page.js\`. The page auto-updates as you edit the file.
+
+This project uses [\`next/font\`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--jsconfig.json 1`] = `
+[
+  "--none_next-page_none--jsconfig.json",
+  "{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--next.config.js 1`] = `
+[
+  "--none_next-page_none--next.config.js",
+  "/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+}
+
+module.exports = nextConfig;
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--package.json 1`] = `
+[
+  "--none_next-page_none--package.json",
+  "{
+  "name": "hello-near",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@near-wallet-selector/core": "^8.5.1",
+    "@near-wallet-selector/here-wallet": "^8.5.1",
+    "@near-wallet-selector/modal-ui": "^8.5.1",
+    "@near-wallet-selector/my-near-wallet": "^8.5.1",
+    "@web3-onboard/core": "^2.20.2",
+    "@web3-onboard/injected-wallets": "^2.10.1",
+    "@web3-onboard/ledger": "^2.4.6",
+    "@web3-onboard/react": "^2.8.7",
+    "@web3-onboard/walletconnect": "^2.3.9",
+    "base64-js": "^1.5.1",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.1",
+    "ieee754": "^1.2.1",
+    "near-api-js": "^2.1.3",
+    "near-social-vm": "github:NearSocial/VM#2.5.2",
+    "next": "14.0.1",
+    "pino-pretty": "^10.2.3",
+    "react": "^18",
+    "react-bootstrap": "2.9.1",
+    "react-bootstrap-icons": "^1.10.3",
+    "react-dom": "^18",
+    "react-singleton-hook": "^4.0.1",
+    "zustand": "^4.4.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.53",
+    "eslint-config-next": "14.0.1"
+  }
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--favicon.ico 1`] = `
+[
+  "--none_next-page_none--public--favicon.ico",
+  "�PNG
+
+   
+IHDR   @   @   �iq�  SIDATx�՛�m�0�?t��2�Fh4A�	������Gp7P6P7\`d�6M�<�b~�O��O'�"%ý���i�t��3� � g\`$3���'��^��V��0l?�N/��������ev[g�M�RW���\\o�wA�� �HZ�8�49� �L��K�Qq�s;������ö�^�S\\VI����]a�& <u�����7P�^�bV���b�� <�ΠU�b ғZ9C��G�U ���g��}g�3�t�cM ��_���K����l\`$w�5��m\`�Z[��y�x� �|"Jԯ����� L��¥$s�K���� L�%J�a���D�* @��-�>�d��J��g������;�?�V0��a�6�RU P�K	�c�#w�� @���c�l.�] ��9ܳ��mO�� �%�c�eW V� Ѯ  �x	��n�� \`z\`�T���& @�5C�f ��3H� ���(q��
+�k �9C��/�&@=gh �9çXI$u��p�f t,�����34�t�?/��/Tr�aW ���±g�
+@,�Ԧ��-���3� ���@�������:�g�W���;K��X�P�d?O��Xz_�{ۄ�rs �Wx�,@�L8֯��K�\\mu3 ���SZ�1��D<��\`�#}U�" (wU #y��5J?&�3H&Q������J��: g��,����� �J?��� �,��z��U8�d�$u3 �J?��J\\U �.�PZ�P<�:�3����/���>6���������l�ҏ�gc羨h��c�:���\`��=]-�BX��cZx̳���)�6�!�#�d��CL�W���;@�M233    IEND�B\`�",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--near.svg 1`] = `
+[
+  "--none_next-page_none--public--near.svg",
+  "<svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1_1899)"><path d="M45.5211 4.46114C43.4964 4.46114 42.0241 4.93816 40.7733 6.03856L38.5644 7.94588C38.3803 8.09301 38.0121 8.20297 37.7549 7.98228C37.4969 7.76235 37.4604 7.46886 37.6811 7.17537L38.8589 5.41442C39.043 5.15733 38.8962 4.82743 38.5644 4.82743H35.7302C35.3992 4.82743 35.1413 5.08452 35.1413 5.41442V22.5841C35.1413 22.914 35.3992 23.1711 35.7302 23.1711H38.6748C39.0058 23.1711 39.2637 22.914 39.2637 22.5841V12.8988C39.2637 8.46006 42.9813 7.76311 44.3798 7.76311C47.3609 7.76311 48.4284 9.89112 48.4284 11.5049V22.5841C48.4284 22.914 48.6863 23.1711 49.0173 23.1711H51.9618C52.2928 23.1711 52.5508 22.914 52.5508 22.5841V11.1379C52.5508 7.029 49.8634 4.46114 45.5203 4.46114H45.5211Z" fill="black"/><path d="M64.5489 4.38757C58.8439 4.38757 55.2001 7.87307 55.2001 12.6053V15.2104C55.2001 20.1997 58.8439 23.6117 64.5489 23.6117C69.5912 23.6117 73.1246 21.0067 73.4929 17.4848C73.5302 17.1177 73.2723 16.8614 72.904 16.8614H70.0332C69.7753 16.8614 69.5546 17.0085 69.4808 17.2648C69.1126 18.4388 67.3831 20.1997 64.5489 20.1997C61.7146 20.1997 59.0645 18.1453 59.1011 15.2104L59.1383 11.9456C59.1749 9.48766 61.7519 7.80027 64.5489 7.80027C67.0887 7.80027 69.5546 9.23133 69.8118 11.5793C69.8331 11.8508 69.6459 12.0957 69.3774 12.1473L61.125 13.7437C60.794 13.8172 60.5361 14.1107 60.5361 14.477V14.5134C60.5361 14.8433 60.867 15.1368 61.3456 15.1368H73.1977C73.5233 15.1368 73.7866 14.8737 73.7866 14.5498V12.2391C73.7866 7.87383 69.9952 4.38833 64.5481 4.38833L64.5489 4.38757Z" fill="black"/><path d="M85.0863 4.38757C80.4853 4.38757 76.5105 7.0654 76.5105 10.5873C76.5105 10.8808 76.7685 11.1007 77.0994 11.1007H80.0805C80.375 11.1007 80.5956 10.8808 80.6329 10.5873C80.9274 8.97348 82.8782 7.79951 84.976 7.79951C87.4785 7.79951 89.1722 9.34053 89.1722 11.982V15.174C89.1722 18.4388 86.7427 20.0898 83.7243 20.0898C81.3687 20.0898 80.0067 19.2093 80.0067 17.7782C80.0067 16.5307 80.6694 15.4667 83.3926 14.8433L87.3309 13.7793C87.7356 13.6693 87.8832 13.3387 87.8094 12.9724C87.7729 12.6789 87.4419 12.5318 87.1467 12.5318H83.0616C79.6019 12.5318 76.105 14.7326 76.105 17.961V18.4744C76.105 21.7764 79.2337 23.5002 82.8037 23.5002C85.0855 23.5002 87.0364 22.6197 88.2507 21.5929L90.0548 20.0519C90.3492 19.7948 90.6437 19.7948 90.9008 20.0519C91.1215 20.2718 91.0477 20.6024 90.8636 20.8588L89.7595 22.5833C89.5754 22.8404 89.7223 23.1703 90.054 23.1703H92.7041C93.0351 23.1703 93.293 22.9132 93.293 22.5833V11.467C93.293 7.21177 90.2381 4.38681 85.0848 4.38681L85.0863 4.38757Z" fill="black"/><path d="M109.194 4.82819H105.071C103.636 4.82819 102.237 5.70866 101.243 6.55274L99.6243 7.94663C99.4401 8.09376 99.1084 8.20372 98.8877 8.0202C98.6298 7.83667 98.5195 7.46962 98.7409 7.17612L99.9187 5.41517C100.103 5.15808 99.956 4.82819 99.6243 4.82819H96.8638C96.5328 4.82819 96.2749 5.08528 96.2749 5.41517V22.5848C96.2749 22.9147 96.5328 23.1718 96.8638 23.1718H99.8822C100.213 23.1718 100.471 22.9147 100.471 22.5848V13.7801C100.471 10.0011 102.017 8.31369 105.367 8.31369H109.194C109.525 8.31369 109.783 8.0566 109.783 7.7267V5.41517C109.783 5.08528 109.525 4.82819 109.194 4.82819H109.194Z" fill="black"/><path d="M24.079 0.690475C23.0899 0.690475 22.1715 1.20162 21.6534 2.0419L16.0709 10.3029C15.889 10.5752 15.9628 10.9422 16.236 11.1235C16.4574 11.2706 16.7503 11.2524 16.952 11.0795L22.447 6.32901C22.5383 6.24711 22.679 6.25545 22.7612 6.34645C22.7985 6.38816 22.8183 6.44201 22.8183 6.49737V21.3707C22.8183 21.4935 22.7186 21.5921 22.5953 21.5921C22.5291 21.5921 22.4668 21.5633 22.4249 21.5125L5.81436 1.69457C5.27339 1.05829 4.47904 0.691234 3.64284 0.690475H3.0623C1.4911 0.690475 0.217407 1.96 0.217407 3.52605V24.4739C0.217407 26.04 1.4911 27.3095 3.0623 27.3095C4.05143 27.3095 4.9698 26.7984 5.48795 25.9581L11.0705 17.6971C11.2523 17.4248 11.1785 17.0578 10.9053 16.8765C10.6839 16.7294 10.391 16.7476 10.1894 16.9205L4.69436 21.671C4.60306 21.7529 4.4623 21.7445 4.38013 21.6535C4.34284 21.6118 4.32306 21.558 4.32382 21.5026V6.62554C4.32382 6.50268 4.42349 6.40409 4.54675 6.40409C4.61219 6.40409 4.67534 6.43291 4.71719 6.48372L21.3255 26.3054C21.8664 26.9417 22.6608 27.3088 23.497 27.3095H24.0775C25.6487 27.3103 26.9232 26.0415 26.9247 24.4755V3.52605C26.9247 1.96 25.651 0.690475 24.0798 0.690475H24.079Z" fill="black"/></g></svg>
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--near-logo.svg 1`] = `
+[
+  "--none_next-page_none--public--near-logo.svg",
+  "<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="26.707293"
+   height="26.619026"
+   viewBox="0 0 26.707293 26.619026"
+   fill="none"
+   version="1.1"
+   id="svg196"
+   sodipodi:docname="near-logo.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview198"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="4.305628"
+     inkscape:cx="52.721693"
+     inkscape:cy="16.025537"
+     inkscape:window-width="1403"
+     inkscape:window-height="430"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg196" />
+  <g
+     clip-path="url(#clip0_1_1899)"
+     id="g192"
+     transform="translate(-0.217407,-0.690475)">
+    <path
+       d="m 24.079,0.690475 c -0.9891,0 -1.9075,0.511145 -2.4256,1.351425 l -5.5825,8.261 c -0.1819,0.2723 -0.1081,0.6393 0.1651,0.8206 0.2214,0.1471 0.5143,0.1289 0.716,-0.044 l 5.495,-4.75049 c 0.0913,-0.0819 0.232,-0.07356 0.3142,0.01744 0.0373,0.04171 0.0571,0.09556 0.0571,0.15092 V 21.3707 c 0,0.1228 -0.0997,0.2214 -0.223,0.2214 -0.0662,0 -0.1285,-0.0288 -0.1704,-0.0796 L 5.81436,1.69457 C 5.27339,1.05829 4.47904,0.691234 3.64284,0.690475 H 3.0623 C 1.4911,0.690475 0.217407,1.96 0.217407,3.52605 V 24.4739 c 0,1.5661 1.273693,2.8356 2.844893,2.8356 0.98913,0 1.9075,-0.5111 2.42565,-1.3514 l 5.58255,-8.261 c 0.1818,-0.2723 0.108,-0.6393 -0.1652,-0.8206 -0.2214,-0.1471 -0.5143,-0.1289 -0.7159,0.044 L 4.69436,21.671 C 4.60306,21.7529 4.4623,21.7445 4.38013,21.6535 4.34284,21.6118 4.32306,21.558 4.32382,21.5026 V 6.62554 c 0,-0.12286 0.09967,-0.22145 0.22293,-0.22145 0.06544,0 0.12859,0.02882 0.17044,0.07963 L 21.3255,26.3054 c 0.5409,0.6363 1.3353,1.0034 2.1715,1.0041 h 0.5805 c 1.5712,8e-4 2.8457,-1.268 2.8472,-2.834 V 3.52605 C 26.9247,1.96 25.651,0.690475 24.0798,0.690475 Z"
+       fill="#000000"
+       id="path190" />
+  </g>
+</svg>
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--next.svg 1`] = `
+[
+  "--none_next-page_none--public--next.svg",
+  "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--vercel.svg 1`] = `
+[
+  "--none_next-page_none--public--vercel.svg",
+  "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--components--cards.js 1`] = `
+[
+  "--none_next-page_none--src--components--cards.js",
+  "import styles from "../styles/app.module.css";
+
+export const DocsCard = () => {
+  return (
+    <a
+      href="https://docs.near.org/develop/integrate/quickstart-frontend"
+      className={styles.card}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <h2>
+        Near Docs <span>-&gt;</span>
+      </h2>
+      <p>Learn how this application works, and what you can build on Near.</p>
+    </a>
+  );
+};
+
+export const HelloNearCard = () => {
+  return (
+    <a href="/hello-near" className={styles.card} rel="noopener noreferrer">
+      <h2>
+        Near Integration <span>-&gt;</span>
+      </h2>
+      <p>Discover how simple it is to interact with a Near smart contract.</p>
+    </a>
+  );
+};
+
+export const HelloComponentsCard = () => {
+  return (
+    <a
+      href="/hello-components"
+      className={styles.card}
+      rel="noopener noreferrer"
+    >
+      <h2>
+        Web3 Components <span>-&gt;</span>
+      </h2>
+      <p>See how Web3 components can help you to create multi-chain apps.</p>
+    </a>
+  );
+};
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--components--navigation.js 1`] = `
+[
+  "--none_next-page_none--src--components--navigation.js",
+  "import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import NearLogo from 'public/near-logo.svg';
+import { useWallet } from '@/wallets/wallet-selector';
+
+export const Navigation = () => {
+
+  const { signedAccountId, logOut, logIn } = useWallet();
+  const [action, setAction] = useState(() => { });
+  const [label, setLabel] = useState('Loading...');
+
+  useEffect(() => {
+    if (signedAccountId) {
+      setAction(() => logOut);
+      setLabel(\`Logout \${signedAccountId}\`);
+    } else {
+      setAction(() => logIn);
+      setLabel('Login');
+    }
+  }, [signedAccountId, logOut, logIn, setAction, setLabel]);
+
+  return (
+    <nav className="navbar navbar-expand-lg">
+      <div className="container-fluid">
+        <Link href="/" passHref legacyBehavior>
+          <Image priority src={NearLogo} alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
+        </Link>
+        <div className='navbar-nav pt-1'>
+          <button className="btn btn-secondary" onClick={action} > {label} </button>
+        </div>
+      </div>
+    </nav>
+  );
+};",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--components--vm-component.js 1`] = `
+[
+  "--none_next-page_none--src--components--vm-component.js",
+  "'use client';
+import { useEffect } from 'react';
+import { useInitNear, Widget, EthersProviderContext } from 'near-social-vm';
+
+import { useWallet } from '@/wallets/wallet-selector';
+import { useEthersProviderContext } from '@/wallets/web3-wallet';
+import { NetworkId } from '@/config';
+
+export default function Component({ src }) {
+  const ethersContext = useEthersProviderContext();
+  const { selector } = useWallet();
+  const { initNear } = useInitNear();
+
+  useEffect(() => {
+    initNear && selector && initNear({ networkId: NetworkId, selector });
+  }, [initNear, selector]);
+
+  return (
+    <div>
+      <EthersProviderContext.Provider value={ethersContext}>
+        <Widget src={src} />
+      </EthersProviderContext.Provider>
+      <p className="mt-4 small"> <span className="text-secondary">Source:</span> <a href={\`https://near.social/mob.near/widget/WidgetSource?src=\${src}\`}> {src} </a> </p>
+    </div>
+  );
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--config.js 1`] = `
+[
+  "--none_next-page_none--src--config.js",
+  "export const NetworkId = 'testnet';
+
+export const HelloNearContract = {
+  mainnet: 'hello.near-examples.near',
+  testnet: 'hello.near-examples.testnet',
+}
+
+export const ComponentMap = {
+  mainnet: {
+    socialDB: 'social.near',
+    Lido: 'zavodil.near/widget/Lido',
+    HelloNear: 'gagdiez.near/widget/HelloNear',
+    LoveNear: 'gagdiez.near/widget/LoveNear',
+  },
+  testnet: {
+    socialDB: 'v1.social08.testnet',
+    Lido: 'influencer.testnet/widget/Lido',
+    HelloNear: 'influencer.testnet/widget/HelloNear',
+    LoveNear: 'influencer.testnet/widget/LoveNear',
+  }
+} ",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--layout.js 1`] = `
+[
+  "--none_next-page_none--src--layout.js",
+  ""use client";
+import "@near-wallet-selector/modal-ui/styles.css";
+
+import { NetworkId } from "@/config";
+import { Navigation } from "@/components/navigation";
+import { useInitWallet } from "@/wallets/wallet-selector";
+
+export default function RootLayout({ children }) {
+  useInitWallet({ createAccessKeyFor: "", networkId: NetworkId });
+
+  return (
+    <>
+      <Navigation />
+      {children}
+    </>
+  );
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--_app.js 1`] = `
+[
+  "--none_next-page_none--src--pages--_app.js",
+  "import RootLayout from "@/layout";
+import "@/styles/globals.css";
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <RootLayout>
+      <Component {...pageProps} />
+    </RootLayout>
+  );
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--_document.js 1`] = `
+[
+  "--none_next-page_none--src--pages--_document.js",
+  "import Document, { Html, Head, Main, NextScript } from "next/document";
+
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--hello-components--index.js 1`] = `
+[
+  "--none_next-page_none--src--pages--hello-components--index.js",
+  "import dynamic from "next/dynamic";
+
+import styles from "@/styles/app.module.css";
+import { DocsCard, HelloNearCard } from "@/components/cards";
+import { NetworkId, ComponentMap } from "@/config";
+
+const Component = dynamic(() => import("@/components/vm-component"), {
+  ssr: false,
+});
+
+const socialComponents = ComponentMap[NetworkId];
+
+export default function HelloComponents() {
+  return (
+    <>
+      <main className={styles.main}>
+        <div className={styles.description}>
+          <p>
+            Loading components from: &nbsp;
+            <code className={styles.code}>{socialComponents.socialDB}</code>
+          </p>
+        </div>
+        <div className={styles.center}>
+          <h1>
+            {" "}
+            <code>Multi-chain</code> Components Made Simple{" "}
+          </h1>
+        </div>
+        <div className="row">
+          <div class="col-6">
+            <Component src={socialComponents.HelloNear} />
+            <p class="my-4">&nbsp;</p>
+            <Component src={socialComponents.LoveNear} />
+          </div>
+          <div class="col-6">
+            <Component src={socialComponents.Lido} />
+          </div>
+        </div>
+        <hr />
+
+        <div className={styles.grid}>
+          <DocsCard />
+          <HelloNearCard />
+        </div>
+      </main>
+    </>
+  );
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--hello-near--index.js 1`] = `
+[
+  "--none_next-page_none--src--pages--hello-near--index.js",
+  ""use client";
+import { DocsCard, HelloComponentsCard } from "@/components/cards";
+import { useWallet } from "@/wallets/wallet-selector";
+import { useState, useEffect } from "react";
+import { HelloNearContract, NetworkId } from "../../config";
+import styles from "@/styles/app.module.css";
+
+// Contract that the app will interact with
+const CONTRACT = HelloNearContract[NetworkId];
+
+export default function HelloNear() {
+  const { signedAccountId, viewMethod, callMethod } = useWallet();
+
+  const [greeting, setGreeting] = useState("loading...");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
+
+  useEffect(() => {
+    viewMethod &&
+      viewMethod(CONTRACT, "get_greeting", {}).then((greeting) =>
+        setGreeting(greeting)
+      );
+  }, [viewMethod]);
+
+  useEffect(() => {
+    setLoggedIn(!!signedAccountId);
+  }, [signedAccountId]);
+
+  const saveGreeting = async () => {
+    setShowSpinner(true);
+    await callMethod(CONTRACT, "set_greeting", { greeting });
+    setShowSpinner(false);
+  };
+
+  return (
+    <main className={styles.main}>
+      <div className={styles.description}>
+        <p>
+          Interacting with the contract: &nbsp;
+          <code className={styles.code}>{CONTRACT}</code>
+        </p>
+      </div>
+
+      <div className={styles.center}>
+        <h1 className="w-100">
+          {" "}
+          The contract says: <code>{greeting}</code>{" "}
+        </h1>
+        <div className="input-group" hidden={!loggedIn}>
+          <input
+            type="text"
+            className="form-control w-20"
+            placeholder="Store a new greeting"
+            onChange={(t) => {
+              setGreeting(t.target.value);
+            }}
+          />
+          <div className="input-group-append">
+            <button className="btn btn-secondary" onClick={saveGreeting}>
+              <span hidden={showSpinner}> Save </span>
+              <i
+                className="spinner-border spinner-border-sm"
+                hidden={!showSpinner}
+              ></i>
+            </button>
+          </div>
+        </div>
+        <div className="w-100 text-end align-text-center" hidden={loggedIn}>
+          <p className="m-0"> Please login to change the greeting </p>
+        </div>
+      </div>
+      <div className={styles.grid}>
+        <DocsCard />
+        <HelloComponentsCard />
+      </div>
+    </main>
+  );
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--index.js 1`] = `
+[
+  "--none_next-page_none--src--pages--index.js",
+  "import Image from "next/image";
+import styles from "@/styles/app.module.css";
+import {
+  DocsCard,
+  HelloComponentsCard,
+  HelloNearCard,
+} from "@/components/cards";
+
+export default function Home() {
+  return (
+    <main className={styles.main}>
+      <div className={styles.description}> </div>
+
+      <div className={styles.center}>
+        <Image
+          className={styles.logo}
+          src="/near.svg"
+          alt="Next.js Logo"
+          width={110 * 1.5}
+          height={28 * 1.5}
+          priority
+        />
+        <h3 className="ms-2 me-3 text-dark"> + </h3>
+        <Image
+          className={styles.logo}
+          src="/next.svg"
+          alt="Next.js Logo"
+          width={300 * 0.58}
+          height={61 * 0.58}
+          priority
+        />
+      </div>
+
+      <div className={styles.grid}>
+        <HelloComponentsCard />
+        <HelloNearCard />
+        <DocsCard />
+      </div>
+    </main>
+  );
+}
+",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--styles--app.module.css 1`] = `
+[
+  "--none_next-page_none--src--styles--app.module.css",
+  ".main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.description {
+  display: inherit;
+  justify-content: inherit;
+  align-items: inherit;
+  font-size: 0.85rem;
+  max-width: var(--max-width);
+  width: 100%;
+  z-index: 2;
+  font-family: var(--font-mono);
+}
+
+.description a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.description p {
+  position: relative;
+  margin: 0;
+  padding: 1rem;
+  background-color: rgba(var(--callout-rgb), 0.5);
+  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+  border-radius: var(--border-radius);
+}
+
+.code {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(25%, auto));
+  max-width: 100%;
+  width: var(--max-width);
+}
+
+.card {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 0);
+  border: 1px solid rgba(var(--card-border-rgb), 0);
+  transition: background 200ms, border 200ms;
+}
+
+.card span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+.card h2 {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 30ch;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 0;
+  width: 100%;
+}
+
+.center::before {
+  background: var(--secondary-glow);
+  border-radius: 50%;
+  width: 480px;
+  height: 360px;
+  margin-left: -400px;
+}
+
+.center::after {
+  background: var(--primary-glow);
+  width: 240px;
+  height: 180px;
+  z-index: -1;
+}
+
+.center::before,
+.center::after {
+  content: '';
+  left: 50%;
+  position: absolute;
+  filter: blur(45px);
+  transform: translateZ(0);
+  opacity: 0.3;
+}
+
+.logo {
+  position: relative;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  }
+
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .card:hover span {
+    transform: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .content {
+    padding: 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 120px;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .card {
+    padding: 1rem 2.5rem;
+  }
+
+  .card h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .center {
+    padding: 8rem 0 6rem;
+  }
+
+  .center::before {
+    transform: none;
+    height: 300px;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .description a {
+    padding: 1rem;
+  }
+
+  .description p,
+  .description div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .description p {
+    align-items: center;
+    inset: 0 0 auto;
+    padding: 2rem 1rem 1.4rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
+    background: linear-gradient(to bottom,
+        rgba(var(--background-start-rgb), 1),
+        rgba(var(--callout-rgb), 0.5));
+    background-clip: padding-box;
+    backdrop-filter: blur(24px);
+  }
+
+  .description div {
+    align-items: flex-end;
+    pointer-events: none;
+    inset: auto 0 0;
+    padding: 2rem;
+    height: 200px;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgb(var(--background-end-rgb)) 40%);
+    z-index: 1;
+  }
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .grid {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .vercelLogo {
+    filter: invert(1);
+  }
+
+  .logo {
+    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--styles--globals.css 1`] = `
+[
+  "--none_next-page_none--src--styles--globals.css",
+  "@import 'bootstrap';
+@import 'bootstrap-icons';
+
+:root {
+  --max-width: 1100px;
+  --border-radius: 12px;
+
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --primary-glow: conic-gradient(from 180deg at 50% 50%,
+      #16abff33 0deg,
+      #0885ff33 55deg,
+      #54d6ff33 120deg,
+      #0071ff33 160deg,
+      transparent 360deg);
+  --secondary-glow: radial-gradient(rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0));
+
+  --tile-start-rgb: 239, 245, 249;
+  --tile-end-rgb: 228, 232, 233;
+  --tile-border: conic-gradient(#00000080,
+      #00000040,
+      #00000030,
+      #00000020,
+      #00000010,
+      #00000010,
+      #00000080);
+
+  --callout-rgb: 238, 240, 241;
+  --callout-border-rgb: 172, 175, 176;
+  --card-rgb: 180, 185, 188;
+  --card-border-rgb: 131, 134, 135;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+
+    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
+    --secondary-glow: linear-gradient(to bottom right,
+        rgba(1, 65, 255, 0),
+        rgba(1, 65, 255, 0),
+        rgba(1, 65, 255, 0.3));
+
+    --tile-start-rgb: 2, 13, 46;
+    --tile-end-rgb: 2, 5, 19;
+    --tile-border: conic-gradient(#ffffff80,
+        #ffffff40,
+        #ffffff30,
+        #ffffff20,
+        #ffffff10,
+        #ffffff10,
+        #ffffff80);
+
+    --callout-rgb: 20, 20, 20;
+    --callout-border-rgb: 108, 108, 108;
+    --card-rgb: 100, 100, 100;
+    --card-border-rgb: 200, 200, 200;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--wallets--wallet-selector.js 1`] = `
+[
+  "--none_next-page_none--src--wallets--wallet-selector.js",
+  "import { create as createStore } from 'zustand';
+import { distinctUntilChanged, map } from 'rxjs';
+import { providers } from 'near-api-js';
+import { setupWalletSelector } from '@near-wallet-selector/core';
+import { setupModal } from '@near-wallet-selector/modal-ui';
+import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+
+import { useEffect, useState } from 'react';
+
+export const useWallet = createStore(set => ({
+  signedAccountId: '',
+  logOut: undefined,
+  logIn: undefined,
+  selector: undefined,
+  viewMethod: undefined,
+  callMethod: undefined,
+  setLogActions: ({ logOut, logIn }) => set({ logOut, logIn }),
+  setAuth: ({ signedAccountId }) => set({ signedAccountId }),
+  setMethods: ({ viewMethod, callMethod }) => set({ viewMethod, callMethod }),
+  setStoreSelector: ({ selector }) => set({ selector }),
+}));
+
+export function useInitWallet({ createAccessKeyFor, networkId }) {
+  const setAuth = useWallet(store => store.setAuth);
+  const setLogActions = useWallet(store => store.setLogActions);
+  const setMethods = useWallet(store => store.setMethods);
+  const setStoreSelector = useWallet(store => store.setStoreSelector);
+  const [selector, setSelector] = useState(undefined);
+
+  useEffect(() => {
+    const selector = setupWalletSelector({
+      network: networkId,
+      modules: [setupMyNearWallet(), setupHereWallet()]
+    });
+
+    setSelector(selector);
+    setStoreSelector({ selector });
+  }, [networkId, setStoreSelector]);
+
+  useEffect(() => {
+    if (!selector) return;
+
+    selector.then(walletSelector => {
+      const accounts = walletSelector.store.getState().accounts;
+      const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
+      setAuth({ signedAccountId });
+
+      walletSelector.store.observable
+        .pipe(
+          map((state) => state.accounts),
+          distinctUntilChanged()
+        )
+        .subscribe((accounts) => {
+          const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
+          setAuth({ signedAccountId });
+        });
+    });
+  }, [selector, setAuth]);
+
+  useEffect(() => {
+    if (!selector) return;
+
+    // defined logOut and logIn actions
+    const logOut = async () => {
+      const wallet = await (await selector).wallet();
+      await wallet.signOut();
+      setAuth({ signedAccountId: '' });
+    };
+
+    const logIn = async () => {
+      const modal = setupModal(await selector, { contractId: createAccessKeyFor });
+      modal.show();
+    };
+
+    setLogActions({ logOut, logIn });
+  }, [createAccessKeyFor, selector, setAuth, setLogActions]);
+
+  useEffect(() => {
+    if (!selector) return;
+
+    const viewMethod = async (contractId, method, args = {}) => {
+      const { network } = (await selector).options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+      let res = await provider.query({
+        request_type: 'call_function',
+        account_id: contractId,
+        method_name: method,
+        args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
+        finality: 'optimistic',
+      });
+      return JSON.parse(Buffer.from(res.result).toString());
+    };
+
+    const callMethod = async (contractId, method, args = {}, gas = '30000000000000', deposit = 0) => {
+      const wallet = await (await selector).wallet();
+
+      const outcome = await wallet.signAndSendTransaction({
+        receiverId: contractId,
+        actions: [
+          {
+            type: 'FunctionCall',
+            params: {
+              methodName: method,
+              args,
+              gas,
+              deposit,
+            },
+          },
+        ],
+      });
+
+      return providers.getTransactionLastResult(outcome);
+    };
+
+    setMethods({ viewMethod, callMethod });
+
+  }, [selector, setMethods]);
+}",
+]
+`;
+
+exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--wallets--web3-wallet.ts 1`] = `
+[
+  "--none_next-page_none--src--wallets--web3-wallet.ts",
   "'use client';
 import type { EIP1193Provider } from '@web3-onboard/core';
 import injectedModule from '@web3-onboard/injected-wallets';

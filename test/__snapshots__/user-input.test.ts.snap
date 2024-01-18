@@ -54,12 +54,12 @@ exports[`messages snapshot messages with params 1`] = `
 ]
 `;
 
-exports[`test success message test matrix 'none' 'next' 'none' false 1`] = `
+exports[`test success message test matrix 'none' 'next-app' 'none' false 1`] = `
 [
   [
     "
 [32m======================================================[39m
-✅  Success! Created 'my_project_name', a gateway using NextJS + React.
+✅  Success! Created 'my_project_name', a gateway using NextJS (App Router).
 
 [1m[43m[30mNext steps[39m[49m[22m:
 
@@ -73,12 +73,49 @@ exports[`test success message test matrix 'none' 'next' 'none' false 1`] = `
 ]
 `;
 
-exports[`test success message test matrix 'none' 'next' 'none' true 1`] = `
+exports[`test success message test matrix 'none' 'next-app' 'none' true 1`] = `
 [
   [
     "
 [32m======================================================[39m
-✅  Success! Created 'my_project_name', a gateway using NextJS + React.
+✅  Success! Created 'my_project_name', a gateway using NextJS (App Router).
+
+[1m[43m[30mNext steps[39m[49m[22m:
+
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+Then:
+   - [7mStart your app[27m:
+         [34mpnpm [39m[34m[1mrun dev[22m[39m",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'next-page' 'none' false 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name', a gateway using NextJS (Classic).
+
+[1m[43m[30mNext steps[39m[49m[22m:
+
+   - [7mNavigate to your project[27m:
+         [34mcd [39m[34m[1mmy_project_name[22m[39m
+   - [7mInstall all dependencies[27m
+         [34mpnpm [39m[34m[1minstall[22m[39m
+   - [7mStart your app[27m:
+         [34mpnpm [39m[34m[1mrun dev[22m[39m",
+  ],
+]
+`;
+
+exports[`test success message test matrix 'none' 'next-page' 'none' true 1`] = `
+[
+  [
+    "
+[32m======================================================[39m
+✅  Success! Created 'my_project_name', a gateway using NextJS (Classic).
 
 [1m[43m[30mNext steps[39m[49m[22m:
 
