@@ -3979,8 +3979,9 @@ exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--rust-toolchain.toml 1`]
 [
   "--rs_none_rs--rust-toolchain.toml",
   "[toolchain]
-channel = "1.69"
-",
+channel = "1.73.0"
+components = ["rustfmt"]
+targets = ["wasm32-unknown-unknown"]",
 ]
 `;
 
@@ -3994,90 +3995,80 @@ publish = false
 edition = "2021"
 
 [dev-dependencies]
-anyhow = "1.0"
-borsh = "0.9"
-maplit = "1.0"
-near-units = "0.2.0"
 tokio = { version = "1.18.1", features = ["full"] }
-tracing = "0.1"
-tracing-subscriber = { version = "0.3.11", features = ["env-filter"] }
-workspaces = "0.6.0"
-pkg-config = "0.3.1"
+near-workspaces = "0.9.0"
 serde_json = { version = "1.0", features = ["arbitrary_precision"] }
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
 
 [[example]]
 name = "sandbox"
-path = "src/tests.rs"
-",
+path = "src/tests.rs"",
 ]
 `;
 
 exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--sandbox-rs--src--tests.rs 1`] = `
 [
   "--rs_none_rs--sandbox-rs--src--tests.rs",
-  "use std::{env, fs};
-use near_units::parse_near;
+  "use near_workspaces::{types::NearToken, Account, Contract};
 use serde_json::json;
-use workspaces::{Account, Contract};
-
+use std::{env, fs};
+ 
 #[tokio::main]
-async fn main() -> anyhow::Result<()> {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let wasm_arg: &str = &(env::args().nth(1).unwrap());
     let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
-
-    let worker = workspaces::sandbox().await?;
+ 
+    let worker = near_workspaces::sandbox().await?;
     let wasm = std::fs::read(wasm_filepath)?;
     let contract = worker.dev_deploy(&wasm).await?;
-
+ 
     // create accounts
     let account = worker.dev_create_account().await?;
     let alice = account
-        .create_subaccount( "alice")
-        .initial_balance(parse_near!("30 N"))
+        .create_subaccount("alice")
+        .initial_balance(NearToken::from_near(30))
         .transact()
         .await?
         .into_result()?;
-
+ 
     // begin tests
     test_default_message(&alice, &contract).await?;
     test_changes_message(&alice, &contract).await?;
     Ok(())
 }
-
+ 
 async fn test_default_message(
     user: &Account,
     contract: &Contract,
-) -> anyhow::Result<()> {
-    let greeting: String = user
-        .call( contract.id(), "get_greeting")
-        .args_json(json!({}))
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(greeting, "Hello".to_string());
-    println!("      Passed ✅ gets default greeting");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-) -> anyhow::Result<()> {
-    user.call(contract.id(), "set_greeting")
-        .args_json(json!({"greeting": "Howdy"}))
-        .transact()
-        .await?
-        .into_result()?;
-
+) -> Result<(), Box<dyn std::error::Error>> {
     let greeting: String = user
         .call(contract.id(), "get_greeting")
         .args_json(json!({}))
         .transact()
         .await?
         .json()?;
-
+ 
+    assert_eq!(greeting, "Hello".to_string());
+    println!("      Passed ✅ gets default greeting");
+    Ok(())
+}
+ 
+async fn test_changes_message(
+    user: &Account,
+    contract: &Contract,
+) -> Result<(), Box<dyn std::error::Error>> {
+    user.call(contract.id(), "set_greeting")
+        .args_json(json!({"greeting": "Howdy"}))
+        .transact()
+        .await?
+        .into_result()?;
+ 
+    let greeting: String = user
+        .call(contract.id(), "get_greeting")
+        .args_json(json!({}))
+        .transact()
+        .await?
+        .json()?;
+ 
     assert_eq!(greeting, "Howdy".to_string());
     println!("      Passed ✅ changes greeting");
     Ok(())
@@ -4343,8 +4334,9 @@ exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--rust-toolchain.toml 1`]
 [
   "--rs_none_ts--rust-toolchain.toml",
   "[toolchain]
-channel = "1.69"
-",
+channel = "1.73.0"
+components = ["rustfmt"]
+targets = ["wasm32-unknown-unknown"]",
 ]
 `;
 
@@ -4636,7 +4628,7 @@ exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--package.json 1`] = `
   "scripts": {
     "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
     "deploy": "near dev-deploy --wasmFile build/hello_near.wasm",
-    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- ../build/hello_near.wasm",
+    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- -- ../build/hello_near.wasm",
     "postinstall": "cd sandbox-ts && $npm_execpath install"
   },
   "dependencies": {
@@ -4662,90 +4654,80 @@ publish = false
 edition = "2021"
 
 [dev-dependencies]
-anyhow = "1.0"
-borsh = "0.9"
-maplit = "1.0"
-near-units = "0.2.0"
 tokio = { version = "1.18.1", features = ["full"] }
-tracing = "0.1"
-tracing-subscriber = { version = "0.3.11", features = ["env-filter"] }
-workspaces = "0.6.0"
-pkg-config = "0.3.1"
+near-workspaces = "0.9.0"
 serde_json = { version = "1.0", features = ["arbitrary_precision"] }
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
 
 [[example]]
 name = "sandbox"
-path = "src/tests.rs"
-",
+path = "src/tests.rs"",
 ]
 `;
 
 exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--sandbox-rs--src--tests.rs 1`] = `
 [
   "--ts_none_rs--sandbox-rs--src--tests.rs",
-  "use std::{env, fs};
-use near_units::parse_near;
+  "use near_workspaces::{types::NearToken, Account, Contract};
 use serde_json::json;
-use workspaces::{Account, Contract};
-
+use std::{env, fs};
+ 
 #[tokio::main]
-async fn main() -> anyhow::Result<()> {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let wasm_arg: &str = &(env::args().nth(1).unwrap());
     let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
-
-    let worker = workspaces::sandbox().await?;
+ 
+    let worker = near_workspaces::sandbox().await?;
     let wasm = std::fs::read(wasm_filepath)?;
     let contract = worker.dev_deploy(&wasm).await?;
-
+ 
     // create accounts
     let account = worker.dev_create_account().await?;
     let alice = account
-        .create_subaccount( "alice")
-        .initial_balance(parse_near!("30 N"))
+        .create_subaccount("alice")
+        .initial_balance(NearToken::from_near(30))
         .transact()
         .await?
         .into_result()?;
-
+ 
     // begin tests
     test_default_message(&alice, &contract).await?;
     test_changes_message(&alice, &contract).await?;
     Ok(())
 }
-
+ 
 async fn test_default_message(
     user: &Account,
     contract: &Contract,
-) -> anyhow::Result<()> {
-    let greeting: String = user
-        .call( contract.id(), "get_greeting")
-        .args_json(json!({}))
-        .transact()
-        .await?
-        .json()?;
-
-    assert_eq!(greeting, "Hello".to_string());
-    println!("      Passed ✅ gets default greeting");
-    Ok(())
-}
-
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-) -> anyhow::Result<()> {
-    user.call(contract.id(), "set_greeting")
-        .args_json(json!({"greeting": "Howdy"}))
-        .transact()
-        .await?
-        .into_result()?;
-
+) -> Result<(), Box<dyn std::error::Error>> {
     let greeting: String = user
         .call(contract.id(), "get_greeting")
         .args_json(json!({}))
         .transact()
         .await?
         .json()?;
-
+ 
+    assert_eq!(greeting, "Hello".to_string());
+    println!("      Passed ✅ gets default greeting");
+    Ok(())
+}
+ 
+async fn test_changes_message(
+    user: &Account,
+    contract: &Contract,
+) -> Result<(), Box<dyn std::error::Error>> {
+    user.call(contract.id(), "set_greeting")
+        .args_json(json!({"greeting": "Howdy"}))
+        .transact()
+        .await?
+        .into_result()?;
+ 
+    let greeting: String = user
+        .call(contract.id(), "get_greeting")
+        .args_json(json!({}))
+        .transact()
+        .await?
+        .json()?;
+ 
     assert_eq!(greeting, "Howdy".to_string());
     println!("      Passed ✅ changes greeting");
     Ok(())
@@ -4903,7 +4885,7 @@ exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--package.json 1`] = `
   "scripts": {
     "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
     "deploy": "near dev-deploy --wasmFile build/hello_near.wasm",
-    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- ../build/hello_near.wasm",
+    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- -- ../build/hello_near.wasm",
     "postinstall": "cd sandbox-ts && $npm_execpath install"
   },
   "dependencies": {

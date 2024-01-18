@@ -9,7 +9,7 @@
   "scripts": {
     "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
     "deploy": "near dev-deploy --wasmFile build/hello_near.wasm",
-    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- ../build/hello_near.wasm",
+    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- -- ../build/hello_near.wasm",
     "postinstall": "cd sandbox-ts && $npm_execpath install"
   },
   "dependencies": {
