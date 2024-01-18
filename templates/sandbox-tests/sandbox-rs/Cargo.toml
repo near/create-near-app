@@ -5,17 +5,9 @@ publish = false
 edition = "2021"
 
 [dev-dependencies]
-anyhow = "1.0"
-borsh = "0.9"
-maplit = "1.0"
-near-units = "0.2.0"
 tokio = { version = "1.18.1", features = ["full"] }
-tracing = "0.1"
-tracing-subscriber = { version = "0.3.11", features = ["env-filter"] }
-workspaces = "0.6.0"
-pkg-config = "0.3.1"
+near-workspaces = "0.9.0"
 serde_json = { version = "1.0", features = ["arbitrary_precision"] }
-# arbitrary_precision enabled for u128 types that workspaces requires for Balance types
 
 [[example]]
 name = "sandbox"
