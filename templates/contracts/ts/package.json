@@ -2,9 +2,6 @@
   "name": "hello_near",
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
-  "engines": {
-    "node": "16.x"
-  },
   "type": "module",
   "scripts": {
     "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
