@@ -10,7 +10,7 @@
     "postinstall": "cd sandbox-ts && $npm_execpath install"
   },
   "dependencies": {
-    "near-cli": "^3.4.2",
+    "near-cli": "4.0.0",
     "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
