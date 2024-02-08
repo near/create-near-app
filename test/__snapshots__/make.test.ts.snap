@@ -3979,7 +3979,7 @@ exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--rust-toolchain.toml 1`]
 [
   "--rs_none_rs--rust-toolchain.toml",
   "[toolchain]
-channel = "1.73.0"
+channel = "1.74"
 components = ["rustfmt"]
 targets = ["wasm32-unknown-unknown"]",
 ]
@@ -4334,7 +4334,7 @@ exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--rust-toolchain.toml 1`]
 [
   "--rs_none_ts--rust-toolchain.toml",
   "[toolchain]
-channel = "1.73.0"
+channel = "1.74"
 components = ["rustfmt"]
 targets = ["wasm32-unknown-unknown"]",
 ]
