@@ -23,12 +23,12 @@ export default function HelloComponents() {
           <h1> <code>Multi-chain</code> Components Made Simple </h1>
         </div>
         <div className='row'>
-          <div class="col-6">
+          <div className='col-6'>
             <Component src={socialComponents.HelloNear} />
-            <p class="my-4">&nbsp;</p>
+            <p className='my-4'>&nbsp;</p>
             <Component src={socialComponents.LoveNear} />
           </div>
-          <div class="col-6">
+          <div className='col-6'>
             <Component src={socialComponents.Lido} />
           </div>
         </div>
