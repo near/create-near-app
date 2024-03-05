@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "component-build": "bos-workspace dev -no-gateway"
   },
   "dependencies": {
     "@near-wallet-selector/core": "^8.5.1",
@@ -26,7 +27,7 @@
     "bootstrap-icons": "^1.11.1",
     "ieee754": "^1.2.1",
     "near-api-js": "^2.1.3",
-    "near-social-vm": "github:NearSocial/VM#2.5.2",
+    "near-social-vm": "github:Urbit/NearSocialVM/VM",
     "next": "14.0.1",
     "pino-pretty": "^10.2.3",
     "react": "^18",

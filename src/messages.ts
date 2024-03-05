@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { trackingMessage } from './tracking';
-import { Contract, Frontend, FrontendMessage, ProjectName } from './types';
+import { Frontend, FrontendMessage, ProjectName } from './types';
 
 if (process.env.NEAR_NO_COLOR) {
   chalk.level = 0;
@@ -23,17 +23,9 @@ Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-export const successContractToText = (contract: Contract) =>
-  contract === 'none'
-    ? ''
-    : chalk`a smart contract in {bold ${
-      contract === 'rs' ? 'Rust' : 'Typescript'
-    }}`;
 
 const frontendTemplates: FrontendMessage = {
-  'next-page': 'NextJS (Classic)',
   'next-app': 'NextJS (App Router)',
-  vanilla: 'Vanilla-JS',
 };
 
 export const successFrontendToText = (frontend: Frontend) =>
@@ -43,62 +35,20 @@ export const successFrontendToText = (frontend: Frontend) =>
 
 export const setupSuccess = (
   projectName: ProjectName,
-  contract: Contract,
   frontend: Frontend,
   install: boolean
 ) =>
   show(chalk`
 {green ======================================================}
-✅  Success! Created '${projectName}', ${successContractToText(
-  contract
+✅  Success! Created '${projectName}', 
 )}${successFrontendToText(frontend)}.
-${
-  contract === 'rs'
-    ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n`
-    : ''
-}
 {bold {bgYellow {black Next steps}}}:
-${contractInstructions(projectName, contract, install)}${gatewayInstructions(
+${gatewayInstructions(
   projectName,
   frontend,
   install
 )}`);
 
-export const contractInstructions = (
-  projectName: ProjectName,
-  contract: Contract,
-  install: boolean
-) =>
-  contract === 'none'
-    ? ''
-    : chalk`
-   - {inverse Navigate to your project}:
-         {blue cd {bold ${projectName}}}
-${
-  contract === 'ts' && !install
-    ? chalk`   - {inverse Install all dependencies}
-         {blue npm {bold install}}`
-    : 'Then:'
-}
-   - {inverse Build your contract}:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run build}}`
-    : chalk`{blue {bold ./build.sh}}`
-}
-   - {inverse Test your contract} in the Sandbox:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run test}}`
-    : chalk`{blue {bold ./test.sh}}`
-}
-   - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run deploy}}`
-    : chalk`{blue {bold ./deploy.sh}}`
-}
-🧠 Read {bold {greenBright README.md}} to explore further`;
 
 export const gatewayInstructions = (
   projectName: ProjectName,

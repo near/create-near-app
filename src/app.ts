@@ -10,9 +10,7 @@ import * as show from './messages';
   const {
     config: {
       projectName,
-      contract,
       frontend,
-      tests,
       install,
     },
     projectPath,
@@ -23,11 +21,10 @@ import * as show from './messages';
   let createSuccess;
   try {
     createSuccess = await createProject({
-      contract,
       frontend,
-      tests,
       templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,
+      projectName
     });
   } catch (e) {
     console.error(e);
@@ -36,7 +33,7 @@ import * as show from './messages';
 
   if (createSuccess) {
     install && await runDepsInstall(projectPath);
-    show.setupSuccess(projectName, contract, frontend, install);
+    show.setupSuccess(projectName, frontend, install);
   } else {
     return show.setupFailed();
   }

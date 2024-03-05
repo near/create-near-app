@@ -1,9 +1,8 @@
 # Create NEAR App
 
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/nearprotocol/create-near-app) 
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/nearprotocol/create-near-app)
 
 Quickly build apps backed by the [NEAR](https://near.org) blockchain
-
 
 ## Prerequisites
 
@@ -19,9 +18,10 @@ To create a new NEAR project run this and follow interactive prompts:
 
 Follow the instructions in the README.md in the project you just created! 🚀
 
-
 ### Contracts
+
 You can create contracts written in:
+
 - `Javascript`
 - `Rust`
 
@@ -51,9 +51,7 @@ This CLI supports arguments to skip interactive prompts:
 ```shell
 npx create-near-app
   <project-name>
-  --frontend next|vanilla|none
-  --contract js|rs|none
-  --tests js|rs|none
+  --frontend next
   --install
 ```
 
@@ -65,15 +63,13 @@ When using arguments, all arguments are required, except for `--install`.
 
 Check out our [documentation](https://docs.near.org) or chat with us on [Discord](http://near.chat). We'd love to hear from you!
 
-
 ## Contributing to `create-near-app`
 
 To make changes to `create-near-app` itself:
 
-* clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
-* in your terminal, enter one of the folders inside `templates`, such as `templates/frontend/vanilla`
-* now you can run `pnpm install` to install dependencies and `pnpm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
-
+- clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
+- in your terminal, enter one of the folders inside `templates`, such as `templates/frontend/vanilla`
+- now you can run `pnpm install` to install dependencies and `pnpm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
 #### About commit messages
 
@@ -91,7 +87,6 @@ Real world examples can look like this:
 
 If your change should show up in release notes as a feature, use `feat:`. If it should show up as a fix, use `fix:`. Otherwise, you probably want `refactor:` or `chore:`. [More info](https://github.com/conventional-changelog/commitlint/#what-is-commitlint)
 
-
 #### Deploy `create-near-app`
 
 If you want to deploy a new version, you will need two prerequisites:
@@ -106,7 +101,6 @@ Then run one script:
     npm run release
 
 Or just `release-it`
-
 
 ## License
 

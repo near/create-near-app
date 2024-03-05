@@ -8,6 +8,7 @@ node_modules
 .pnp.js
 templates/out
 /neardev
+package-lock.json
 # testing
 /coverage
 tmp-project

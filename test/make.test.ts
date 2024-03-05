@@ -2,28 +2,25 @@ import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
 import {createProject} from '../src/make';
-import {Contract, Frontend, TestingFramework} from '../src/types';
+import {Frontend} from '../src/types';
 
 describe('create contract', () => {
-  const contracts: Contract[] = ['ts', 'rs'];
   const frontends: Frontend[] = ['none'];
-  const tests: TestingFramework[] = ['ts', 'rs'];
   // all combinations of the above
-  const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.map(t => ([c, f, t]))));
+  //const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.map(t => ([c, f, t]))));
 
   const ts = Date.now();
-  test.each(testMatrix)('%o %o %o', async (contract: Contract, frontend: Frontend, tests: TestingFramework) => {
-    const projectName = `${contract}_${frontend}_${tests}`;
+  //test.each(testMatrix)('%o %o %o', async (contract: Contract, frontend: Frontend, tests: TestingFramework) => {
+    const projectName = `hello-app`;
     const rootDir = path.resolve(__dirname, '../templates/');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), {recursive: true});
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
     await createProject({
-      contract,
-      frontend,
-      tests,
+      'near-app',
       templatesDir: rootDir,
       projectPath,
+      projectName
     });
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
@@ -53,7 +50,7 @@ describe('create contract', () => {
 
 describe('create', () => {
   const contracts: Contract[] = ['none'];
-  const frontends: Frontend[] = ['next-app', 'next-page', 'vanilla'];
+  const frontends: Frontend[] = ['next-app'];
   const tests: TestingFramework[] = ['none'];
   // all combinations of the above
   const testMatrix = contracts.flatMap(c => frontends.flatMap(f => tests.map(t => ([c, f, t]))));
@@ -66,11 +63,10 @@ describe('create', () => {
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
     await createProject({
-      contract,
       frontend,
-      tests,
       templatesDir: rootDir,
       projectPath,
+      projectName
     });
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
