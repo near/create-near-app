@@ -51,7 +51,6 @@ This CLI supports arguments to skip interactive prompts:
 ```shell
 npx create-near-app
   <project-name>
-  --frontend next
   --install
 ```
 

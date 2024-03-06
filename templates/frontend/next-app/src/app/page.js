@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import styles from './app.module.css';
-import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
+import Image from 'next/image'
+import styles from './app.module.css'
+import { HelloComponentsCard, HelloNearCard } from '@/components/cards'
 
 export default function Home() {
   return (
@@ -21,8 +21,8 @@ export default function Home() {
           className={styles.logo}
           src="/next.svg"
           alt="Next.js Logo"
-          width={300 * .58}
-          height={61 * .58}
+          width={300 * 0.58}
+          height={61 * 0.58}
           priority
         />
       </div>
@@ -30,8 +30,7 @@ export default function Home() {
       <div className={styles.grid}>
         <HelloComponentsCard />
         <HelloNearCard />
-        <DocsCard />
       </div>
     </main>
-  );
+  )
 }

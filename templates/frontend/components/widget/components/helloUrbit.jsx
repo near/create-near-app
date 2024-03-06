@@ -1,3 +1,7 @@
+//  Below you can find /widget/components.helloUrbit
+//  To build test component ran "npm run component-build"
+//  You can look for thurther testing instructions in src/app/hello-components/page.js
+
 const Label = styled.span`
   font-size: 16px;
 `;
@@ -7,6 +11,19 @@ const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   margin: 20px;
+`;
+
+const Form = styled.div`
+  max-width: 300px;
+  margin: 20px auto; 
+  text-align: center;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #bbc0c1;
+  border-radius: 10px;
 `;
 
 const Section = styled.div`
@@ -34,57 +51,65 @@ const TextArea = styled.textarea`
   resize: none; /* Optional: Disables resizing */
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+width: auto;
+padding: 5px;
+padding-left:15px;
+padding-right:15px;
+margin-top: 10px;
+margin-bottom:10px;
+background-color: white;
+border: 1px solid #bbc0c1;
+color: black;
+cursor: pointer;`;
+
 const [response, setResponse] = useState("");
-//console.log(Urbit)
-const urbitPlayground = () => {
-  const setShip = Urbit.ship('zod')
+const [pokeVal, setPokeVal] = useState('');
+const [app, setApp] = useState('')
+const [path, setPath] = useState('')
+
+//Urbit.ship - connects component to your ship, for texting perpouses set up to ~zod
+Urbit.ship('zod')
+//Urbit.setTestApi - setting up UrbitAPI for fakeship, not needed if runs on ship
+Urbit.setTestApi('http://localhost:80', 'lidlut-tabwed-pillex-ridrup')
+
+
+const handlePoke = () => {
+    Urbit.pokeUrbit('hood', 'helm-hi', pokeVal)
+      .then((res) => {
+        console.log(`${pokeVal} been printed in dojo`)
+      });
+  };
+
+const scryTo = (e) => {
+    e.preventDefault();
+    Urbit.scryUrbit(app, path)
+    .then((res) => {
+      setResponse(res);
+    });
+  }
+
+
 return (
   <Container>
     <Section as="div" style={{ flexDirection: "column" }}>
-      <Label>{setShip}</Label>
-      <Button
-        onClick={() => {
-          Urbit.pokeUrbit('near-handler', 'near-handler-action', {
-            // hard-coded dummy pubkey
-            'add': '0x11d9.2405.6c6f.f37a.675a.b2f4.0c99.8cfb.ea8b.f032.c83e.79a6.5305.72eb.0e9f.08c0'
-          }).then((res) => {
-            console.log(Urbit)
-            setResponse(res);
-          });
-        }}
-      >
-        pokeUrbit
-      </Button>
-      <Button
-        onClick={() => {
-          Urbit.pokeNearHandler({
-            'del': '0x11d9.2405.6c6f.f37a.675a.b2f4.0c99.8cfb.ea8b.f032.c83e.79a6.5305.72eb.0e9f.08c0'
-          })
-        }}
-      >
-        pokeNearHandler
-      </Button>
-      <Button
-        onClick={() => {
-          Urbit.scryNearHandler("/accs")
-          .then((res) => {
-            setResponse(res);
-          });
-        }}
-      >
-        scryNearHandler /accs
-      </Button>
+        <Form>
+            <Label>Poke Dojo</Label>
+            <Input type="text" value={pokeVal} onChange={(e) => setPokeVal(e.target.value)} name="pokeVal" placeholder="hi"></Input>
+            <Button type="submit" onClick={handlePoke}>Poke</Button>
+        </Form>
+        <Form>
+            <Label>Scry to </Label>
+            <Label>App</Label>
+            <Input type="text" value={app} onChange={(e) => setApp(e.target.value)} name="app" placeholder="app"></Input>
+            <Label>Path</Label>
+            <Input type="text" value={path} onChange={(e) => setPath(e.target.value)} name="path" placeholder="/path"></Input>
+            <Button onClick={scryTo}>Scry</Button>
+        </Form>
     </Section>
-    <Section as="div" style={{ flexDirection: "column" }}>
-      <SectionTitle>Console</SectionTitle>
-      <TextArea
-        placeholder="Output from testing will appear here..."
-        value={response}
-        disabled
-      />
+    <Section>
+      <TextArea value={response}></TextArea>
     </Section>
   </Container>
 );
-      }
-export default urbitPlayground
+

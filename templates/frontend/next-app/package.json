@@ -6,11 +6,11 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev && npm run component-build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "component-build": "bos-workspace dev -no-gateway"
+    "component-build": "../bos-workspace/bin/bos-workspace dev"
   },
   "dependencies": {
     "@near-wallet-selector/core": "^8.5.1",

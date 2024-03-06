@@ -17,7 +17,7 @@ describe('create contract', () => {
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
     await createProject({
-      'near-app',
+      frontend: 'near-app',
       templatesDir: rootDir,
       projectPath,
       projectName
