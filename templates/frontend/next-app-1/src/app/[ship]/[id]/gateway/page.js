@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from './app.module.css'
+import styles from '@/app/app.module.css'
 import { HelloComponentsCard, HelloNearCard } from '@/components/cards'
 
 export default function Home() {

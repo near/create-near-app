@@ -17,8 +17,8 @@ async function createGateway({ frontend, projectPath, templatesDir, projectName 
   const sourceWidgetDir = path.resolve(`${templatesDir}/frontend/components`);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceFrontendDir, projectPath);
-  //console.log('basename', fs.readdirSync('/Users/unapahomova/Desktop/new/near-next-app/new/apps')[0])
-  const widgetPath = `${projectPath}/apps/${projectName}`
+  //const widgetPath = `${projectPath}/apps/${projectName}`
+  const widgetPath = `${projectPath}/apps/hello-near`
   fs.mkdirSync(widgetPath, { recursive: true })
   await copyDir(sourceWidgetDir, widgetPath);
 }

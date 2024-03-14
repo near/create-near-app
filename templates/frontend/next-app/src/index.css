@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	min-height: 100vh;
+	/* mobile viewport bug fix */
+	min-height: -webkit-fill-available;
+	height: 100%;
+	overscroll-behavior: none;
+}
+
+:root {
+  --slate-dark-1: #151718;
+  --slate-dark-5: #2B2F31;
+  --slate-dark-6: #313538;
+  --slate-dark-8: #4C5155;
+  --slate-dark-9: #697177;
+  --slate-dark-11: #9BA1A6;
+  --slate-dark-12: #ECEDEE;
+  --blue-light-9: #0091FF;
+
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+
+  /* For web3 onboard */
+  --account-center-z-index: 999;
+  --account-center-position-top: 64px;
+  --account-center-position-right: -10px;
+}
+

@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# everything browser
 
-## Getting Started
+## Setup & Development
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Install packages:
+```
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start development version:
+```
+yarn dev
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+This will start both the gateway and http server for loading your local components.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To view your local developments, either visit them through a gateway ${gateway_url}/flags
 
-## Learn More
+For example, to use this local gateway, use:
 
-To learn more about Next.js, take a look at the following resources:
+* Set the flag (something like http://127.0.0.1:4040/api/loader) at localhost:3000/flags
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Breakdown
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### App.js
 
-## Deploy on Vercel
+- Configure custom elements in the VM
+- Add a route to the gateway
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ViewPage.js
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Access query params and render widget
+
+
+
+
+## Custom Elements
+
+### Camera : react-webcam
+
+[react-webcam](https://github.com/mozmorris/react-webcam)
+components/custom/Camera
+[https://everything.dev/efiz.near/widget/Camera](efiz.near/widget/Camera)
+
+
+### MonacoEditor : monaco-editor/react
+
+[monaco-editor/react]()
+components/custom/MonacoEditor
+[https://everything.dev/efiz.near/widget/MonacoEditor](efiz.near/widget/MonacoEditor)
+
+TODO: Can switch to https://github.com/react-monaco-editor/react-monaco-editor
+
+
+### KeypomScanner : keypom
+
+[keypom]()
+components/custom/KeypomScanner
+[https://everything.dev/scanner](efiz.near/widget/KeypomScanner)
+
+
+
+## Contributing
+
+### Extending the gateway with a custom component:
+
+- [ ] Install library
+- [ ] Create component in /components/common
+- [ ] Add component as custom element in App.js
+
+
+

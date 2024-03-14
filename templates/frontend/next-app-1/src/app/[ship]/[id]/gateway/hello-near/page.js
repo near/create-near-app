@@ -2,8 +2,8 @@
 import { HelloComponentsCard } from '@/components/cards'
 import { useWallet } from '@/wallets/wallet-selector'
 import { useState, useEffect } from 'react'
-import { HelloNearContract, NetworkId } from '../../config'
-import styles from '../app.module.css'
+import { HelloNearContract, NetworkId } from '@/config.js'
+import styles from '@/app/app.module.css'
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract[NetworkId]

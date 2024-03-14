@@ -2,7 +2,11 @@ import styles from '../app/app.module.css'
 
 export const HelloNearCard = () => {
   return (
-    <a href="/hello-near" className={styles.card} rel="noopener noreferrer">
+    <a
+      href="./gateway/hello-near"
+      className={styles.card}
+      rel="noopener noreferrer"
+    >
       <h2>
         Near Integration <span>-&gt;</span>
       </h2>
@@ -14,7 +18,7 @@ export const HelloNearCard = () => {
 export const HelloComponentsCard = () => {
   return (
     <a
-      href="/hello-components"
+      href="./gateway/hello-components"
       className={styles.card}
       rel="noopener noreferrer"
     >
