@@ -24,7 +24,7 @@ export async function getUserArgs(): Promise<UserConfig> {
   const options = program.opts();
   const [projectName] = program.args;
   const { install } = options;
-  const frontend = 'next-app'
+  const frontend = 'gateway'
   return {frontend, projectName, install };
 }
 
@@ -49,7 +49,7 @@ const promptUser = async (prompts: PromptObject | PromptObject[]): Promise<promp
 
 export async function getUserAnswers(): Promise<UserConfig> {
     const { projectName, install } = await promptUser([namePrompts, npmPrompt]);
-    const frontend = 'next-app'
+    const frontend = 'gateway'
     return { frontend, projectName, install };
 }
 
@@ -73,7 +73,7 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   }
 
   // Homogenizing terminal args with prompt args
-  args.frontend = 'next-app'  //args.frontend || 'none';
+  args.frontend = 'gateway'  //args.frontend || 'none';
 
   if (!validateUserArgs(args)) return;
 

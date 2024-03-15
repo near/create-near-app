@@ -1,12 +1,7 @@
 import { setupWalletSelector } from '@near-wallet-selector/core'
-import { setupHereWallet } from '@near-wallet-selector/here-wallet'
-import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet'
 import { setupModal } from '@near-wallet-selector/modal-ui'
 import '@near-wallet-selector/modal-ui/styles.css'
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet'
-import { setupNearWallet } from '@near-wallet-selector/near-wallet'
-import { setupNeth } from '@near-wallet-selector/neth'
-import { setupSender } from '@near-wallet-selector/sender'
 import 'App.scss'
 import Big from 'big.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -25,7 +20,8 @@ import {
   Switch
 } from 'react-router-dom'
 import { NetworkId, Widgets } from './data/widgets'
-import Viewer from './pages/Viewer'
+import Urbit from './pages/Urbit'
+import Welcome from './pages/Welcome'
 import Core from './components/Core'
 
 export const refreshAllowanceObj = {}
@@ -49,18 +45,8 @@ function App(props) {
       initNear({
         networkId: NetworkId,
         selector: setupWalletSelector({
-          network: NetworkId,
-          modules: [
-            setupNearWallet(),
-            setupMyNearWallet(),
-            setupSender(),
-            setupHereWallet(),
-            setupMeteorWallet(),
-            setupNeth({
-              gas: '300000000000000',
-              bundle: false
-            })
-          ]
+          network: 'testnet',
+          modules: [setupMyNearWallet()]
         }),
         customElements: {
           Link: (props) => {
@@ -90,13 +76,16 @@ function App(props) {
     }
     near.selector.then((selector) => {
       setWalletModal(
-        setupModal(selector, { contractId: near.config.contractName })
+        setupModal(selector, {
+          contractId: `test.${NetworkId}`
+        })
       )
     })
   }, [near])
 
   const requestSignIn = useCallback(
-    (e) => {
+    async (e) => {
+      console.log(e)
       e && e.preventDefault()
       walletModal.show()
       return false
@@ -140,10 +129,37 @@ function App(props) {
         : Big(0)
     )
   }, [account])
-  //)
+
+  const [redirectMap, setRedirectMap] = useState(null)
+
+  useEffect(() => {
+    const fetchRedirectMap = async () => {
+      try {
+        const localStorageFlags = JSON.parse(
+          localStorage.getItem('flags') || '{}'
+        )
+        let redirectMapData
+
+        if (localStorageFlags.bosLoaderUrl) {
+          const response = await fetch(localStorageFlags.bosLoaderUrl)
+          const data = await response.json()
+          redirectMapData = data.components
+        } else {
+          redirectMapData = JSON.parse(
+            sessionStorage.getItem(SESSION_STORAGE_REDIRECT_MAP_KEY) || '{}'
+          )
+        }
+        setRedirectMap(redirectMapData)
+      } catch (error) {
+        console.error('Error fetching redirect map:', error)
+      }
+    }
+    fetchRedirectMap()
+  }, [])
 
   const passProps = {
     refreshAllowance: () => refreshAllowance(),
+    redirectMap,
     setWidgetSrc,
     signedAccountId,
     signedIn,
@@ -155,23 +171,21 @@ function App(props) {
     widgets: Widgets,
     documentationHref
   }
+
   let str = window.location.pathname
   let before = str.substring(0, str.indexOf(`/gateway`))
-  console.log(`${before}/gateway`)
-  console.log(window.location)
   return (
     <Router basename={`${before}/gateway`}>
-      {/* <Suspense fallback={<div>Loading...</div>}></Suspense> */}
       <Switch>
-        <Route path="/urbit">
-          <Viewer {...passProps} />
+        <Redirect exact from="/" to="/home" />
+        <Route path="/home">
+          <Welcome {...passProps} />
           <Core {...passProps} />
         </Route>
-        {/* <Route path={'/new'}>
-          <div>
-            <h1>page at /new path</h1>
-          </div>
-        </Route> */}
+        <Route path="/urbit">
+          <Urbit {...passProps} />
+          <Core {...passProps} />
+        </Route>
       </Switch>
     </Router>
   )

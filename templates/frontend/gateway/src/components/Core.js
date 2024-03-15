@@ -1,15 +1,13 @@
-import { Widget, useAccount } from "near-social-vm";
-import React, { useState } from "react";
-import {
-  NavLink,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
-import styled from "styled-components";
-import { LogOut } from "./icons/LogOut";
-import { Pretend } from "./icons/Pretend";
-import { StopPretending } from "./icons/StopPretending";
-import { User } from "./icons/User";
-import PretendModal from "./PretendModal";
+import { Widget, useAccount } from 'near-social-vm'
+import React, { useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
+import styled from 'styled-components'
+import { LogOut } from './icons/LogOut'
+import { Pretend } from './icons/Pretend'
+import { StopPretending } from './icons/StopPretending'
+import { User } from './icons/User'
+import PretendModal from './PretendModal'
+import { signIn } from '@near-wallet-selector/neth'
 
 const CoreBackdrop = styled.div`
   position: fixed;
@@ -19,7 +17,7 @@ const CoreBackdrop = styled.div`
   height: auto;
   display: flex;
   z-index: 50;
-`;
+`
 
 const CoreBox = styled.div`
   background: white;
@@ -40,7 +38,7 @@ const CoreBox = styled.div`
     text-decoration: none;
     color: black;
   }
-`;
+`
 
 const StyledDropdown = styled.div`
   .dropdown-toggle {
@@ -113,17 +111,17 @@ const StyledDropdown = styled.div`
         }
       }
     }
-`;
+`
 
 const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   flex: 1;
-`;
+`
 
 const ArrowButton = styled.button`
   flex-grow: 1;
-`;
+`
 
 const Button = styled.button`
   display: flex;
@@ -149,13 +147,16 @@ const Button = styled.button`
   &:hover {
     color: #111;
   }
-`;
+`
 
 const Core = (props) => {
-  const account = useAccount();
-  const location = useLocation();
+  const account = useAccount()
+  const location = useLocation()
 
-  const [showPretendModal, setShowPretendModal] = useState(false);
+  const [showPretendModal, setShowPretendModal] = useState(false)
+  console.log('Account', account)
+  console.log('signin', props.signIn)
+  console.log('signedAccountId', props.signedAccountId)
 
   return (
     <CoreBackdrop className="core__auth">
@@ -169,19 +170,19 @@ const Core = (props) => {
               aria-expanded="false"
             >
               <Widget
-                src={"mob.near/widget/ProfileImage"}
+                src={'mob.near/widget/ProfileImage'}
                 props={{
                   accountId: account.accountId,
-                  className: "d-inline-block m-2",
-                  imageClassName: "rounded-circle w-100 h-100",
-                  style: { width: "42px", height: "42px" },
+                  className: 'd-inline-block m-2',
+                  imageClassName: 'rounded-circle w-100 h-100',
+                  style: { width: '42px', height: '42px' }
                 }}
               />
             </div>
           ) : (
             <Button
               onClick={props.requestSignIn}
-              style={{ width: "48px", padding: 0 }}
+              style={{ width: '48px', padding: 0 }}
             >
               <i className="bi bi-key-fill" />
               {/* <i className="bi bi-brush" /> */}
@@ -194,19 +195,19 @@ const Core = (props) => {
           <ul
             className="dropdown-menu"
             aria-labelledby="dropdownMenu2222"
-            style={{ minWidth: "fit-content" }}
+            style={{ minWidth: 'fit-content' }}
           >
             <li>
               <a
                 className="dropdown-item"
-                style={{ maxWidth: "300px" }}
+                style={{ maxWidth: '300px' }}
                 type="button"
                 href={`https://${account.accountId}.social`}
               >
                 <Widget
-                  src={"mob.near/widget/Profile.InlineBlock"}
+                  src={'mob.near/widget/Profile.InlineBlock'}
                   props={{
-                    accountId: account.accountId,
+                    accountId: account.accountId
                   }}
                 />
               </a>
@@ -254,7 +255,7 @@ const Core = (props) => {
                 <ArrowButton>
                   <i className="bi bi-arrow-left"></i>
                 </ArrowButton>
-                <NavLink type="button" to={"/"}>
+                <NavLink type="button" to={'/'}>
                   <i className="bi bi-house"></i>
                 </NavLink>
                 <ArrowButton>
@@ -271,7 +272,7 @@ const Core = (props) => {
         />
       </CoreBox>
     </CoreBackdrop>
-  );
-};
+  )
+}
 
-export default Core;
+export default Core

@@ -13,12 +13,12 @@ export async function createProject({ frontend, projectPath, templatesDir, proje
 }
 
 async function createGateway({ frontend, projectPath, templatesDir, projectName }: CreateGatewayParams) {
-  const sourceFrontendDir = path.resolve(`${templatesDir}/frontend/next-app`);
+  const sourceFrontendDir = path.resolve(`${templatesDir}/frontend/gateway`);
   const sourceWidgetDir = path.resolve(`${templatesDir}/frontend/components`);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceFrontendDir, projectPath);
   //const widgetPath = `${projectPath}/apps/${projectName}`
-  const widgetPath = `${projectPath}/apps/hello-near`
+  const widgetPath = `${projectPath}/apps`
   fs.mkdirSync(widgetPath, { recursive: true })
   await copyDir(sourceWidgetDir, widgetPath);
 }

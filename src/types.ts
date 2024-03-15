@@ -1,5 +1,5 @@
-export type Frontend = 'next-app' | 'none';
-export const FRONTENDS: Frontend[] = ['next-app', 'none'];
+export type Frontend = 'gateway' | 'none';
+export const FRONTENDS: Frontend[] = ['gateway', 'none'];
 
 
 export type App = 'gateway';

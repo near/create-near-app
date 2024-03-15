@@ -25,7 +25,8 @@ Notice: some platforms aren't supported (yet).
 
 
 const frontendTemplates: FrontendMessage = {
-  'next-app': 'NextJS (App Router)',
+  //'next-app': 'NextJS (App Router)',
+  'gateway': 'ReactApp',
 };
 
 export const successFrontendToText = (frontend: Frontend) =>
