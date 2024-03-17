@@ -4,10 +4,10 @@ import newComponents from '../../build/data.json'
 import { useLocation } from 'react-router-dom'
 
 //  hosts locally build VM components
-const header = newComponents['account.Urbit/widget/components.Header']
+const header = newComponents['account.Urbit/widget/components.header']
 const helloUrbit = newComponents['account.Urbit/widget/components.helloUrbit']
 
-function Viewer({ redirectMap }) {
+function Urbit({ redirectMap }) {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
 
@@ -36,4 +36,4 @@ function Viewer({ redirectMap }) {
   )
 }
 
-export default Viewer
+export default Urbit
