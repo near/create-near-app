@@ -28,7 +28,7 @@
     "error-polyfill": "^0.1.2",
     "local-storage": "^2.0.0",
     "near-api-js": "^2.1.3",
-    "near-social-vm": "github:urbit/NearSocialVM",
+    "near-social-vm": "github:urbit/NearSocialVM#vm-out",
     "normalize.css": "^8.0.1",
     "prettier": "^2.7.1",
     "react": "^18.2.0",

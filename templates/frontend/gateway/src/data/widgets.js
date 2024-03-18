@@ -12,7 +12,7 @@ const TestnetWidgets = {
   HelloNear: 'influencer.testnet/widget/HelloNear',
   LoveNear: 'influencer.testnet/widget/LoveNear',
   Greeter: 'influencer.testnet/widget/Greeter',
-  image: 'eugenethedream/widget/Image'
+  Urbit: 'lonhep-tamfeb.testnet/widget/TestUrbitComponent'
 }
 
 const MainnetWidgets = {
@@ -20,8 +20,7 @@ const MainnetWidgets = {
   Lido: 'zavodil.near/widget/Lido',
   HelloNear: 'gagdiez.near/widget/HelloNear',
   LoveNear: 'gagdiez.near/widget/LoveNear',
-  Greeter: 'pkg.near/widget/Greeter',
-  image: 'mob.near/widget/Image'
+  Greeter: 'pkg.near/widget/Greeter'
 }
 
 export const Widgets = NetworkId === 'testnet' ? TestnetWidgets : MainnetWidgets
