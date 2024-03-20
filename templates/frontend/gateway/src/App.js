@@ -1,14 +1,12 @@
 import 'App.scss'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/js/bootstrap.bundle'
-import { isValidAttribute } from 'dompurify'
 import 'error-polyfill'
 import { useInitNear } from 'near-social-vm'
 import React, { useEffect, useState } from 'react'
 import 'react-bootstrap-typeahead/css/Typeahead.bs5.css'
 import 'react-bootstrap-typeahead/css/Typeahead.css'
 import {
-  Link,
   Route,
   Redirect,
   BrowserRouter as Router,
@@ -16,7 +14,6 @@ import {
 } from 'react-router-dom'
 import { NetworkId, Widgets } from './data/widgets'
 import Urbit from './pages/Urbit'
-import Welcome from './pages/Welcome'
 
 export const refreshAllowanceObj = {}
 
@@ -26,26 +23,7 @@ function App(props) {
   useEffect(() => {
     initNear &&
       initNear({
-        networkId: NetworkId,
-        customElements: {
-          Link: (props) => {
-            if (!props.to && props.href) {
-              props.to = props.href
-              delete props.href
-            }
-            if (props.to) {
-              props.to =
-                typeof props.to === 'string' &&
-                isValidAttribute('a', 'href', props.to)
-                  ? props.to
-                  : 'about:blank'
-            }
-            return <Link {...props} />
-          }
-        },
-        config: {
-          defaultFinality: undefined
-        }
+        networkId: NetworkId
       })
   }, [initNear])
 
@@ -88,10 +66,7 @@ function App(props) {
   return (
     <Router basename={`${before}/gateway`}>
       <Switch>
-        <Redirect exact from="/" to="/home" />
-        <Route path="/home">
-          <Welcome {...passProps} />
-        </Route>
+        <Redirect exact from="/" to="/urbit" />
         <Route path="/urbit">
           <Urbit {...passProps} />
         </Route>

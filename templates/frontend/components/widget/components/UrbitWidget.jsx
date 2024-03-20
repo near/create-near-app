@@ -68,10 +68,10 @@ const [pokeVal, setPokeVal] = useState('');
 const [app, setApp] = useState('')
 const [path, setPath] = useState('')
 
-//Urbit.ship - connects component to your ship, for texting perpouses set up to ~zod
-Urbit.ship('zod')
+//Urbit.ship - connects component to your ship, for testing perpouses set up to 'zod'
+Urbit.ship(`{props.ship}`)  
 //Urbit.setTestApi - setting up UrbitAPI for fakeship, not needed if runs on ship
-Urbit.setTestApi('http://localhost:80', 'lidlut-tabwed-pillex-ridrup')
+Urbit.setTestApi(`{props.host}`, `{props.code}`)
 
 
 const handlePoke = () => {
