@@ -1,16 +1,27 @@
-import { Widget } from 'near-social-vm'
 import React from 'react'
+import { Widget } from 'near-social-vm'
+import { Widgets } from '../data/widgets'
 import newComponents from '../../build/data.json'
 
 //  hosts locally build VM components
 const header = newComponents['account.Urbit/widget/components.header']
-const helloUrbit = newComponents['account.Urbit/widget/components.helloUrbit']
+const UrbitWidget = newComponents['account.Urbit/widget/components.UrbitWidget']
 
 function Urbit({ redirectMap }) {
+  const socialComponents = Widgets
+
   return (
     <div>
-      <Widget code={header.code} config={{ redirectMap }} />
-      <Widget code={helloUrbit.code} config={{ redirectMap }} />
+      <Widget src={socialComponents.UrbitHeader} config={{ redirectMap }} />
+      <Widget
+        code={UrbitWidget.code}
+        props={{
+          ship: 'zod',
+          host: 'http://localhost:80',
+          code: 'lidlut-tabwed-pillex-ridrup'
+        }}
+        config={{ redirectMap }}
+      />
     </div>
   )
 }
