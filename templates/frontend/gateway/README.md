@@ -3,11 +3,13 @@
 ## Setup & Development
 
 Install packages:
+
 ```
 yarn
 ```
 
 Start development version:
+
 ```
 yarn dev
 ```
@@ -18,7 +20,7 @@ To view your local developments, either visit them through a gateway ${gateway_u
 
 For example, to use this local gateway, use:
 
-* Set the flag (something like http://127.0.0.1:4040/api/loader) at localhost:3000/flags
+- Set the flag (something like http://127.0.0.1:4040/api/loader) at localhost:3000/flags
 
 ## Breakdown
 
@@ -31,35 +33,6 @@ For example, to use this local gateway, use:
 
 - Access query params and render widget
 
-
-
-
-## Custom Elements
-
-### Camera : react-webcam
-
-[react-webcam](https://github.com/mozmorris/react-webcam)
-components/custom/Camera
-[https://everything.dev/efiz.near/widget/Camera](efiz.near/widget/Camera)
-
-
-### MonacoEditor : monaco-editor/react
-
-[monaco-editor/react]()
-components/custom/MonacoEditor
-[https://everything.dev/efiz.near/widget/MonacoEditor](efiz.near/widget/MonacoEditor)
-
-TODO: Can switch to https://github.com/react-monaco-editor/react-monaco-editor
-
-
-### KeypomScanner : keypom
-
-[keypom]()
-components/custom/KeypomScanner
-[https://everything.dev/scanner](efiz.near/widget/KeypomScanner)
-
-
-
 ## Contributing
 
 ### Extending the gateway with a custom component:
@@ -67,6 +40,3 @@ components/custom/KeypomScanner
 - [ ] Install library
 - [ ] Create component in /components/common
 - [ ] Add component as custom element in App.js
-
-
-

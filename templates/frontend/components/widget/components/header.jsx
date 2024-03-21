@@ -45,7 +45,7 @@ const AppHeader = ({ page, routes, ...props }) => (
   <Navbar>
       <img
         style={{ width: 85, objectFit: "cover" }}
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Urbit_Logo.svg/1200px-Urbit_Logo.svg.png"
+        src="https://storage.googleapis.com/media.urbit.org/logo/White/~-logo-white-medium.png"
       />
     <ButtonGroup style={{ flex: 1 }}>
       {routes &&
