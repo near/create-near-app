@@ -12,7 +12,8 @@ const TestnetWidgets = {
   HelloNear: 'influencer.testnet/widget/HelloNear',
   LoveNear: 'influencer.testnet/widget/LoveNear',
   Greeter: 'influencer.testnet/widget/Greeter',
-  Urbit: 'lonhep-tamfeb.testnet/widget/TestUrbitComponent'
+  UrbitWidget: 'urbitlabs.testnet/widget/UrbitWidget',
+  UrbitHeader: 'urbitlabs.testnet/widget/UrbitHeader'
 }
 
 const MainnetWidgets = {
