@@ -1,5 +1,6 @@
 import { Wallet } from './near-wallet';
 
+
 const HELLO_NEAR = 'hello.near-examples.testnet';
 
 // When creating the wallet you can optionally ask to create an access key

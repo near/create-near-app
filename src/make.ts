@@ -5,10 +5,10 @@ import fs from 'fs';
 import { ncp } from 'ncp';
 import path from 'path';
 
-export async function createProject({ contract, frontend, tests, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
+export async function createProject({ contract, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
 
   if (contract !== 'none') {
-    await createContract({ contract, tests, projectPath, templatesDir });
+    await createContract({ contract, projectPath, templatesDir });
   } else {
     await createGateway({ frontend, projectPath, templatesDir });
   }
@@ -16,36 +16,12 @@ export async function createProject({ contract, frontend, tests, projectPath, te
   return true;
 }
 
-async function createContract({ contract, tests, projectPath, templatesDir }: CreateContractParams) {
+async function createContract({ contract, projectPath, templatesDir }: CreateContractParams) {
   // contract folder
   const sourceContractDir = path.resolve(templatesDir, 'contracts', contract);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceContractDir, projectPath);
-
-  // copy sandbox-test dir
-  const targetTestDir = path.resolve(projectPath, `sandbox-${tests}`);
-  const sourceTestDir = path.resolve(`${templatesDir}/sandbox-tests/sandbox-${tests}`);
-
-  fs.mkdirSync(targetTestDir);
-  await copyDir(sourceTestDir, targetTestDir);
-
-  if (contract === 'rs') {
-    if (tests === 'rs') {
-      // leave only one test script
-      fs.unlinkSync(path.resolve(projectPath, 'test-ts.sh'));
-      fs.renameSync(path.resolve(projectPath, 'test-rs.sh'), path.resolve(projectPath, 'test.sh'));
-
-      // add workspace to Cargo.toml
-      const cargoTomlPath = path.resolve(projectPath, 'Cargo.toml');
-      const cargoToml = fs.readFileSync(cargoTomlPath).toString();
-      const cargoTomlWithWorkspace = cargoToml + '\n[workspace]\nmembers = ["sandbox-rs"]';
-      fs.writeFileSync(cargoTomlPath, cargoTomlWithWorkspace);
-    } else {
-      // leave only one test script
-      fs.unlinkSync(path.resolve(projectPath, 'test-rs.sh'));
-      fs.renameSync(path.resolve(projectPath, 'test-ts.sh'), path.resolve(projectPath, 'test.sh'));
-    }
-  }
+  
 }
 
 async function createGateway({ frontend, projectPath, templatesDir }: CreateGatewayParams) {

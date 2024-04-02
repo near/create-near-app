@@ -84,20 +84,15 @@ ${
          ${
   contract === 'ts'
     ? chalk`{blue npm {bold run build}}`
-    : chalk`{blue {bold ./build.sh}}`
+    : chalk`{blue {bold cargo near build}}`
 }
    - {inverse Test your contract} in the Sandbox:
          ${
   contract === 'ts'
     ? chalk`{blue npm {bold run test}}`
-    : chalk`{blue {bold ./test.sh}}`
+    : chalk`{blue {bold cargo test}}`
 }
-   - {inverse Deploy your contract} to NEAR TestNet with a temporary dev account:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run deploy}}`
-    : chalk`{blue {bold ./deploy.sh}}`
-}
+   
 🧠 Read {bold {greenBright README.md}} to explore further`;
 
 export const gatewayInstructions = (
@@ -123,7 +118,7 @@ export const argsError = (msg: string) =>
   show(chalk`{red Arguments error: {white ${msg}}}
 
 Run {blue npx create-near-app} without arguments, or use:
-npx create-near-app <projectName> [--frontend next|vanilla|none] [--contract rs|ts|none --tests rs|ts|none]`);
+npx create-near-app <projectName> [--frontend next|vanilla|none] [--contract rs|ts|none]`);
 
 export const unsupportedNodeVersion = (supported: string) =>
   show(chalk`{red We support node.js version ${supported} or later}`);

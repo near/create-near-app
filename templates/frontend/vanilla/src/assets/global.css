@@ -1,14 +1,9 @@
-* {
-  box-sizing: border-box;
-}
-
 html {
   --bg: #efefef;
   --fg: #1e1e1e;
   --gray: #555;
   --light-gray: #ccc;
   --shadow: #e6e6e6;
-  --success: rgb(90, 206, 132);
   --primary: #FF585D;
   --secondary: #0072CE;
 
@@ -69,36 +64,23 @@ h1 {
   font-size: 1em;
   padding: 0.5em;
 }
+
 .change > div {
   display: flex;
   align-content: stretch;
   justify-content: space-evenly;
   align-items: stretch;
 }
+
 .change input {
   flex: 1;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
+
 .change button {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
-}
-
-a,
-.link {
-  color: var(--primary);
-  text-decoration: none;
-}
-a:hover,
-a:focus,
-.link:hover,
-.link:focus {
-  text-decoration: underline;
-}
-a:active,
-.link:active {
-  color: var(--secondary);
 }
 
 button, input {
@@ -135,22 +117,6 @@ code {
 
 li {
   padding-bottom: 1em;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    --bg: #1e1e1e;
-    --fg: #efefef;
-    --gray: #aaa;
-    --shadow: #2a2a2a;
-    --light-gray: #444;
-  }
-  h1 {
-    background-image: url(./logo-white.svg);
-  }
-  input:focus {
-    box-shadow: 0 0 10em rgba(255, 255, 255, 0.02) inset;
-  }
 }
 
 .please-wait .loader,
