@@ -1,11 +1,8 @@
 // Find all our documentation at https://docs.near.org
-use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::env::log_str;
-use near_sdk::near_bindgen;
+use near_sdk::{log, near};
 
 // Define the contract structure
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
+#[near(contract_state)]
 pub struct Contract {
     greeting: String,
 }
@@ -13,21 +10,23 @@ pub struct Contract {
 // Define the default, which automatically initializes the contract
 impl Default for Contract {
     fn default() -> Self {
-        Self { greeting: "Hello".to_string() }
+        Self {
+            greeting: "Hello".to_string(),
+        }
     }
 }
 
 // Implement the contract structure
-#[near_bindgen]
+#[near]
 impl Contract {
     // Public method - returns the greeting saved, defaulting to DEFAULT_GREETING
     pub fn get_greeting(&self) -> String {
-        return self.greeting.clone();
+        self.greeting.clone()
     }
 
     // Public method - accepts a greeting, such as "howdy", and records it
     pub fn set_greeting(&mut self, greeting: String) {
-        log_str(&format!("Saving greeting: {greeting}"));
+        log!("Saving greeting: {greeting}");
         self.greeting = greeting;
     }
 }
@@ -44,19 +43,13 @@ mod tests {
     fn get_default_greeting() {
         let contract = Contract::default();
         // this test did not call set_greeting so should return the default "Hello" greeting
-        assert_eq!(
-            contract.get_greeting(),
-            "Hello".to_string()
-        );
+        assert_eq!(contract.get_greeting(), "Hello");
     }
 
     #[test]
     fn set_then_get_greeting() {
         let mut contract = Contract::default();
         contract.set_greeting("howdy".to_string());
-        assert_eq!(
-            contract.get_greeting(),
-            "howdy".to_string()
-        );
+        assert_eq!(contract.get_greeting(), "howdy");
     }
 }

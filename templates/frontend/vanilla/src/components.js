@@ -3,7 +3,7 @@ import { Wallet } from './near-wallet';
 import { useInitNear, Widget } from 'near-social-vm';
 import { useEffect } from 'react';
 
-const wallet = new Wallet({network: 'testnet'});
+const wallet = new Wallet({ network: 'testnet' });
 
 export default function Component({ src }) {
 
@@ -23,20 +23,13 @@ export default function Component({ src }) {
 
 window.onload = async () => {
   let isSignedIn = await wallet.startUp();
-  isSignedIn? signedInUI(): signedOutUI();
+  isSignedIn ? signedInUI() : signedOutUI();
 
   const domNode = document.getElementById('components');
   const root = createRoot(domNode);
   root.render(
-    <div className='row'>
-      <div className='col-6'>
-        <Component src='influencer.testnet/widget/HelloNear' />
-        <p class="my-2">&nbsp;</p>
-        <Component src='influencer.testnet/widget/LoveNear' />
-      </div>
-      <div className='col-6'>
-        <Component src='influencer.testnet/widget/Lido' />      
-      </div>
+    <div>
+      <Component src='influencer.testnet/widget/HelloNear' />
     </div>
   );
 };

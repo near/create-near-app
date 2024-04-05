@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    hello: './src/hello.js',
+    index: './src/index.js',
     components: './src/components.js',
     'near-wallet': './src/near-wallet.js',
   },
@@ -25,6 +25,7 @@ module.exports = {
       https: require.resolve("https-browserify"),
       http: require.resolve("stream-http"),
       crypto: require.resolve("crypto-browserify"),
+      vm: require.resolve("vm-browserify"),
     }
   },
   module: {
@@ -45,7 +46,7 @@ module.exports = {
       {
         test: /\.m?js/,
         resolve: {
-            fullySpecified: false
+          fullySpecified: false
         }
       }
     ],
@@ -58,12 +59,7 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
       chunks: ['index'],
-    }), 
-    new HtmlWebpackPlugin({
-      filename: 'hello-near.html',
-      template: './src/hello-near.html',
-      chunks: ['index'],
-    }), 
+    }),
     new HtmlWebpackPlugin({
       filename: 'components.html',
       template: './src/components.html',

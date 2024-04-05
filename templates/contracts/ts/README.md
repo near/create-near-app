@@ -30,24 +30,27 @@ class HelloNear {
 
 <br />
 
-## 1. Build and Deploy the Contract
-You can automatically compile and deploy the contract in the NEAR testnet by running:
+## 1. Build and Test the Contract
+You can automatically compile and test the contract by running:
 
 ```bash
 npm run build
-npm run deploy
-```
-
-Once finished, check the `neardev/dev-account` file to find the address in which the contract was deployed:
-
-```bash
-cat ./neardev/dev-account
-# e.g. dev-1659899566943-21539992274727
 ```
 
 <br />
 
-## 2. Retrieve the Greeting
+## 2. Create an Account and Deploy the Contract
+You can create a new account and deploy the contract by running:
+
+```bash
+near create-account <your-account.testnet> --useFaucet
+near deploy <your-account.testnet> build/release/hello_near.wasm
+```
+
+<br />
+
+
+## 3. Retrieve the Greeting
 
 `get_greeting` is a read-only method (aka `view` method).
 
@@ -55,26 +58,26 @@ cat ./neardev/dev-account
 
 ```bash
 # Use near-cli to get the greeting
-near view <dev-account> get_greeting
+near view <your-account.testnet> get_greeting
 ```
 
 <br />
 
-## 3. Store a New Greeting
+## 4. Store a New Greeting
 `set_greeting` changes the contract's state, for which it is a `call` method.
 
 `Call` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
 
 ```bash
 # Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
+near call <your-account.testnet> set_greeting '{"greeting":"howdy"}' --accountId <your-account.testnet>
 ```
 
-**Tip:** If you would like to call `set_greeting` using your own account, first login into NEAR using:
+**Tip:** If you would like to call `set_greeting` using another account, first login into NEAR using:
 
 ```bash
 # Use near-cli to login your NEAR account
 near login
 ```
 
-and then use the logged account to sign the transaction: `--accountId <your-account>`.
+and then use the logged account to sign the transaction: `--accountId <another-account>`.
