@@ -6,6 +6,7 @@ import { NetworkId, ComponentMap } from "@/config";
 
 const Component = dynamic(() => import("@/components/vm-component"), {
   ssr: false,
+  loading: () => <p>Loading Component...</p>,
 });
 
 const socialComponents = ComponentMap[NetworkId];
@@ -22,17 +23,16 @@ export default function HelloComponents() {
         </div>
         <div className={styles.center}>
           <h1>
-            {" "}
-            <code>Multi-chain</code> Components Made Simple{" "}
+            <code>Multi-chain</code> Components Made Simple
           </h1>
         </div>
         <div className="row">
-          <div class="col-6">
+          <div className="col-6">
             <Component src={socialComponents.HelloNear} />
-            <p class="my-4">&nbsp;</p>
+            <p className="my-4">&nbsp;</p>
             <Component src={socialComponents.LoveNear} />
           </div>
-          <div class="col-6">
+          <div className="col-6">
             <Component src={socialComponents.Lido} />
           </div>
         </div>
