@@ -1,7 +1,7 @@
 export type Contract = 'ts' | 'rs' | 'none';
 export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
-export type Frontend = 'next-app' | 'next-page' | 'vanilla' | 'none';
-export const FRONTENDS: Frontend[] = ['next-app' , 'next-page', 'vanilla', 'none'];
+export type Frontend = 'next-app' | 'next-page' | 'none';
+export const FRONTENDS: Frontend[] = ['next-app' , 'next-page', 'none'];
 export type App = 'contract' | 'gateway';
 export const APPS: App[] = ['contract', 'gateway'];
 export type ProjectName = string;

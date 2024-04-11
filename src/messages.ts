@@ -32,8 +32,7 @@ export const successContractToText = (contract: Contract) =>
 
 const frontendTemplates: FrontendMessage = {
   'next-page': 'NextJS (Classic)',
-  'next-app': 'NextJS (App Router)',
-  vanilla: 'Vanilla-JS',
+  'next-app': 'NextJS (App Router)'
 };
 
 export const successFrontendToText = (frontend: Frontend) =>
@@ -118,7 +117,7 @@ export const argsError = (msg: string) =>
   show(chalk`{red Arguments error: {white ${msg}}}
 
 Run {blue npx create-near-app} without arguments, or use:
-npx create-near-app <projectName> [--frontend next|vanilla|none] [--contract rs|ts|none]`);
+npx create-near-app <projectName> [--frontend next-app|next-page] [--contract rs|ts|none]`);
 
 export const unsupportedNodeVersion = (supported: string) =>
   show(chalk`{red We support node.js version ${supported} or later}`);

@@ -18,7 +18,7 @@ import fs from 'fs';
 export async function getUserArgs(): Promise<UserConfig> {
   program
     .argument('[projectName]')
-    .option('--frontend [next|vanilla|none]')
+    .option('--frontend [next-page|next-app|none]')
     .option('--contract [ts|rs|none]')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
@@ -45,7 +45,6 @@ const contractChoices: Choices<Contract> = [
 const frontendChoices: Choices<Frontend> = [
   { title: 'NextJs (Classic)', description: 'A composable app built using Next.js, React and Near components', value: 'next-page' },
   { title: 'NextJS (App Router)', description: 'A composable app built using Next.js, React and Near components', value: 'next-app' },
-  { title: 'Vanilla JS', description: 'A framework-less web app with limited capabilities.', value: 'vanilla' },
 ];
 
 const appPrompt: PromptObject = {
