@@ -74,7 +74,7 @@ cargo near deploy <account-id>
 ## Useful Links
 
 - [cargo-near](https://github.com/near/cargo-near) - NEAR smart contract development toolkit for Rust
-- [near CLI](https://near.cli.rs) - Iteract with NEAR blockchain from command line
+- [near CLI](https://docs.near.org/tools/near-cli) - Interact with NEAR blockchain from command line
 - [NEAR Rust SDK Documentation](https://docs.near.org/sdk/rust/introduction)
 - [NEAR Documentation](https://docs.near.org)
 - [NEAR StackOverflow](https://stackoverflow.com/questions/tagged/nearprotocol)
@@ -394,7 +394,7 @@ import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = "Hello";
+  greeting: string = 'Hello';
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {
@@ -465,7 +465,16 @@ You can start editing the page by modifying \`app/page.js\`. The page auto-updat
 
 This project uses [\`next/font\`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Learn More about NEAR
+
+To learn more about NEAR, take a look at the following resources:
+
+- [NEAR Documentation](https://docs.near.org) - learn about NEAR.
+- [Frontend Docs](https://docs.near.org/build/web3-apps/quickstart) - learn about this example.
+
+You can check out [the NEAR repository](https://github.com/near) - your feedback and contributions are welcome!
+
+## Learn More about Next.js
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -503,7 +512,7 @@ exports[`create frontend 'next-app': --frontend_next-app--next.config.js 1`] = `
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+};
 
 module.exports = nextConfig;
 ",
@@ -982,7 +991,7 @@ import dynamic from 'next/dynamic';
 
 import styles from '@/app/app.module.css';
 import { DocsCard, HelloNearCard } from '@/components/cards';
-import { NetworkId, Components } from '@/config';
+import { Components } from '@/config';
 
 const Component = dynamic(() => import('@/components/vm-component'), { ssr: false });
 
@@ -1030,7 +1039,7 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--hello-near--
 
 import { DocsCard, HelloComponentsCard } from '@/components/cards';
 import { useState, useEffect } from 'react';
-import { HelloNearContract, NetworkId } from '../../config';
+import { HelloNearContract } from '../../config';
 import styles from '../app.module.css';
 
 import { useStore } from '../layout';
@@ -1050,7 +1059,7 @@ export default function HelloNear() {
     if (!wallet) return;
 
     wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' })
-    .then(greeting => setGreeting(greeting));
+      .then(greeting => setGreeting(greeting));
   }, [wallet]);
 
   useEffect(() => {
@@ -1059,7 +1068,7 @@ export default function HelloNear() {
 
   const storeGreeting = async () => {
     setShowSpinner(true);
-    const res = await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
     const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
     setGreeting(greeting);
     setShowSpinner(false);
@@ -1106,7 +1115,7 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--layout.js 1`
   "'use client';
 
 // react
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { create as createStore } from 'zustand';
 
 // app
@@ -1123,7 +1132,7 @@ export const useStore = createStore((set) => ({
   signedAccountId: '',
   setWallet: (wallet) => set({ wallet }),
   setSignedAccountId: (signedAccountId) => set({ signedAccountId })
-}))
+}));
 
 // Layout Component
 export default function RootLayout({ children }) {
@@ -1325,7 +1334,7 @@ exports[`create frontend 'next-app': --frontend_next-app--src--config.js 1`] = `
   "const contractPerNetwork = {
   mainnet: 'hello.near-examples.near',
   testnet: 'hello.near-examples.testnet',
-}
+};
 
 const componentsPerNetwork = {
   mainnet: {
@@ -1340,7 +1349,7 @@ const componentsPerNetwork = {
     HelloNear: 'influencer.testnet/widget/HelloNear',
     LoveNear: 'influencer.testnet/widget/LoveNear',
   }
-}
+};
 
 export const NetworkId = 'testnet';
 export const HelloNearContract = contractPerNetwork[NetworkId];
@@ -1411,7 +1420,7 @@ export class Wallet {
       });
 
     return this.accountId;
-  }
+  };
 
   /**
    * Displays a modal to login the user
@@ -1419,7 +1428,7 @@ export class Wallet {
   signIn = async () => {
     const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
     modal.show();
-  }
+  };
 
   /**
    * Logout the user
@@ -1427,7 +1436,7 @@ export class Wallet {
   signOut = async () => {
     await this.selectedWallet.signOut();
     this.selectedWallet = this.accountId = this.createAccessKeyFor = null;
-  }
+  };
 
   /**
    * Makes a read-only call to a contract
@@ -1449,7 +1458,7 @@ export class Wallet {
       finality: 'optimistic',
     });
     return JSON.parse(Buffer.from(res.result).toString());
-  }
+  };
 
 
   /**
@@ -1478,7 +1487,7 @@ export class Wallet {
         },
       ],
     });
-  }
+  };
 
   /**
    * Makes a call to a contract
@@ -1493,7 +1502,7 @@ export class Wallet {
     // Retrieve transaction result from the network
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
-  }
+  };
 }",
 ]
 `;
@@ -1826,7 +1835,16 @@ You can start editing the page by modifying \`app/page.js\`. The page auto-updat
 
 This project uses [\`next/font\`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Learn More about NEAR
+
+To learn more about NEAR, take a look at the following resources:
+
+- [NEAR Documentation](https://docs.near.org) - learn about NEAR.
+- [Frontend Docs](https://docs.near.org/build/web3-apps/quickstart) - learn about this example.
+
+You can check out [the NEAR repository](https://github.com/near) - your feedback and contributions are welcome!
+
+## Learn More about Next.js
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -1864,7 +1882,7 @@ exports[`create frontend 'next-page': --frontend_next-page--next.config.js 1`] =
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+};
 
 module.exports = nextConfig;
 ",
@@ -2006,7 +2024,7 @@ exports[`create frontend 'next-page': --frontend_next-page--public--vercel.svg 1
 exports[`create frontend 'next-page': --frontend_next-page--src--components--cards.js 1`] = `
 [
   "--frontend_next-page--src--components--cards.js",
-  "import styles from "../styles/app.module.css";
+  "import styles from '../styles/app.module.css';
 
 export const DocsCard = () => {
   return (
@@ -2132,14 +2150,12 @@ export default function Component({ src }) {
 exports[`create frontend 'next-page': --frontend_next-page--src--config.js 1`] = `
 [
   "--frontend_next-page--src--config.js",
-  "export const NetworkId = 'testnet';
-
-export const HelloNearContract = {
+  "const contractPerNetwork = {
   mainnet: 'hello.near-examples.near',
   testnet: 'hello.near-examples.testnet',
-}
+};
 
-export const ComponentMap = {
+const componentsPerNetwork = {
   mainnet: {
     socialDB: 'social.near',
     Lido: 'zavodil.near/widget/Lido',
@@ -2152,19 +2168,23 @@ export const ComponentMap = {
     HelloNear: 'influencer.testnet/widget/HelloNear',
     LoveNear: 'influencer.testnet/widget/LoveNear',
   }
-} ",
+};
+
+export const NetworkId = 'testnet';
+export const HelloNearContract = contractPerNetwork[NetworkId];
+export const Components = componentsPerNetwork[NetworkId];",
 ]
 `;
 
 exports[`create frontend 'next-page': --frontend_next-page--src--layout.js 1`] = `
 [
   "--frontend_next-page--src--layout.js",
-  "import { useEffect } from "react";
+  "import { useEffect } from 'react';
 import { create as createStore } from 'zustand';
 
-import { Wallet } from "@/wallets/near-wallet";
-import { Navigation } from "@/components/navigation";
-import { NetworkId, HelloNearContract } from "@/config";
+import { Wallet } from '@/wallets/near-wallet';
+import { Navigation } from '@/components/navigation';
+import { NetworkId, HelloNearContract } from '@/config';
 
 // Store to share wallet and signed account
 export const useStore = createStore((set) => ({
@@ -2172,7 +2192,7 @@ export const useStore = createStore((set) => ({
   signedAccountId: '',
   setWallet: (wallet) => set({ wallet }),
   setSignedAccountId: (signedAccountId) => set({ signedAccountId })
-}))
+}));
 
 export default function RootLayout({ children }) {
 
@@ -2180,10 +2200,10 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     // create wallet instance
-    const wallet = new Wallet({ createAccessKeyFor: HelloNearContract[NetworkId], networkId: NetworkId })
+    const wallet = new Wallet({ createAccessKeyFor: HelloNearContract, networkId: NetworkId });
     wallet.startUp(setSignedAccountId);
     setWallet(wallet);
-  }, [])
+  }, []);
 
   return (
     <>
@@ -2199,8 +2219,8 @@ export default function RootLayout({ children }) {
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--_app.js 1`] = `
 [
   "--frontend_next-page--src--pages--_app.js",
-  "import RootLayout from "@/layout";
-import "@/styles/globals.css";
+  "import RootLayout from '@/layout';
+import '@/styles/globals.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -2215,7 +2235,7 @@ export default function MyApp({ Component, pageProps }) {
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--_document.js 1`] = `
 [
   "--frontend_next-page--src--pages--_document.js",
-  "import Document, { Html, Head, Main, NextScript } from "next/document";
+  "import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
   render() {
@@ -2238,18 +2258,17 @@ export default MyDocument;",
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-components--index.js 1`] = `
 [
   "--frontend_next-page--src--pages--hello-components--index.js",
-  "import dynamic from "next/dynamic";
+  "import dynamic from 'next/dynamic';
 
-import styles from "@/styles/app.module.css";
-import { DocsCard, HelloNearCard } from "@/components/cards";
-import { NetworkId, ComponentMap } from "@/config";
+import styles from '@/styles/app.module.css';
+import { DocsCard, HelloNearCard } from '@/components/cards';
+import { Components } from '@/config';
 
-const Component = dynamic(() => import("@/components/vm-component"), {
+const Component = dynamic(() => import('@/components/vm-component'), {
   ssr: false,
   loading: () => <p>Loading Component...</p>,
 });
 
-const socialComponents = ComponentMap[NetworkId];
 
 export default function HelloComponents() {
   return (
@@ -2258,7 +2277,7 @@ export default function HelloComponents() {
         <div className={styles.description}>
           <p>
             Loading components from: &nbsp;
-            <code className={styles.code}>{socialComponents.socialDB}</code>
+            <code className={styles.code}>{Components.socialDB}</code>
           </p>
         </div>
         <div className={styles.center}>
@@ -2268,12 +2287,12 @@ export default function HelloComponents() {
         </div>
         <div className="row">
           <div className="col-6">
-            <Component src={socialComponents.HelloNear} />
+            <Component src={Components.HelloNear} />
             <p className="my-4">&nbsp;</p>
-            <Component src={socialComponents.LoveNear} />
+            <Component src={Components.LoveNear} />
           </div>
           <div className="col-6">
-            <Component src={socialComponents.Lido} />
+            <Component src={Components.Lido} />
           </div>
         </div>
         <hr />
@@ -2293,28 +2312,28 @@ export default function HelloComponents() {
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-near--index.js 1`] = `
 [
   "--frontend_next-page--src--pages--hello-near--index.js",
-  "import { useState, useEffect } from "react";
+  "import { useState, useEffect } from 'react';
 
-import { useStore } from "@/layout";
-import styles from "@/styles/app.module.css";
-import { HelloNearContract, NetworkId } from "../../config";
-import { DocsCard, HelloComponentsCard } from "@/components/cards";
+import { useStore } from '@/layout';
+import styles from '@/styles/app.module.css';
+import { HelloNearContract } from '../../config';
+import { DocsCard, HelloComponentsCard } from '@/components/cards';
 
 // Contract that the app will interact with
-const CONTRACT = HelloNearContract[NetworkId];
+const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
   const { signedAccountId, wallet } = useStore();
 
-  const [greeting, setGreeting] = useState("loading...");
-  const [newGreeting, setNewGreeting] = useState("loading...");
+  const [greeting, setGreeting] = useState('loading...');
+  const [newGreeting, setNewGreeting] = useState('loading...');
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
     if (!wallet) return;
 
-    wallet.viewMethod({ contractId: CONTRACT, method: "get_greeting" }).then(
+    wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then(
       greeting => setGreeting(greeting)
     );
   }, [wallet]);
@@ -2325,9 +2344,9 @@ export default function HelloNear() {
 
   const saveGreeting = async () => {
     setShowSpinner(true);
-    await wallet.callMethod({ contractId: CONTRACT, method: "set_greeting", args: { greeting: newGreeting } });
-    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: "get_greeting" })
-    setGreeting(greeting)
+    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
+    setGreeting(greeting);
     setShowSpinner(false);
   };
 
@@ -2379,13 +2398,13 @@ export default function HelloNear() {
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--index.js 1`] = `
 [
   "--frontend_next-page--src--pages--index.js",
-  "import Image from "next/image";
-import styles from "@/styles/app.module.css";
+  "import Image from 'next/image';
+import styles from '@/styles/app.module.css';
 import {
   DocsCard,
   HelloComponentsCard,
   HelloNearCard,
-} from "@/components/cards";
+} from '@/components/cards';
 
 export default function Home() {
   return (
@@ -2820,7 +2839,7 @@ export class Wallet {
       });
 
     return this.accountId;
-  }
+  };
 
   /**
    * Displays a modal to login the user
@@ -2828,7 +2847,7 @@ export class Wallet {
   signIn = async () => {
     const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
     modal.show();
-  }
+  };
 
   /**
    * Logout the user
@@ -2836,7 +2855,7 @@ export class Wallet {
   signOut = async () => {
     await this.selectedWallet.signOut();
     this.selectedWallet = this.accountId = this.createAccessKeyFor = null;
-  }
+  };
 
   /**
    * Makes a read-only call to a contract
@@ -2858,7 +2877,7 @@ export class Wallet {
       finality: 'optimistic',
     });
     return JSON.parse(Buffer.from(res.result).toString());
-  }
+  };
 
 
   /**
@@ -2887,7 +2906,7 @@ export class Wallet {
         },
       ],
     });
-  }
+  };
 
   /**
    * Makes a call to a contract
@@ -2902,7 +2921,7 @@ export class Wallet {
     // Retrieve transaction result from the network
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
-  }
+  };
 }",
 ]
 `;
