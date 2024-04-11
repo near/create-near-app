@@ -1,51 +1,448 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--.gitignore 1`] = `
+exports[`create contract 'rs': --contract_rs--Cargo.toml 1`] = `
 [
-  "--none_next-app_none--.gitignore",
-  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+  "--contract_rs--Cargo.toml",
+  "[package]
+name = "contract-rs"
+description = "Hello Near Example"
+version = "0.1.0"
+edition = "2021"
+# TODO: Fill out the repository field to help NEAR ecosystem tools to discover your project.
+# NEP-0330 is automatically implemented for all contracts built with https://github.com/near/cargo-near.
+# Link to the repository will be available via \`contract_source_metadata\` view-function.
+#repository = "https://github.com/xxx/xxx"
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
+[lib]
+crate-type = ["cdylib", "rlib"]
 
-# testing
-/coverage
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+near-sdk = "5.1.0"
 
-# next.js
-/.next/
-/out/
+[dev-dependencies]
+near-sdk = { version = "5.1.0", features = ["unit-testing"] }
+near-workspaces = { version = "0.10.0", features = ["unstable"] }
+tokio = { version = "1.12.0", features = ["full"] }
+serde_json = "1"
 
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+[profile.release]
+codegen-units = 1
+# Tell \`rustc\` to optimize for small code size.
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+# Opt into extra safety checks on arithmetic operations https://stackoverflow.com/a/64136471/249801
+overflow-checks = true
 ",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--README.md 1`] = `
+exports[`create contract 'rs': --contract_rs--README.md 1`] = `
 [
-  "--none_next-app_none--README.md",
+  "--contract_rs--README.md",
+  "# contract-rs
+
+cargo-near-new-project-description
+
+## How to Build Locally?
+
+Install [\`cargo-near\`](https://github.com/near/cargo-near) and run:
+
+\`\`\`bash
+cargo near build
+\`\`\`
+
+## How to Test Locally?
+
+\`\`\`bash
+cargo test
+\`\`\`
+
+## How to Deploy?
+
+To deploy manually, install [\`cargo-near\`](https://github.com/near/cargo-near) and run:
+
+\`\`\`bash
+# Create a new account
+cargo near create-dev-account
+
+# Deploy the contract on it
+cargo near deploy <account-id>
+\`\`\`
+## Useful Links
+
+- [cargo-near](https://github.com/near/cargo-near) - NEAR smart contract development toolkit for Rust
+- [near CLI](https://near.cli.rs) - Iteract with NEAR blockchain from command line
+- [NEAR Rust SDK Documentation](https://docs.near.org/sdk/rust/introduction)
+- [NEAR Documentation](https://docs.near.org)
+- [NEAR StackOverflow](https://stackoverflow.com/questions/tagged/nearprotocol)
+- [NEAR Discord](https://near.chat)
+- [NEAR Telegram Developers Community Group](https://t.me/neardev)
+- NEAR DevHub: [Telegram](https://t.me/neardevhub), [Twitter](https://twitter.com/neardevhub)
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--rust-toolchain.toml 1`] = `
+[
+  "--contract_rs--rust-toolchain.toml",
+  "[toolchain]
+channel = "stable"
+components = ["rustfmt"]
+targets = ["wasm32-unknown-unknown"]
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--src--lib.rs 1`] = `
+[
+  "--contract_rs--src--lib.rs",
+  "// Find all our documentation at https://docs.near.org
+use near_sdk::{log, near};
+
+// Define the contract structure
+#[near(contract_state)]
+pub struct Contract {
+    greeting: String,
+}
+
+// Define the default, which automatically initializes the contract
+impl Default for Contract {
+    fn default() -> Self {
+        Self {
+            greeting: "Hello".to_string(),
+        }
+    }
+}
+
+// Implement the contract structure
+#[near]
+impl Contract {
+    // Public method - returns the greeting saved, defaulting to DEFAULT_GREETING
+    pub fn get_greeting(&self) -> String {
+        self.greeting.clone()
+    }
+
+    // Public method - accepts a greeting, such as "howdy", and records it
+    pub fn set_greeting(&mut self, greeting: String) {
+        log!("Saving greeting: {greeting}");
+        self.greeting = greeting;
+    }
+}
+
+/*
+ * The rest of this file holds the inline tests for the code above
+ * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
+ */
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn get_default_greeting() {
+        let contract = Contract::default();
+        // this test did not call set_greeting so should return the default "Hello" greeting
+        assert_eq!(contract.get_greeting(), "Hello");
+    }
+
+    #[test]
+    fn set_then_get_greeting() {
+        let mut contract = Contract::default();
+        contract.set_greeting("howdy".to_string());
+        assert_eq!(contract.get_greeting(), "howdy");
+    }
+}
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--tests--test_basics.rs 1`] = `
+[
+  "--contract_rs--tests--test_basics.rs",
+  "use near_sdk::NearToken;
+use serde_json::json;
+
+const FIVE_NEAR: NearToken = NearToken::from_near(5);
+
+#[tokio::test]
+async fn test_contract_is_operational() -> Result<(), Box<dyn std::error::Error>> {
+    let sandbox = near_workspaces::sandbox().await?;
+    let contract_wasm = near_workspaces::compile_project("./").await?;
+
+    let root = sandbox.root_account()?;
+
+    let user_account = root.create_subaccount("user").transact().await?.unwrap();
+    let contract_account = root.create_subaccount("contract").initial_balance(FIVE_NEAR).transact().await?.unwrap();
+
+    let contract = contract_account.deploy(&contract_wasm).await?.unwrap();
+
+    let outcome = user_account
+        .call(contract.id(), "set_greeting")
+        .args_json(json!({"greeting": "Hello World!"}))
+        .transact()
+        .await?;
+    assert!(outcome.is_success());
+
+    let user_message_outcome = contract
+        .view("get_greeting")
+        .args_json(json!({}))
+        .await?;
+    assert_eq!(user_message_outcome.json::<String>()?, "Hello World!");
+
+    Ok(())
+}
+",
+]
+`;
+
+exports[`create contract 'ts': --contract_ts--README.md 1`] = `
+[
+  "--contract_ts--README.md",
+  "# Hello NEAR Contract
+
+The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
+
+\`\`\`ts
+@NearBindgen({})
+class HelloNear {
+  greeting: string = "Hello";
+
+  @view // This method is read-only and can be called for free
+  get_greeting(): string {
+    return this.greeting;
+  }
+
+  @call // This method changes the state, for which it cost gas
+  set_greeting({ greeting }: { greeting: string }): void {
+    // Record a log permanently to the blockchain!
+    near.log(\`Saving greeting \${greeting}\`);
+    this.greeting = greeting;
+  }
+}
+\`\`\`
+
+<br />
+
+# Quickstart
+
+1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
+2. Install the [\`NEAR CLI\`](https://github.com/near/near-cli#setup)
+
+<br />
+
+## 1. Build and Test the Contract
+You can automatically compile and test the contract by running:
+
+\`\`\`bash
+npm run build
+\`\`\`
+
+<br />
+
+## 2. Create an Account and Deploy the Contract
+You can create a new account and deploy the contract by running:
+
+\`\`\`bash
+near create-account <your-account.testnet> --useFaucet
+near deploy <your-account.testnet> build/release/hello_near.wasm
+\`\`\`
+
+<br />
+
+
+## 3. Retrieve the Greeting
+
+\`get_greeting\` is a read-only method (aka \`view\` method).
+
+\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
+
+\`\`\`bash
+# Use near-cli to get the greeting
+near view <your-account.testnet> get_greeting
+\`\`\`
+
+<br />
+
+## 4. Store a New Greeting
+\`set_greeting\` changes the contract's state, for which it is a \`call\` method.
+
+\`Call\` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
+
+\`\`\`bash
+# Use near-cli to set a new greeting
+near call <your-account.testnet> set_greeting '{"greeting":"howdy"}' --accountId <your-account.testnet>
+\`\`\`
+
+**Tip:** If you would like to call \`set_greeting\` using another account, first login into NEAR using:
+
+\`\`\`bash
+# Use near-cli to login your NEAR account
+near login
+\`\`\`
+
+and then use the logged account to sign the transaction: \`--accountId <another-account>\`.",
+]
+`;
+
+exports[`create contract 'ts': --contract_ts--ava.config.cjs 1`] = `
+[
+  "--contract_ts--ava.config.cjs",
+  "require('util').inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
+
+module.exports = {
+  timeout: '10000',
+  files: ['sandbox-ts/*.ava.ts'],
+  failWithoutAssertions: false,
+  extensions: {
+		js: true,
+		ts: 'module'
+	},
+  require: ['ts-node/register', 'near-workspaces'],
+  "nodeArguments": [
+		"--import=tsimp"
+	]
+};",
+]
+`;
+
+exports[`create contract 'ts': --contract_ts--package.json 1`] = `
+[
+  "--contract_ts--package.json",
+  "{
+  "name": "hello_near",
+  "version": "1.0.0",
+  "license": "(MIT AND Apache-2.0)",
+  "type": "module",
+  "scripts": {
+    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/hello_near.wasm"
+  },
+  "dependencies": {
+    "near-cli": "^4.0.8",
+    "near-sdk-js": "1.0.0"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^4.1.0",
+    "ava": "^6.1.2",
+    "near-workspaces": "^3.5.0",
+    "ts-morph": "^21.0.1",
+    "ts-node": "^10.9.2",
+    "tsimp": "^2.0.11",
+    "typescript": "^5.3.3"
+  }
+}
+",
+]
+`;
+
+exports[`create contract 'ts': --contract_ts--sandbox-ts--main.ava.ts 1`] = `
+[
+  "--contract_ts--sandbox-ts--main.ava.ts",
+  "import { Worker, NearAccount } from 'near-workspaces';
+import anyTest, { TestFn } from 'ava';
+import { setDefaultResultOrder } from 'dns'; setDefaultResultOrder('ipv4first'); // temp fix for node >v17
+
+// Global context
+const test = anyTest as TestFn<{ worker: Worker, accounts: Record<string, NearAccount> }>;
+
+test.beforeEach(async (t) => {
+  // Create sandbox, accounts, deploy contracts, etc.
+  const worker = t.context.worker = await Worker.init();
+
+  // Deploy contract
+  const root = worker.rootAccount;
+  const contract = await root.createSubAccount('test-account');
+
+  // Get wasm file path from package.json test script in folder above
+  await contract.deploy(
+    process.argv[2],
+  );
+
+  // Save state for test runs, it is unique for each test
+  t.context.accounts = { root, contract };
+});
+
+test.afterEach.always(async (t) => {
+  // Stop Sandbox server
+  await t.context.worker.tearDown().catch((error) => {
+    console.log('Failed to stop the Sandbox:', error);
+  });
+});
+
+test('returns the default greeting', async (t) => {
+  const { contract } = t.context.accounts;
+  const greeting: string = await contract.view('get_greeting', {});
+  t.is(greeting, 'Hello');
+});
+
+test('changes the greeting', async (t) => {
+  const { root, contract } = t.context.accounts;
+  await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
+  const greeting: string = await contract.view('get_greeting', {});
+  t.is(greeting, 'Howdy');
+});",
+]
+`;
+
+exports[`create contract 'ts': --contract_ts--src--contract.ts 1`] = `
+[
+  "--contract_ts--src--contract.ts",
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view } from 'near-sdk-js';
+
+@NearBindgen({})
+class HelloNear {
+  greeting: string = "Hello";
+
+  @view({}) // This method is read-only and can be called for free
+  get_greeting(): string {
+    return this.greeting;
+  }
+
+  @call({}) // This method changes the state, for which it cost gas
+  set_greeting({ greeting }: { greeting: string }): void {
+    near.log(\`Saving greeting \${greeting}\`);
+    this.greeting = greeting;
+  }
+}",
+]
+`;
+
+exports[`create contract 'ts': --contract_ts--tsconfig.json 1`] = `
+[
+  "--contract_ts--tsconfig.json",
+  "{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "ES5",
+    "noEmit": true,
+    "noImplicitAny": false,
+  },
+  "files": [
+    "sandbox-ts/main.ava.ts",
+    "src/contract.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+}",
+]
+`;
+
+exports[`create frontend 'next-app': --frontend_next-app--.gitignore 1`] = `
+[
+  "--frontend_next-app--.gitignore",
+  "**/node_modules
+**/.next
+yarn.lock",
+]
+`;
+
+exports[`create frontend 'next-app': --frontend_next-app--README.md 1`] = `
+[
+  "--frontend_next-app--README.md",
   "This is a [Next.js](https://nextjs.org/) project bootstrapped with [\`create-next-app\`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -86,9 +483,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--jsconfig.json 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--jsconfig.json 1`] = `
 [
-  "--none_next-app_none--jsconfig.json",
+  "--frontend_next-app--jsconfig.json",
   "{
   "compilerOptions": {
     "paths": {
@@ -100,9 +497,9 @@ exports[`create 'none' 'next-app' 'none': --none_next-app_none--jsconfig.json 1`
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--next.config.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--next.config.js 1`] = `
 [
-  "--none_next-app_none--next.config.js",
+  "--frontend_next-app--next.config.js",
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -113,9 +510,9 @@ module.exports = nextConfig;
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--package.json 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
 [
-  "--none_next-app_none--package.json",
+  "--frontend_next-app--package.json",
   "{
   "name": "hello-near",
   "version": "1.0.0",
@@ -130,50 +527,45 @@ exports[`create 'none' 'next-app' 'none': --none_next-app_none--package.json 1`]
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.5.1",
-    "@near-wallet-selector/here-wallet": "^8.5.1",
-    "@near-wallet-selector/modal-ui": "^8.5.1",
-    "@near-wallet-selector/my-near-wallet": "^8.5.1",
-    "@web3-onboard/core": "^2.20.2",
-    "@web3-onboard/injected-wallets": "^2.10.1",
-    "@web3-onboard/ledger": "^2.4.6",
-    "@web3-onboard/react": "^2.8.7",
-    "@web3-onboard/walletconnect": "^2.3.9",
+    "@near-wallet-selector/core": "^8.9.6",
+    "@near-wallet-selector/here-wallet": "^8.9.6",
+    "@near-wallet-selector/modal-ui": "^8.9.6",
+    "@near-wallet-selector/my-near-wallet": "^8.9.6",
+    "@web3-onboard/core": "^2.21.4",
+    "@web3-onboard/injected-wallets": "^2.10.14",
+    "@web3-onboard/ledger": "^2.6.0",
+    "@web3-onboard/react": "^2.8.15",
+    "@web3-onboard/walletconnect": "^2.5.4",
     "base64-js": "^1.5.1",
-    "bootstrap": "^5.3.2",
-    "bootstrap-icons": "^1.11.1",
     "ieee754": "^1.2.1",
-    "near-api-js": "^2.1.3",
-    "near-social-vm": "github:NearSocial/VM#2.5.2",
-    "next": "14.0.1",
-    "pino-pretty": "^10.2.3",
+    "near-api-js": "^3.0.4",
+    "near-social-vm": "github:gagdiez/VM" ,
+    "next": "14.1.4",
+    "pino-pretty": "^11.0.0",
     "react": "^18",
-    "react-bootstrap": "2.9.1",
-    "react-bootstrap-icons": "^1.10.3",
     "react-dom": "^18",
-    "react-singleton-hook": "^4.0.1",
-    "zustand": "^4.4.4"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "eslint": "^8.53",
-    "eslint-config-next": "14.0.1"
+    "eslint": "^9.0",
+    "eslint-config-next": "14.1.4"
   }
 }
 ",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--near.svg 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--public--near.svg 1`] = `
 [
-  "--none_next-app_none--public--near.svg",
+  "--frontend_next-app--public--near.svg",
   "<svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1_1899)"><path d="M45.5211 4.46114C43.4964 4.46114 42.0241 4.93816 40.7733 6.03856L38.5644 7.94588C38.3803 8.09301 38.0121 8.20297 37.7549 7.98228C37.4969 7.76235 37.4604 7.46886 37.6811 7.17537L38.8589 5.41442C39.043 5.15733 38.8962 4.82743 38.5644 4.82743H35.7302C35.3992 4.82743 35.1413 5.08452 35.1413 5.41442V22.5841C35.1413 22.914 35.3992 23.1711 35.7302 23.1711H38.6748C39.0058 23.1711 39.2637 22.914 39.2637 22.5841V12.8988C39.2637 8.46006 42.9813 7.76311 44.3798 7.76311C47.3609 7.76311 48.4284 9.89112 48.4284 11.5049V22.5841C48.4284 22.914 48.6863 23.1711 49.0173 23.1711H51.9618C52.2928 23.1711 52.5508 22.914 52.5508 22.5841V11.1379C52.5508 7.029 49.8634 4.46114 45.5203 4.46114H45.5211Z" fill="black"/><path d="M64.5489 4.38757C58.8439 4.38757 55.2001 7.87307 55.2001 12.6053V15.2104C55.2001 20.1997 58.8439 23.6117 64.5489 23.6117C69.5912 23.6117 73.1246 21.0067 73.4929 17.4848C73.5302 17.1177 73.2723 16.8614 72.904 16.8614H70.0332C69.7753 16.8614 69.5546 17.0085 69.4808 17.2648C69.1126 18.4388 67.3831 20.1997 64.5489 20.1997C61.7146 20.1997 59.0645 18.1453 59.1011 15.2104L59.1383 11.9456C59.1749 9.48766 61.7519 7.80027 64.5489 7.80027C67.0887 7.80027 69.5546 9.23133 69.8118 11.5793C69.8331 11.8508 69.6459 12.0957 69.3774 12.1473L61.125 13.7437C60.794 13.8172 60.5361 14.1107 60.5361 14.477V14.5134C60.5361 14.8433 60.867 15.1368 61.3456 15.1368H73.1977C73.5233 15.1368 73.7866 14.8737 73.7866 14.5498V12.2391C73.7866 7.87383 69.9952 4.38833 64.5481 4.38833L64.5489 4.38757Z" fill="black"/><path d="M85.0863 4.38757C80.4853 4.38757 76.5105 7.0654 76.5105 10.5873C76.5105 10.8808 76.7685 11.1007 77.0994 11.1007H80.0805C80.375 11.1007 80.5956 10.8808 80.6329 10.5873C80.9274 8.97348 82.8782 7.79951 84.976 7.79951C87.4785 7.79951 89.1722 9.34053 89.1722 11.982V15.174C89.1722 18.4388 86.7427 20.0898 83.7243 20.0898C81.3687 20.0898 80.0067 19.2093 80.0067 17.7782C80.0067 16.5307 80.6694 15.4667 83.3926 14.8433L87.3309 13.7793C87.7356 13.6693 87.8832 13.3387 87.8094 12.9724C87.7729 12.6789 87.4419 12.5318 87.1467 12.5318H83.0616C79.6019 12.5318 76.105 14.7326 76.105 17.961V18.4744C76.105 21.7764 79.2337 23.5002 82.8037 23.5002C85.0855 23.5002 87.0364 22.6197 88.2507 21.5929L90.0548 20.0519C90.3492 19.7948 90.6437 19.7948 90.9008 20.0519C91.1215 20.2718 91.0477 20.6024 90.8636 20.8588L89.7595 22.5833C89.5754 22.8404 89.7223 23.1703 90.054 23.1703H92.7041C93.0351 23.1703 93.293 22.9132 93.293 22.5833V11.467C93.293 7.21177 90.2381 4.38681 85.0848 4.38681L85.0863 4.38757Z" fill="black"/><path d="M109.194 4.82819H105.071C103.636 4.82819 102.237 5.70866 101.243 6.55274L99.6243 7.94663C99.4401 8.09376 99.1084 8.20372 98.8877 8.0202C98.6298 7.83667 98.5195 7.46962 98.7409 7.17612L99.9187 5.41517C100.103 5.15808 99.956 4.82819 99.6243 4.82819H96.8638C96.5328 4.82819 96.2749 5.08528 96.2749 5.41517V22.5848C96.2749 22.9147 96.5328 23.1718 96.8638 23.1718H99.8822C100.213 23.1718 100.471 22.9147 100.471 22.5848V13.7801C100.471 10.0011 102.017 8.31369 105.367 8.31369H109.194C109.525 8.31369 109.783 8.0566 109.783 7.7267V5.41517C109.783 5.08528 109.525 4.82819 109.194 4.82819H109.194Z" fill="black"/><path d="M24.079 0.690475C23.0899 0.690475 22.1715 1.20162 21.6534 2.0419L16.0709 10.3029C15.889 10.5752 15.9628 10.9422 16.236 11.1235C16.4574 11.2706 16.7503 11.2524 16.952 11.0795L22.447 6.32901C22.5383 6.24711 22.679 6.25545 22.7612 6.34645C22.7985 6.38816 22.8183 6.44201 22.8183 6.49737V21.3707C22.8183 21.4935 22.7186 21.5921 22.5953 21.5921C22.5291 21.5921 22.4668 21.5633 22.4249 21.5125L5.81436 1.69457C5.27339 1.05829 4.47904 0.691234 3.64284 0.690475H3.0623C1.4911 0.690475 0.217407 1.96 0.217407 3.52605V24.4739C0.217407 26.04 1.4911 27.3095 3.0623 27.3095C4.05143 27.3095 4.9698 26.7984 5.48795 25.9581L11.0705 17.6971C11.2523 17.4248 11.1785 17.0578 10.9053 16.8765C10.6839 16.7294 10.391 16.7476 10.1894 16.9205L4.69436 21.671C4.60306 21.7529 4.4623 21.7445 4.38013 21.6535C4.34284 21.6118 4.32306 21.558 4.32382 21.5026V6.62554C4.32382 6.50268 4.42349 6.40409 4.54675 6.40409C4.61219 6.40409 4.67534 6.43291 4.71719 6.48372L21.3255 26.3054C21.8664 26.9417 22.6608 27.3088 23.497 27.3095H24.0775C25.6487 27.3103 26.9232 26.0415 26.9247 24.4755V3.52605C26.9247 1.96 25.651 0.690475 24.0798 0.690475H24.079Z" fill="black"/></g></svg>
 ",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--near-logo.svg 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--public--near-logo.svg 1`] = `
 [
-  "--none_next-app_none--public--near-logo.svg",
+  "--frontend_next-app--public--near-logo.svg",
   "<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    width="26.707293"
@@ -221,23 +613,23 @@ exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--near-log
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--next.svg 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--public--next.svg 1`] = `
 [
-  "--none_next-app_none--public--next.svg",
+  "--frontend_next-app--public--next.svg",
   "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--public--vercel.svg 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--public--vercel.svg 1`] = `
 [
-  "--none_next-app_none--public--vercel.svg",
+  "--frontend_next-app--public--vercel.svg",
   "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--app.module.css 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--app.module.css 1`] = `
 [
-  "--none_next-app_none--src--app--app.module.css",
+  "--frontend_next-app--src--app--app.module.css",
   ".main {
   display: flex;
   flex-direction: column;
@@ -469,9 +861,9 @@ exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--app.mo
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--favicon.ico 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--favicon.ico 1`] = `
 [
-  "--none_next-app_none--src--app--favicon.ico",
+  "--frontend_next-app--src--app--favicon.ico",
   "�PNG
 
    
@@ -481,9 +873,9 @@ IHDR   @   @   �iq�  SIDATx�՛�m�0�?t��2�Fh4A�	�
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--globals.css 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--globals.css 1`] = `
 [
-  "--none_next-app_none--src--app--globals.css",
+  "--frontend_next-app--src--app--globals.css",
   "@import 'bootstrap';
 @import 'bootstrap-icons';
 
@@ -582,18 +974,17 @@ a {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--hello-components--page.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--hello-components--page.js 1`] = `
 [
-  "--none_next-app_none--src--app--hello-components--page.js",
-  "import dynamic from 'next/dynamic';
+  "--frontend_next-app--src--app--hello-components--page.js",
+  "'use client';
+import dynamic from 'next/dynamic';
 
 import styles from '@/app/app.module.css';
 import { DocsCard, HelloNearCard } from '@/components/cards';
-import { NetworkId, ComponentMap } from '@/config';
+import { NetworkId, Components } from '@/config';
 
 const Component = dynamic(() => import('@/components/vm-component'), { ssr: false });
-
-const socialComponents = ComponentMap[NetworkId];
 
 export default function HelloComponents() {
 
@@ -603,20 +994,20 @@ export default function HelloComponents() {
         <div className={styles.description}>
           <p>
             Loading components from: &nbsp;
-            <code className={styles.code}>{socialComponents.socialDB}</code>
+            <code className={styles.code}>{Components.socialDB}</code>
           </p>
         </div>
         <div className={styles.center}>
           <h1> <code>Multi-chain</code> Components Made Simple </h1>
         </div>
         <div className='row'>
-          <div class="col-6">
-            <Component src={socialComponents.HelloNear} />
-            <p class="my-4">&nbsp;</p>
-            <Component src={socialComponents.LoveNear} />
+          <div className="col-6">
+            <Component src={Components.HelloNear} />
+            <p className="my-4">&nbsp;</p>
+            <Component src={Components.LoveNear} />
           </div>
-          <div class="col-6">
-            <Component src={socialComponents.Lido} />
+          <div className="col-6">
+            <Component src={Components.Lido} />
           </div>
         </div>
         <hr />
@@ -632,39 +1023,45 @@ export default function HelloComponents() {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--hello-near--page.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--hello-near--page.js 1`] = `
 [
-  "--none_next-app_none--src--app--hello-near--page.js",
+  "--frontend_next-app--src--app--hello-near--page.js",
   "'use client';
+
 import { DocsCard, HelloComponentsCard } from '@/components/cards';
-import { useWallet } from '@/wallets/wallet-selector';
 import { useState, useEffect } from 'react';
 import { HelloNearContract, NetworkId } from '../../config';
 import styles from '../app.module.css';
 
+import { useStore } from '../layout';
+
 // Contract that the app will interact with
-const CONTRACT = HelloNearContract[NetworkId];
+const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, viewMethod, callMethod } = useWallet();
+  const { signedAccountId, wallet } = useStore();
 
   const [greeting, setGreeting] = useState('loading...');
+  const [newGreeting, setNewGreeting] = useState('loading...');
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    viewMethod && viewMethod(CONTRACT, 'get_greeting', {}).then(
-      greeting => setGreeting(greeting)
-    );
-  }, [viewMethod]);
+    if (!wallet) return;
+
+    wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' })
+    .then(greeting => setGreeting(greeting));
+  }, [wallet]);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
   }, [signedAccountId]);
 
-  const saveGreeting = async () => {
+  const storeGreeting = async () => {
     setShowSpinner(true);
-    await callMethod(CONTRACT, 'set_greeting', { greeting });
+    const res = await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
+    setGreeting(greeting);
     setShowSpinner(false);
   };
 
@@ -680,9 +1077,9 @@ export default function HelloNear() {
       <div className={styles.center}>
         <h1 className="w-100"> The contract says: <code>{greeting}</code> </h1>
         <div className="input-group" hidden={!loggedIn}>
-          <input type="text" className="form-control w-20" placeholder="Store a new greeting" onChange={t => { setGreeting(t.target.value); } } />
+          <input type="text" className="form-control w-20" placeholder="Store a new greeting" onChange={t => setNewGreeting(t.target.value)} />
           <div className="input-group-append">
-            <button className="btn btn-secondary" onClick={saveGreeting}>
+            <button className="btn btn-secondary" onClick={storeGreeting}>
               <span hidden={showSpinner}> Save </span>
               <i className="spinner-border spinner-border-sm" hidden={!showSpinner}></i>
             </button>
@@ -703,20 +1100,40 @@ export default function HelloNear() {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--layout.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--layout.js 1`] = `
 [
-  "--none_next-app_none--src--app--layout.js",
+  "--frontend_next-app--src--app--layout.js",
   "'use client';
+
+// react
+import { useEffect } from "react";
+import { create as createStore } from 'zustand';
+
+// app
 import './globals.css';
-import '@near-wallet-selector/modal-ui/styles.css';
-
-import { NetworkId } from '@/config';
 import { Navigation } from '@/components/navigation';
-import { useInitWallet } from '@/wallets/wallet-selector';
+import { NetworkId, HelloNearContract } from '@/config';
 
+// wallet-selector
+import { Wallet } from '@/wallets/near-wallet';
+
+// store to share wallet and signedAccountId
+export const useStore = createStore((set) => ({
+  wallet: undefined,
+  signedAccountId: '',
+  setWallet: (wallet) => set({ wallet }),
+  setSignedAccountId: (signedAccountId) => set({ signedAccountId })
+}))
+
+// Layout Component
 export default function RootLayout({ children }) {
+  const { setWallet, setSignedAccountId } = useStore();
 
-  useInitWallet({ createAccessKeyFor: '', networkId: NetworkId });
+  useEffect(() => {
+    const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: HelloNearContract });
+    wallet.startUp(setSignedAccountId);
+    setWallet(wallet);
+  }, []);
 
   return (
     <html lang="en">
@@ -731,9 +1148,9 @@ export default function RootLayout({ children }) {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--app--page.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--app--page.js 1`] = `
 [
-  "--none_next-app_none--src--app--page.js",
+  "--frontend_next-app--src--app--page.js",
   "import Image from 'next/image';
 import styles from './app.module.css';
 import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
@@ -775,9 +1192,9 @@ export default function Home() {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--components--cards.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--components--cards.js 1`] = `
 [
-  "--none_next-app_none--src--components--cards.js",
+  "--frontend_next-app--src--components--cards.js",
   "import styles from '../app/app.module.css';
 
 export const DocsCard = () => {
@@ -827,37 +1244,38 @@ export const HelloComponentsCard = () => {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--components--navigation.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--components--navigation.js 1`] = `
 [
-  "--none_next-app_none--src--components--navigation.js",
+  "--frontend_next-app--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import NearLogo from 'public/near-logo.svg';
-import { useWallet } from '@/wallets/wallet-selector';
+import { useStore } from '@/app/layout';
 
 export const Navigation = () => {
 
-  const { signedAccountId, logOut, logIn } = useWallet();
+  const { signedAccountId, wallet } = useStore();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
+    if (!wallet) return;
+
     if (signedAccountId) {
-      setAction(() => logOut);
+      setAction(() => wallet.signOut);
       setLabel(\`Logout \${signedAccountId}\`);
     } else {
-      setAction(() => logIn);
+      setAction(() => wallet.signIn);
       setLabel('Login');
     }
-  }, [signedAccountId, logOut, logIn, setAction, setLabel]);
+  }, [signedAccountId, wallet]);
 
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <Link href="/" passHref legacyBehavior>
-          <Image priority src={NearLogo} alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
+          <Image priority src="/near-logo.svg" alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
         </Link>
         <div className='navbar-nav pt-1'>
           <button className="btn btn-secondary" onClick={action} > {label} </button>
@@ -869,25 +1287,24 @@ export const Navigation = () => {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--components--vm-component.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--components--vm-component.js 1`] = `
 [
-  "--none_next-app_none--src--components--vm-component.js",
-  "'use client';
-import { useEffect } from 'react';
-import { useInitNear, Widget, EthersProviderContext } from 'near-social-vm';
-
-import { useWallet } from '@/wallets/wallet-selector';
+  "--frontend_next-app--src--components--vm-component.js",
+  "import { Widget, EthersProviderContext } from 'near-social-vm';
 import { useEthersProviderContext } from '@/wallets/web3-wallet';
+import { useInitNear } from 'near-social-vm';
+import { useEffect } from 'react';
+import { useStore } from '@/app/layout';
 import { NetworkId } from '@/config';
 
 export default function Component({ src }) {
   const ethersContext = useEthersProviderContext();
-  const { selector } = useWallet();
+  const { wallet } = useStore();
   const { initNear } = useInitNear();
 
   useEffect(() => {
-    initNear && selector && initNear({ networkId: NetworkId, selector });
-  }, [initNear, selector]);
+    wallet && initNear && initNear({ networkId: NetworkId, selector: wallet.selector });
+  }, [wallet, initNear]);
 
   return (
     <div>
@@ -902,17 +1319,15 @@ export default function Component({ src }) {
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--config.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--config.js 1`] = `
 [
-  "--none_next-app_none--src--config.js",
-  "export const NetworkId = 'testnet';
-
-export const HelloNearContract = {
+  "--frontend_next-app--src--config.js",
+  "const contractPerNetwork = {
   mainnet: 'hello.near-examples.near',
   testnet: 'hello.near-examples.testnet',
 }
 
-export const ComponentMap = {
+const componentsPerNetwork = {
   mainnet: {
     socialDB: 'social.near',
     Lido: 'zavodil.near/widget/Lido',
@@ -925,139 +1340,167 @@ export const ComponentMap = {
     HelloNear: 'influencer.testnet/widget/HelloNear',
     LoveNear: 'influencer.testnet/widget/LoveNear',
   }
-} ",
+}
+
+export const NetworkId = 'testnet';
+export const HelloNearContract = contractPerNetwork[NetworkId];
+export const Components = componentsPerNetwork[NetworkId];",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--wallets--wallet-selector.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--wallets--near-wallet.js 1`] = `
 [
-  "--none_next-app_none--src--wallets--wallet-selector.js",
-  "import { create as createStore } from 'zustand';
-import { distinctUntilChanged, map } from 'rxjs';
+  "--frontend_next-app--src--wallets--near-wallet.js",
+  "'use client';
+
+// near api js
 import { providers } from 'near-api-js';
-import { setupWalletSelector } from '@near-wallet-selector/core';
+
+// wallet selector
+import { distinctUntilChanged, map } from 'rxjs';
+import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
-import { useEffect, useState } from 'react';
+const THIRTY_TGAS = '30000000000000';
+const NO_DEPOSIT = '0';
 
-export const useWallet = createStore(set => ({
-  signedAccountId: '',
-  logOut: undefined,
-  logIn: undefined,
-  selector: undefined,
-  viewMethod: undefined,
-  callMethod: undefined,
-  setLogActions: ({ logOut, logIn }) => set({ logOut, logIn }),
-  setAuth: ({ signedAccountId }) => set({ signedAccountId }),
-  setMethods: ({ viewMethod, callMethod }) => set({ viewMethod, callMethod }),
-  setStoreSelector: ({ selector }) => set({ selector }),
-}));
+export class Wallet {
+  /**
+   * @constructor
+   * @param {string} networkId - the network id to connect to
+   * @param {string} createAccessKeyFor - the contract to create an access key for
+   * @example
+   * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
+   * wallet.startUp((signedAccountId) => console.log(signedAccountId));
+   */
+  constructor({ networkId = 'testnet', createAccessKeyFor = undefined }) {
+    this.accountId = '';
+    this.createAccessKeyFor = createAccessKeyFor;
 
-export function useInitWallet({ createAccessKeyFor, networkId }) {
-  const setAuth = useWallet(store => store.setAuth);
-  const setLogActions = useWallet(store => store.setLogActions);
-  const setMethods = useWallet(store => store.setMethods);
-  const setStoreSelector = useWallet(store => store.setStoreSelector);
-  const [selector, setSelector] = useState(undefined);
-
-  useEffect(() => {
-    const selector = setupWalletSelector({
+    this.selector = setupWalletSelector({
       network: networkId,
       modules: [setupMyNearWallet(), setupHereWallet()]
     });
+  }
 
-    setSelector(selector);
-    setStoreSelector({ selector });
-  }, [networkId, setStoreSelector]);
+  /**
+   * To be called when the website loads
+   * @param {Function} accountChangeHook - a function that is called when the user signs in or out#
+   * @returns {Promise<string>} - the accountId of the signed-in user 
+   */
+  startUp = async (accountChangeHook) => {
+    const walletSelector = await this.selector;
+    const isSignedIn = walletSelector.isSignedIn();
 
-  useEffect(() => {
-    if (!selector) return;
+    if (isSignedIn) {
+      this.accountId = walletSelector.store.getState().accounts[0].accountId;
+      this.selectedWallet = await walletSelector.wallet();
+    }
 
-    selector.then(walletSelector => {
-      const accounts = walletSelector.store.getState().accounts;
-      const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
-      setAuth({ signedAccountId });
+    walletSelector.store.observable
+      .pipe(
+        map(state => state.accounts),
+        distinctUntilChanged()
+      )
+      .subscribe(accounts => {
+        const signedAccount = accounts.find((account) => account.active)?.accountId;
+        accountChangeHook(signedAccount);
+      });
 
-      walletSelector.store.observable
-        .pipe(
-          map((state) => state.accounts),
-          distinctUntilChanged()
-        )
-        .subscribe((accounts) => {
-          const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
-          setAuth({ signedAccountId });
-        });
+    return this.accountId;
+  }
+
+  /**
+   * Displays a modal to login the user
+   */
+  signIn = async () => {
+    const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
+    modal.show();
+  }
+
+  /**
+   * Logout the user
+   */
+  signOut = async () => {
+    await this.selectedWallet.signOut();
+    this.selectedWallet = this.accountId = this.createAccessKeyFor = null;
+  }
+
+  /**
+   * Makes a read-only call to a contract
+   * @param {string} contractId - the contract's account id
+   * @param {string} method - the method to call
+   * @param {Object} args - the arguments to pass to the method
+   * @returns {Promise<JSON.value>} - the result of the method call
+   */
+  viewMethod = async ({ contractId, method, args = {} }) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    let res = await provider.query({
+      request_type: 'call_function',
+      account_id: contractId,
+      method_name: method,
+      args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
+      finality: 'optimistic',
     });
-  }, [selector, setAuth]);
+    return JSON.parse(Buffer.from(res.result).toString());
+  }
 
-  useEffect(() => {
-    if (!selector) return;
 
-    // defined logOut and logIn actions
-    const logOut = async () => {
-      const wallet = await (await selector).wallet();
-      await wallet.signOut();
-      setAuth({ signedAccountId: '' });
-    };
-
-    const logIn = async () => {
-      const modal = setupModal(await selector, { contractId: createAccessKeyFor });
-      modal.show();
-    };
-
-    setLogActions({ logOut, logIn });
-  }, [createAccessKeyFor, selector, setAuth, setLogActions]);
-
-  useEffect(() => {
-    if (!selector) return;
-
-    const viewMethod = async (contractId, method, args = {}) => {
-      const { network } = (await selector).options;
-      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-      let res = await provider.query({
-        request_type: 'call_function',
-        account_id: contractId,
-        method_name: method,
-        args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
-        finality: 'optimistic',
-      });
-      return JSON.parse(Buffer.from(res.result).toString());
-    };
-
-    const callMethod = async (contractId, method, args = {}, gas = '30000000000000', deposit = 0) => {
-      const wallet = await (await selector).wallet();
-
-      const outcome = await wallet.signAndSendTransaction({
-        receiverId: contractId,
-        actions: [
-          {
-            type: 'FunctionCall',
-            params: {
-              methodName: method,
-              args,
-              gas,
-              deposit,
-            },
+  /**
+   * Makes a call to a contract
+   * @param {string} contractId - the contract's account id
+   * @param {string} method - the method to call
+   * @param {Object} args - the arguments to pass to the method
+   * @param {string} gas - the amount of gas to use
+   * @param {string} deposit - the amount of yoctoNEAR to deposit
+   * @returns {Promise<Transaction>} - the resulting transaction
+   */
+  callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
+    // Sign a transaction with the "FunctionCall" action
+    return await this.selectedWallet.signAndSendTransaction({
+      signerId: this.accountId,
+      receiverId: contractId,
+      actions: [
+        {
+          type: 'FunctionCall',
+          params: {
+            methodName: method,
+            args,
+            gas,
+            deposit,
           },
-        ],
-      });
+        },
+      ],
+    });
+  }
 
-      return providers.getTransactionLastResult(outcome);
-    };
+  /**
+   * Makes a call to a contract
+   * @param {string} txhash - the transaction hash
+   * @returns {Promise<JSON.value>} - the result of the transaction
+   */
+  getTransactionResult = async (txhash) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
-    setMethods({ viewMethod, callMethod });
-
-  }, [selector, setMethods]);
+    // Retrieve transaction result from the network
+    const transaction = await provider.txStatus(txhash, 'unnused');
+    return providers.getTransactionLastResult(transaction);
+  }
 }",
 ]
 `;
 
-exports[`create 'none' 'next-app' 'none': --none_next-app_none--src--wallets--web3-wallet.ts 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--wallets--web3-wallet.ts 1`] = `
 [
-  "--none_next-app_none--src--wallets--web3-wallet.ts",
+  "--frontend_next-app--src--wallets--web3-wallet.ts",
   "'use client';
 import type { EIP1193Provider } from '@web3-onboard/core';
 import injectedModule from '@web3-onboard/injected-wallets';
@@ -1350,52 +1793,17 @@ export const useEthersProviderContext = singletonHook(defaultEthersProviderConte
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--.gitignore 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--.gitignore 1`] = `
 [
-  "--none_next-page_none--.gitignore",
-  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-",
+  "--frontend_next-page--.gitignore",
+  "**/node_modules
+**/.next",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--README.md 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--README.md 1`] = `
 [
-  "--none_next-page_none--README.md",
+  "--frontend_next-page--README.md",
   "This is a [Next.js](https://nextjs.org/) project bootstrapped with [\`create-next-app\`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -1436,9 +1844,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--jsconfig.json 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--jsconfig.json 1`] = `
 [
-  "--none_next-page_none--jsconfig.json",
+  "--frontend_next-page--jsconfig.json",
   "{
   "compilerOptions": {
     "paths": {
@@ -1450,9 +1858,9 @@ exports[`create 'none' 'next-page' 'none': --none_next-page_none--jsconfig.json 
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--next.config.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--next.config.js 1`] = `
 [
-  "--none_next-page_none--next.config.js",
+  "--frontend_next-page--next.config.js",
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -1463,9 +1871,9 @@ module.exports = nextConfig;
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--package.json 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
 [
-  "--none_next-page_none--package.json",
+  "--frontend_next-page--package.json",
   "{
   "name": "hello-near",
   "version": "1.0.0",
@@ -1480,29 +1888,27 @@ exports[`create 'none' 'next-page' 'none': --none_next-page_none--package.json 1
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.5.1",
-    "@near-wallet-selector/here-wallet": "^8.5.1",
-    "@near-wallet-selector/modal-ui": "^8.5.1",
-    "@near-wallet-selector/my-near-wallet": "^8.5.1",
+    "@near-wallet-selector/core": "^8.9.6",
+    "@near-wallet-selector/here-wallet": "^8.9.6",
+    "@near-wallet-selector/modal-ui": "^8.9.6",
+    "@near-wallet-selector/my-near-wallet": "^8.9.6",
     "@web3-onboard/core": "^2.20.2",
     "@web3-onboard/injected-wallets": "^2.10.1",
     "@web3-onboard/ledger": "^2.4.6",
     "@web3-onboard/react": "^2.8.7",
     "@web3-onboard/walletconnect": "^2.3.9",
     "base64-js": "^1.5.1",
-    "bootstrap": "^5.3.2",
-    "bootstrap-icons": "^1.11.1",
     "ieee754": "^1.2.1",
     "near-api-js": "^2.1.3",
-    "near-social-vm": "github:NearSocial/VM#2.5.2",
+    "near-social-vm": "github:gagdiez/VM" ,
     "next": "14.0.1",
     "pino-pretty": "^10.2.3",
-    "react": "^18",
-    "react-bootstrap": "2.9.1",
-    "react-bootstrap-icons": "^1.10.3",
-    "react-dom": "^18",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.2",
+    "react-bootstrap-icons": "^1.11.3",
+    "react-dom": "^18.2.0",
     "react-singleton-hook": "^4.0.1",
-    "zustand": "^4.4.4"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "eslint": "^8.53",
@@ -1513,9 +1919,9 @@ exports[`create 'none' 'next-page' 'none': --none_next-page_none--package.json 1
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--favicon.ico 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--public--favicon.ico 1`] = `
 [
-  "--none_next-page_none--public--favicon.ico",
+  "--frontend_next-page--public--favicon.ico",
   "�PNG
 
    
@@ -1525,17 +1931,17 @@ IHDR   @   @   �iq�  SIDATx�՛�m�0�?t��2�Fh4A�	�
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--near.svg 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--public--near.svg 1`] = `
 [
-  "--none_next-page_none--public--near.svg",
+  "--frontend_next-page--public--near.svg",
   "<svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1_1899)"><path d="M45.5211 4.46114C43.4964 4.46114 42.0241 4.93816 40.7733 6.03856L38.5644 7.94588C38.3803 8.09301 38.0121 8.20297 37.7549 7.98228C37.4969 7.76235 37.4604 7.46886 37.6811 7.17537L38.8589 5.41442C39.043 5.15733 38.8962 4.82743 38.5644 4.82743H35.7302C35.3992 4.82743 35.1413 5.08452 35.1413 5.41442V22.5841C35.1413 22.914 35.3992 23.1711 35.7302 23.1711H38.6748C39.0058 23.1711 39.2637 22.914 39.2637 22.5841V12.8988C39.2637 8.46006 42.9813 7.76311 44.3798 7.76311C47.3609 7.76311 48.4284 9.89112 48.4284 11.5049V22.5841C48.4284 22.914 48.6863 23.1711 49.0173 23.1711H51.9618C52.2928 23.1711 52.5508 22.914 52.5508 22.5841V11.1379C52.5508 7.029 49.8634 4.46114 45.5203 4.46114H45.5211Z" fill="black"/><path d="M64.5489 4.38757C58.8439 4.38757 55.2001 7.87307 55.2001 12.6053V15.2104C55.2001 20.1997 58.8439 23.6117 64.5489 23.6117C69.5912 23.6117 73.1246 21.0067 73.4929 17.4848C73.5302 17.1177 73.2723 16.8614 72.904 16.8614H70.0332C69.7753 16.8614 69.5546 17.0085 69.4808 17.2648C69.1126 18.4388 67.3831 20.1997 64.5489 20.1997C61.7146 20.1997 59.0645 18.1453 59.1011 15.2104L59.1383 11.9456C59.1749 9.48766 61.7519 7.80027 64.5489 7.80027C67.0887 7.80027 69.5546 9.23133 69.8118 11.5793C69.8331 11.8508 69.6459 12.0957 69.3774 12.1473L61.125 13.7437C60.794 13.8172 60.5361 14.1107 60.5361 14.477V14.5134C60.5361 14.8433 60.867 15.1368 61.3456 15.1368H73.1977C73.5233 15.1368 73.7866 14.8737 73.7866 14.5498V12.2391C73.7866 7.87383 69.9952 4.38833 64.5481 4.38833L64.5489 4.38757Z" fill="black"/><path d="M85.0863 4.38757C80.4853 4.38757 76.5105 7.0654 76.5105 10.5873C76.5105 10.8808 76.7685 11.1007 77.0994 11.1007H80.0805C80.375 11.1007 80.5956 10.8808 80.6329 10.5873C80.9274 8.97348 82.8782 7.79951 84.976 7.79951C87.4785 7.79951 89.1722 9.34053 89.1722 11.982V15.174C89.1722 18.4388 86.7427 20.0898 83.7243 20.0898C81.3687 20.0898 80.0067 19.2093 80.0067 17.7782C80.0067 16.5307 80.6694 15.4667 83.3926 14.8433L87.3309 13.7793C87.7356 13.6693 87.8832 13.3387 87.8094 12.9724C87.7729 12.6789 87.4419 12.5318 87.1467 12.5318H83.0616C79.6019 12.5318 76.105 14.7326 76.105 17.961V18.4744C76.105 21.7764 79.2337 23.5002 82.8037 23.5002C85.0855 23.5002 87.0364 22.6197 88.2507 21.5929L90.0548 20.0519C90.3492 19.7948 90.6437 19.7948 90.9008 20.0519C91.1215 20.2718 91.0477 20.6024 90.8636 20.8588L89.7595 22.5833C89.5754 22.8404 89.7223 23.1703 90.054 23.1703H92.7041C93.0351 23.1703 93.293 22.9132 93.293 22.5833V11.467C93.293 7.21177 90.2381 4.38681 85.0848 4.38681L85.0863 4.38757Z" fill="black"/><path d="M109.194 4.82819H105.071C103.636 4.82819 102.237 5.70866 101.243 6.55274L99.6243 7.94663C99.4401 8.09376 99.1084 8.20372 98.8877 8.0202C98.6298 7.83667 98.5195 7.46962 98.7409 7.17612L99.9187 5.41517C100.103 5.15808 99.956 4.82819 99.6243 4.82819H96.8638C96.5328 4.82819 96.2749 5.08528 96.2749 5.41517V22.5848C96.2749 22.9147 96.5328 23.1718 96.8638 23.1718H99.8822C100.213 23.1718 100.471 22.9147 100.471 22.5848V13.7801C100.471 10.0011 102.017 8.31369 105.367 8.31369H109.194C109.525 8.31369 109.783 8.0566 109.783 7.7267V5.41517C109.783 5.08528 109.525 4.82819 109.194 4.82819H109.194Z" fill="black"/><path d="M24.079 0.690475C23.0899 0.690475 22.1715 1.20162 21.6534 2.0419L16.0709 10.3029C15.889 10.5752 15.9628 10.9422 16.236 11.1235C16.4574 11.2706 16.7503 11.2524 16.952 11.0795L22.447 6.32901C22.5383 6.24711 22.679 6.25545 22.7612 6.34645C22.7985 6.38816 22.8183 6.44201 22.8183 6.49737V21.3707C22.8183 21.4935 22.7186 21.5921 22.5953 21.5921C22.5291 21.5921 22.4668 21.5633 22.4249 21.5125L5.81436 1.69457C5.27339 1.05829 4.47904 0.691234 3.64284 0.690475H3.0623C1.4911 0.690475 0.217407 1.96 0.217407 3.52605V24.4739C0.217407 26.04 1.4911 27.3095 3.0623 27.3095C4.05143 27.3095 4.9698 26.7984 5.48795 25.9581L11.0705 17.6971C11.2523 17.4248 11.1785 17.0578 10.9053 16.8765C10.6839 16.7294 10.391 16.7476 10.1894 16.9205L4.69436 21.671C4.60306 21.7529 4.4623 21.7445 4.38013 21.6535C4.34284 21.6118 4.32306 21.558 4.32382 21.5026V6.62554C4.32382 6.50268 4.42349 6.40409 4.54675 6.40409C4.61219 6.40409 4.67534 6.43291 4.71719 6.48372L21.3255 26.3054C21.8664 26.9417 22.6608 27.3088 23.497 27.3095H24.0775C25.6487 27.3103 26.9232 26.0415 26.9247 24.4755V3.52605C26.9247 1.96 25.651 0.690475 24.0798 0.690475H24.079Z" fill="black"/></g></svg>
 ",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--near-logo.svg 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--public--near-logo.svg 1`] = `
 [
-  "--none_next-page_none--public--near-logo.svg",
+  "--frontend_next-page--public--near-logo.svg",
   "<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    width="26.707293"
@@ -1583,23 +1989,23 @@ exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--near-l
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--next.svg 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--public--next.svg 1`] = `
 [
-  "--none_next-page_none--public--next.svg",
+  "--frontend_next-page--public--next.svg",
   "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--public--vercel.svg 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--public--vercel.svg 1`] = `
 [
-  "--none_next-page_none--public--vercel.svg",
+  "--frontend_next-page--public--vercel.svg",
   "<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--components--cards.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--components--cards.js 1`] = `
 [
-  "--none_next-page_none--src--components--cards.js",
+  "--frontend_next-page--src--components--cards.js",
   "import styles from "../styles/app.module.css";
 
 export const DocsCard = () => {
@@ -1647,31 +2053,33 @@ export const HelloComponentsCard = () => {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--components--navigation.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--components--navigation.js 1`] = `
 [
-  "--none_next-page_none--src--components--navigation.js",
+  "--frontend_next-page--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import NearLogo from 'public/near-logo.svg';
-import { useWallet } from '@/wallets/wallet-selector';
+//import { useWallet } from '@/wallets/wallet-selector';
+import { useStore } from '@/layout';
 
 export const Navigation = () => {
-
-  const { signedAccountId, logOut, logIn } = useWallet();
+  const { signedAccountId, wallet } = useStore();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
+    if (!wallet) return;
+
     if (signedAccountId) {
-      setAction(() => logOut);
+      setAction(() => wallet.signOut);
       setLabel(\`Logout \${signedAccountId}\`);
     } else {
-      setAction(() => logIn);
+      setAction(() => wallet.signIn);
       setLabel('Login');
     }
-  }, [signedAccountId, logOut, logIn, setAction, setLabel]);
+  }, [signedAccountId, wallet, setAction, setLabel]);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -1689,25 +2097,24 @@ export const Navigation = () => {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--components--vm-component.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--components--vm-component.js 1`] = `
 [
-  "--none_next-page_none--src--components--vm-component.js",
-  "'use client';
-import { useEffect } from 'react';
+  "--frontend_next-page--src--components--vm-component.js",
+  "import { useEffect } from 'react';
 import { useInitNear, Widget, EthersProviderContext } from 'near-social-vm';
 
-import { useWallet } from '@/wallets/wallet-selector';
 import { useEthersProviderContext } from '@/wallets/web3-wallet';
 import { NetworkId } from '@/config';
+import { useStore } from '@/layout';
 
 export default function Component({ src }) {
   const ethersContext = useEthersProviderContext();
-  const { selector } = useWallet();
+  const { wallet } = useStore();
   const { initNear } = useInitNear();
 
   useEffect(() => {
-    initNear && selector && initNear({ networkId: NetworkId, selector });
-  }, [initNear, selector]);
+    wallet && initNear && initNear({ networkId: NetworkId, selector: wallet.selector });
+  }, [wallet, initNear]);
 
   return (
     <div>
@@ -1722,9 +2129,9 @@ export default function Component({ src }) {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--config.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--config.js 1`] = `
 [
-  "--none_next-page_none--src--config.js",
+  "--frontend_next-page--src--config.js",
   "export const NetworkId = 'testnet';
 
 export const HelloNearContract = {
@@ -1749,18 +2156,34 @@ export const ComponentMap = {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--layout.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--layout.js 1`] = `
 [
-  "--none_next-page_none--src--layout.js",
-  ""use client";
-import "@near-wallet-selector/modal-ui/styles.css";
+  "--frontend_next-page--src--layout.js",
+  "import { useEffect } from "react";
+import { create as createStore } from 'zustand';
 
-import { NetworkId } from "@/config";
+import { Wallet } from "@/wallets/near-wallet";
 import { Navigation } from "@/components/navigation";
-import { useInitWallet } from "@/wallets/wallet-selector";
+import { NetworkId, HelloNearContract } from "@/config";
+
+// Store to share wallet and signed account
+export const useStore = createStore((set) => ({
+  wallet: undefined,
+  signedAccountId: '',
+  setWallet: (wallet) => set({ wallet }),
+  setSignedAccountId: (signedAccountId) => set({ signedAccountId })
+}))
 
 export default function RootLayout({ children }) {
-  useInitWallet({ createAccessKeyFor: "", networkId: NetworkId });
+
+  const { setWallet, setSignedAccountId } = useStore();
+
+  useEffect(() => {
+    // create wallet instance
+    const wallet = new Wallet({ createAccessKeyFor: HelloNearContract[NetworkId], networkId: NetworkId })
+    wallet.startUp(setSignedAccountId);
+    setWallet(wallet);
+  }, [])
 
   return (
     <>
@@ -1773,9 +2196,9 @@ export default function RootLayout({ children }) {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--_app.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--pages--_app.js 1`] = `
 [
-  "--none_next-page_none--src--pages--_app.js",
+  "--frontend_next-page--src--pages--_app.js",
   "import RootLayout from "@/layout";
 import "@/styles/globals.css";
 
@@ -1785,14 +2208,13 @@ export default function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
     </RootLayout>
   );
-}
-",
+}",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--_document.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--pages--_document.js 1`] = `
 [
-  "--none_next-page_none--src--pages--_document.js",
+  "--frontend_next-page--src--pages--_document.js",
   "import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
@@ -1809,14 +2231,13 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
-",
+export default MyDocument;",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--hello-components--index.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-components--index.js 1`] = `
 [
-  "--none_next-page_none--src--pages--hello-components--index.js",
+  "--frontend_next-page--src--pages--hello-components--index.js",
   "import dynamic from "next/dynamic";
 
 import styles from "@/styles/app.module.css";
@@ -1825,6 +2246,7 @@ import { NetworkId, ComponentMap } from "@/config";
 
 const Component = dynamic(() => import("@/components/vm-component"), {
   ssr: false,
+  loading: () => <p>Loading Component...</p>,
 });
 
 const socialComponents = ComponentMap[NetworkId];
@@ -1841,17 +2263,16 @@ export default function HelloComponents() {
         </div>
         <div className={styles.center}>
           <h1>
-            {" "}
-            <code>Multi-chain</code> Components Made Simple{" "}
+            <code>Multi-chain</code> Components Made Simple
           </h1>
         </div>
         <div className="row">
-          <div class="col-6">
+          <div className="col-6">
             <Component src={socialComponents.HelloNear} />
-            <p class="my-4">&nbsp;</p>
+            <p className="my-4">&nbsp;</p>
             <Component src={socialComponents.LoveNear} />
           </div>
-          <div class="col-6">
+          <div className="col-6">
             <Component src={socialComponents.Lido} />
           </div>
         </div>
@@ -1869,32 +2290,34 @@ export default function HelloComponents() {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--hello-near--index.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-near--index.js 1`] = `
 [
-  "--none_next-page_none--src--pages--hello-near--index.js",
-  ""use client";
-import { DocsCard, HelloComponentsCard } from "@/components/cards";
-import { useWallet } from "@/wallets/wallet-selector";
-import { useState, useEffect } from "react";
-import { HelloNearContract, NetworkId } from "../../config";
+  "--frontend_next-page--src--pages--hello-near--index.js",
+  "import { useState, useEffect } from "react";
+
+import { useStore } from "@/layout";
 import styles from "@/styles/app.module.css";
+import { HelloNearContract, NetworkId } from "../../config";
+import { DocsCard, HelloComponentsCard } from "@/components/cards";
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract[NetworkId];
 
 export default function HelloNear() {
-  const { signedAccountId, viewMethod, callMethod } = useWallet();
+  const { signedAccountId, wallet } = useStore();
 
   const [greeting, setGreeting] = useState("loading...");
+  const [newGreeting, setNewGreeting] = useState("loading...");
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    viewMethod &&
-      viewMethod(CONTRACT, "get_greeting", {}).then((greeting) =>
-        setGreeting(greeting)
-      );
-  }, [viewMethod]);
+    if (!wallet) return;
+
+    wallet.viewMethod({ contractId: CONTRACT, method: "get_greeting" }).then(
+      greeting => setGreeting(greeting)
+    );
+  }, [wallet]);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
@@ -1902,7 +2325,9 @@ export default function HelloNear() {
 
   const saveGreeting = async () => {
     setShowSpinner(true);
-    await callMethod(CONTRACT, "set_greeting", { greeting });
+    await wallet.callMethod({ contractId: CONTRACT, method: "set_greeting", args: { greeting: newGreeting } });
+    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: "get_greeting" })
+    setGreeting(greeting)
     setShowSpinner(false);
   };
 
@@ -1917,17 +2342,14 @@ export default function HelloNear() {
 
       <div className={styles.center}>
         <h1 className="w-100">
-          {" "}
-          The contract says: <code>{greeting}</code>{" "}
+          The contract says: <code>{greeting}</code>
         </h1>
         <div className="input-group" hidden={!loggedIn}>
           <input
             type="text"
             className="form-control w-20"
             placeholder="Store a new greeting"
-            onChange={(t) => {
-              setGreeting(t.target.value);
-            }}
+            onChange={t => setNewGreeting(t.target.value)}
           />
           <div className="input-group-append">
             <button className="btn btn-secondary" onClick={saveGreeting}>
@@ -1943,20 +2365,20 @@ export default function HelloNear() {
           <p className="m-0"> Please login to change the greeting </p>
         </div>
       </div>
+
       <div className={styles.grid}>
         <DocsCard />
         <HelloComponentsCard />
       </div>
     </main>
   );
-}
-",
+}",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--pages--index.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--pages--index.js 1`] = `
 [
-  "--none_next-page_none--src--pages--index.js",
+  "--frontend_next-page--src--pages--index.js",
   "import Image from "next/image";
 import styles from "@/styles/app.module.css";
 import {
@@ -1997,14 +2419,13 @@ export default function Home() {
       </div>
     </main>
   );
-}
-",
+}",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--styles--app.module.css 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--styles--app.module.css 1`] = `
 [
-  "--none_next-page_none--src--styles--app.module.css",
+  "--frontend_next-page--src--styles--app.module.css",
   ".main {
   display: flex;
   flex-direction: column;
@@ -2236,9 +2657,9 @@ exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--styles--a
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--styles--globals.css 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--styles--globals.css 1`] = `
 [
-  "--none_next-page_none--src--styles--globals.css",
+  "--frontend_next-page--src--styles--globals.css",
   "@import 'bootstrap';
 @import 'bootstrap-icons';
 
@@ -2337,135 +2758,158 @@ a {
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--wallets--wallet-selector.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--wallets--near-wallet.js 1`] = `
 [
-  "--none_next-page_none--src--wallets--wallet-selector.js",
-  "import { create as createStore } from 'zustand';
-import { distinctUntilChanged, map } from 'rxjs';
+  "--frontend_next-page--src--wallets--near-wallet.js",
+  "
+// near api js
 import { providers } from 'near-api-js';
-import { setupWalletSelector } from '@near-wallet-selector/core';
+
+// wallet selector
+import { distinctUntilChanged, map } from 'rxjs';
+import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
-import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
-import { useEffect, useState } from 'react';
+const THIRTY_TGAS = '30000000000000';
+const NO_DEPOSIT = '0';
 
-export const useWallet = createStore(set => ({
-  signedAccountId: '',
-  logOut: undefined,
-  logIn: undefined,
-  selector: undefined,
-  viewMethod: undefined,
-  callMethod: undefined,
-  setLogActions: ({ logOut, logIn }) => set({ logOut, logIn }),
-  setAuth: ({ signedAccountId }) => set({ signedAccountId }),
-  setMethods: ({ viewMethod, callMethod }) => set({ viewMethod, callMethod }),
-  setStoreSelector: ({ selector }) => set({ selector }),
-}));
+export class Wallet {
+  /**
+   * @constructor
+   * @param {string} networkId - the network id to connect to
+   * @param {string} createAccessKeyFor - the contract to create an access key for
+   * @example
+   * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
+   * wallet.startUp((signedAccountId) => console.log(signedAccountId));
+   */
+  constructor({ networkId = 'testnet', createAccessKeyFor = undefined }) {
+    this.accountId = '';
+    this.createAccessKeyFor = createAccessKeyFor;
 
-export function useInitWallet({ createAccessKeyFor, networkId }) {
-  const setAuth = useWallet(store => store.setAuth);
-  const setLogActions = useWallet(store => store.setLogActions);
-  const setMethods = useWallet(store => store.setMethods);
-  const setStoreSelector = useWallet(store => store.setStoreSelector);
-  const [selector, setSelector] = useState(undefined);
-
-  useEffect(() => {
-    const selector = setupWalletSelector({
+    this.selector = setupWalletSelector({
       network: networkId,
       modules: [setupMyNearWallet(), setupHereWallet()]
     });
+  }
 
-    setSelector(selector);
-    setStoreSelector({ selector });
-  }, [networkId, setStoreSelector]);
+  /**
+   * To be called when the website loads
+   * @param {Function} accountChangeHook - a function that is called when the user signs in or out#
+   * @returns {Promise<string>} - the accountId of the signed-in user 
+   */
+  startUp = async (accountChangeHook) => {
+    const walletSelector = await this.selector;
+    const isSignedIn = walletSelector.isSignedIn();
 
-  useEffect(() => {
-    if (!selector) return;
+    if (isSignedIn) {
+      this.accountId = walletSelector.store.getState().accounts[0].accountId;
+      this.selectedWallet = await walletSelector.wallet();
+    }
 
-    selector.then(walletSelector => {
-      const accounts = walletSelector.store.getState().accounts;
-      const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
-      setAuth({ signedAccountId });
+    walletSelector.store.observable
+      .pipe(
+        map(state => state.accounts),
+        distinctUntilChanged()
+      )
+      .subscribe(accounts => {
+        const signedAccount = accounts.find((account) => account.active)?.accountId;
+        accountChangeHook(signedAccount);
+      });
 
-      walletSelector.store.observable
-        .pipe(
-          map((state) => state.accounts),
-          distinctUntilChanged()
-        )
-        .subscribe((accounts) => {
-          const signedAccountId = accounts.find((account) => account.active)?.accountId || '';
-          setAuth({ signedAccountId });
-        });
+    return this.accountId;
+  }
+
+  /**
+   * Displays a modal to login the user
+   */
+  signIn = async () => {
+    const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
+    modal.show();
+  }
+
+  /**
+   * Logout the user
+   */
+  signOut = async () => {
+    await this.selectedWallet.signOut();
+    this.selectedWallet = this.accountId = this.createAccessKeyFor = null;
+  }
+
+  /**
+   * Makes a read-only call to a contract
+   * @param {string} contractId - the contract's account id
+   * @param {string} method - the method to call
+   * @param {Object} args - the arguments to pass to the method
+   * @returns {Promise<JSON.value>} - the result of the method call
+   */
+  viewMethod = async ({ contractId, method, args = {} }) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    let res = await provider.query({
+      request_type: 'call_function',
+      account_id: contractId,
+      method_name: method,
+      args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
+      finality: 'optimistic',
     });
-  }, [selector, setAuth]);
+    return JSON.parse(Buffer.from(res.result).toString());
+  }
 
-  useEffect(() => {
-    if (!selector) return;
 
-    // defined logOut and logIn actions
-    const logOut = async () => {
-      const wallet = await (await selector).wallet();
-      await wallet.signOut();
-      setAuth({ signedAccountId: '' });
-    };
-
-    const logIn = async () => {
-      const modal = setupModal(await selector, { contractId: createAccessKeyFor });
-      modal.show();
-    };
-
-    setLogActions({ logOut, logIn });
-  }, [createAccessKeyFor, selector, setAuth, setLogActions]);
-
-  useEffect(() => {
-    if (!selector) return;
-
-    const viewMethod = async (contractId, method, args = {}) => {
-      const { network } = (await selector).options;
-      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-      let res = await provider.query({
-        request_type: 'call_function',
-        account_id: contractId,
-        method_name: method,
-        args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
-        finality: 'optimistic',
-      });
-      return JSON.parse(Buffer.from(res.result).toString());
-    };
-
-    const callMethod = async (contractId, method, args = {}, gas = '30000000000000', deposit = 0) => {
-      const wallet = await (await selector).wallet();
-
-      const outcome = await wallet.signAndSendTransaction({
-        receiverId: contractId,
-        actions: [
-          {
-            type: 'FunctionCall',
-            params: {
-              methodName: method,
-              args,
-              gas,
-              deposit,
-            },
+  /**
+   * Makes a call to a contract
+   * @param {string} contractId - the contract's account id
+   * @param {string} method - the method to call
+   * @param {Object} args - the arguments to pass to the method
+   * @param {string} gas - the amount of gas to use
+   * @param {string} deposit - the amount of yoctoNEAR to deposit
+   * @returns {Promise<Transaction>} - the resulting transaction
+   */
+  callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
+    // Sign a transaction with the "FunctionCall" action
+    return await this.selectedWallet.signAndSendTransaction({
+      signerId: this.accountId,
+      receiverId: contractId,
+      actions: [
+        {
+          type: 'FunctionCall',
+          params: {
+            methodName: method,
+            args,
+            gas,
+            deposit,
           },
-        ],
-      });
+        },
+      ],
+    });
+  }
 
-      return providers.getTransactionLastResult(outcome);
-    };
+  /**
+   * Makes a call to a contract
+   * @param {string} txhash - the transaction hash
+   * @returns {Promise<JSON.value>} - the result of the transaction
+   */
+  getTransactionResult = async (txhash) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
-    setMethods({ viewMethod, callMethod });
-
-  }, [selector, setMethods]);
+    // Retrieve transaction result from the network
+    const transaction = await provider.txStatus(txhash, 'unnused');
+    return providers.getTransactionLastResult(transaction);
+  }
 }",
 ]
 `;
 
-exports[`create 'none' 'next-page' 'none': --none_next-page_none--src--wallets--web3-wallet.ts 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--wallets--web3-wallet.ts 1`] = `
 [
-  "--none_next-page_none--src--wallets--web3-wallet.ts",
+  "--frontend_next-page--src--wallets--web3-wallet.ts",
   "'use client';
 import type { EIP1193Provider } from '@web3-onboard/core';
 import injectedModule from '@web3-onboard/injected-wallets';
@@ -2755,2267 +3199,5 @@ export const useEthersProviderContext = singletonHook(defaultEthersProviderConte
 
   return ethersProvider;
 });",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--.babelrc 1`] = `
-[
-  "--none_vanilla_none--.babelrc",
-  "{
-  "presets": ["@babel/preset-env", ["@babel/preset-react", {"runtime": "automatic"}]],
-  "plugins": [
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-transform-class-properties"
-  ]
-}",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--.gitignore 1`] = `
-[
-  "--none_vanilla_none--.gitignore",
-  "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-# Developer note: near.gitignore will be renamed to .gitignore upon project creation
-# dependencies
-node_modules
-/.pnp
-.pnp.js
-
-# build
-/out
-/dist
-
-# keys
-/templates/react/neardev
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-/.cache
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--.gitpod.yml 1`] = `
-[
-  "--none_vanilla_none--.gitpod.yml",
-  "tasks:
-  - init: npm dev
-    command: npm run dev
-ports:
-  - port: 1234
-    onOpen: open-browser
-",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--README.md 1`] = `
-[
-  "--none_vanilla_none--README.md",
-  "near-blank-project
-==================
-
-This app was initialized with [create-near-app]
-
-
-Quick Start
-===========
-
-If you haven't installed dependencies during setup:
-
-    npm install
-
-
-Build and deploy your contract to TestNet with a temporary dev account:
-
-    npm run deploy
-
-Test your contract:
-
-    npm test
-
-If you have a frontend, run \`npm start\`. This will run a dev server.
-
-
-Exploring The Code
-==================
-
-1. The smart-contract code lives in the \`/contract\` folder. See the README there for
-   more info. In blockchain apps the smart contract is the "backend" of your app.
-2. The frontend code lives in the \`/frontend\` folder. \`/frontend/index.html\` is a great
-   place to start exploring. Note that it loads in \`/frontend/index.js\`,
-   this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
-3. Test your contract: \`npm test\`, this will run the tests in \`integration-tests\` directory.
-
-
-Deploy
-======
-
-Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
-When you run \`npm run deploy\`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
-When you're ready to make it permanent, here's how:
-
-
-Step 0: Install near-cli (optional)
--------------------------------------
-
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local \`node_modules\` folder when you ran \`npm install\`, but for best ergonomics you may want to install it globally:
-
-    npm install --global near-cli
-
-Or, if you'd rather use the locally-installed version, you can prefix all \`near\` commands with \`npx\`
-
-Ensure that it's installed with \`near --version\` (or \`npx near --version\`)
-
-
-Step 1: Create an account for the contract
-------------------------------------------
-
-Each account on NEAR can have at most one contract deployed to it. If you've already created an account such as \`your-name.testnet\`, you can deploy your contract to \`near-blank-project.your-name.testnet\`. Assuming you've already created an account on [NEAR Wallet], here's how to create \`near-blank-project.your-name.testnet\`:
-
-1. Authorize NEAR CLI, following the commands it gives you:
-
-      near login
-
-2. Create a subaccount (replace \`YOUR-NAME\` below with your actual account name):
-
-      near create-account near-blank-project.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet
-
-Step 2: deploy the contract
----------------------------
-
-Use the CLI to deploy the contract to TestNet with your account ID.
-Replace \`PATH_TO_WASM_FILE\` with the \`wasm\` that was generated in \`contract\` build directory.
-
-    near deploy --accountId near-blank-project.YOUR-NAME.testnet --wasmFile PATH_TO_WASM_FILE
-
-
-Step 3: set contract name in your frontend code
------------------------------------------------
-
-Modify the line in \`src/config.js\` that sets the account name of the contract. Set it to the account id you used above.
-
-    const CONTRACT_NAME = process.env.CONTRACT_NAME || 'near-blank-project.YOUR-NAME.testnet'
-
-
-
-Troubleshooting
-===============
-
-On Windows, if you're seeing an error containing \`EPERM\` it may be related to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
-
-
-  [create-near-app]: https://github.com/near/create-near-app
-  [Node.js]: https://nodejs.org/en/download/package-manager/
-  [jest]: https://jestjs.io/
-  [NEAR accounts]: https://docs.near.org/concepts/basics/account
-  [NEAR Wallet]: https://wallet.testnet.near.org/
-  [near-cli]: https://github.com/near/near-cli
-  [gh-pages]: https://github.com/tschaub/gh-pages
-",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--package.json 1`] = `
-[
-  "--none_vanilla_none--package.json",
-  "{
-  "name": "my-near-app",
-  "version": "1.0.0",
-  "license": "(MIT AND Apache-2.0)",
-  "scripts": {
-    "dev": "webpack serve --open"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.23.2",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.23.2",
-    "@babel/preset-react": "^7.22.15",
-    "babel-loader": "^9.1.3",
-    "buffer": "^6.0.3",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.8.1",
-    "html-webpack-plugin": "^5.5.3",
-    "https-browserify": "^1.0.0",
-    "process": "^0.11.10",
-    "stream-http": "^3.2.0",
-    "style-loader": "^3.3.3",
-    "url": "^0.11.3",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
-  },
-  "dependencies": {
-    "@near-wallet-selector/core": "^8.7.0",
-    "@near-wallet-selector/here-wallet": "^8.7.0",
-    "@near-wallet-selector/modal-ui": "^8.7.0",
-    "@near-wallet-selector/my-near-wallet": "^8.7.0",
-    "crypto-browserify": "^3.12.0",
-    "near-api-js": "^2.1.3",
-    "near-social-vm": "github:NearSocial/VM#2.5.2",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.18.0",
-    "semantic-ui-react": "^2.1.4",
-    "stream": "^0.0.2"
-  }
-}
-",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--assets--favicon.ico 1`] = `
-[
-  "--none_vanilla_none--src--assets--favicon.ico",
-  "�PNG
-
-   
-IHDR  @  @   ��Na   	pHYs  %  %IR$�    IDATx���p��}�qɖdK����6 c������6	?B�
-m�����N���܄?n&����M��t�!�^2-�9���ޅ��p�~�#l�1�e�mY��Y�1�m�c��y����4F�����v��/_|�
- �� " $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ �[e�j�عq����;���pG[뎡��y�O��иh���Ο�����;�g��G��ŗ�ٱ��pGOW�)�����q55���]�h�'?2y֌�/!���#.��qp����/��]7�b�Y��MW�Xt劺I�g�B8�]��nx��Z��t��kΠ����K/\\q�ͽ����J�Ҽ����7_ze�w��U+>���ia�g�^�a����������������/�؟��^	,-�랹���{���H�-[|����E>P��
-?������+��7~ܒիd,{����<q�E��p�V���[������ֺ��\`L��_��߿y�Mk
->C&,O]�O��Ћ?\\[ƣ�k���s7,��_����?������\\��S_���#K��������W�^��V�Xs׭�n�~��o���YSW���[?t͇>Cl�?���"�IK���w�����[o<�Ҝ%M
-ӧ��9���<�寗���۷��:��sٲ�O��e��y��o���ݓ�Au�?��/�=�5�b�4���׾]�k��-����oZ���3D�8�1X�4��p��������!�\\3_~��G������e"�z
-Ұʔ�5S�r"\`9H�^�vpw*��1�vnܒ�5��G�|���w���G��kk��ĽD9���?�ڷ��;
->Cn�Z�����N�~��c�>�l��	F�b�j�h�羮Ñz�ֺ��� �����[��^3����s_:c]FF�b{���y�װ��rC�[��@���7��]�����%z�!��vn�R�������y]���i��ex���ݶ}��-.Ǹ,��7b�~�>���4�s�X��a�' 4�������U.F��y�_�7��tú�u�{���������(1'-������P?J�I�Bji^W���kF�yhk��Ɉ����FXPRK�S9�Qbtm����=��~�*���sp��@��Qb\\]�?��c=�}�|���F$\`�!��2J�h�)_ܡ��U�,��P+�a1J'��N���2&\`�t�w���┌ci���_n��X�Zw��#\`�d��F�Q�4������U9��\`�V��DF���>�R	?\\��\`v��"�H4JLY�w��
-��ʉ�z�<,F�i|�W������ʆ��񂣐Qbj"����U�W�t%&e�)_~˓#iF��x��ԋ��3JL��>��h�%�WK���M���˥u�����E�0�K��u�� I���Qb�ܽ/ק|�#�Ēx���}K�H���Qbix��0�1Jkټ�y0B2J;�����|���Q�X����g�QUuu~�F~������M�>���PUU=n\\���>#0��"����G��ށv���0B0b3J,��������謮��0�0�3J��;c���ή�q��h90J������;vU
-dk�����	�đy�;�߽嵣Ū�0b02a�8-�Om[�B�����0�0�a�8,�ֽ��?Hӱ~i�Y1J��;�Z���UJÈI�ȍQ�ڿs��o|w�MF\\F��Ϡ�����|����X�4���<%�RwG�c��ǎ��O������'��Sz��ص���Pi�	�2J|����]/o;�+
-#<#gF�'�����/�<��ws�a�&\`d�(���j�/ox���[�adB��_����w��?�
-#FE��Q���m��\`OWw�I��0� \`T��%�tv��G{�{N�G�ȉ�Q)*m�������j{��i90*HE�7?��}���ڼ7BF6��R!��W��ӻ^�z�.F�����(q��[�oh썆�1�e<Jlkݾy����l���>� \`�J��A�����o~��C�t���?�/|�A������%v:������9ћ�v�m�46-,�0��1*�MW�yk�s��(�������ޞ�cMJ�a���g��YUp0<�h-]�j�M����lF��~���kO�
-[�z��O�)86���햦�+���F�[�z�㝃�*�v��-[�殨7�I��Qk�iAГz��s㖶��&'��\\�����(8!�8�&��w%�X�k;vmz����۰	�n�򿭛d:O�E3e���R:���ן�8���6aR�M_�S�(.���K�ȁC��7�"��]���o<7�=�$K�(2�����y����z{O�'�]w��{���U�0��(qL�v�l[�Bo_ՉT$ܰ��|�G.O�|��1&����o�<t�ؽsi7�˖]�'���$:cL%��7_z�c���<j��:{�շݒ�9$�X1J,����:��ޓ�l�&5N��[]����!90ƐQbxk�W__?�lX]C�uw��z1���e�X]��_y�X��o�u���Z87��F��1g�8J]�;v��e0-�7l���4k��=cT��G���w�������x�οne�?VG�(�đ���}kskOW��NT'ް�+.^񙏗�,Q��1J�}���s�s�I�z�næ/��]�(1�t�������84���6mެk��o�N�P��FI%Q���Gߣ�X{RnXm��K��E�	�f���:�9�ή�'�G�rî��ߜ6w�X�($\`��Q��tvڳ�=�H�a����sg��h\`	e\`�x:=]��w����R�d�_włKOs(0���0J,���׾�����w�.�6l��%���>)���Q6F�'���;�{_oO�\`*oٍؔ]�т���0��(�����r��}D�
-�2k��}}�@�	ef�XUUu�\`{����7q�nX턺7���PWpPjF�U�(�������og�h�j&�]����8er�A@�Wɣ�������'�'�-���g�UpPF*s�����u�ȱ�$߰�lΒEe#\`���F�����G�T��J�
-�s~����/8('#!4J�����x�׉tO�a���\\|�� e&\`��BF��=����G��z�&͘�d�UG �'\`$'�Qb_o_UU�IMJ�a5�.��55u��'\`$'�Qb��iDU�
-���[���ת�0R��(�DB�oXӕ+�O-8 H�����G�v�O�?��[����y��v�f�3o�9��iH�����G��6lڼYg_���ۅ���y��^��M^�₂oR$\`�.�QbJ
-���شr��ښ��R$\`��+%�Ѱ�u�/�P�D��!�WJL�a�/�8eR�w�0�����ڰ���)_�#\`D��+%��a��ϙ:gf�w�0����Kް)sg.ZX�}@ F0��}s	V�P�x�',��O�o�\\���M�8���ƍ_������1n�����s��	Q����cٰY:��~B��"0���Ǧag-��^d@��-��o.z�&ϜQ?}J���0b��XԆ5L�2y�Y�I�/�Qb�V;qٍ�4D%\`� �Q�V3�nڼY�(&\`d"�Q�(6n��)�f|%d��|�?JQêǏ�<k��|�#+���߰��S��Y0�R���4l�I��E���T�(qh
-��0A�Ș����%~P�����M
-yK�H��SE�O߰����&|5dE��VE�Oհ�7��8�����K!+F�*b�Xа�u��E%0rV)�ē6���Z��F�*e�8ذ���|�$\`�RF�Pa��P)�D�$F���Q"T��T�(*��QA*h�@��,4J��	�(� \`T"�DȀ�Q��!:�r%BhF�2J����f�q	��(�00J����!"�c�!�c�!�w%B �a�Q���������(B0*CowO__�Pf��0*BoO�@�����RÌ!qF�z:�n~���o�
-3J��	���������7܆%B����vww�wFkd
-3J�d	����=r���x�F�0�DH�������������;��mÌ!AF����������[�?�"4�(R#\`d���}=�]U�����0�DH����C{��WU�@���0�DH�����}�9p��s���0�DH����#����n�ƦaF��#]�;���}�Ic�0�DH�����#��^���&�mÌ�����z����zow���aF�PvFl}����l���=�6�(�K��m��׺ڏ���
-3J�20۳��#��VYf��"\`D��������?P��6�(�B�����{��q�7eo�Q"���O�ûZ���O�m�Q"���̑���?��x�j�Q"���Iow���7�tu�*��%B)	a�v�l[�B����J�aF�P2Fo<���;�N�Q�
-3J��0bx㹗���X\`�o�Q"���@�k;�^�1���I�aF�PF��Zw������/PÌa�	I;�������!��0�DSF������g��tu�G��%��0�������tv�V�
-;E��2J�1"\`����{�Ï���7i7�������tg�(Ƃ���mO=���c�H�a?H�ǟ�4%�X0�����j�Vur~nXUuuM]��C�D(:#-�^޺cC�@4��"oXUU��	U����dF�P\\FB�l}��G�8���6x���5�(�H�H��=�6���w˔|�������)%B�I8r��3�?��q�x�Ro��)�����)%BQ������?���H�{��p�j'N��8a���(�B�(�u�������T��V;qB����<iF�0zF�mx��G���2%ڰq55�fL+�3J�Q0�i���x~�ɡJ�a���M�;�z\\�~j�a4��y㹗Z��z�S��mXUUմ���X�AF�0bFy�ݶ������䖤ݰ��g�L��se�##\`��;;w?�?�ϱ�Ghشy��n4h�##\`�ZwG�c���9я�6�q��g�gf�# \`�TwG����ݮ���mI�
-��>e���%8EF�0\\FI����i���
-��f�j&֝�pn�ΏQ"��Q:���������OI6��~�������Q"��Q"/���mO�p�>%ְ�q�f�wN��5�(�H�(��O>��?=�w�>�԰��?�V)�\`�C$\`����x�{F���Y�h¤�2^1�a(�����7��o����W�
-klZ8u�̲_+��	c��p����t����߰isg�\\�0���Q"���1V�w<���ypϾ��߰	��_|~R��D8c�<��h{m��)J�a&7,���F�p:ƘX��ﶮ���ޤ۰q5��]�||mM�W�D8��Z�׵�]w�ޤذq������OL��\`��$\`YK�߸������\`���iS�%B!���Z����*B�^rA�G���}��ik���/}���Ix�ݰ�s�Y�(��(N&\`GW{G�=���^�Rmؔ�3λ��p��Q"� \`AW{���7m�;N�O�װ��S��^U��\`�'E�����^�Rj��ښ�n�hM]m�w�Q"0F�{ؼv�ϧѰ�5�o\\�^���xU�h�4�{�k���$а�����8��;��(�Qx�װ��aK?~UcS*��;zF�T8���԰��7��evqG%|�A�(��7l梳/�ĵ�]��G��a0ʤ�
-�<s�E�_��z��!\`�OI6qʤ����fB]�t�Q"���QVcܰ����>�ɼ�5(�(FF�(��l؇���sfV�Ez�# \`$\`lv��o<7�BodB�a��4�a�V]r�e�*��
-=J��0�Q���}����ʼd��FJ�Ѱ�sg.�iM%_�F�T#1�k�Թ�>���[[?��/V�D*�����6�fB���ߤ^��ɞ���5l�]�N_0�z�Q"y0R5̆���_���%�7#aCn��?�h�%.�BF�dL�H�v�U�.�tE���(�\\	�;cæ/�s�m����(�,	��ag-��ow	�Q"�0�(hX�ĺ���Y(�Q"�0�8�a��n��6y�Y.��3J$3F(�v��F���|Q%�#������7�|�J��%�
-#�%�W͏�Q"y0"��l��z(�D2 \`��ش����py�Q"�	1�5��?�E�$��1J$:#��z}��UtF��&\`p�ή�.��\`�H\\F�V�ykӕ�c�(����-Y�j�U.��f�HDF��V�0�/�D�0�ش@�J�(�p�M�5�h���E�HN]C���]���(�@��|��ۍ���(�(���������B)/�DB0����F�0J$}F*��^u�m��8a�H�,�\\�(nlZp�z%��F�nq�#\`�d�qc���4U�(���p,���6p�k�_s׭ꕬ�%��Õ=ffv���|�F󉫐Qb~?\\��\`2��������P	�D��G����T����?w��|ُ��;�g��~�/Y����X�aҕ�(1��J#\`�4]yI�C�J�Ae<J��Ǫ	X<SfϘ�lq��p4_�ab�r�8o��)�g|��	XHK�\\�;x��/������%����p��5��̊�c]C�g���f �Q�Y3�����.����[����(1��,��kV���������;7'y���Z�%\`�]��7G�旬^���k
->Ll��Bh����\\��y���*�(q�M���Fhۧ�x{�w$66-���;
->L>���x*}t��Y3V�ukUuu�G10;�>) �(�{ �A����5����&x��y�#*A�Q�Al,���o]�kW�v G�*�;�R�C4l���Z�A�2�?������[�����8Yc����^9��?��J?�hZ���m��m��{<u
-����n[���>C��O=�_�ų��=	�zeF��Ҵry�û_y�\\5���ir%l�[�[;�L�4�5�_w���+3��s.[v��9�?�����ć6o������0evc�g�,
-ӧ.����;�ڿ���s9n?��e�!��|�a~����}��w'^��<���y�_�������)��7���s7Z�fI�r���������1=ƣ/��^c�S:�{��>���
-����jlZp�m��C;c��G����k׍�=�o�u��~A��vn����z�͗^)ͩ�2k�埻�#^��J��7�����ug�Թ3/���o���C[��
-��v��ucw��-[�t�U�U!���ڴuÃ������ݯ�0}����_������4IDW{Ƕ�Z�o(���zUӕ��+��X�:�g�K?�Ů��ڶ����9]���k�j�-����noQt;7nٹqK۶�퇇uccӂ�����?�i���ηѨL@H^J
-������������������������������������������������������������������������@D>�  �IDAT���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������x����?�"7�>\`�    IEND�B\`�",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--assets--global.css 1`] = `
-[
-  "--none_vanilla_none--src--assets--global.css",
-  "* {
-  box-sizing: border-box;
-}
-
-html {
-  --bg: #efefef;
-  --fg: #1e1e1e;
-  --gray: #555;
-  --light-gray: #ccc;
-  --shadow: #e6e6e6;
-  --success: rgb(90, 206, 132);
-  --primary: #FF585D;
-  --secondary: #0072CE;
-
-  color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-  font-size: calc(0.9em + 0.5vw);
-  line-height: 1.3;
-}
-
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(to bottom, transparent, rgb(var(--shadow))) rgb(var(--light-gray));
-  background-color: var(--shadow) !important;
-}
-
-a {
-  color: var(--fg) !important;
-  text-decoration: none !important;
-}
-
-.container{
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  padding-top: 0;
-}
-
-h1 {
-  text-align: center;
-  font-size: 1.5em;
-}
-
-.greeting {
-  color: var(--secondary);
-  text-decoration: underline;
-}
-
-.alert{
-  max-width: 410px;
-  font-size: 13px;
-  text-align: center;
-}
-
-.please-wait .change {
-  pointer-events: none;
-}
-
-.change {
-  display: flex;
-  flex-direction: column;
-  align-content: stretch;
-  justify-content: space-evenly;
-  align-items: stretch;
-  font-size: 1em;
-  padding: 0.5em;
-}
-.change > div {
-  display: flex;
-  align-content: stretch;
-  justify-content: space-evenly;
-  align-items: stretch;
-}
-.change input {
-  flex: 1;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-}
-.change button {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-}
-
-a,
-.link {
-  color: var(--primary);
-  text-decoration: none;
-}
-a:hover,
-a:focus,
-.link:hover,
-.link:focus {
-  text-decoration: underline;
-}
-a:active,
-.link:active {
-  color: var(--secondary);
-}
-
-button, input {
-  font: inherit;
-  outline: none;
-}
-
-.please-wait .change button {
-  position: relative;
-  pointer-events: none;
-}
-.please-wait .change button span {
-  visibility: hidden;
-}
-
-input {
-  border: none;
-  border-radius: 5px 0 0 5px;
-  caret-color: var(--primary);
-  color: inherit;
-  padding: 0.25em 0.5em;
-}
-input::selection {
-  background-color: var(--secondary);
-  color: #efefef;
-}
-input:focus {
-  box-shadow: 0 0 10em rgba(0, 0, 0, 0.02) inset;
-}
-
-code {
-  color: var(--gray);
-}
-
-li {
-  padding-bottom: 1em;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    --bg: #1e1e1e;
-    --fg: #efefef;
-    --gray: #aaa;
-    --shadow: #2a2a2a;
-    --light-gray: #444;
-  }
-  h1 {
-    background-image: url(./logo-white.svg);
-  }
-  input:focus {
-    box-shadow: 0 0 10em rgba(255, 255, 255, 0.02) inset;
-  }
-}
-
-.please-wait .loader,
-.please-wait .loader:after{
-  display: inline-block;
-}
-.loader,
-.loader:after {
-  display: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-}
-.loader {
-  font-size: 10px;
-  position: absolute;
-  top: calc(50% - 10px);
-  left: calc(50% - 10px);
-  text-indent: -9999em;
-  border-top: 3px solid var(--secondary);
-  border-right: 3px solid var(--secondary);
-  border-bottom: 3px solid var(--secondary);
-  border-left: 3px solid #ffffff;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load8 1.1s infinite linear;
-  animation: load8 1.1s infinite linear;
-}
-@-webkit-keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--assets--logo-black.svg 1`] = `
-[
-  "--none_vanilla_none--src--assets--logo-black.svg",
-  "<svg viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="76.81" x2="211.16" y1="211.17" y2="76.81"><stop offset=".21" stop-color="#24272a"/><stop offset=".42" stop-color="#24272a" stop-opacity="0"/><stop offset=".59" stop-color="#24272a" stop-opacity="0"/><stop offset=".81" stop-color="#24272a"/></linearGradient><path d="m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z" fill="url(#a)"/><path d="m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z" fill="#24272a"/></svg>",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--assets--logo-white.svg 1`] = `
-[
-  "--none_vanilla_none--src--assets--logo-white.svg",
-  "<svg viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="76.81" x2="211.16" y1="211.17" y2="76.81"><stop offset=".21" stop-color="#fff"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/><stop offset=".59" stop-color="#fff" stop-opacity="0"/><stop offset=".81" stop-color="#fff"/></linearGradient><path d="m88.46 216a16.45 16.45 0 0 0 12.46-5.71l112.56-130.57a16.42 16.42 0 0 0 -13.94-7.72 16.46 16.46 0 0 0 -12.41 5.65l-113.13 129.8a16.46 16.46 0 0 0 14.46 8.55z" fill="url(#a)"/><path d="m88.46 216a16.46 16.46 0 0 0 7.54-1.83v-109l87.45 104.94a16.44 16.44 0 0 0 12.64 5.89h3.45a16.46 16.46 0 0 0 16.46-16.46v-111.08a16.46 16.46 0 0 0 -16.46-16.46 16.36 16.36 0 0 0 -7.54 1.81v109.05l-87.45-104.94a16.44 16.44 0 0 0 -12.64-5.92h-3.45a16.46 16.46 0 0 0 -16.46 16.46v111.08a16.46 16.46 0 0 0 16.46 16.46z" fill="#fff"/></svg>",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--components.html 1`] = `
-[
-  "--none_vanilla_none--src--components.html",
-  "<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="apple-touch-icon" href="assets/favicon.ico" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
-  <title>Welcome to NEAR</title>
-  <link rel="stylesheet" href="assets/global.css">
-</head>
-
-<body>
-  <nav class="navbar">
-    <div class="container-fluid navbar-expand-lg">
-      <a href="/"><img src="./assets/logo-black.svg" alt="Near" height="40" class="d-inline-block align-text-top" /></a>
-      <div class='navbar-nav pt-1'>
-        <button class="btn btn-secondary" id="sign-in-button"> Login </button>
-        <button class="btn btn-secondary" id="sign-out-button"> Logout <span data-behavior="account-id"></span></button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="alert alert-info mx-auto mt-1" role="alert">
-    Loading components from: v1.social08.testnet
-  </div>
-
-  <div class="alert alert-danger mx-auto mt-1" role="alert">
-    Ethereum components do <b>not</b> work on this vanilla-js template
-  </div>
-
-  <div class="container my-4 pt-4">
-    <div id="components"> </div>
-
-    <div class="row pt-5">
-      <div class="col-6">
-        <a href="/hello-near.html" className={styles.card} rel="noopener noreferrer">
-          <h3>
-            NEAR Integration <span>-&gt;</span>
-          </h3>
-          <p class="small">Discover how simple it is to interact with a NEAR smart contract.</p>
-        </a>
-      </div>
-      <div class="col-6">
-        <a href="https://docs.near.org/develop/integrate/quickstart-frontend" target="_blank">
-          <h3>
-            NEAR Docs <span>-&gt;</span>
-          </h3>
-          <p class="small">Learn how this application works, and what you can build on NEAR.</p>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <script src="components.js" type="module"></script>
-</body>
-
-</html>",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--components.js 1`] = `
-[
-  "--none_vanilla_none--src--components.js",
-  "import { createRoot } from 'react-dom/client';
-import { Wallet } from './near-wallet';
-import { useInitNear, Widget } from 'near-social-vm';
-import { useEffect } from 'react';
-
-const wallet = new Wallet({network: 'testnet'});
-
-export default function Component({ src }) {
-
-  const { initNear } = useInitNear();
-
-  useEffect(() => {
-    initNear && initNear({ networkId: wallet.network, selector: wallet.selector });
-  }, [initNear]);
-
-  return (
-    <div>
-      <Widget src={src} />
-      <p className="mt-4 small"> <span class="text-secondary">Source:</span> <a href={\`https://near.social/mob.near/widget/WidgetSource?src=\${src}\`}> {src} </a> </p>
-    </div>
-  );
-}
-
-window.onload = async () => {
-  let isSignedIn = await wallet.startUp();
-  isSignedIn? signedInUI(): signedOutUI();
-
-  const domNode = document.getElementById('components');
-  const root = createRoot(domNode);
-  root.render(
-    <div className='row'>
-      <div className='col-6'>
-        <Component src='influencer.testnet/widget/HelloNear' />
-        <p class="my-2">&nbsp;</p>
-        <Component src='influencer.testnet/widget/LoveNear' />
-      </div>
-      <div className='col-6'>
-        <Component src='influencer.testnet/widget/Lido' />      
-      </div>
-    </div>
-  );
-};
-
-// Button clicks
-document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
-
-// UI: Display the signed-out container
-function signedOutUI() {
-  document.querySelectorAll('#sign-out-button').forEach(el => el.style.display = 'none');
-}
-
-// UI: Displaying the signed in flow container and fill in account-specific data
-function signedInUI() {
-  document.querySelectorAll('#sign-in-button').forEach(el => el.style.display = 'none');
-  document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
-    el.innerText = wallet.accountId;
-  });
-}",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--hello.js 1`] = `
-[
-  "--none_vanilla_none--src--hello.js",
-  "import { Wallet } from './near-wallet';
-
-const HELLO_NEAR = 'hello.near-examples.testnet';
-
-// When creating the wallet you can optionally ask to create an access key
-// Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ network: 'testnet' });
-
-// Setup on page load
-window.onload = async () => {
-  let isSignedIn = await wallet.startUp();
-  isSignedIn ? signedInUI() : signedOutUI();
-  getGreeting();
-};
-
-// Button clicks
-document.querySelector('form').onsubmit = setGreeting;
-document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
-
-async function setGreeting(event) {
-  event.preventDefault();
-
-  // handle UI
-  document.querySelector('#signed-in').classList.add('please-wait');
-
-  // use the wallet to send the greeting to the Smart Contract
-  const { greeting } = event.target.elements;
-  await wallet.callMethod({ method: 'set_greeting', args: { greeting: greeting.value }, contractId: HELLO_NEAR });
-
-  // query the new greeting
-  await getGreeting();
-
-  // handle UI
-  document.querySelector('#signed-in').classList.remove('please-wait');
-}
-
-async function getGreeting() {
-  // use the wallet to query the Smart Contract
-  const currentGreeting = await wallet.viewMethod({ method: 'get_greeting', contractId: HELLO_NEAR });
-
-  // Display it
-  document.querySelector('#displayGreeting').innerText = currentGreeting;
-}
-
-// UI: Hide signed-in elements
-function signedOutUI() { hide('#signed-in'); hide('#sign-out-button'); }
-
-// UI: Hide signed-out elements
-function signedInUI() {
-  hide('#signed-out');
-  hide('#sign-in-button');
-
-  document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
-    el.innerText = wallet.accountId;
-  });
-}
-
-function hide(id) {
-  document.querySelectorAll(id).forEach(el => el.style.display = 'none');
-}",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--hello-near.html 1`] = `
-[
-  "--none_vanilla_none--src--hello-near.html",
-  "<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/favicon.ico" />
-  <link href="assets/global.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <title>Welcome to NEAR</title>
-</head>
-
-<body>
-  <nav class="navbar">
-    <div class="container-fluid navbar-expand-lg">
-      <a href="/"><img src="./assets/logo-black.svg" alt="Near" height="40" class="d-inline-block align-text-top" /></a>
-      <div class='navbar-nav pt-1'>
-        <button class="btn btn-secondary" id="sign-in-button"> Login </button>
-        <button class="btn btn-secondary" id="sign-out-button"> Logout <span data-behavior="account-id"></span></button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <div class="alert alert-info mx-auto mt-3" role="alert">
-      Interacting with the contract: hello.near-examples.testnet
-    </div>
-
-    <div class="row my-5 pt-5 flex-1">
-      <div class="col-8">
-        <h1> The contract says: <span class="greeting" id="displayGreeting"></span> </h1>
-      </div>
-      <div class="col-4">
-        <div id="signed-out" class="small">
-          Please login to change the greeting
-        </div>
-        <div id="signed-in">
-          <form class="change">
-            <div className="input-group">
-              <input placeholder="Store a new greeting" id="greeting" />
-              <button class="btn btn-primary">
-                <span>Save</span>
-                <div class="loader"></div>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div class="row pt-5">
-      <div class="col-6">
-        <a href="/components.html">
-          <h3>
-            Web3 Components <span>-&gt;</span>
-          </h3>
-          <p class="small">See how Web3 components can help you to create multi-chain apps.</p>
-        </a>
-      </div>
-      <div class="col-6">
-        <a href="https://docs.near.org/develop/integrate/quickstart-frontend" target="_blank">
-          <h3>
-            NEAR Docs <span>-&gt;</span>
-          </h3>
-          <p class="small">Learn how this application works, and what you can build on NEAR.</p>
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-  <script src="hello.js" type="module"></script>
-</body>
-
-</html>",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--index.html 1`] = `
-[
-  "--none_vanilla_none--src--index.html",
-  "<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/favicon.ico" />
-  <link href="assets/global.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <title>Welcome to NEAR</title>
-</head>
-
-<body>
-  <nav class="navbar">
-    <div class="container-fluid navbar-expand-lg">
-      <a href="/"><img src="./assets/logo-black.svg" alt="Near" height="40" class="d-inline-block align-text-top" /></a>
-      <div class='navbar-nav pt-1'>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <div class="alert alert-info mx-auto mt-3 text-left" role="alert">
-      For educational purposes only. To build production ready apps use the Next.js template.
-    </div>
-
-    <h1 class="mt-5 pt-5"> Welcome to Near </h1>
-
-    <div class="row pt-5 mt-5">
-      <div class="col-6">
-        <a href="/hello-near.html" className={styles.card} rel="noopener noreferrer">
-          <h3>
-            NEAR Integration <span>-&gt;</span>
-          </h3>
-          <p class="small">Discover how simple it is to interact with a NEAR smart contract.</p>
-        </a>
-      </div>
-      <div class="col-6">
-        <a href="/components.html">
-          <h3>
-            Web3 Components <span>-&gt;</span>
-          </h3>
-          <p class="small">See how Web3 components can help you to create multi-chain apps.</p>
-        </a>
-      </div>
-      <div class="col-6 mt-md-3">
-        <a href="https://docs.near.org/develop/integrate/quickstart-frontend" target="_blank">
-          <h3>
-            NEAR Docs <span>-&gt;</span>
-          </h3>
-          <p class="small">Learn how this application works, and what you can build on NEAR.</p>
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-</body>
-
-</html>",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--src--near-wallet.js 1`] = `
-[
-  "--none_vanilla_none--src--near-wallet.js",
-  "/* A helper file that simplifies using the wallet selector */
-
-// near api js
-import { providers } from 'near-api-js';
-
-// wallet selector
-import '@near-wallet-selector/modal-ui/styles.css';
-import { setupModal } from '@near-wallet-selector/modal-ui';
-import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
-
-const THIRTY_TGAS = '30000000000000';
-const NO_DEPOSIT = '0';
-
-// Wallet that simplifies using the wallet selector
-export class Wallet {
-  selector;
-  wallet;
-  network;
-  createAccessKeyFor;
-
-  constructor({ createAccessKeyFor = undefined, network = 'mainnet' }) {
-    // Login to a wallet passing a contractId will create a local
-    // key, so the user skips signing non-payable transactions.
-    // Omitting the accountId will result in the user being
-    // asked to sign all transactions.
-    this.createAccessKeyFor = createAccessKeyFor;
-    this.network = network;
-    this.selector = setupWalletSelector({
-      network: this.network,
-      modules: [setupMyNearWallet()],
-    });
-  }
-
-  // To be called when the website loads
-  async startUp() {
-    const walletSelector = await this.selector;
-    const isSignedIn = walletSelector.isSignedIn();
-
-    if (isSignedIn) {
-      this.wallet = await walletSelector.wallet();
-      this.accountId = walletSelector.store.getState().accounts[0].accountId;
-    }
-
-    return isSignedIn;
-  }
-
-  // Sign-in method
-  async signIn() {
-    const description = 'Please select a wallet to sign in.';
-    const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor, description });
-    modal.show();
-  }
-
-  // Sign-out method
-  async signOut() {
-    await this.wallet.signOut();
-    this.wallet = this.accountId = this.createAccessKeyFor = null;
-    window.location.replace(window.location.origin + window.location.pathname);
-  }
-
-  // Make a read-only call to retrieve information from the network
-  async viewMethod({ contractId, method, args = {} }) {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    let res = await provider.query({
-      request_type: 'call_function',
-      account_id: contractId,
-      method_name: method,
-      args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
-      finality: 'optimistic',
-    });
-    return JSON.parse(Buffer.from(res.result).toString());
-  }
-
-  // Call a method that changes the contract's state
-  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
-    // Sign a transaction with the "FunctionCall" action
-    return await this.wallet.signAndSendTransaction({
-      signerId: this.accountId,
-      receiverId: contractId,
-      actions: [
-        {
-          type: 'FunctionCall',
-          params: {
-            methodName: method,
-            args,
-            gas,
-            deposit,
-          },
-        },
-      ],
-    });
-  }
-
-  // Get transaction result from the network
-  async getTransactionResult(txhash) {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve transaction result from the network
-    const transaction = await provider.txStatus(txhash, 'unnused');
-    return providers.getTransactionLastResult(transaction);
-  }
-}",
-]
-`;
-
-exports[`create 'none' 'vanilla' 'none': --none_vanilla_none--webpack.config.js 1`] = `
-[
-  "--none_vanilla_none--webpack.config.js",
-  "const path = require('path');
-const webpack = require('webpack')
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-module.exports = {
-  mode: 'development',
-  entry: {
-    hello: './src/hello.js',
-    components: './src/components.js',
-    'near-wallet': './src/near-wallet.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    static: './dist',
-  },
-  output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
-  resolve: {
-    fallback: {
-      https: require.resolve("https-browserify"),
-      http: require.resolve("stream-http"),
-      crypto: require.resolve("crypto-browserify"),
-    }
-  },
-  module: {
-    rules: [
-      {
-        test: /\\.(js)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      },
-      {
-        test: /\\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\\.m?js/,
-        resolve: {
-            fullySpecified: false
-        }
-      }
-    ],
-  },
-  plugins: [
-    new CopyWebpackPlugin({
-      patterns: [{ from: 'src/assets', to: 'assets' }]
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html',
-      chunks: ['index'],
-    }), 
-    new HtmlWebpackPlugin({
-      filename: 'hello-near.html',
-      template: './src/hello-near.html',
-      chunks: ['index'],
-    }), 
-    new HtmlWebpackPlugin({
-      filename: 'components.html',
-      template: './src/components.html',
-      chunks: ['components'],
-    }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
-    new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
-    }),
-  ]
-};",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--.cargo--config 1`] = `
-[
-  "--rs_none_rs--.cargo--config",
-  "[build]
-rustflags = ["-C", "link-args=-s"]
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--.gitignore 1`] = `
-[
-  "--rs_none_rs--.gitignore",
-  "target
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--Cargo.toml 1`] = `
-[
-  "--rs_none_rs--Cargo.toml",
-  "[package]
-name = "hello_near"
-version = "1.0.0"
-authors = ["Near Inc <hello@near.org>"]
-edition = "2021"
-
-[lib]
-crate-type = ["cdylib"]
-
-[dependencies]
-near-sdk = "4.1.1"
-uint = { version = "0.9.3", default-features = false }
-
-[patch.crates-io]
-parity-secp256k1 = { git = 'https://github.com/paritytech/rust-secp256k1.git' }
-
-[profile.release]
-codegen-units = 1
-opt-level = "z"
-lto = true
-debug = false
-panic = "abort"
-overflow-checks = true
-
-[workspace]
-members = ["sandbox-rs"]",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--README.md 1`] = `
-[
-  "--rs_none_rs--README.md",
-  "# Hello NEAR Contract
-
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
-
-\`\`\`rust
-const DEFAULT_GREETING: &str = "Hello";
-
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct Contract {
-    greeting: String,
-}
-
-impl Default for Contract {
-    fn default() -> Self {
-        Self { greeting: DEFAULT_GREETING.to_string() }
-    }
-}
-
-#[near_bindgen]
-impl Contract {
-    // Public: Returns the stored greeting, defaulting to 'Hello'
-    pub fn get_greeting(&self) -> String {
-        return self.greeting.clone();
-    }
-
-    // Public: Takes a greeting, such as 'howdy', and records it
-    pub fn set_greeting(&mut self, greeting: String) {
-        // Record a log permanently to the blockchain!
-        log!("Saving greeting {}", greeting);
-        self.greeting = greeting;
-    }
-}
-\`\`\`
-
-<br />
-
-# Quickstart
-
-1. Make sure you have installed [rust](https://rust.org/).
-2. Install the [\`NEAR CLI\`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build, Test and Deploy
-To build the contract you can execute the \`./build.sh\` script, which will in turn run:
-
-\`\`\`bash
-rustup target add wasm32-unknown-unknown
-cargo build --target wasm32-unknown-unknown --release
-\`\`\`
-
-Then, run the \`./deploy.sh\` script, which will in turn run:
-
-\`\`\`bash
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
-\`\`\`
-
-the command [\`near dev-deploy\`](https://docs.near.org/tools/near-cli#near-dev-deploy) automatically creates an account in the NEAR testnet, and deploys the compiled contract on it.
-
-Once finished, check the \`./neardev/dev-account\` file to find the address in which the contract was deployed:
-
-\`\`\`bash
-cat ./neardev/dev-account
-# e.g. dev-1659899566943-21539992274727
-\`\`\`
-
-<br />
-
-## 2. Retrieve the Greeting
-
-\`get_greeting\` is a read-only method (aka \`view\` method).
-
-\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
-
-\`\`\`bash
-# Use near-cli to get the greeting
-near view <dev-account> get_greeting
-\`\`\`
-
-<br />
-
-## 3. Store a New Greeting
-\`set_greeting\` changes the contract's state, for which it is a \`change\` method.
-
-\`Change\` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction. In this case, we are asking the account we created in step 1 to sign the transaction.
-
-\`\`\`bash
-# Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
-\`\`\`
-
-**Tip:** If you would like to call \`set_greeting\` using your own account, first login into NEAR using:
-
-\`\`\`bash
-# Use near-cli to login your NEAR account
-near login
-\`\`\`
-
-and then use the logged account to sign the transaction: \`--accountId <your-account>\`.",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--build.sh 1`] = `
-[
-  "--rs_none_rs--build.sh",
-  "#!/bin/sh
-rustup target add wasm32-unknown-unknown
-cargo build --target wasm32-unknown-unknown --release",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--deploy.sh 1`] = `
-[
-  "--rs_none_rs--deploy.sh",
-  "#!/bin/sh
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--rust-toolchain.toml 1`] = `
-[
-  "--rs_none_rs--rust-toolchain.toml",
-  "[toolchain]
-channel = "1.74"
-components = ["rustfmt"]
-targets = ["wasm32-unknown-unknown"]",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--sandbox-rs--Cargo.toml 1`] = `
-[
-  "--rs_none_rs--sandbox-rs--Cargo.toml",
-  "[package]
-name = "sandbox"
-version = "1.0.0"
-publish = false
-edition = "2021"
-
-[dev-dependencies]
-tokio = { version = "1.18.1", features = ["full"] }
-near-workspaces = "0.9.0"
-serde_json = { version = "1.0", features = ["arbitrary_precision"] }
-
-[[example]]
-name = "sandbox"
-path = "src/tests.rs"",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--sandbox-rs--src--tests.rs 1`] = `
-[
-  "--rs_none_rs--sandbox-rs--src--tests.rs",
-  "use near_workspaces::{types::NearToken, Account, Contract};
-use serde_json::json;
-use std::{env, fs};
- 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let wasm_arg: &str = &(env::args().nth(1).unwrap());
-    let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
- 
-    let worker = near_workspaces::sandbox().await?;
-    let wasm = std::fs::read(wasm_filepath)?;
-    let contract = worker.dev_deploy(&wasm).await?;
- 
-    // create accounts
-    let account = worker.dev_create_account().await?;
-    let alice = account
-        .create_subaccount("alice")
-        .initial_balance(NearToken::from_near(30))
-        .transact()
-        .await?
-        .into_result()?;
- 
-    // begin tests
-    test_default_message(&alice, &contract).await?;
-    test_changes_message(&alice, &contract).await?;
-    Ok(())
-}
- 
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-) -> Result<(), Box<dyn std::error::Error>> {
-    let greeting: String = user
-        .call(contract.id(), "get_greeting")
-        .args_json(json!({}))
-        .transact()
-        .await?
-        .json()?;
- 
-    assert_eq!(greeting, "Hello".to_string());
-    println!("      Passed ✅ gets default greeting");
-    Ok(())
-}
- 
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-) -> Result<(), Box<dyn std::error::Error>> {
-    user.call(contract.id(), "set_greeting")
-        .args_json(json!({"greeting": "Howdy"}))
-        .transact()
-        .await?
-        .into_result()?;
- 
-    let greeting: String = user
-        .call(contract.id(), "get_greeting")
-        .args_json(json!({}))
-        .transact()
-        .await?
-        .json()?;
- 
-    assert_eq!(greeting, "Howdy".to_string());
-    println!("      Passed ✅ changes greeting");
-    Ok(())
-}",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--src--lib.rs 1`] = `
-[
-  "--rs_none_rs--src--lib.rs",
-  "// Find all our documentation at https://docs.near.org
-use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::env::log_str;
-use near_sdk::near_bindgen;
-
-// Define the contract structure
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct Contract {
-    greeting: String,
-}
-
-// Define the default, which automatically initializes the contract
-impl Default for Contract {
-    fn default() -> Self {
-        Self { greeting: "Hello".to_string() }
-    }
-}
-
-// Implement the contract structure
-#[near_bindgen]
-impl Contract {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_GREETING
-    pub fn get_greeting(&self) -> String {
-        return self.greeting.clone();
-    }
-
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn set_greeting(&mut self, greeting: String) {
-        log_str(&format!("Saving greeting: {greeting}"));
-        self.greeting = greeting;
-    }
-}
-
-/*
- * The rest of this file holds the inline tests for the code above
- * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
- */
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn get_default_greeting() {
-        let contract = Contract::default();
-        // this test did not call set_greeting so should return the default "Hello" greeting
-        assert_eq!(
-            contract.get_greeting(),
-            "Hello".to_string()
-        );
-    }
-
-    #[test]
-    fn set_then_get_greeting() {
-        let mut contract = Contract::default();
-        contract.set_greeting("howdy".to_string());
-        assert_eq!(
-            contract.get_greeting(),
-            "howdy".to_string()
-        );
-    }
-}
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'rs': --rs_none_rs--test.sh 1`] = `
-[
-  "--rs_none_rs--test.sh",
-  "#!/bin/sh
-
-# unit testing
-cargo test
-
-# sandbox testing
-./build.sh
-cd sandbox-rs
-cargo run --example sandbox "../target/wasm32-unknown-unknown/release/hello_near.wasm"",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--.cargo--config 1`] = `
-[
-  "--rs_none_ts--.cargo--config",
-  "[build]
-rustflags = ["-C", "link-args=-s"]
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--.gitignore 1`] = `
-[
-  "--rs_none_ts--.gitignore",
-  "target
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--Cargo.toml 1`] = `
-[
-  "--rs_none_ts--Cargo.toml",
-  "[package]
-name = "hello_near"
-version = "1.0.0"
-authors = ["Near Inc <hello@near.org>"]
-edition = "2021"
-
-[lib]
-crate-type = ["cdylib"]
-
-[dependencies]
-near-sdk = "4.1.1"
-uint = { version = "0.9.3", default-features = false }
-
-[patch.crates-io]
-parity-secp256k1 = { git = 'https://github.com/paritytech/rust-secp256k1.git' }
-
-[profile.release]
-codegen-units = 1
-opt-level = "z"
-lto = true
-debug = false
-panic = "abort"
-overflow-checks = true
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--README.md 1`] = `
-[
-  "--rs_none_ts--README.md",
-  "# Hello NEAR Contract
-
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
-
-\`\`\`rust
-const DEFAULT_GREETING: &str = "Hello";
-
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct Contract {
-    greeting: String,
-}
-
-impl Default for Contract {
-    fn default() -> Self {
-        Self { greeting: DEFAULT_GREETING.to_string() }
-    }
-}
-
-#[near_bindgen]
-impl Contract {
-    // Public: Returns the stored greeting, defaulting to 'Hello'
-    pub fn get_greeting(&self) -> String {
-        return self.greeting.clone();
-    }
-
-    // Public: Takes a greeting, such as 'howdy', and records it
-    pub fn set_greeting(&mut self, greeting: String) {
-        // Record a log permanently to the blockchain!
-        log!("Saving greeting {}", greeting);
-        self.greeting = greeting;
-    }
-}
-\`\`\`
-
-<br />
-
-# Quickstart
-
-1. Make sure you have installed [rust](https://rust.org/).
-2. Install the [\`NEAR CLI\`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build, Test and Deploy
-To build the contract you can execute the \`./build.sh\` script, which will in turn run:
-
-\`\`\`bash
-rustup target add wasm32-unknown-unknown
-cargo build --target wasm32-unknown-unknown --release
-\`\`\`
-
-Then, run the \`./deploy.sh\` script, which will in turn run:
-
-\`\`\`bash
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm
-\`\`\`
-
-the command [\`near dev-deploy\`](https://docs.near.org/tools/near-cli#near-dev-deploy) automatically creates an account in the NEAR testnet, and deploys the compiled contract on it.
-
-Once finished, check the \`./neardev/dev-account\` file to find the address in which the contract was deployed:
-
-\`\`\`bash
-cat ./neardev/dev-account
-# e.g. dev-1659899566943-21539992274727
-\`\`\`
-
-<br />
-
-## 2. Retrieve the Greeting
-
-\`get_greeting\` is a read-only method (aka \`view\` method).
-
-\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
-
-\`\`\`bash
-# Use near-cli to get the greeting
-near view <dev-account> get_greeting
-\`\`\`
-
-<br />
-
-## 3. Store a New Greeting
-\`set_greeting\` changes the contract's state, for which it is a \`change\` method.
-
-\`Change\` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction. In this case, we are asking the account we created in step 1 to sign the transaction.
-
-\`\`\`bash
-# Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
-\`\`\`
-
-**Tip:** If you would like to call \`set_greeting\` using your own account, first login into NEAR using:
-
-\`\`\`bash
-# Use near-cli to login your NEAR account
-near login
-\`\`\`
-
-and then use the logged account to sign the transaction: \`--accountId <your-account>\`.",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--build.sh 1`] = `
-[
-  "--rs_none_ts--build.sh",
-  "#!/bin/sh
-rustup target add wasm32-unknown-unknown
-cargo build --target wasm32-unknown-unknown --release",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--deploy.sh 1`] = `
-[
-  "--rs_none_ts--deploy.sh",
-  "#!/bin/sh
-near dev-deploy --wasmFile ./target/wasm32-unknown-unknown/release/hello_near.wasm",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--rust-toolchain.toml 1`] = `
-[
-  "--rs_none_ts--rust-toolchain.toml",
-  "[toolchain]
-channel = "1.74"
-components = ["rustfmt"]
-targets = ["wasm32-unknown-unknown"]",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--sandbox-ts--ava.config.cjs 1`] = `
-[
-  "--rs_none_ts--sandbox-ts--ava.config.cjs",
-  "require('util').inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
-
-module.exports = {
-  timeout: '300000',
-  files: ['src/*.ava.ts'],
-  failWithoutAssertions: false,
-  extensions: ['ts'],
-  require: ['ts-node/register'],
-};
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--sandbox-ts--package.json 1`] = `
-[
-  "--rs_none_ts--sandbox-ts--package.json",
-  "{
-  "name": "ava-testing",
-  "version": "1.0.0",
-  "license": "(MIT AND Apache-2.0)",
-  "scripts": {
-    "test": "ava"
-  },
-  "devDependencies": {
-    "@types/bn.js": "^5.1.4",
-    "@types/node": "^20.8.10",
-    "ava": "^5.3.1",
-    "near-workspaces": "^3.5.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {}
-}
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--sandbox-ts--src--main.ava.ts 1`] = `
-[
-  "--rs_none_ts--sandbox-ts--src--main.ava.ts",
-  "import { Worker, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
-
-const test = anyTest as TestFn<{
-  worker: Worker;
-  accounts: Record<string, NearAccount>;
-}>;
-
-test.beforeEach(async (t) => {
-  // Init the worker and start a Sandbox server
-  const worker = await Worker.init();
-
-  // Deploy contract
-  const root = worker.rootAccount;
-  const contract = await root.createSubAccount('test-account');
-  // Get wasm file path from package.json test script in folder above
-  await contract.deploy(
-    process.argv[2],
-  );
-
-  // Save state for test runs, it is unique for each test
-  t.context.worker = worker;
-  t.context.accounts = { root, contract };
-});
-
-test.afterEach.always(async (t) => {
-  // Stop Sandbox server
-  await t.context.worker.tearDown().catch((error) => {
-    console.log('Failed to stop the Sandbox:', error);
-  });
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const greeting: string = await contract.view('get_greeting', {});
-  t.is(greeting, 'Hello');
-});
-
-test('changes the greeting', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
-  const greeting: string = await contract.view('get_greeting', {});
-  t.is(greeting, 'Howdy');
-});",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--src--lib.rs 1`] = `
-[
-  "--rs_none_ts--src--lib.rs",
-  "// Find all our documentation at https://docs.near.org
-use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::env::log_str;
-use near_sdk::near_bindgen;
-
-// Define the contract structure
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct Contract {
-    greeting: String,
-}
-
-// Define the default, which automatically initializes the contract
-impl Default for Contract {
-    fn default() -> Self {
-        Self { greeting: "Hello".to_string() }
-    }
-}
-
-// Implement the contract structure
-#[near_bindgen]
-impl Contract {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_GREETING
-    pub fn get_greeting(&self) -> String {
-        return self.greeting.clone();
-    }
-
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn set_greeting(&mut self, greeting: String) {
-        log_str(&format!("Saving greeting: {greeting}"));
-        self.greeting = greeting;
-    }
-}
-
-/*
- * The rest of this file holds the inline tests for the code above
- * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
- */
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn get_default_greeting() {
-        let contract = Contract::default();
-        // this test did not call set_greeting so should return the default "Hello" greeting
-        assert_eq!(
-            contract.get_greeting(),
-            "Hello".to_string()
-        );
-    }
-
-    #[test]
-    fn set_then_get_greeting() {
-        let mut contract = Contract::default();
-        contract.set_greeting("howdy".to_string());
-        assert_eq!(
-            contract.get_greeting(),
-            "howdy".to_string()
-        );
-    }
-}
-",
-]
-`;
-
-exports[`create contract 'rs' 'none' 'ts': --rs_none_ts--test.sh 1`] = `
-[
-  "--rs_none_ts--test.sh",
-  "#!/bin/sh
-
-# unit testing
-cargo test
-
-# sandbox testing
-./build.sh
-cd sandbox-ts
-npm i
-npm run test -- -- "../target/wasm32-unknown-unknown/release/hello_near.wasm"",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--.gitignore 1`] = `
-[
-  "--ts_none_rs--.gitignore",
-  "node_modules
-build
-neardev
-",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--README.md 1`] = `
-[
-  "--ts_none_rs--README.md",
-  "# Hello NEAR Contract
-
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
-
-\`\`\`ts
-@NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
-
-  @view // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
-  }
-
-  @call // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
-    // Record a log permanently to the blockchain!
-    near.log(\`Saving greeting \${greeting}\`);
-    this.greeting = greeting;
-  }
-}
-\`\`\`
-
-<br />
-
-# Quickstart
-
-1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
-2. Install the [\`NEAR CLI\`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build and Deploy the Contract
-You can automatically compile and deploy the contract in the NEAR testnet by running:
-
-\`\`\`bash
-npm run build
-npm run deploy
-\`\`\`
-
-Once finished, check the \`neardev/dev-account\` file to find the address in which the contract was deployed:
-
-\`\`\`bash
-cat ./neardev/dev-account
-# e.g. dev-1659899566943-21539992274727
-\`\`\`
-
-<br />
-
-## 2. Retrieve the Greeting
-
-\`get_greeting\` is a read-only method (aka \`view\` method).
-
-\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
-
-\`\`\`bash
-# Use near-cli to get the greeting
-near view <dev-account> get_greeting
-\`\`\`
-
-<br />
-
-## 3. Store a New Greeting
-\`set_greeting\` changes the contract's state, for which it is a \`call\` method.
-
-\`Call\` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
-
-\`\`\`bash
-# Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
-\`\`\`
-
-**Tip:** If you would like to call \`set_greeting\` using your own account, first login into NEAR using:
-
-\`\`\`bash
-# Use near-cli to login your NEAR account
-near login
-\`\`\`
-
-and then use the logged account to sign the transaction: \`--accountId <your-account>\`.",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--package.json 1`] = `
-[
-  "--ts_none_rs--package.json",
-  "{
-  "name": "hello_near",
-  "version": "1.0.0",
-  "license": "(MIT AND Apache-2.0)",
-  "type": "module",
-  "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
-    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- -- ../build/hello_near.wasm",
-    "postinstall": "cd sandbox-ts && $npm_execpath install"
-  },
-  "dependencies": {
-    "near-cli": "4.0.0",
-    "near-sdk-js": "1.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.2.2",
-    "ts-morph": "^20.0.0"
-  }
-}
-",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--sandbox-rs--Cargo.toml 1`] = `
-[
-  "--ts_none_rs--sandbox-rs--Cargo.toml",
-  "[package]
-name = "sandbox"
-version = "1.0.0"
-publish = false
-edition = "2021"
-
-[dev-dependencies]
-tokio = { version = "1.18.1", features = ["full"] }
-near-workspaces = "0.9.0"
-serde_json = { version = "1.0", features = ["arbitrary_precision"] }
-
-[[example]]
-name = "sandbox"
-path = "src/tests.rs"",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--sandbox-rs--src--tests.rs 1`] = `
-[
-  "--ts_none_rs--sandbox-rs--src--tests.rs",
-  "use near_workspaces::{types::NearToken, Account, Contract};
-use serde_json::json;
-use std::{env, fs};
- 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let wasm_arg: &str = &(env::args().nth(1).unwrap());
-    let wasm_filepath = fs::canonicalize(env::current_dir()?.join(wasm_arg))?;
- 
-    let worker = near_workspaces::sandbox().await?;
-    let wasm = std::fs::read(wasm_filepath)?;
-    let contract = worker.dev_deploy(&wasm).await?;
- 
-    // create accounts
-    let account = worker.dev_create_account().await?;
-    let alice = account
-        .create_subaccount("alice")
-        .initial_balance(NearToken::from_near(30))
-        .transact()
-        .await?
-        .into_result()?;
- 
-    // begin tests
-    test_default_message(&alice, &contract).await?;
-    test_changes_message(&alice, &contract).await?;
-    Ok(())
-}
- 
-async fn test_default_message(
-    user: &Account,
-    contract: &Contract,
-) -> Result<(), Box<dyn std::error::Error>> {
-    let greeting: String = user
-        .call(contract.id(), "get_greeting")
-        .args_json(json!({}))
-        .transact()
-        .await?
-        .json()?;
- 
-    assert_eq!(greeting, "Hello".to_string());
-    println!("      Passed ✅ gets default greeting");
-    Ok(())
-}
- 
-async fn test_changes_message(
-    user: &Account,
-    contract: &Contract,
-) -> Result<(), Box<dyn std::error::Error>> {
-    user.call(contract.id(), "set_greeting")
-        .args_json(json!({"greeting": "Howdy"}))
-        .transact()
-        .await?
-        .into_result()?;
- 
-    let greeting: String = user
-        .call(contract.id(), "get_greeting")
-        .args_json(json!({}))
-        .transact()
-        .await?
-        .json()?;
- 
-    assert_eq!(greeting, "Howdy".to_string());
-    println!("      Passed ✅ changes greeting");
-    Ok(())
-}",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--src--contract.ts 1`] = `
-[
-  "--ts_none_rs--src--contract.ts",
-  "// Find all our documentation at https://docs.near.org
-import { NearBindgen, near, call, view } from 'near-sdk-js';
-
-@NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
-
-  @view({}) // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
-  }
-
-  @call({}) // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
-    near.log(\`Saving greeting \${greeting}\`);
-    this.greeting = greeting;
-  }
-}",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'rs': --ts_none_rs--tsconfig.json 1`] = `
-[
-  "--ts_none_rs--tsconfig.json",
-  "{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "target": "es5",
-    "noEmit": true
-  },
-  "exclude": [
-    "node_modules"
-  ],
-}",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--.gitignore 1`] = `
-[
-  "--ts_none_ts--.gitignore",
-  "node_modules
-build
-neardev
-",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--README.md 1`] = `
-[
-  "--ts_none_ts--README.md",
-  "# Hello NEAR Contract
-
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
-
-\`\`\`ts
-@NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
-
-  @view // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
-  }
-
-  @call // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
-    // Record a log permanently to the blockchain!
-    near.log(\`Saving greeting \${greeting}\`);
-    this.greeting = greeting;
-  }
-}
-\`\`\`
-
-<br />
-
-# Quickstart
-
-1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
-2. Install the [\`NEAR CLI\`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build and Deploy the Contract
-You can automatically compile and deploy the contract in the NEAR testnet by running:
-
-\`\`\`bash
-npm run build
-npm run deploy
-\`\`\`
-
-Once finished, check the \`neardev/dev-account\` file to find the address in which the contract was deployed:
-
-\`\`\`bash
-cat ./neardev/dev-account
-# e.g. dev-1659899566943-21539992274727
-\`\`\`
-
-<br />
-
-## 2. Retrieve the Greeting
-
-\`get_greeting\` is a read-only method (aka \`view\` method).
-
-\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
-
-\`\`\`bash
-# Use near-cli to get the greeting
-near view <dev-account> get_greeting
-\`\`\`
-
-<br />
-
-## 3. Store a New Greeting
-\`set_greeting\` changes the contract's state, for which it is a \`call\` method.
-
-\`Call\` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
-
-\`\`\`bash
-# Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
-\`\`\`
-
-**Tip:** If you would like to call \`set_greeting\` using your own account, first login into NEAR using:
-
-\`\`\`bash
-# Use near-cli to login your NEAR account
-near login
-\`\`\`
-
-and then use the logged account to sign the transaction: \`--accountId <your-account>\`.",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--package.json 1`] = `
-[
-  "--ts_none_ts--package.json",
-  "{
-  "name": "hello_near",
-  "version": "1.0.0",
-  "license": "(MIT AND Apache-2.0)",
-  "type": "module",
-  "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
-    "test": "$npm_execpath run build && cd sandbox-ts && $npm_execpath run test -- -- ../build/hello_near.wasm",
-    "postinstall": "cd sandbox-ts && $npm_execpath install"
-  },
-  "dependencies": {
-    "near-cli": "4.0.0",
-    "near-sdk-js": "1.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.2.2",
-    "ts-morph": "^20.0.0"
-  }
-}
-",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--sandbox-ts--ava.config.cjs 1`] = `
-[
-  "--ts_none_ts--sandbox-ts--ava.config.cjs",
-  "require('util').inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
-
-module.exports = {
-  timeout: '300000',
-  files: ['src/*.ava.ts'],
-  failWithoutAssertions: false,
-  extensions: ['ts'],
-  require: ['ts-node/register'],
-};
-",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--sandbox-ts--package.json 1`] = `
-[
-  "--ts_none_ts--sandbox-ts--package.json",
-  "{
-  "name": "ava-testing",
-  "version": "1.0.0",
-  "license": "(MIT AND Apache-2.0)",
-  "scripts": {
-    "test": "ava"
-  },
-  "devDependencies": {
-    "@types/bn.js": "^5.1.4",
-    "@types/node": "^20.8.10",
-    "ava": "^5.3.1",
-    "near-workspaces": "^3.5.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {}
-}
-",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--sandbox-ts--src--main.ava.ts 1`] = `
-[
-  "--ts_none_ts--sandbox-ts--src--main.ava.ts",
-  "import { Worker, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
-
-const test = anyTest as TestFn<{
-  worker: Worker;
-  accounts: Record<string, NearAccount>;
-}>;
-
-test.beforeEach(async (t) => {
-  // Init the worker and start a Sandbox server
-  const worker = await Worker.init();
-
-  // Deploy contract
-  const root = worker.rootAccount;
-  const contract = await root.createSubAccount('test-account');
-  // Get wasm file path from package.json test script in folder above
-  await contract.deploy(
-    process.argv[2],
-  );
-
-  // Save state for test runs, it is unique for each test
-  t.context.worker = worker;
-  t.context.accounts = { root, contract };
-});
-
-test.afterEach.always(async (t) => {
-  // Stop Sandbox server
-  await t.context.worker.tearDown().catch((error) => {
-    console.log('Failed to stop the Sandbox:', error);
-  });
-});
-
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const greeting: string = await contract.view('get_greeting', {});
-  t.is(greeting, 'Hello');
-});
-
-test('changes the greeting', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
-  const greeting: string = await contract.view('get_greeting', {});
-  t.is(greeting, 'Howdy');
-});",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--src--contract.ts 1`] = `
-[
-  "--ts_none_ts--src--contract.ts",
-  "// Find all our documentation at https://docs.near.org
-import { NearBindgen, near, call, view } from 'near-sdk-js';
-
-@NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
-
-  @view({}) // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
-  }
-
-  @call({}) // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
-    near.log(\`Saving greeting \${greeting}\`);
-    this.greeting = greeting;
-  }
-}",
-]
-`;
-
-exports[`create contract 'ts' 'none' 'ts': --ts_none_ts--tsconfig.json 1`] = `
-[
-  "--ts_none_ts--tsconfig.json",
-  "{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "target": "es5",
-    "noEmit": true
-  },
-  "exclude": [
-    "node_modules"
-  ],
-}",
 ]
 `;

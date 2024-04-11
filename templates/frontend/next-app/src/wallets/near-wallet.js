@@ -58,7 +58,7 @@ export class Wallet {
       });
 
     return this.accountId;
-  }
+  };
 
   /**
    * Displays a modal to login the user
@@ -66,7 +66,7 @@ export class Wallet {
   signIn = async () => {
     const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
     modal.show();
-  }
+  };
 
   /**
    * Logout the user
@@ -74,7 +74,7 @@ export class Wallet {
   signOut = async () => {
     await this.selectedWallet.signOut();
     this.selectedWallet = this.accountId = this.createAccessKeyFor = null;
-  }
+  };
 
   /**
    * Makes a read-only call to a contract
@@ -96,7 +96,7 @@ export class Wallet {
       finality: 'optimistic',
     });
     return JSON.parse(Buffer.from(res.result).toString());
-  }
+  };
 
 
   /**
@@ -125,7 +125,7 @@ export class Wallet {
         },
       ],
     });
-  }
+  };
 
   /**
    * Makes a call to a contract
@@ -140,5 +140,5 @@ export class Wallet {
     // Retrieve transaction result from the network
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
-  }
+  };
 }

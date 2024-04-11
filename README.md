@@ -35,14 +35,15 @@ For testing we use a sandboxed environment. You can write the tests in JavaScrip
 
 You can create a web application in:
 
-- [React](https://reactjs.org/)
-- Vanilla JavaScript
+- [Next (Pages Router)](https://nextjs.org/docs/pages/building-your-application/routing)
+- [Next (App Router)](https://nextjs.org/docs/app/building-your-application/routing)
+
 
 :::
-We strongly recommend you to follow our [web app quickstart](https://docs.near.org/develop/integrate/welcome) if you are new to NEAR WebApps.
+We strongly recommend you to follow our [web app quickstart](https://docs.near.org/build/smart-contracts/quickstart) if you are new to NEAR WebApps.
 :::
 
-> Consider using `pnpm` to handle the webapps, since it is much faster than `npm` and `yarn`.
+> Consider using `pnpm` to handle the frontend, since it is much faster than `npm` and `yarn`.
 
 ## Using CLI arguments to run `create-near-app`
 
@@ -51,9 +52,8 @@ This CLI supports arguments to skip interactive prompts:
 ```shell
 npx create-near-app
   <project-name>
-  --frontend next|vanilla|none
+  --frontend next-app|next-page|none
   --contract js|rs|none
-  --tests js|rs|none
   --install
 ```
 
@@ -71,7 +71,7 @@ Check out our [documentation](https://docs.near.org) or chat with us on [Discord
 To make changes to `create-near-app` itself:
 
 * clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
-* in your terminal, enter one of the folders inside `templates`, such as `templates/frontend/vanilla`
+* in your terminal, enter one of the folders inside `templates`, such as `templates/frontend/next-app`
 * now you can run `pnpm install` to install dependencies and `pnpm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
 
 

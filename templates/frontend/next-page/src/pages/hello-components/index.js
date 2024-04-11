@@ -1,15 +1,14 @@
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-import styles from "@/styles/app.module.css";
-import { DocsCard, HelloNearCard } from "@/components/cards";
-import { NetworkId, ComponentMap } from "@/config";
+import styles from '@/styles/app.module.css';
+import { DocsCard, HelloNearCard } from '@/components/cards';
+import { Components } from '@/config';
 
-const Component = dynamic(() => import("@/components/vm-component"), {
+const Component = dynamic(() => import('@/components/vm-component'), {
   ssr: false,
   loading: () => <p>Loading Component...</p>,
 });
 
-const socialComponents = ComponentMap[NetworkId];
 
 export default function HelloComponents() {
   return (
@@ -18,7 +17,7 @@ export default function HelloComponents() {
         <div className={styles.description}>
           <p>
             Loading components from: &nbsp;
-            <code className={styles.code}>{socialComponents.socialDB}</code>
+            <code className={styles.code}>{Components.socialDB}</code>
           </p>
         </div>
         <div className={styles.center}>
@@ -28,12 +27,12 @@ export default function HelloComponents() {
         </div>
         <div className="row">
           <div className="col-6">
-            <Component src={socialComponents.HelloNear} />
+            <Component src={Components.HelloNear} />
             <p className="my-4">&nbsp;</p>
-            <Component src={socialComponents.LoveNear} />
+            <Component src={Components.LoveNear} />
           </div>
           <div className="col-6">
-            <Component src={socialComponents.Lido} />
+            <Component src={Components.Lido} />
           </div>
         </div>
         <hr />

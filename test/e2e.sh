@@ -14,7 +14,7 @@ scaffold () {
   cd $root_dir
   dirname="${root_dir}/${1}_${2}_${3}"
   echo "scaffold: ${dirname}"
-  if ! node "${app_dir}/index.js" "${1}_${2}_${3}" --contract $1 --frontend $2 --tests $3 --install ; then exit 42; fi
+  if ! node "${app_dir}/index.js" "${1}_${2}_${3}" --contract $1 --frontend $2 --install ; then exit 42; fi
 }
 
 test () {
@@ -24,14 +24,18 @@ test () {
   if ! npm test ; then exit 42; fi
 }
 
-## CONTRACT:JS SANDBOX:JS
-scaffold js none ts
-test "js_none_ts"
+## CONTRACT:TS
+scaffold ts none
+test "ts"
 
-## CONTRACT:RUST SANDBOX:TS
-scaffold rust none ts
-test "rust_none_ts"
+## CONTRACT:RUST
+scaffold rust none
+test "rust"
 
-### CONTRACT:RUST SANDBOX:RUST
-scaffold rust none rs
-test "rust_none_rs"
+## Frontend: Pages router
+scaffold none next-pages
+test "pages"
+
+## Frontend: App router
+scaffold none next-app
+test "app"

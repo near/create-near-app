@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 
 import styles from '@/app/app.module.css';
 import { DocsCard, HelloNearCard } from '@/components/cards';
-import { NetworkId, Components } from '@/config';
+import { Components } from '@/config';
 
 const Component = dynamic(() => import('@/components/vm-component'), { ssr: false });
 

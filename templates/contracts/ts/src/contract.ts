@@ -3,7 +3,7 @@ import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
-  greeting: string = "Hello";
+  greeting: string = 'Hello';
 
   @view({}) // This method is read-only and can be called for free
   get_greeting(): string {

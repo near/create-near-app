@@ -1,11 +1,9 @@
-export const NetworkId = 'testnet';
-
-export const HelloNearContract = {
+const contractPerNetwork = {
   mainnet: 'hello.near-examples.near',
   testnet: 'hello.near-examples.testnet',
-}
+};
 
-export const ComponentMap = {
+const componentsPerNetwork = {
   mainnet: {
     socialDB: 'social.near',
     Lido: 'zavodil.near/widget/Lido',
@@ -18,4 +16,8 @@ export const ComponentMap = {
     HelloNear: 'influencer.testnet/widget/HelloNear',
     LoveNear: 'influencer.testnet/widget/LoveNear',
   }
-} 
+};
+
+export const NetworkId = 'testnet';
+export const HelloNearContract = contractPerNetwork[NetworkId];
+export const Components = componentsPerNetwork[NetworkId];

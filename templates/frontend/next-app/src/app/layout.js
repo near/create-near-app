@@ -1,7 +1,7 @@
 'use client';
 
 // react
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { create as createStore } from 'zustand';
 
 // app
@@ -18,7 +18,7 @@ export const useStore = createStore((set) => ({
   signedAccountId: '',
   setWallet: (wallet) => set({ wallet }),
   setSignedAccountId: (signedAccountId) => set({ signedAccountId })
-}))
+}));
 
 // Layout Component
 export default function RootLayout({ children }) {

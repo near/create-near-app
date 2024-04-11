@@ -2,7 +2,7 @@
 
 import { DocsCard, HelloComponentsCard } from '@/components/cards';
 import { useState, useEffect } from 'react';
-import { HelloNearContract, NetworkId } from '../../config';
+import { HelloNearContract } from '../../config';
 import styles from '../app.module.css';
 
 import { useStore } from '../layout';
@@ -22,7 +22,7 @@ export default function HelloNear() {
     if (!wallet) return;
 
     wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' })
-    .then(greeting => setGreeting(greeting));
+      .then(greeting => setGreeting(greeting));
   }, [wallet]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function HelloNear() {
 
   const storeGreeting = async () => {
     setShowSpinner(true);
-    const res = await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
     const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
     setGreeting(greeting);
     setShowSpinner(false);
