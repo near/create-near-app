@@ -1,9 +1,11 @@
+import Link from 'next/link';
+
 import styles from '../app/app.module.css';
 
 export const DocsCard = () => {
   return (
-    <a
-      href="https://docs.near.org/develop/integrate/quickstart-frontend"
+    <Link
+      href="https://docs.near.org/build/web3-apps/quickstart"
       className={styles.card}
       target='_blank'
       rel="noopener noreferrer"
@@ -12,12 +14,12 @@ export const DocsCard = () => {
         Near Docs <span>-&gt;</span>
       </h2>
       <p>Learn how this application works, and what you can build on Near.</p>
-    </a>);
+    </Link>);
 };
 
 export const HelloNearCard = () => {
   return (
-    <a
+    <Link
       href="/hello-near"
       className={styles.card}
       rel="noopener noreferrer"
@@ -26,13 +28,13 @@ export const HelloNearCard = () => {
         Near Integration <span>-&gt;</span>
       </h2>
       <p>Discover how simple it is to interact with a Near smart contract.</p>
-    </a>
+    </Link>
   );
 };
 
 export const HelloComponentsCard = () => {
   return (
-    <a
+    <Link
       href="/hello-components"
       className={styles.card}
       rel="noopener noreferrer"
@@ -41,6 +43,6 @@ export const HelloComponentsCard = () => {
         Web3 Components <span>-&gt;</span>
       </h2>
       <p>See how Web3 components can help you to create multi-chain apps.</p>
-    </a>
+    </Link>
   );
 };

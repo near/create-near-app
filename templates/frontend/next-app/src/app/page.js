@@ -1,4 +1,7 @@
 import Image from 'next/image';
+
+import NearLogo from '/public/near.svg';
+import NextLogo from '/public/next.svg';
 import styles from './app.module.css';
 import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
 
@@ -10,8 +13,8 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/near.svg"
-          alt="Next.js Logo"
+          src={NearLogo}
+          alt="NEAR Logo"
           width={110 * 1.5}
           height={28 * 1.5}
           priority
@@ -19,7 +22,7 @@ export default function Home() {
         <h3 className="ms-2 me-3 text-dark"> + </h3>
         <Image
           className={styles.logo}
-          src="/next.svg"
+          src={NextLogo}
           alt="Next.js Logo"
           width={300 * .58}
           height={61 * .58}

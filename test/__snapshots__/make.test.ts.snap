@@ -536,20 +536,20 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.9.6",
-    "@near-wallet-selector/here-wallet": "^8.9.6",
-    "@near-wallet-selector/modal-ui": "^8.9.6",
-    "@near-wallet-selector/my-near-wallet": "^8.9.6",
-    "@web3-onboard/core": "^2.21.4",
-    "@web3-onboard/injected-wallets": "^2.10.14",
+    "@near-wallet-selector/core": "^8.9.7",
+    "@near-wallet-selector/here-wallet": "^8.9.7",
+    "@near-wallet-selector/modal-ui": "^8.9.7",
+    "@near-wallet-selector/my-near-wallet": "^8.9.7",
+    "@web3-onboard/core": "^2.21.5",
+    "@web3-onboard/injected-wallets": "^2.10.15",
     "@web3-onboard/ledger": "^2.6.0",
-    "@web3-onboard/react": "^2.8.15",
+    "@web3-onboard/react": "^2.8.16",
     "@web3-onboard/walletconnect": "^2.5.4",
     "base64-js": "^1.5.1",
     "ieee754": "^1.2.1",
     "near-api-js": "^3.0.4",
     "near-social-vm": "github:gagdiez/VM" ,
-    "next": "14.1.4",
+    "next": "14.2.0",
     "pino-pretty": "^11.0.0",
     "react": "^18",
     "react-dom": "^18",
@@ -557,7 +557,7 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
   },
   "devDependencies": {
     "eslint": "^9.0",
-    "eslint-config-next": "14.1.4"
+    "eslint-config-next": "14.2.0"
   }
 }
 ",
@@ -1161,6 +1161,9 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--page.js 1`] 
 [
   "--frontend_next-app--src--app--page.js",
   "import Image from 'next/image';
+
+import NearLogo from '/public/near.svg';
+import NextLogo from '/public/next.svg';
 import styles from './app.module.css';
 import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
 
@@ -1172,8 +1175,8 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/near.svg"
-          alt="Next.js Logo"
+          src={NearLogo}
+          alt="NEAR Logo"
           width={110 * 1.5}
           height={28 * 1.5}
           priority
@@ -1181,7 +1184,7 @@ export default function Home() {
         <h3 className="ms-2 me-3 text-dark"> + </h3>
         <Image
           className={styles.logo}
-          src="/next.svg"
+          src={NextLogo}
           alt="Next.js Logo"
           width={300 * .58}
           height={61 * .58}
@@ -1196,20 +1199,21 @@ export default function Home() {
       </div>
     </main>
   );
-}
-",
+}",
 ]
 `;
 
 exports[`create frontend 'next-app': --frontend_next-app--src--components--cards.js 1`] = `
 [
   "--frontend_next-app--src--components--cards.js",
-  "import styles from '../app/app.module.css';
+  "import Link from 'next/link';
+
+import styles from '../app/app.module.css';
 
 export const DocsCard = () => {
   return (
-    <a
-      href="https://docs.near.org/develop/integrate/quickstart-frontend"
+    <Link
+      href="https://docs.near.org/build/web3-apps/quickstart"
       className={styles.card}
       target='_blank'
       rel="noopener noreferrer"
@@ -1218,12 +1222,12 @@ export const DocsCard = () => {
         Near Docs <span>-&gt;</span>
       </h2>
       <p>Learn how this application works, and what you can build on Near.</p>
-    </a>);
+    </Link>);
 };
 
 export const HelloNearCard = () => {
   return (
-    <a
+    <Link
       href="/hello-near"
       className={styles.card}
       rel="noopener noreferrer"
@@ -1232,13 +1236,13 @@ export const HelloNearCard = () => {
         Near Integration <span>-&gt;</span>
       </h2>
       <p>Discover how simple it is to interact with a Near smart contract.</p>
-    </a>
+    </Link>
   );
 };
 
 export const HelloComponentsCard = () => {
   return (
-    <a
+    <Link
       href="/hello-components"
       className={styles.card}
       rel="noopener noreferrer"
@@ -1247,7 +1251,7 @@ export const HelloComponentsCard = () => {
         Web3 Components <span>-&gt;</span>
       </h2>
       <p>See how Web3 components can help you to create multi-chain apps.</p>
-    </a>
+    </Link>
   );
 };",
 ]
@@ -1260,10 +1264,10 @@ exports[`create frontend 'next-app': --frontend_next-app--src--components--navig
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import NearLogo from '/public/near-logo.svg';
 import { useStore } from '@/app/layout';
 
 export const Navigation = () => {
-
   const { signedAccountId, wallet } = useStore();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
@@ -1284,7 +1288,7 @@ export const Navigation = () => {
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <Link href="/" passHref legacyBehavior>
-          <Image priority src="/near-logo.svg" alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
+          <Image priority src={NearLogo} alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
         </Link>
         <div className='navbar-nav pt-1'>
           <button className="btn btn-secondary" onClick={action} > {label} </button>
@@ -1906,31 +1910,31 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.9.6",
-    "@near-wallet-selector/here-wallet": "^8.9.6",
-    "@near-wallet-selector/modal-ui": "^8.9.6",
-    "@near-wallet-selector/my-near-wallet": "^8.9.6",
-    "@web3-onboard/core": "^2.20.2",
-    "@web3-onboard/injected-wallets": "^2.10.1",
-    "@web3-onboard/ledger": "^2.4.6",
-    "@web3-onboard/react": "^2.8.7",
-    "@web3-onboard/walletconnect": "^2.3.9",
+    "@near-wallet-selector/core": "^8.9.7",
+    "@near-wallet-selector/here-wallet": "^8.9.7",
+    "@near-wallet-selector/modal-ui": "^8.9.7",
+    "@near-wallet-selector/my-near-wallet": "^8.9.7",
+    "@web3-onboard/core": "^2.21.5",
+    "@web3-onboard/injected-wallets": "^2.10.15",
+    "@web3-onboard/ledger": "^2.6.0",
+    "@web3-onboard/react": "^2.8.16",
+    "@web3-onboard/walletconnect": "^2.5.4",
     "base64-js": "^1.5.1",
     "ieee754": "^1.2.1",
-    "near-api-js": "^2.1.3",
+    "near-api-js": "^3.0.4",
     "near-social-vm": "github:gagdiez/VM" ,
-    "next": "14.0.1",
-    "pino-pretty": "^10.2.3",
+    "next": "14.2.0",
+    "pino-pretty": "^11.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
-    "react-bootstrap-icons": "^1.11.3",
+    "react-bootstrap-icons": "^1.11.4",
     "react-dom": "^18.2.0",
     "react-singleton-hook": "^4.0.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "eslint": "^8.53",
-    "eslint-config-next": "14.0.1"
+    "eslint": "^9.0",
+    "eslint-config-next": "14.2.0"
   }
 }
 ",
@@ -2024,38 +2028,43 @@ exports[`create frontend 'next-page': --frontend_next-page--public--vercel.svg 1
 exports[`create frontend 'next-page': --frontend_next-page--src--components--cards.js 1`] = `
 [
   "--frontend_next-page--src--components--cards.js",
-  "import styles from '../styles/app.module.css';
+  "import Link from 'next/link';
+
+import styles from '../styles/app.module.css';
 
 export const DocsCard = () => {
   return (
-    <a
-      href="https://docs.near.org/develop/integrate/quickstart-frontend"
+    <Link
+      href="https://docs.near.org/build/web3-apps/quickstart"
       className={styles.card}
-      target="_blank"
+      target='_blank'
       rel="noopener noreferrer"
     >
       <h2>
         Near Docs <span>-&gt;</span>
       </h2>
       <p>Learn how this application works, and what you can build on Near.</p>
-    </a>
-  );
+    </Link>);
 };
 
 export const HelloNearCard = () => {
   return (
-    <a href="/hello-near" className={styles.card} rel="noopener noreferrer">
+    <Link
+      href="/hello-near"
+      className={styles.card}
+      rel="noopener noreferrer"
+    >
       <h2>
         Near Integration <span>-&gt;</span>
       </h2>
       <p>Discover how simple it is to interact with a Near smart contract.</p>
-    </a>
+    </Link>
   );
 };
 
 export const HelloComponentsCard = () => {
   return (
-    <a
+    <Link
       href="/hello-components"
       className={styles.card}
       rel="noopener noreferrer"
@@ -2064,10 +2073,9 @@ export const HelloComponentsCard = () => {
         Web3 Components <span>-&gt;</span>
       </h2>
       <p>See how Web3 components can help you to create multi-chain apps.</p>
-    </a>
+    </Link>
   );
-};
-",
+};",
 ]
 `;
 
@@ -2078,8 +2086,7 @@ exports[`create frontend 'next-page': --frontend_next-page--src--components--nav
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import NearLogo from 'public/near-logo.svg';
-//import { useWallet } from '@/wallets/wallet-selector';
+import NearLogo from '/public/near-logo.svg';
 import { useStore } from '@/layout';
 
 export const Navigation = () => {
@@ -2097,7 +2104,7 @@ export const Navigation = () => {
       setAction(() => wallet.signIn);
       setLabel('Login');
     }
-  }, [signedAccountId, wallet, setAction, setLabel]);
+  }, [signedAccountId, wallet]);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -2399,12 +2406,11 @@ exports[`create frontend 'next-page': --frontend_next-page--src--pages--index.js
 [
   "--frontend_next-page--src--pages--index.js",
   "import Image from 'next/image';
+
+import NearLogo from '/public/near.svg';
+import NextLogo from '/public/next.svg';
 import styles from '@/styles/app.module.css';
-import {
-  DocsCard,
-  HelloComponentsCard,
-  HelloNearCard,
-} from '@/components/cards';
+import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
 
 export default function Home() {
   return (
@@ -2414,8 +2420,8 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/near.svg"
-          alt="Next.js Logo"
+          src={NearLogo}
+          alt="NEAR Logo"
           width={110 * 1.5}
           height={28 * 1.5}
           priority
@@ -2423,10 +2429,10 @@ export default function Home() {
         <h3 className="ms-2 me-3 text-dark"> + </h3>
         <Image
           className={styles.logo}
-          src="/next.svg"
+          src={NextLogo}
           alt="Next.js Logo"
-          width={300 * 0.58}
-          height={61 * 0.58}
+          width={300 * .58}
+          height={61 * .58}
           priority
         />
       </div>

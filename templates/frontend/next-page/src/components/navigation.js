@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import NearLogo from 'public/near-logo.svg';
-//import { useWallet } from '@/wallets/wallet-selector';
+import NearLogo from '/public/near-logo.svg';
 import { useStore } from '@/layout';
 
 export const Navigation = () => {
@@ -21,7 +20,7 @@ export const Navigation = () => {
       setAction(() => wallet.signIn);
       setLabel('Login');
     }
-  }, [signedAccountId, wallet, setAction, setLabel]);
+  }, [signedAccountId, wallet]);
 
   return (
     <nav className="navbar navbar-expand-lg">
