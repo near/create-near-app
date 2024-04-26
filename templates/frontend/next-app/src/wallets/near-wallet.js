@@ -69,7 +69,6 @@ export class Wallet {
   signOut = async () => {
     const selectedWallet = await (await this.selector).wallet();
     selectedWallet.signOut();
-    this.accountId = this.createAccessKeyFor = null;
   };
 
   /**
