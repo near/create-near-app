@@ -108,9 +108,9 @@ export class Wallet {
    * @param {string} deposit - the amount of yoctoNEAR to deposit
    * @returns {Promise<Transaction>} - the resulting transaction
    */
-  callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
+  async callMethod({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) {
     // Sign a transaction with the "FunctionCall" action
-    return await this.selectedWallet.signAndSendTransaction({
+    const outcome = await this.selectedWallet.signAndSendTransaction({
       signerId: this.accountId,
       receiverId: contractId,
       actions: [
@@ -125,7 +125,10 @@ export class Wallet {
         },
       ],
     });
-  };
+
+    return providers.getTransactionLastResult(outcome);
+  }
+
 
   /**
    * Makes a call to a contract
