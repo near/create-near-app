@@ -40,14 +40,14 @@ export class Wallet {
 
     const walletSelector = await this.selector;
     const isSignedIn = walletSelector.isSignedIn();
-    const accountId = isSignedIn? walletSelector.store.getState().accounts[0].accountId : '';
+    const accountId = isSignedIn ? walletSelector.store.getState().accounts[0].accountId : '';
 
     walletSelector.store.observable
       .pipe(
         map(state => state.accounts),
         distinctUntilChanged()
       )
-      .subscribe(async (accounts) => {
+      .subscribe(accounts => {
         const signedAccount = accounts.find((account) => account.active)?.accountId;
         accountChangeHook(signedAccount);
       });
