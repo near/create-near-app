@@ -107,11 +107,11 @@ export const gatewayInstructions = (
 ${
   !install
     ? chalk`   - {inverse Install all dependencies}
-         {blue pnpm {bold install}}`
+         {blue npm {bold install}}`
     : 'Then:'
 }
    - {inverse Start your app}:
-         {blue pnpm {bold run dev}}`;
+         {blue npm {bold run dev}}`;
 
 export const argsError = (msg: string) =>
   show(chalk`{red Arguments error: {white ${msg}}}
