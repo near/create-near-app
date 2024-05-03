@@ -26,7 +26,7 @@ You can create contracts written in:
 - `Rust`
 
 :::
-We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/develop/contracts/welcome) if you are new to NEAR contracts.
+We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/build/smart-contracts/quickstart) if you are new to NEAR contracts.
 :::
 
 For testing we use a sandboxed environment. You can write the tests in JavaScript or Rust.
