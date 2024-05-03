@@ -9,7 +9,7 @@ Quickly build apps backed by the [NEAR](https://near.org) blockchain
 
 Make sure you have a [current version of Node.js](https://nodejs.org) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
 
-Read about other [prerequisites](https://docs.near.org/develop/prerequisites) in our docs.
+Read about other [prerequisites](https://docs.near.org/build/smart-contracts/quickstart#prerequisites) in our docs.
 
 ## Getting Started
 
@@ -26,7 +26,7 @@ You can create contracts written in:
 - `Rust`
 
 :::
-We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/develop/contracts/welcome) if you are new to NEAR contracts.
+We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/build/smart-contracts/quickstart) if you are new to NEAR contracts.
 :::
 
 For testing we use a sandboxed environment. You can write the tests in JavaScript or Rust.
@@ -40,7 +40,7 @@ You can create a web application in:
 
 
 :::
-We strongly recommend you to follow our [web app quickstart](https://docs.near.org/build/smart-contracts/quickstart) if you are new to NEAR WebApps.
+We strongly recommend you to follow our [web app quickstart](https://docs.near.org/build/web3-apps/quickstart) if you are new to NEAR WebApps.
 :::
 
 > Consider using `pnpm` to handle the frontend, since it is much faster than `npm` and `yarn`.
