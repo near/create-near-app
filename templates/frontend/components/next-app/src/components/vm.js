@@ -1,13 +1,15 @@
-import { Widget, EthersProviderContext } from 'near-social-vm';
-import { useEthersProviderContext } from '@/wallets/web3-wallet';
-import { useInitNear } from 'near-social-vm';
-import { useEffect } from 'react';
-import { useStore } from '@/app/layout';
+'use client';
+
+import { useEffect, useContext } from 'react';
+import { useInitNear, Widget, EthersProviderContext } from 'near-social-vm';
+
+import { NearContext } from '@/context';
 import { NetworkId } from '@/config';
+import { useEthersProviderContext } from '@/wallets/eth';
 
 export default function Component({ src }) {
   const ethersContext = useEthersProviderContext();
-  const { wallet } = useStore();
+  const { wallet } = useContext(NearContext);
   const { initNear } = useInitNear();
 
   useEffect(() => {

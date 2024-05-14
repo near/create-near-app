@@ -16,9 +16,18 @@
     "@near-wallet-selector/here-wallet": "^8.9.7",
     "@near-wallet-selector/modal-ui": "^8.9.7",
     "@near-wallet-selector/my-near-wallet": "^8.9.7",
-    "bootstrap": "^5",
+    "@web3-onboard/core": "^2.21.5",
+    "@web3-onboard/injected-wallets": "^2.10.15",
+    "@web3-onboard/ledger": "^2.6.0",
+    "@web3-onboard/react": "^2.8.16",
+    "@web3-onboard/walletconnect": "^2.5.4",
+    "base64-js": "^1.5.1",
+    "bootstrap": "^5.3.3",
+    "ieee754": "^1.2.1",
     "near-api-js": "^3.0.4",
-    "next": "14.2.3",
+    "near-social-vm": "github:gagdiez/VM",
+    "next": "14.2.0",
+    "pino-pretty": "^11.0.0",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -26,7 +35,7 @@
     "near-api-js": "^3.0.4"
   },
   "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.2"
   }
 }

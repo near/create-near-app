@@ -38,7 +38,7 @@ const frontendTemplates: FrontendMessage = {
 export const successFrontendToText = (frontend: Frontend) =>
   frontend === 'none'
     ? ''
-    : chalk`a gateway using ${frontendTemplates[frontend]}`;
+    : chalk`a web-app using ${frontendTemplates[frontend]}`;
 
 export const setupSuccess = (
   projectName: ProjectName,

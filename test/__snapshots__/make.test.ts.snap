@@ -540,27 +540,18 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "@near-wallet-selector/here-wallet": "^8.9.7",
     "@near-wallet-selector/modal-ui": "^8.9.7",
     "@near-wallet-selector/my-near-wallet": "^8.9.7",
-    "@web3-onboard/core": "^2.21.5",
-    "@web3-onboard/injected-wallets": "^2.10.15",
-    "@web3-onboard/ledger": "^2.6.0",
-    "@web3-onboard/react": "^2.8.16",
-    "@web3-onboard/walletconnect": "^2.5.4",
-    "base64-js": "^1.5.1",
-    "ieee754": "^1.2.1",
+    "bootstrap": "^5",
     "near-api-js": "^3.0.4",
-    "near-social-vm": "github:gagdiez/VM" ,
-    "next": "14.2.0",
-    "pino-pretty": "^11.0.0",
+    "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18",
-    "zustand": "^4.5.2"
+    "react-dom": "^18"
   },
   "overrides": {
     "near-api-js": "^3.0.4"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.2"
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3"
   }
 }
 ",
@@ -889,7 +880,6 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--globals.css 
 [
   "--frontend_next-app--src--app--globals.css",
   "@import 'bootstrap';
-@import 'bootstrap-icons';
 
 :root {
   --max-width: 1100px;
@@ -986,72 +976,23 @@ a {
 ]
 `;
 
-exports[`create frontend 'next-app': --frontend_next-app--src--app--hello-components--page.js 1`] = `
-[
-  "--frontend_next-app--src--app--hello-components--page.js",
-  "'use client';
-import dynamic from 'next/dynamic';
-
-import styles from '@/app/app.module.css';
-import { DocsCard, HelloNearCard } from '@/components/cards';
-import { Components } from '@/config';
-
-const Component = dynamic(() => import('@/components/vm-component'), { ssr: false });
-
-export default function HelloComponents() {
-
-  return (
-    <>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Loading components from: &nbsp;
-            <code className={styles.code}>{Components.socialDB}</code>
-          </p>
-        </div>
-        <div className={styles.center}>
-          <h1> <code>Multi-chain</code> Components Made Simple </h1>
-        </div>
-        <div className='row'>
-          <div className="col-6">
-            <Component src={Components.HelloNear} />
-            <p className="my-4">&nbsp;</p>
-            <Component src={Components.LoveNear} />
-          </div>
-          <div className="col-6">
-            <Component src={Components.Lido} />
-          </div>
-        </div>
-        <hr />
-
-        <div className={styles.grid}>
-          <DocsCard />
-          <HelloNearCard />
-        </div>
-      </main>
-    </>
-  );
-}",
-]
-`;
-
 exports[`create frontend 'next-app': --frontend_next-app--src--app--hello-near--page.js 1`] = `
 [
   "--frontend_next-app--src--app--hello-near--page.js",
   "'use client';
+import { useState, useEffect, useContext } from 'react';
 
-import { DocsCard, HelloComponentsCard } from '@/components/cards';
-import { useState, useEffect } from 'react';
-import { HelloNearContract } from '../../config';
-import styles from '../app.module.css';
+import styles from '@/app/app.module.css';
+import { Cards } from '@/components/cards';
 
-import { useStore } from '../layout';
+import { NearContext } from '@/context';
+import { HelloNearContract } from '@/config';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useStore();
+  const { signedAccountId, wallet } = useContext(NearContext);
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -1102,8 +1043,7 @@ export default function HelloNear() {
         </div>
       </div>
       <div className={styles.grid}>
-        <DocsCard />
-        <HelloComponentsCard />
+        <Cards />
       </div>
     </main>
   );
@@ -1117,41 +1057,30 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--layout.js 1`
   "--frontend_next-app--src--app--layout.js",
   "'use client';
 
-// react
-import { useEffect } from 'react';
-import { create as createStore } from 'zustand';
+import { useEffect, useState } from 'react';
 
-// app
-import './globals.css';
+import '@/app/globals.css';
+import { NearContext } from '@/context';
 import { Navigation } from '@/components/navigation';
 import { NetworkId, HelloNearContract } from '@/config';
 
-// wallet-selector
-import { Wallet } from '@/wallets/near-wallet';
+import { Wallet } from '@/wallets/near';
 
-// store to share wallet and signedAccountId
-export const useStore = createStore((set) => ({
-  wallet: undefined,
-  signedAccountId: '',
-  setWallet: (wallet) => set({ wallet }),
-  setSignedAccountId: (signedAccountId) => set({ signedAccountId })
-}));
+const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: HelloNearContract });
 
 // Layout Component
 export default function RootLayout({ children }) {
-  const { setWallet, setSignedAccountId } = useStore();
+  const [signedAccountId, setSignedAccountId] = useState('');
 
-  useEffect(() => {
-    const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: HelloNearContract });
-    wallet.startUp(setSignedAccountId);
-    setWallet(wallet);
-  }, []);
+  useEffect(() => { wallet.startUp(setSignedAccountId); }, []);
 
   return (
     <html lang="en">
       <body>
-        <Navigation />
-        {children}
+        <NearContext.Provider value={{ wallet, signedAccountId }}>
+          <Navigation />
+          {children}
+        </NearContext.Provider>
       </body>
     </html>
   );
@@ -1168,7 +1097,7 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--page.js 1`] 
 import NearLogo from '/public/near.svg';
 import NextLogo from '/public/next.svg';
 import styles from './app.module.css';
-import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
+import { Cards } from '@/components/cards';
 
 export default function Home() {
   return (
@@ -1196,9 +1125,7 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <HelloComponentsCard />
-        <HelloNearCard />
-        <DocsCard />
+        <Cards />
       </div>
     </main>
   );
@@ -1211,50 +1138,34 @@ exports[`create frontend 'next-app': --frontend_next-app--src--components--cards
   "--frontend_next-app--src--components--cards.js",
   "import Link from 'next/link';
 
-import styles from '../app/app.module.css';
+import styles from '@/app/app.module.css';
 
-export const DocsCard = () => {
+export const Cards = () => {
   return (
-    <Link
-      href="https://docs.near.org/build/web3-apps/quickstart"
-      className={styles.card}
-      target='_blank'
-      rel="noopener noreferrer"
-    >
-      <h2>
-        Near Docs <span>-&gt;</span>
-      </h2>
-      <p>Learn how this application works, and what you can build on Near.</p>
-    </Link>);
-};
+    <div className={styles.grid}>
+      <Link
+        href="https://docs.near.org/build/web3-apps/quickstart"
+        className={styles.card}
+        target='_blank'
+        rel="noopener noreferrer"
+      >
+        <h2>
+          Near Docs <span>-&gt;</span>
+        </h2>
+        <p>Learn how this application works, and what you can build on Near.</p>
+      </Link>
 
-export const HelloNearCard = () => {
-  return (
-    <Link
-      href="/hello-near"
-      className={styles.card}
-      rel="noopener noreferrer"
-    >
-      <h2>
-        Near Integration <span>-&gt;</span>
-      </h2>
-      <p>Discover how simple it is to interact with a Near smart contract.</p>
-    </Link>
-  );
-};
-
-export const HelloComponentsCard = () => {
-  return (
-    <Link
-      href="/hello-components"
-      className={styles.card}
-      rel="noopener noreferrer"
-    >
-      <h2>
-        Web3 Components <span>-&gt;</span>
-      </h2>
-      <p>See how Web3 components can help you to create multi-chain apps.</p>
-    </Link>
+      <Link
+        href="/hello-near"
+        className={styles.card}
+        rel="noopener noreferrer"
+      >
+        <h2>
+          Near Integration <span>-&gt;</span>
+        </h2>
+        <p>Discover how simple it is to interact with a Near smart contract.</p>
+      </Link>
+    </div>
   );
 };",
 ]
@@ -1265,13 +1176,13 @@ exports[`create frontend 'next-app': --frontend_next-app--src--components--navig
   "--frontend_next-app--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
+import { NearContext } from '@/context';
 import NearLogo from '/public/near-logo.svg';
-import { useStore } from '@/app/layout';
 
 export const Navigation = () => {
-  const { signedAccountId, wallet } = useStore();
+  const { signedAccountId, wallet } = useContext(NearContext);
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
@@ -1303,38 +1214,6 @@ export const Navigation = () => {
 ]
 `;
 
-exports[`create frontend 'next-app': --frontend_next-app--src--components--vm-component.js 1`] = `
-[
-  "--frontend_next-app--src--components--vm-component.js",
-  "import { Widget, EthersProviderContext } from 'near-social-vm';
-import { useEthersProviderContext } from '@/wallets/web3-wallet';
-import { useInitNear } from 'near-social-vm';
-import { useEffect } from 'react';
-import { useStore } from '@/app/layout';
-import { NetworkId } from '@/config';
-
-export default function Component({ src }) {
-  const ethersContext = useEthersProviderContext();
-  const { wallet } = useStore();
-  const { initNear } = useInitNear();
-
-  useEffect(() => {
-    wallet && initNear && initNear({ networkId: NetworkId, selector: wallet.selector, config: { allowOtherContracts: true } });
-  }, [wallet, initNear]);
-
-  return (
-    <div>
-      <EthersProviderContext.Provider value={ethersContext}>
-        <Widget src={src} />
-      </EthersProviderContext.Provider>
-      <p className="mt-4 small"> <span className="text-secondary">Source:</span> <a href={\`https://near.social/mob.near/widget/WidgetSource?src=\${src}\`}> {src} </a> </p>
-    </div>
-  );
-}
-",
-]
-`;
-
 exports[`create frontend 'next-app': --frontend_next-app--src--config.js 1`] = `
 [
   "--frontend_next-app--src--config.js",
@@ -1343,32 +1222,34 @@ exports[`create frontend 'next-app': --frontend_next-app--src--config.js 1`] = `
   testnet: 'hello.near-examples.testnet',
 };
 
-const componentsPerNetwork = {
-  mainnet: {
-    socialDB: 'social.near',
-    Lido: 'zavodil.near/widget/Lido',
-    HelloNear: 'gagdiez.near/widget/HelloNear',
-    LoveNear: 'gagdiez.near/widget/LoveNear',
-  },
-  testnet: {
-    socialDB: 'v1.social08.testnet',
-    Lido: 'influencer.testnet/widget/Lido',
-    HelloNear: 'influencer.testnet/widget/HelloNear',
-    LoveNear: 'influencer.testnet/widget/LoveNear',
-  }
-};
-
 export const NetworkId = 'testnet';
-export const HelloNearContract = contractPerNetwork[NetworkId];
-export const Components = componentsPerNetwork[NetworkId];",
+export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
-exports[`create frontend 'next-app': --frontend_next-app--src--wallets--near-wallet.js 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--context.js 1`] = `
 [
-  "--frontend_next-app--src--wallets--near-wallet.js",
-  "
-// near api js
+  "--frontend_next-app--src--context.js",
+  "import { createContext } from 'react';
+
+/**
+ * @typedef NearContext
+ * @property {import('./wallets/near').Wallet} wallet Current wallet
+ * @property {string} signedAccountId The AccountId of the signed user
+ */
+
+/** @type {import ('react').Context<NearContext>} */
+export const NearContext = createContext({
+  wallet: undefined,
+  signedAccountId: ''
+});",
+]
+`;
+
+exports[`create frontend 'next-app': --frontend_next-app--src--wallets--near.js 1`] = `
+[
+  "--frontend_next-app--src--wallets--near.js",
+  "// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector
@@ -1385,8 +1266,9 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   /**
    * @constructor
-   * @param {string} networkId - the network id to connect to
-   * @param {string} createAccessKeyFor - the contract to create an access key for
+   * @param {Object} options - the options for the wallet
+   * @param {string} options.networkId - the network id to connect to
+   * @param {string} options.createAccessKeyFor - the contract to create an access key for
    * @example
    * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
    * wallet.startUp((signedAccountId) => console.log(signedAccountId));
@@ -1442,15 +1324,15 @@ export class Wallet {
 
   /**
    * Makes a read-only call to a contract
-   * @param {string} contractId - the contract's account id
-   * @param {string} method - the method to call
-   * @param {Object} args - the arguments to pass to the method
+   * @param {Object} options - the options for the call
+   * @param {string} options.contractId - the contract's account id
+   * @param {string} options.method - the method to call
+   * @param {Object} options.args - the arguments to pass to the method
    * @returns {Promise<JSON.value>} - the result of the method call
    */
   viewMethod = async ({ contractId, method, args = {} }) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const url = \`https://rpc.\${this.networkId}.near.org\`;
+    const provider = new providers.JsonRpcProvider({ url });
 
     let res = await provider.query({
       request_type: 'call_function',
@@ -1465,11 +1347,12 @@ export class Wallet {
 
   /**
    * Makes a call to a contract
-   * @param {string} contractId - the contract's account id
-   * @param {string} method - the method to call
-   * @param {Object} args - the arguments to pass to the method
-   * @param {string} gas - the amount of gas to use
-   * @param {string} deposit - the amount of yoctoNEAR to deposit
+   * @param {Object} options - the options for the call
+   * @param {string} options.contractId - the contract's account id
+   * @param {string} options.method - the method to call
+   * @param {Object} options.args - the arguments to pass to the method
+   * @param {string} options.gas - the amount of gas to use
+   * @param {string} options.deposit - the amount of yoctoNEAR to deposit
    * @returns {Promise<Transaction>} - the resulting transaction
    */
   callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
@@ -1511,306 +1394,13 @@ export class Wallet {
 ]
 `;
 
-exports[`create frontend 'next-app': --frontend_next-app--src--wallets--web3-wallet.ts 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--.eslintrc.json 1`] = `
 [
-  "--frontend_next-app--src--wallets--web3-wallet.ts",
-  "'use client';
-import type { EIP1193Provider } from '@web3-onboard/core';
-import injectedModule from '@web3-onboard/injected-wallets';
-import ledgerModule from '@web3-onboard/ledger';
-import { init, useConnectWallet } from '@web3-onboard/react';
-import walletConnectModule from '@web3-onboard/walletconnect';
-import { useEffect, useState } from 'react';
-import { singletonHook } from 'react-singleton-hook';
-
-const web3onboardKey = 'web3-onboard:connectedWallets';
-
-const wcV2InitOptions: any = {
-  version: 2,
-  projectId: '72b7b3359ab477e339a070f615806aa6',
-  requiredChains: [1, 56],
-};
-
-const walletConnect = walletConnectModule(wcV2InitOptions);
-const ledger = ledgerModule(wcV2InitOptions);
-const injected = injectedModule();
-
-// initialize Onboard
-export const onboard = init({
-  wallets: [injected, walletConnect, ledger],
-  chains: [
-    {
-      id: 1,
-      token: 'ETH',
-      label: 'Ethereum Mainnet',
-      rpcUrl: 'https://rpc.ankr.com/eth',
-    },
-    {
-      id: 3,
-      token: 'ETH',
-      label: 'Ropsten - Ethereum Testnet',
-      rpcUrl: 'https://rpc.ankr.com/eth_ropsten',
-    },
-    {
-      id: 5,
-      token: 'ETH',
-      label: 'Goerli - Ethereum Testnet',
-      rpcUrl: 'https://rpc.ankr.com/eth_goerli',
-    },
-    {
-      id: 10,
-      token: 'ETH',
-      label: 'Optimism',
-      rpcUrl: 'https://rpc.ankr.com/optimism',
-    },
-    {
-      id: 420,
-      token: 'ETH',
-      label: 'Optimism Goerli Testnet',
-      rpcUrl: 'https://optimism-goerli.publicnode.com',
-    },
-    {
-      id: 56,
-      token: 'BNB',
-      label: 'Binance Smart Chain Mainnet',
-      rpcUrl: 'https://bsc.publicnode.com',
-    },
-    {
-      id: 97,
-      token: 'tBNB',
-      label: 'Binance Smart Chain Testnet',
-      rpcUrl: 'https://bsc-testnet.publicnode.com',
-    },
-    {
-      id: 1313161554,
-      token: 'ETH',
-      label: 'Aurora Mainnet',
-      rpcUrl: 'https://mainnet.aurora.dev',
-    },
-    {
-      id: 1313161555,
-      token: 'ETH',
-      label: 'Aurora Testnet',
-      rpcUrl: 'https://testnet.aurora.dev',
-    },
-    {
-      id: 137,
-      token: 'MATIC',
-      label: 'Polygon Mainnet',
-      rpcUrl: 'https://rpc.ankr.com/polygon',
-    },
-    {
-      id: 80001,
-      token: 'MATIC',
-      label: 'Polygon Testnet Mumbai',
-      rpcUrl: 'https://rpc.ankr.com/polygon_mumbai',
-    },
-    {
-      id: 280,
-      token: 'ETH',
-      label: 'zkSync Era Testnet',
-      rpcUrl: 'https://testnet.era.zksync.dev',
-    },
-    {
-      id: 324,
-      token: 'ETH',
-      label: 'zkSync Era Mainnet',
-      rpcUrl: 'https://zksync2-mainnet.zksync.io',
-    },
-    {
-      id: 1101,
-      token: 'ETH',
-      label: 'Polygon zkEVM',
-      rpcUrl: 'https://zkevm-rpc.com',
-    },
-    {
-      id: 1442,
-      token: 'ETH',
-      label: 'Polygon zkEVM Testnet',
-      rpcUrl: 'https://rpc.public.zkevm-test.net',
-    },
-    {
-      id: 42161,
-      token: 'ETH',
-      label: 'Arbitrum One Mainnet',
-      rpcUrl: 'https://arb1.arbitrum.io/rpc',
-    },
-    {
-      id: 42170,
-      token: 'ETH',
-      label: 'Arbitrum Nova',
-      rpcUrl: 'https://nova.arbitrum.io/rpc',
-    },
-    {
-      id: 421613,
-      token: 'AGOR',
-      label: 'Arbitrum Goerli',
-      rpcUrl: 'https://goerli-rollup.arbitrum.io/rpc',
-    },
-    {
-      id: 25,
-      token: 'CRO',
-      label: 'Cronos Mainnet Beta',
-      rpcUrl: 'https://evm.cronos.org',
-    },
-    {
-      id: 338,
-      token: 'TCRO',
-      label: 'Cronos Testnet',
-      rpcUrl: 'https://evm-t3.cronos.org',
-    },
-    {
-      id: 100,
-      token: 'XDAI',
-      label: 'Gnosis',
-      rpcUrl: 'https://rpc.ankr.com/gnosis',
-    },
-    {
-      id: 10200,
-      token: 'XDAI',
-      label: 'Gnosis Chiado Testnet',
-      rpcUrl: 'https://rpc.chiadochain.net',
-    },
-    {
-      id: 42220,
-      token: 'CELO',
-      label: 'Celo Mainnet',
-      rpcUrl: 'https://rpc.ankr.com/celo',
-    },
-    {
-      id: 44787,
-      token: 'CELO',
-      label: 'Celo Alfajores Testnet',
-      rpcUrl: 'https://alfajores-forno.celo-testnet.org',
-    },
-    {
-      id: 43114,
-      token: 'AVAX',
-      label: 'Avalanche C-Chain',
-      rpcUrl: 'https://rpc.ankr.com/avalanche',
-    },
-    {
-      id: 43113,
-      token: 'AVAX',
-      label: 'Avalanche Fuji Testnet',
-      rpcUrl: 'https://rpc.ankr.com/avalanche_fuji',
-    },
-    {
-      id: 250,
-      token: 'FTM',
-      label: 'Fantom Opera',
-      rpcUrl: 'https://rpc.ankr.com/fantom',
-    },
-    {
-      id: 4002,
-      token: 'FTM',
-      label: 'Fantom Testnet',
-      rpcUrl: 'https://rpc.ankr.com/fantom_testnet',
-    },
-    {
-      id: 1284,
-      token: 'GLMR',
-      label: 'Moonbeam',
-      rpcUrl: 'https://rpc.ankr.com/moonbeam',
-    },
-    {
-      id: 61,
-      token: 'ETC',
-      label: 'Ethereum Classic Mainnet',
-      rpcUrl: 'https://etc.rivet.link',
-    },
-    {
-      id: 84531,
-      token: 'ETH',
-      label: 'Base Goerli Testnet',
-      rpcUrl: 'https://goerli.base.org',
-    },
-    {
-      id: 8453,
-      token: 'ETH',
-      label: 'Base',
-      rpcUrl: 'https://mainnet.base.org',
-    },
-    {
-      id: 5001,
-      token: 'MNT',
-      label: 'Mantle Testnet',
-      rpcUrl: 'https://rpc.testnet.mantle.xyz',
-    },
-    {
-      id: 5000,
-      token: 'MNT',
-      label: 'Mantle',
-      rpcUrl: 'https://rpc.mantle.xyz',
-    },
-  ],
-  appMetadata: {
-    name: 'NEAR',
-    icon: '/next.svg',
-    description: 'NEAR',
-  },
-  theme: 'dark',
-  containerElements: {
-    // connectModal: '#near-social-navigation-bar',
-    // accountCenter: "#near-social-web3-account",
-  },
-});
-
-type EthersProviderContext = {
-  provider?: EIP1193Provider;
-  useConnectWallet: typeof useConnectWallet;
-};
-
-const defaultEthersProviderContext: EthersProviderContext = { useConnectWallet };
-
-export const useEthersProviderContext = singletonHook(defaultEthersProviderContext, () => {
-  const [{ wallet }] = useConnectWallet();
-  const [ethersProvider, setEthersProvider] = useState(defaultEthersProviderContext);
-
-  useEffect(() => {
-    (async () => {
-      if (typeof localStorage === 'undefined') return;
-
-      const walletsSub = onboard.state.select('wallets');
-
-      walletsSub.subscribe((wallets) => {
-        const connectedWallets = wallets.map(({ label }) => label);
-        localStorage.setItem(web3onboardKey, JSON.stringify(connectedWallets));
-      });
-
-      const previouslyConnectedWallets = JSON.parse(localStorage.getItem(web3onboardKey) || '[]');
-
-      if (previouslyConnectedWallets) {
-        // You can also auto connect "silently" and disable all onboard modals to avoid them flashing on page load
-        await onboard.connectWallet({
-          autoSelect: {
-            label: previouslyConnectedWallets[0],
-            disableModals: true,
-          },
-        });
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (!wallet) return;
-
-    setEthersProvider({
-      provider: wallet.provider,
-      useConnectWallet,
-    });
-  }, [wallet]);
-
-  return ethersProvider;
-});",
-]
-`;
-
-exports[`create frontend 'next-page': --frontend_next-page--.gitignore 1`] = `
-[
-  "--frontend_next-page--.gitignore",
-  "**/node_modules
-**/.next",
+  "--frontend_next-page--.eslintrc.json",
+  "{
+  "extends": "next/core-web-vitals"
+}
+",
 ]
 `;
 
@@ -1914,30 +1504,18 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "@near-wallet-selector/here-wallet": "^8.9.7",
     "@near-wallet-selector/modal-ui": "^8.9.7",
     "@near-wallet-selector/my-near-wallet": "^8.9.7",
-    "@web3-onboard/core": "^2.21.5",
-    "@web3-onboard/injected-wallets": "^2.10.15",
-    "@web3-onboard/ledger": "^2.6.0",
-    "@web3-onboard/react": "^2.8.16",
-    "@web3-onboard/walletconnect": "^2.5.4",
-    "base64-js": "^1.5.1",
-    "ieee754": "^1.2.1",
+    "bootstrap": "^5",
     "near-api-js": "^3.0.4",
-    "near-social-vm": "github:gagdiez/VM" ,
-    "next": "14.2.0",
-    "pino-pretty": "^11.0.0",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.10.2",
-    "react-bootstrap-icons": "^1.11.4",
-    "react-dom": "^18.2.0",
-    "react-singleton-hook": "^4.0.1",
-    "zustand": "^4.5.2"
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "overrides": {
     "near-api-js": "^3.0.4"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.2"
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3"
   }
 }
 ",
@@ -2033,50 +1611,34 @@ exports[`create frontend 'next-page': --frontend_next-page--src--components--car
   "--frontend_next-page--src--components--cards.js",
   "import Link from 'next/link';
 
-import styles from '../styles/app.module.css';
+import styles from '@/styles/app.module.css';
 
-export const DocsCard = () => {
+export const Cards = () => {
   return (
-    <Link
-      href="https://docs.near.org/build/web3-apps/quickstart"
-      className={styles.card}
-      target='_blank'
-      rel="noopener noreferrer"
-    >
-      <h2>
-        Near Docs <span>-&gt;</span>
-      </h2>
-      <p>Learn how this application works, and what you can build on Near.</p>
-    </Link>);
-};
+    <div className={styles.grid}>
+      <Link
+        href="https://docs.near.org/build/web3-apps/quickstart"
+        className={styles.card}
+        target='_blank'
+        rel="noopener noreferrer"
+      >
+        <h2>
+          Near Docs <span>-&gt;</span>
+        </h2>
+        <p>Learn how this application works, and what you can build on Near.</p>
+      </Link>
 
-export const HelloNearCard = () => {
-  return (
-    <Link
-      href="/hello-near"
-      className={styles.card}
-      rel="noopener noreferrer"
-    >
-      <h2>
-        Near Integration <span>-&gt;</span>
-      </h2>
-      <p>Discover how simple it is to interact with a Near smart contract.</p>
-    </Link>
-  );
-};
-
-export const HelloComponentsCard = () => {
-  return (
-    <Link
-      href="/hello-components"
-      className={styles.card}
-      rel="noopener noreferrer"
-    >
-      <h2>
-        Web3 Components <span>-&gt;</span>
-      </h2>
-      <p>See how Web3 components can help you to create multi-chain apps.</p>
-    </Link>
+      <Link
+        href="/hello-near"
+        className={styles.card}
+        rel="noopener noreferrer"
+      >
+        <h2>
+          Near Integration <span>-&gt;</span>
+        </h2>
+        <p>Discover how simple it is to interact with a Near smart contract.</p>
+      </Link>
+    </div>
   );
 };",
 ]
@@ -2087,13 +1649,13 @@ exports[`create frontend 'next-page': --frontend_next-page--src--components--nav
   "--frontend_next-page--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
+import { NearContext } from '@/context';
 import NearLogo from '/public/near-logo.svg';
-import { useStore } from '@/layout';
 
 export const Navigation = () => {
-  const { signedAccountId, wallet } = useStore();
+  const { signedAccountId, wallet } = useContext(NearContext);
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
@@ -2125,38 +1687,6 @@ export const Navigation = () => {
 ]
 `;
 
-exports[`create frontend 'next-page': --frontend_next-page--src--components--vm-component.js 1`] = `
-[
-  "--frontend_next-page--src--components--vm-component.js",
-  "import { useEffect } from 'react';
-import { useInitNear, Widget, EthersProviderContext } from 'near-social-vm';
-
-import { useEthersProviderContext } from '@/wallets/web3-wallet';
-import { NetworkId } from '@/config';
-import { useStore } from '@/layout';
-
-export default function Component({ src }) {
-  const ethersContext = useEthersProviderContext();
-  const { wallet } = useStore();
-  const { initNear } = useInitNear();
-
-  useEffect(() => {
-    wallet && initNear && initNear({ networkId: NetworkId, selector: wallet.selector, config: { allowOtherContracts: true } });
-  }, [wallet, initNear]);
-
-  return (
-    <div>
-      <EthersProviderContext.Provider value={ethersContext}>
-        <Widget src={src} />
-      </EthersProviderContext.Provider>
-      <p className="mt-4 small"> <span className="text-secondary">Source:</span> <a href={\`https://near.social/mob.near/widget/WidgetSource?src=\${src}\`}> {src} </a> </p>
-    </div>
-  );
-}
-",
-]
-`;
-
 exports[`create frontend 'next-page': --frontend_next-page--src--config.js 1`] = `
 [
   "--frontend_next-page--src--config.js",
@@ -2165,154 +1695,54 @@ exports[`create frontend 'next-page': --frontend_next-page--src--config.js 1`] =
   testnet: 'hello.near-examples.testnet',
 };
 
-const componentsPerNetwork = {
-  mainnet: {
-    socialDB: 'social.near',
-    Lido: 'zavodil.near/widget/Lido',
-    HelloNear: 'gagdiez.near/widget/HelloNear',
-    LoveNear: 'gagdiez.near/widget/LoveNear',
-  },
-  testnet: {
-    socialDB: 'v1.social08.testnet',
-    Lido: 'influencer.testnet/widget/Lido',
-    HelloNear: 'influencer.testnet/widget/HelloNear',
-    LoveNear: 'influencer.testnet/widget/LoveNear',
-  }
-};
-
 export const NetworkId = 'testnet';
-export const HelloNearContract = contractPerNetwork[NetworkId];
-export const Components = componentsPerNetwork[NetworkId];",
+export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
-exports[`create frontend 'next-page': --frontend_next-page--src--layout.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--context.js 1`] = `
 [
-  "--frontend_next-page--src--layout.js",
-  "import { useEffect } from 'react';
-import { create as createStore } from 'zustand';
+  "--frontend_next-page--src--context.js",
+  "import { createContext } from 'react';
 
-import { Wallet } from '@/wallets/near-wallet';
-import { Navigation } from '@/components/navigation';
-import { NetworkId, HelloNearContract } from '@/config';
+/**
+ * @typedef NearContext
+ * @property {import('./wallets/near').Wallet} wallet Current wallet
+ * @property {string} signedAccountId The AccountId of the signed user
+ */
 
-// Store to share wallet and signed account
-export const useStore = createStore((set) => ({
+/** @type {import ('react').Context<NearContext>} */
+export const NearContext = createContext({
   wallet: undefined,
-  signedAccountId: '',
-  setWallet: (wallet) => set({ wallet }),
-  setSignedAccountId: (signedAccountId) => set({ signedAccountId })
-}));
-
-export default function RootLayout({ children }) {
-
-  const { setWallet, setSignedAccountId } = useStore();
-
-  useEffect(() => {
-    // create wallet instance
-    const wallet = new Wallet({ createAccessKeyFor: HelloNearContract, networkId: NetworkId });
-    wallet.startUp(setSignedAccountId);
-    setWallet(wallet);
-  }, []);
-
-  return (
-    <>
-      <Navigation />
-      {children}
-    </>
-  );
-}
-",
+  signedAccountId: ''
+});",
 ]
 `;
 
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--_app.js 1`] = `
 [
   "--frontend_next-page--src--pages--_app.js",
-  "import RootLayout from '@/layout';
+  "import { useEffect, useState } from 'react';
+
 import '@/styles/globals.css';
+import { NearContext } from '@/context';
+import { Navigation } from '@/components/navigation';
+
+import { Wallet } from '@/wallets/near';
+import { NetworkId, HelloNearContract } from '@/config';
+
+const wallet = new Wallet({ createAccessKeyFor: HelloNearContract, networkId: NetworkId });
 
 export default function MyApp({ Component, pageProps }) {
+  const [signedAccountId, setSignedAccountId] = useState('');
+
+  useEffect(() => { wallet.startUp(setSignedAccountId) }, []);
+
   return (
-    <RootLayout>
+    <NearContext.Provider value={{ wallet, signedAccountId }}>
+      <Navigation />
       <Component {...pageProps} />
-    </RootLayout>
-  );
-}",
-]
-`;
-
-exports[`create frontend 'next-page': --frontend_next-page--src--pages--_document.js 1`] = `
-[
-  "--frontend_next-page--src--pages--_document.js",
-  "import Document, { Html, Head, Main, NextScript } from 'next/document';
-
-class MyDocument extends Document {
-  render() {
-    return (
-      <Html lang="en">
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
-}
-
-export default MyDocument;",
-]
-`;
-
-exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-components--index.js 1`] = `
-[
-  "--frontend_next-page--src--pages--hello-components--index.js",
-  "import dynamic from 'next/dynamic';
-
-import styles from '@/styles/app.module.css';
-import { DocsCard, HelloNearCard } from '@/components/cards';
-import { Components } from '@/config';
-
-const Component = dynamic(() => import('@/components/vm-component'), {
-  ssr: false,
-  loading: () => <p>Loading Component...</p>,
-});
-
-
-export default function HelloComponents() {
-  return (
-    <>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Loading components from: &nbsp;
-            <code className={styles.code}>{Components.socialDB}</code>
-          </p>
-        </div>
-        <div className={styles.center}>
-          <h1>
-            <code>Multi-chain</code> Components Made Simple
-          </h1>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <Component src={Components.HelloNear} />
-            <p className="my-4">&nbsp;</p>
-            <Component src={Components.LoveNear} />
-          </div>
-          <div className="col-6">
-            <Component src={Components.Lido} />
-          </div>
-        </div>
-        <hr />
-
-        <div className={styles.grid}>
-          <DocsCard />
-          <HelloNearCard />
-        </div>
-      </main>
-    </>
+    </NearContext.Provider>
   );
 }
 ",
@@ -2322,18 +1752,18 @@ export default function HelloComponents() {
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-near--index.js 1`] = `
 [
   "--frontend_next-page--src--pages--hello-near--index.js",
-  "import { useState, useEffect } from 'react';
+  "import { useState, useEffect, useContext } from 'react';
 
-import { useStore } from '@/layout';
+import { NearContext } from '@/context';
 import styles from '@/styles/app.module.css';
 import { HelloNearContract } from '../../config';
-import { DocsCard, HelloComponentsCard } from '@/components/cards';
+import { Cards } from '@/components/cards';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useStore();
+  const { signedAccountId, wallet } = useContext(NearContext);
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -2394,11 +1824,7 @@ export default function HelloNear() {
           <p className="m-0"> Please login to change the greeting </p>
         </div>
       </div>
-
-      <div className={styles.grid}>
-        <DocsCard />
-        <HelloComponentsCard />
-      </div>
+      <Cards />
     </main>
   );
 }",
@@ -2413,7 +1839,7 @@ exports[`create frontend 'next-page': --frontend_next-page--src--pages--index.js
 import NearLogo from '/public/near.svg';
 import NextLogo from '/public/next.svg';
 import styles from '@/styles/app.module.css';
-import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
+import { Cards } from '@/components/cards';
 
 export default function Home() {
   return (
@@ -2441,9 +1867,7 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <HelloComponentsCard />
-        <HelloNearCard />
-        <DocsCard />
+        <Cards />
       </div>
     </main>
   );
@@ -2689,7 +2113,6 @@ exports[`create frontend 'next-page': --frontend_next-page--src--styles--globals
 [
   "--frontend_next-page--src--styles--globals.css",
   "@import 'bootstrap';
-@import 'bootstrap-icons';
 
 :root {
   --max-width: 1100px;
@@ -2786,11 +2209,10 @@ a {
 ]
 `;
 
-exports[`create frontend 'next-page': --frontend_next-page--src--wallets--near-wallet.js 1`] = `
+exports[`create frontend 'next-page': --frontend_next-page--src--wallets--near.js 1`] = `
 [
-  "--frontend_next-page--src--wallets--near-wallet.js",
-  "
-// near api js
+  "--frontend_next-page--src--wallets--near.js",
+  "// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector
@@ -2807,8 +2229,9 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   /**
    * @constructor
-   * @param {string} networkId - the network id to connect to
-   * @param {string} createAccessKeyFor - the contract to create an access key for
+   * @param {Object} options - the options for the wallet
+   * @param {string} options.networkId - the network id to connect to
+   * @param {string} options.createAccessKeyFor - the contract to create an access key for
    * @example
    * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
    * wallet.startUp((signedAccountId) => console.log(signedAccountId));
@@ -2864,15 +2287,15 @@ export class Wallet {
 
   /**
    * Makes a read-only call to a contract
-   * @param {string} contractId - the contract's account id
-   * @param {string} method - the method to call
-   * @param {Object} args - the arguments to pass to the method
+   * @param {Object} options - the options for the call
+   * @param {string} options.contractId - the contract's account id
+   * @param {string} options.method - the method to call
+   * @param {Object} options.args - the arguments to pass to the method
    * @returns {Promise<JSON.value>} - the result of the method call
    */
   viewMethod = async ({ contractId, method, args = {} }) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const url = \`https://rpc.\${this.networkId}.near.org\`;
+    const provider = new providers.JsonRpcProvider({ url });
 
     let res = await provider.query({
       request_type: 'call_function',
@@ -2887,11 +2310,12 @@ export class Wallet {
 
   /**
    * Makes a call to a contract
-   * @param {string} contractId - the contract's account id
-   * @param {string} method - the method to call
-   * @param {Object} args - the arguments to pass to the method
-   * @param {string} gas - the amount of gas to use
-   * @param {string} deposit - the amount of yoctoNEAR to deposit
+   * @param {Object} options - the options for the call
+   * @param {string} options.contractId - the contract's account id
+   * @param {string} options.method - the method to call
+   * @param {Object} options.args - the arguments to pass to the method
+   * @param {string} options.gas - the amount of gas to use
+   * @param {string} options.deposit - the amount of yoctoNEAR to deposit
    * @returns {Promise<Transaction>} - the resulting transaction
    */
   callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
@@ -2930,300 +2354,5 @@ export class Wallet {
     return providers.getTransactionLastResult(transaction);
   };
 }",
-]
-`;
-
-exports[`create frontend 'next-page': --frontend_next-page--src--wallets--web3-wallet.ts 1`] = `
-[
-  "--frontend_next-page--src--wallets--web3-wallet.ts",
-  "'use client';
-import type { EIP1193Provider } from '@web3-onboard/core';
-import injectedModule from '@web3-onboard/injected-wallets';
-import ledgerModule from '@web3-onboard/ledger';
-import { init, useConnectWallet } from '@web3-onboard/react';
-import walletConnectModule from '@web3-onboard/walletconnect';
-import { useEffect, useState } from 'react';
-import { singletonHook } from 'react-singleton-hook';
-
-const web3onboardKey = 'web3-onboard:connectedWallets';
-
-const wcV2InitOptions: any = {
-  version: 2,
-  projectId: '72b7b3359ab477e339a070f615806aa6',
-  requiredChains: [1, 56],
-};
-
-const walletConnect = walletConnectModule(wcV2InitOptions);
-const ledger = ledgerModule(wcV2InitOptions);
-const injected = injectedModule();
-
-// initialize Onboard
-export const onboard = init({
-  wallets: [injected, walletConnect, ledger],
-  chains: [
-    {
-      id: 1,
-      token: 'ETH',
-      label: 'Ethereum Mainnet',
-      rpcUrl: 'https://rpc.ankr.com/eth',
-    },
-    {
-      id: 3,
-      token: 'ETH',
-      label: 'Ropsten - Ethereum Testnet',
-      rpcUrl: 'https://rpc.ankr.com/eth_ropsten',
-    },
-    {
-      id: 5,
-      token: 'ETH',
-      label: 'Goerli - Ethereum Testnet',
-      rpcUrl: 'https://rpc.ankr.com/eth_goerli',
-    },
-    {
-      id: 10,
-      token: 'ETH',
-      label: 'Optimism',
-      rpcUrl: 'https://rpc.ankr.com/optimism',
-    },
-    {
-      id: 420,
-      token: 'ETH',
-      label: 'Optimism Goerli Testnet',
-      rpcUrl: 'https://optimism-goerli.publicnode.com',
-    },
-    {
-      id: 56,
-      token: 'BNB',
-      label: 'Binance Smart Chain Mainnet',
-      rpcUrl: 'https://bsc.publicnode.com',
-    },
-    {
-      id: 97,
-      token: 'tBNB',
-      label: 'Binance Smart Chain Testnet',
-      rpcUrl: 'https://bsc-testnet.publicnode.com',
-    },
-    {
-      id: 1313161554,
-      token: 'ETH',
-      label: 'Aurora Mainnet',
-      rpcUrl: 'https://mainnet.aurora.dev',
-    },
-    {
-      id: 1313161555,
-      token: 'ETH',
-      label: 'Aurora Testnet',
-      rpcUrl: 'https://testnet.aurora.dev',
-    },
-    {
-      id: 137,
-      token: 'MATIC',
-      label: 'Polygon Mainnet',
-      rpcUrl: 'https://rpc.ankr.com/polygon',
-    },
-    {
-      id: 80001,
-      token: 'MATIC',
-      label: 'Polygon Testnet Mumbai',
-      rpcUrl: 'https://rpc.ankr.com/polygon_mumbai',
-    },
-    {
-      id: 280,
-      token: 'ETH',
-      label: 'zkSync Era Testnet',
-      rpcUrl: 'https://testnet.era.zksync.dev',
-    },
-    {
-      id: 324,
-      token: 'ETH',
-      label: 'zkSync Era Mainnet',
-      rpcUrl: 'https://zksync2-mainnet.zksync.io',
-    },
-    {
-      id: 1101,
-      token: 'ETH',
-      label: 'Polygon zkEVM',
-      rpcUrl: 'https://zkevm-rpc.com',
-    },
-    {
-      id: 1442,
-      token: 'ETH',
-      label: 'Polygon zkEVM Testnet',
-      rpcUrl: 'https://rpc.public.zkevm-test.net',
-    },
-    {
-      id: 42161,
-      token: 'ETH',
-      label: 'Arbitrum One Mainnet',
-      rpcUrl: 'https://arb1.arbitrum.io/rpc',
-    },
-    {
-      id: 42170,
-      token: 'ETH',
-      label: 'Arbitrum Nova',
-      rpcUrl: 'https://nova.arbitrum.io/rpc',
-    },
-    {
-      id: 421613,
-      token: 'AGOR',
-      label: 'Arbitrum Goerli',
-      rpcUrl: 'https://goerli-rollup.arbitrum.io/rpc',
-    },
-    {
-      id: 25,
-      token: 'CRO',
-      label: 'Cronos Mainnet Beta',
-      rpcUrl: 'https://evm.cronos.org',
-    },
-    {
-      id: 338,
-      token: 'TCRO',
-      label: 'Cronos Testnet',
-      rpcUrl: 'https://evm-t3.cronos.org',
-    },
-    {
-      id: 100,
-      token: 'XDAI',
-      label: 'Gnosis',
-      rpcUrl: 'https://rpc.ankr.com/gnosis',
-    },
-    {
-      id: 10200,
-      token: 'XDAI',
-      label: 'Gnosis Chiado Testnet',
-      rpcUrl: 'https://rpc.chiadochain.net',
-    },
-    {
-      id: 42220,
-      token: 'CELO',
-      label: 'Celo Mainnet',
-      rpcUrl: 'https://rpc.ankr.com/celo',
-    },
-    {
-      id: 44787,
-      token: 'CELO',
-      label: 'Celo Alfajores Testnet',
-      rpcUrl: 'https://alfajores-forno.celo-testnet.org',
-    },
-    {
-      id: 43114,
-      token: 'AVAX',
-      label: 'Avalanche C-Chain',
-      rpcUrl: 'https://rpc.ankr.com/avalanche',
-    },
-    {
-      id: 43113,
-      token: 'AVAX',
-      label: 'Avalanche Fuji Testnet',
-      rpcUrl: 'https://rpc.ankr.com/avalanche_fuji',
-    },
-    {
-      id: 250,
-      token: 'FTM',
-      label: 'Fantom Opera',
-      rpcUrl: 'https://rpc.ankr.com/fantom',
-    },
-    {
-      id: 4002,
-      token: 'FTM',
-      label: 'Fantom Testnet',
-      rpcUrl: 'https://rpc.ankr.com/fantom_testnet',
-    },
-    {
-      id: 1284,
-      token: 'GLMR',
-      label: 'Moonbeam',
-      rpcUrl: 'https://rpc.ankr.com/moonbeam',
-    },
-    {
-      id: 61,
-      token: 'ETC',
-      label: 'Ethereum Classic Mainnet',
-      rpcUrl: 'https://etc.rivet.link',
-    },
-    {
-      id: 84531,
-      token: 'ETH',
-      label: 'Base Goerli Testnet',
-      rpcUrl: 'https://goerli.base.org',
-    },
-    {
-      id: 8453,
-      token: 'ETH',
-      label: 'Base',
-      rpcUrl: 'https://mainnet.base.org',
-    },
-    {
-      id: 5001,
-      token: 'MNT',
-      label: 'Mantle Testnet',
-      rpcUrl: 'https://rpc.testnet.mantle.xyz',
-    },
-    {
-      id: 5000,
-      token: 'MNT',
-      label: 'Mantle',
-      rpcUrl: 'https://rpc.mantle.xyz',
-    },
-  ],
-  appMetadata: {
-    name: 'NEAR',
-    icon: '/next.svg',
-    description: 'NEAR',
-  },
-  theme: 'dark',
-  containerElements: {
-    // connectModal: '#near-social-navigation-bar',
-    // accountCenter: "#near-social-web3-account",
-  },
-});
-
-type EthersProviderContext = {
-  provider?: EIP1193Provider;
-  useConnectWallet: typeof useConnectWallet;
-};
-
-const defaultEthersProviderContext: EthersProviderContext = { useConnectWallet };
-
-export const useEthersProviderContext = singletonHook(defaultEthersProviderContext, () => {
-  const [{ wallet }] = useConnectWallet();
-  const [ethersProvider, setEthersProvider] = useState(defaultEthersProviderContext);
-
-  useEffect(() => {
-    (async () => {
-      if (typeof localStorage === 'undefined') return;
-
-      const walletsSub = onboard.state.select('wallets');
-
-      walletsSub.subscribe((wallets) => {
-        const connectedWallets = wallets.map(({ label }) => label);
-        localStorage.setItem(web3onboardKey, JSON.stringify(connectedWallets));
-      });
-
-      const previouslyConnectedWallets = JSON.parse(localStorage.getItem(web3onboardKey) || '[]');
-
-      if (previouslyConnectedWallets) {
-        // You can also auto connect "silently" and disable all onboard modals to avoid them flashing on page load
-        await onboard.connectWallet({
-          autoSelect: {
-            label: previouslyConnectedWallets[0],
-            disableModals: true,
-          },
-        });
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (!wallet) return;
-
-    setEthersProvider({
-      provider: wallet.provider,
-      useConnectWallet,
-    });
-  }, [wallet]);
-
-  return ethersProvider;
-});",
 ]
 `;

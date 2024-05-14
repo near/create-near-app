@@ -1,14 +1,16 @@
-'use client';
 import dynamic from 'next/dynamic';
 
-import styles from '@/app/app.module.css';
-import { DocsCard, HelloNearCard } from '@/components/cards';
+import styles from '@/styles/app.module.css';
+import { Cards } from '@/components/cards';
 import { Components } from '@/config';
 
-const Component = dynamic(() => import('@/components/vm-component'), { ssr: false });
+const Component = dynamic(() => import('@/components/vm'), {
+  ssr: false,
+  loading: () => <p>Loading Component...</p>,
+});
+
 
 export default function HelloComponents() {
-
   return (
     <>
       <main className={styles.main}>
@@ -19,9 +21,11 @@ export default function HelloComponents() {
           </p>
         </div>
         <div className={styles.center}>
-          <h1> <code>Multi-chain</code> Components Made Simple </h1>
+          <h1>
+            <code>Multi-chain</code> Components Made Simple
+          </h1>
         </div>
-        <div className='row'>
+        <div className="row">
           <div className="col-6">
             <Component src={Components.HelloNear} />
             <p className="my-4">&nbsp;</p>
@@ -34,8 +38,7 @@ export default function HelloComponents() {
         <hr />
 
         <div className={styles.grid}>
-          <DocsCard />
-          <HelloNearCard />
+          <Cards />
         </div>
       </main>
     </>

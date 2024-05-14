@@ -3,7 +3,7 @@ import Image from 'next/image';
 import NearLogo from '/public/near.svg';
 import NextLogo from '/public/next.svg';
 import styles from '@/styles/app.module.css';
-import { DocsCard, HelloComponentsCard, HelloNearCard } from '@/components/cards';
+import { Cards } from '@/components/cards';
 
 export default function Home() {
   return (
@@ -31,9 +31,7 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <HelloComponentsCard />
-        <HelloNearCard />
-        <DocsCard />
+        <Cards />
       </div>
     </main>
   );

@@ -1,6 +1,5 @@
 import * as show from '../src/messages';
 import SpyInstance = jest.SpyInstance;
-import {Contract, Frontend} from '../src/types';
 
 describe('messages', () => {
   let showSpy: SpyInstance;

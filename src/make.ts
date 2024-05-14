@@ -5,12 +5,11 @@ import fs from 'fs';
 import { ncp } from 'ncp';
 import path from 'path';
 
-export async function createProject({ contract, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
-
+export async function createProject({ contract, frontend, components, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
   if (contract !== 'none') {
     await createContract({ contract, projectPath, templatesDir });
   } else {
-    await createGateway({ frontend, projectPath, templatesDir });
+    await createGateway({ frontend, components, projectPath, templatesDir });
   }
 
   return true;
@@ -21,13 +20,18 @@ async function createContract({ contract, projectPath, templatesDir }: CreateCon
   const sourceContractDir = path.resolve(templatesDir, 'contracts', contract);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceContractDir, projectPath);
-  
+
 }
 
-async function createGateway({ frontend, projectPath, templatesDir }: CreateGatewayParams) {
+async function createGateway({ frontend, components, projectPath, templatesDir }: CreateGatewayParams) {
   const sourceFrontendDir = path.resolve(`${templatesDir}/frontend/${frontend}`);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceFrontendDir, projectPath);
+
+  if (components) {
+    const sourceComponentsDir = path.resolve(`${templatesDir}/frontend/components/${frontend}`);
+    await copyDir(sourceComponentsDir, projectPath);
+  }
 }
 
 // Wrap `ncp` tool to wait for the copy to finish when using `await`

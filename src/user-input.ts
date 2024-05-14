@@ -28,14 +28,14 @@ export async function getUserArgs(): Promise<UserConfig> {
   const options = program.opts();
   const [projectName] = program.args;
   const { contract, frontend, install } = options;
-  return { contract, frontend, projectName, install };
+  return { contract, frontend, components: false, projectName, install };
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
 
 const appChoices: Choices<App> = [
-  { title: 'A Near Gateway (Web App)', description: 'A multi-chain App that talks with Near contracts and Near components', value: 'gateway' },
-  { title: 'A Near Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
+  { title: 'A Web App', description: 'A Web App that talks with Near contracts', value: 'gateway' },
+  { title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
 ];
 const contractChoices: Choices<Contract> = [
   { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
@@ -43,8 +43,13 @@ const contractChoices: Choices<Contract> = [
 ];
 
 const frontendChoices: Choices<Frontend> = [
-  { title: 'NextJs (Classic)', description: 'A composable app built using Next.js, React and Near components', value: 'next-page' },
-  { title: 'NextJS (App Router)', description: 'A composable app built using Next.js, React and Near components', value: 'next-app' },
+  { title: 'NextJs (Classic)', description: 'A web-app built using Next.js Page Router', value: 'next-page' },
+  { title: 'NextJS (App Router)', description: 'A web-app built using Next.js new App Router', value: 'next-app' },
+];
+
+const componentChoices: Choices<Boolean> = [
+  { title: 'No', value: false },
+  { title: 'Yes', value: true },
 ];
 
 const appPrompt: PromptObject = {
@@ -57,8 +62,15 @@ const appPrompt: PromptObject = {
 const frontendPrompt: PromptObject = {
   type: 'select',
   name: 'frontend',
-  message: 'Select a framework for your frontend (Gateway)',
+  message: 'Select a framework for your frontend',
   choices: frontendChoices,
+};
+
+const componentsPrompt: PromptObject = {
+  type: 'select',
+  name: 'components',
+  message: 'Are you planning in using on-chain NEAR Components (aka BOS Components)?',
+  choices: componentChoices,
 };
 
 const contractPrompt: PromptObject[] = [
@@ -95,15 +107,15 @@ export async function getUserAnswers(): Promise<UserConfig> {
 
   if (app === 'gateway') {
     // If gateway, ask for the framework to use
-    const { frontend, projectName, install } = await promptUser([frontendPrompt, namePrompts, npmPrompt]);
-    return { frontend, contract: 'none', projectName, install };
+    const { frontend, components, projectName, install } = await promptUser([frontendPrompt, componentsPrompt, namePrompts, npmPrompt]);
+    return { frontend, components, contract: 'none', projectName, install };
   } else {
     // If contract, ask for the language for the contract
     let { contract } = await promptUser(contractPrompt);
 
     const { projectName } = await promptUser(namePrompts);
     const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
-    return { frontend: 'none', contract, projectName, install };
+    return { frontend: 'none', components: false, contract, projectName, install };
   }
 }
 
@@ -133,8 +145,8 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   if (!validateUserArgs(args)) return;
 
   // track user input
-  const { frontend, contract } = args;
-  trackUsage(frontend, contract);
+  const { frontend, components, contract } = args;
+  trackUsage(frontend, components, contract);
 
   let path = projectPath(args.projectName);
 
@@ -165,7 +177,6 @@ const validateUserArgs = (args: UserConfig) => {
   }
 
   if ((args.contract === 'none') === (args.frontend === 'none')) {
-    console.log(args.contract, args.frontend);
     show.argsError('Please create a contract OR a frontend');
     return false;
   }

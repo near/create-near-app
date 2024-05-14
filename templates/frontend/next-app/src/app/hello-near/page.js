@@ -1,17 +1,17 @@
 'use client';
+import { useState, useEffect, useContext } from 'react';
 
-import { DocsCard, HelloComponentsCard } from '@/components/cards';
-import { useState, useEffect } from 'react';
-import { HelloNearContract } from '../../config';
-import styles from '../app.module.css';
+import styles from '@/app/app.module.css';
+import { Cards } from '@/components/cards';
 
-import { useStore } from '../layout';
+import { NearContext } from '@/context';
+import { HelloNearContract } from '@/config';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useStore();
+  const { signedAccountId, wallet } = useContext(NearContext);
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -62,8 +62,7 @@ export default function HelloNear() {
         </div>
       </div>
       <div className={styles.grid}>
-        <DocsCard />
-        <HelloComponentsCard />
+        <Cards />
       </div>
     </main>
   );

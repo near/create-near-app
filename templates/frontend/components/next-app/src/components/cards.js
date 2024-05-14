@@ -27,6 +27,17 @@ export const Cards = () => {
         </h2>
         <p>Discover how simple it is to interact with a Near smart contract.</p>
       </Link>
+
+      <Link
+        href="/hello-components"
+        className={styles.card}
+        rel="noopener noreferrer"
+      >
+        <h2>
+          Web3 Components <span>-&gt;</span>
+        </h2>
+        <p>See how Web3 components can help you to create multi-chain apps.</p>
+      </Link>
     </div>
   );
 };

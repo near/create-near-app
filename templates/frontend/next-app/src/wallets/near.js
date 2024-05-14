@@ -1,4 +1,3 @@
-
 // near api js
 import { providers } from 'near-api-js';
 
@@ -16,8 +15,9 @@ const NO_DEPOSIT = '0';
 export class Wallet {
   /**
    * @constructor
-   * @param {string} networkId - the network id to connect to
-   * @param {string} createAccessKeyFor - the contract to create an access key for
+   * @param {Object} options - the options for the wallet
+   * @param {string} options.networkId - the network id to connect to
+   * @param {string} options.createAccessKeyFor - the contract to create an access key for
    * @example
    * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
    * wallet.startUp((signedAccountId) => console.log(signedAccountId));
@@ -73,15 +73,15 @@ export class Wallet {
 
   /**
    * Makes a read-only call to a contract
-   * @param {string} contractId - the contract's account id
-   * @param {string} method - the method to call
-   * @param {Object} args - the arguments to pass to the method
+   * @param {Object} options - the options for the call
+   * @param {string} options.contractId - the contract's account id
+   * @param {string} options.method - the method to call
+   * @param {Object} options.args - the arguments to pass to the method
    * @returns {Promise<JSON.value>} - the result of the method call
    */
   viewMethod = async ({ contractId, method, args = {} }) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const url = `https://rpc.${this.networkId}.near.org`;
+    const provider = new providers.JsonRpcProvider({ url });
 
     let res = await provider.query({
       request_type: 'call_function',
@@ -96,11 +96,12 @@ export class Wallet {
 
   /**
    * Makes a call to a contract
-   * @param {string} contractId - the contract's account id
-   * @param {string} method - the method to call
-   * @param {Object} args - the arguments to pass to the method
-   * @param {string} gas - the amount of gas to use
-   * @param {string} deposit - the amount of yoctoNEAR to deposit
+   * @param {Object} options - the options for the call
+   * @param {string} options.contractId - the contract's account id
+   * @param {string} options.method - the method to call
+   * @param {Object} options.args - the arguments to pass to the method
+   * @param {string} options.gas - the amount of gas to use
+   * @param {string} options.deposit - the amount of yoctoNEAR to deposit
    * @returns {Promise<Transaction>} - the resulting transaction
    */
   callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {

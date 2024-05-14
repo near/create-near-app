@@ -1,40 +1,29 @@
 'use client';
 
-// react
-import { useEffect } from 'react';
-import { create as createStore } from 'zustand';
+import { useEffect, useState } from 'react';
 
-// app
-import './globals.css';
+import '@/app/globals.css';
+import { NearContext } from '@/context';
 import { Navigation } from '@/components/navigation';
 import { NetworkId, HelloNearContract } from '@/config';
 
-// wallet-selector
-import { Wallet } from '@/wallets/near-wallet';
+import { Wallet } from '@/wallets/near';
 
-// store to share wallet and signedAccountId
-export const useStore = createStore((set) => ({
-  wallet: undefined,
-  signedAccountId: '',
-  setWallet: (wallet) => set({ wallet }),
-  setSignedAccountId: (signedAccountId) => set({ signedAccountId })
-}));
+const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: HelloNearContract });
 
 // Layout Component
 export default function RootLayout({ children }) {
-  const { setWallet, setSignedAccountId } = useStore();
+  const [signedAccountId, setSignedAccountId] = useState('');
 
-  useEffect(() => {
-    const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: HelloNearContract });
-    wallet.startUp(setSignedAccountId);
-    setWallet(wallet);
-  }, []);
+  useEffect(() => { wallet.startUp(setSignedAccountId); }, []);
 
   return (
     <html lang="en">
       <body>
-        <Navigation />
-        {children}
+        <NearContext.Provider value={{ wallet, signedAccountId }}>
+          <Navigation />
+          {children}
+        </NearContext.Provider>
       </body>
     </html>
   );

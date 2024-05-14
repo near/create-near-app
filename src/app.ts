@@ -12,6 +12,7 @@ import * as show from './messages';
       projectName,
       contract,
       frontend,
+      components,
       install,
     },
     projectPath,
@@ -24,6 +25,7 @@ import * as show from './messages';
     createSuccess = await createProject({
       contract,
       frontend,
+      components,
       templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,
     });
