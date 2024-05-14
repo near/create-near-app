@@ -23,6 +23,7 @@
     "@web3-onboard/walletconnect": "^2.5.4",
     "base64-js": "^1.5.1",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "ieee754": "^1.2.1",
     "near-api-js": "^3.0.4",
     "near-social-vm": "github:gagdiez/VM",

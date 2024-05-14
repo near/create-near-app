@@ -541,6 +541,7 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "@near-wallet-selector/modal-ui": "^8.9.7",
     "@near-wallet-selector/my-near-wallet": "^8.9.7",
     "bootstrap": "^5",
+    "bootstrap-icons": "^1.11.3",
     "near-api-js": "^3.0.4",
     "next": "14.2.3",
     "react": "^18",
@@ -880,6 +881,7 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--globals.css 
 [
   "--frontend_next-app--src--app--globals.css",
   "@import 'bootstrap';
+@import 'bootstrap-icons';
 
 :root {
   --max-width: 1100px;
@@ -1505,6 +1507,7 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "@near-wallet-selector/modal-ui": "^8.9.7",
     "@near-wallet-selector/my-near-wallet": "^8.9.7",
     "bootstrap": "^5",
+    "bootstrap-icons": "^1.11.3",
     "near-api-js": "^3.0.4",
     "next": "14.2.3",
     "react": "^18",
@@ -2113,6 +2116,7 @@ exports[`create frontend 'next-page': --frontend_next-page--src--styles--globals
 [
   "--frontend_next-page--src--styles--globals.css",
   "@import 'bootstrap';
+@import 'bootstrap-icons';
 
 :root {
   --max-width: 1100px;

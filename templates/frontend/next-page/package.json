@@ -17,6 +17,7 @@
     "@near-wallet-selector/modal-ui": "^8.9.7",
     "@near-wallet-selector/my-near-wallet": "^8.9.7",
     "bootstrap": "^5",
+    "bootstrap-icons": "^1.11.3",
     "near-api-js": "^3.0.4",
     "next": "14.2.3",
     "react": "^18",
