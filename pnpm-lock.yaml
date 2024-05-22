@@ -15,8 +15,8 @@ dependencies:
     specifier: ^7.0.3
     version: 7.0.3
   mixpanel:
-    specifier: ^0.17.0
-    version: 0.17.0
+    specifier: ^0.18.0
+    version: 0.18.0
   ncp:
     specifier: ^2.0.0
     version: 2.0.0
@@ -6188,8 +6188,8 @@ packages:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
 
-  /mixpanel@0.17.0:
-    resolution: {integrity: sha512-DY5WeOy/hmkPrNiiZugJpWR0iMuOwuj1a3u0bgwB2eUFRV6oIew/pIahhpawdbNjb+Bye4a8ID3gefeNPvL81g==}
+  /mixpanel@0.18.0:
+    resolution: {integrity: sha512-VyUoiLB/S/7abYYHGD5x0LijeuJCUabG8Hb+FvYU3Y99xHf1Qh+s4/pH9lt50fRitAHncWbU1FE01EknUfVVjQ==}
     engines: {node: '>=10.0'}
     dependencies:
       https-proxy-agent: 5.0.0
