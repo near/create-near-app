@@ -1,12 +1,15 @@
-import { Worker, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
+import anyTest from 'ava';
+import { Worker } from 'near-workspaces';
 import { setDefaultResultOrder } from 'dns'; setDefaultResultOrder('ipv4first'); // temp fix for node >v17
 
-// Global context
-const test = anyTest as TestFn<{ worker: Worker, accounts: Record<string, NearAccount> }>;
+/**
+ *  @typedef {import('near-workspaces').NearAccount} NearAccount
+ *  @type {import('ava').TestFn<{worker: Worker, accounts: Record<string, NearAccount>}>}
+ */
+const test = anyTest;
 
-test.beforeEach(async (t) => {
-  // Create sandbox, accounts, deploy contracts, etc.
+test.beforeEach(async t => {
+  // Create sandbox
   const worker = t.context.worker = await Worker.init();
 
   // Deploy contract
@@ -23,7 +26,6 @@ test.beforeEach(async (t) => {
 });
 
 test.afterEach.always(async (t) => {
-  // Stop Sandbox server
   await t.context.worker.tearDown().catch((error) => {
     console.log('Failed to stop the Sandbox:', error);
   });
@@ -31,13 +33,13 @@ test.afterEach.always(async (t) => {
 
 test('returns the default greeting', async (t) => {
   const { contract } = t.context.accounts;
-  const greeting: string = await contract.view('get_greeting', {});
+  const greeting = await contract.view('get_greeting', {});
   t.is(greeting, 'Hello');
 });
 
 test('changes the greeting', async (t) => {
   const { root, contract } = t.context.accounts;
   await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
-  const greeting: string = await contract.view('get_greeting', {});
+  const greeting = await contract.view('get_greeting', {});
   t.is(greeting, 'Howdy');
 });

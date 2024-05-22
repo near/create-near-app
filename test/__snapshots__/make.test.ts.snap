@@ -286,27 +286,6 @@ and then use the logged account to sign the transaction: \`--accountId <another-
 ]
 `;
 
-exports[`create contract 'ts': --contract_ts--ava.config.cjs 1`] = `
-[
-  "--contract_ts--ava.config.cjs",
-  "require('util').inspect.defaultOptions.depth = 5; // Increase AVA's printing depth
-
-module.exports = {
-  timeout: '10000',
-  files: ['sandbox-ts/*.ava.ts'],
-  failWithoutAssertions: false,
-  extensions: {
-		js: true,
-		ts: 'module'
-	},
-  require: ['ts-node/register', 'near-workspaces'],
-  "nodeArguments": [
-		"--import=tsimp"
-	]
-};",
-]
-`;
-
 exports[`create contract 'ts': --contract_ts--package.json 1`] = `
 [
   "--contract_ts--package.json",
@@ -320,35 +299,36 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
     "test": "$npm_execpath run build && ava -- ./build/hello_near.wasm"
   },
   "dependencies": {
-    "near-cli": "^4.0.8",
     "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
-    "@ava/typescript": "^4.1.0",
-    "ava": "^6.1.2",
+    "ava": "^6.1.3",
     "near-workspaces": "^3.5.0",
-    "ts-morph": "^21.0.1",
-    "ts-node": "^10.9.2",
-    "tsimp": "^2.0.11",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
+  },
+  "ava": {
+    "files": ["sandbox-test/*.ava.js"]
   }
 }
 ",
 ]
 `;
 
-exports[`create contract 'ts': --contract_ts--sandbox-ts--main.ava.ts 1`] = `
+exports[`create contract 'ts': --contract_ts--sandbox-test--main.ava.js 1`] = `
 [
-  "--contract_ts--sandbox-ts--main.ava.ts",
-  "import { Worker, NearAccount } from 'near-workspaces';
-import anyTest, { TestFn } from 'ava';
+  "--contract_ts--sandbox-test--main.ava.js",
+  "import anyTest from 'ava';
+import { Worker } from 'near-workspaces';
 import { setDefaultResultOrder } from 'dns'; setDefaultResultOrder('ipv4first'); // temp fix for node >v17
 
-// Global context
-const test = anyTest as TestFn<{ worker: Worker, accounts: Record<string, NearAccount> }>;
+/**
+ *  @typedef {import('near-workspaces').NearAccount} NearAccount
+ *  @type {import('ava').TestFn<{worker: Worker, accounts: Record<string, NearAccount>}>}
+ */
+const test = anyTest;
 
-test.beforeEach(async (t) => {
-  // Create sandbox, accounts, deploy contracts, etc.
+test.beforeEach(async t => {
+  // Create sandbox
   const worker = t.context.worker = await Worker.init();
 
   // Deploy contract
@@ -365,7 +345,6 @@ test.beforeEach(async (t) => {
 });
 
 test.afterEach.always(async (t) => {
-  // Stop Sandbox server
   await t.context.worker.tearDown().catch((error) => {
     console.log('Failed to stop the Sandbox:', error);
   });
@@ -373,14 +352,14 @@ test.afterEach.always(async (t) => {
 
 test('returns the default greeting', async (t) => {
   const { contract } = t.context.accounts;
-  const greeting: string = await contract.view('get_greeting', {});
+  const greeting = await contract.view('get_greeting', {});
   t.is(greeting, 'Hello');
 });
 
 test('changes the greeting', async (t) => {
   const { root, contract } = t.context.accounts;
   await root.call(contract, 'set_greeting', { greeting: 'Howdy' });
-  const greeting: string = await contract.view('get_greeting', {});
+  const greeting = await contract.view('get_greeting', {});
   t.is(greeting, 'Howdy');
 });",
 ]
@@ -421,7 +400,6 @@ exports[`create contract 'ts': --contract_ts--tsconfig.json 1`] = `
     "noImplicitAny": false,
   },
   "files": [
-    "sandbox-ts/main.ava.ts",
     "src/contract.ts"
   ],
   "exclude": [
