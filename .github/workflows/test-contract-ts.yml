@@ -4,13 +4,14 @@ jobs:
   tests:
     strategy:
       matrix:
-        platform: [ubuntu-latest]
+        platform: [ubuntu-latest, macos-latest]
+        node-version: [18, 20, 22, 24]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '18'
+        node-version: ${{ node-version }}
     - name: Install modules
       run: npm install
     - name: Create Contract TS
