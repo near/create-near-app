@@ -1,0 +1,25 @@
+name: Test Contract TS
+on: push
+jobs:
+  tests:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+        node-version: [18, 20, 22]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install modules
+      run: npm install
+    - name: Create Frontend No Components
+      run: npm run start -- hello-near --frontend next-page
+    - name: Install
+      run: cd hello-near && npm install
+    - name: Create Frontend Components
+      run: cd ../ && npm run start -- hello-components --frontend next-page --components 
+    - name: Install
+      run: cd hello-components && npm install
+
