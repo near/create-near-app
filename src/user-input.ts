@@ -20,6 +20,7 @@ export async function getUserArgs(): Promise<UserConfig> {
     .argument('[projectName]')
     .option('--frontend [next-page|next-app|none]')
     .option('--contract [ts|rs|none]')
+    .option('--components')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
 
@@ -27,8 +28,8 @@ export async function getUserArgs(): Promise<UserConfig> {
 
   const options = program.opts();
   const [projectName] = program.args;
-  const { contract, frontend, install } = options;
-  return { contract, frontend, components: false, projectName, install };
+  const { contract, frontend, install, components } = options;
+  return { contract, frontend, components, projectName, install };
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
