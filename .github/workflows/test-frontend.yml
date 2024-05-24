@@ -19,7 +19,7 @@ jobs:
     - name: Install
       run: cd hello-near && npm install
     - name: Create Frontend Components
-      run: cd ../ && npm run start -- hello-components --frontend next-page --components 
+      run: npm run start -- hello-components --frontend next-page --components 
     - name: Install
       run: cd hello-components && npm install
 
