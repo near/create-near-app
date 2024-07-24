@@ -1,9 +1,23 @@
 import path from 'path';
+import semver from 'semver';
+
 import { createProject, runDepsInstall } from './make';
 import { promptAndGetConfig, } from './user-input';
 import * as show from './messages';
+import { trackUsage } from './tracking';
 
 (async function () {
+
+  const supportedNodeVersion = require('../package.json').engines.node;
+  if (!semver.satisfies(process.version, supportedNodeVersion)) {
+    return show.unsupportedNodeVersion(supportedNodeVersion);
+  }
+
+  if (process.platform === 'win32') {
+    trackUsage('none', false, 'none');
+    return show.windowsWarning();
+  }
+
   const prompt = await promptAndGetConfig();
   if (prompt === undefined) return;
 
