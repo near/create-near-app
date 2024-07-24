@@ -11,7 +11,6 @@ import chalk from 'chalk';
 import prompt, { PromptObject } from 'prompts';
 import { program } from 'commander';
 import * as show from './messages';
-import semver from 'semver';
 import { trackUsage } from './tracking';
 import fs from 'fs';
 
@@ -121,14 +120,6 @@ export async function getUserAnswers(): Promise<UserConfig> {
 }
 
 export async function promptAndGetConfig(): Promise<{ config: UserConfig, projectPath: string } | void> {
-  const supportedNodeVersion = require('../package.json').engines.node;
-  if (!semver.satisfies(process.version, supportedNodeVersion)) {
-    return show.unsupportedNodeVersion(supportedNodeVersion);
-  }
-
-  if (process.platform === 'win32') {
-    return show.windowsWarning();
-  }
 
   // process cli args
   let args = await getUserArgs();

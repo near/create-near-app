@@ -24,9 +24,9 @@ Run [34mnpx create-near-app[39m without arguments, or use:
 npx create-near-app <projectName> [--frontend next-app|next-page] [--contract rs|ts|none]",
   ],
   [
-    "[43m[30mNotice: On Win32 please use WSL (Windows Subsystem for Linux).[39m[49m
-https://docs.microsoft.com/en-us/windows/wsl/install
-Exiting now.",
+    "[31mPlease use Windows Subsystem for Linux (WSL)[39m
+[33mLearn more here: https://docs.near.org/blog/getting-started-on-windows[39m
+",
   ],
   [
     "

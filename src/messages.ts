@@ -123,9 +123,9 @@ export const unsupportedNodeVersion = (supported: string) =>
   show(chalk`{red We support node.js version ${supported} or later}`);
 
 export const windowsWarning = () =>
-  show(chalk`{bgYellow {black Notice: On Win32 please use WSL (Windows Subsystem for Linux).}}
-https://docs.microsoft.com/en-us/windows/wsl/install
-Exiting now.`);
+  show(chalk`{red Please use Windows Subsystem for Linux (WSL)}
+{yellow Learn more here: https://docs.near.org/blog/getting-started-on-windows}
+`);
 
 export const directoryExists = (dirName: string) =>
   show(chalk`{red This directory already exists! ${dirName}}`);
