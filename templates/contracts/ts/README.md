@@ -1,8 +1,24 @@
-# Hello NEAR Contract
+# Quick Start: Create, Build, and Deploy a NEAR Smart Contract in TypeScript
 
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
+## Prerequisites
 
+1. **Node.js( >= 16) and npm**: Ensure they are installed.
+2. **NEAR CLI**: Install globally:
+
+   ```
+   npm install -g near-cli
+   ```
+3. **NEAR Testnet Account**: Create one if you haven't already.
+
+## 1: Set Up Your Project
+```
+npx create-near-app
+```
+## 2: Write Your Smart Contract
+Create the contract in `/src`
 ```ts
+import { NearBindgen, near, call, view } from 'near-sdk-js';
+
 @NearBindgen({})
 class HelloNear {
   greeting: string = "Hello";
@@ -13,7 +29,8 @@ class HelloNear {
   }
 
   @call // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
+  set_greeting({ greeting }: { greeting: string }): 
+  void {
     // Record a log permanently to the blockchain!
     near.log(`Saving greeting ${greeting}`);
     this.greeting = greeting;
@@ -21,36 +38,34 @@ class HelloNear {
 }
 ```
 
-<br />
-
-# Quickstart
-
-1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
-2. Install the [`NEAR CLI`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build and Test the Contract
-You can automatically compile and test the contract by running:
-
-```bash
-npm run build
+## 3: Build the Contract
+```
+npx near-sdk-js build <path_to_contract>
 ```
 
-<br />
+## 4: Deploy the Contract
 
-## 2. Create an Account and Deploy the Contract
-You can create a new account and deploy the contract by running:
+#### Create and Account and Deploy
+```sh
+# Create a new account pre-funded by a faucet & deploy
+near create-account <accountId> --useFaucet
+near deploy <accountId> <route_to_wasm>
 
-```bash
-near create-account <your-account.testnet> --useFaucet
-near deploy <your-account.testnet> build/release/hello_near.wasm
+# Get the account name
+cat ./neardev/dev-account
 ```
 
-<br />
+#### Deploy in an Existing Account
 
+```sh
+# login into your account
+near login
 
-## 3. Retrieve the Greeting
+# deploy the contract
+near deploy <accountId> <route_to_wasm>
+```
+
+## 5. Retrieve the Greeting
 
 `get_greeting` is a read-only method (aka `view` method).
 
@@ -63,7 +78,7 @@ near view <your-account.testnet> get_greeting
 
 <br />
 
-## 4. Store a New Greeting
+## 6. Store a New Greeting
 `set_greeting` changes the contract's state, for which it is a `call` method.
 
 `Call` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
