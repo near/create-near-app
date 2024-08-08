@@ -96,3 +96,5 @@ near login
 ```
 
 and then use the logged account to sign the transaction: `--accountId <another-account>`.
+
+[Smart Contracts quickstart docs](https://docs.near.org/build/smart-contracts/quickstart)
