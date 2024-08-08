@@ -6,7 +6,9 @@
     "noImplicitAny": false,
   },
   "files": [
-    "src/contract.ts"
+    "src/contract.ts",
+    "src/non-fungible-token.ts",
+    "src/fungible-token.ts"
   ],
   "exclude": [
     "node_modules"

@@ -8,6 +8,7 @@
     "test": "$npm_execpath run build && ava -- ./build/hello_near.wasm"
   },
   "dependencies": {
+    "near-contract-standards": "2.0.0",
     "near-sdk-js": "1.0.0"
   },
   "devDependencies": {
