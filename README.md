@@ -47,13 +47,22 @@ We strongly recommend you to follow our [web app quickstart](https://docs.near.o
 
 ## Using CLI arguments to run `create-near-app`
 
-This CLI supports arguments to skip interactive prompts:
+This CLI supports arguments to skip interactive prompts
 
+For a Web App:
 ```shell
 npx create-near-app
   <project-name>
   --frontend next-app|next-page|none
-  --contract js|rs|none
+  --install
+```
+
+For a Smart Contract:
+
+```shell
+npx create-near-app
+  <project-name>
+  --contract ts|rs|none
   --install
 ```
 
