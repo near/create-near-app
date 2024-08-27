@@ -13,11 +13,6 @@ import { trackUsage } from './tracking';
     return show.unsupportedNodeVersion(supportedNodeVersion);
   }
 
-  if (process.platform === 'win32') {
-    trackUsage('none', false, 'none');
-    return show.windowsWarning();
-  }
-
   const prompt = await promptAndGetConfig();
   if (prompt === undefined) return;
 
@@ -33,6 +28,11 @@ import { trackUsage } from './tracking';
   } = prompt;
 
   show.creatingApp();
+
+  if (contract !== 'none' && process.platform === 'win32') {
+    trackUsage('none', false, 'none');
+    return show.windowsWarning();
+  }
 
   let createSuccess;
   try {

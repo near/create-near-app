@@ -12,22 +12,19 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.9.7",
-    "@near-wallet-selector/here-wallet": "^8.9.7",
-    "@near-wallet-selector/modal-ui": "^8.9.7",
-    "@near-wallet-selector/my-near-wallet": "^8.9.7",
+    "@near-wallet-selector/core": "^8.9.12",
+    "@near-wallet-selector/here-wallet": "^8.9.12",
+    "@near-wallet-selector/modal-ui": "^8.9.12",
+    "@near-wallet-selector/my-near-wallet": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^3.0.4",
-    "next": "14.2.3",
+    "near-api-js": "^4.0.4",
+    "next": "14.2.6",
     "react": "^18",
     "react-dom": "^18"
   },
-  "overrides": {
-    "near-api-js": "^3.0.4"
-  },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.6"
   }
 }

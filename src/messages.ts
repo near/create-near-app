@@ -123,7 +123,7 @@ export const unsupportedNodeVersion = (supported: string) =>
   show(chalk`{red We support node.js version ${supported} or later}`);
 
 export const windowsWarning = () =>
-  show(chalk`{red Please use Windows Subsystem for Linux (WSL)}
+  show(chalk`{red Please use Windows Subsystem for Linux (WSL) to develop smart contracts}
 {yellow Learn more here: https://docs.near.org/blog/getting-started-on-windows}
 `);
 

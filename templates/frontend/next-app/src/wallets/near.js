@@ -1,13 +1,24 @@
-// near api js
-import { providers } from 'near-api-js';
-
-// wallet selector
+import { createContext } from 'react';
 import { distinctUntilChanged, map } from 'rxjs';
-import '@near-wallet-selector/modal-ui/styles.css';
-import { setupModal } from '@near-wallet-selector/modal-ui';
+import { providers, utils } from 'near-api-js';
+import { setupFastAuthWallet } from 'near-fastauth-wallet';
+
+import { setupKeypom } from '@keypom/selector';
 import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupMintbaseWallet } from '@near-wallet-selector/mintbase-wallet';
+import { setupModal } from '@near-wallet-selector/modal-ui';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupNearMobileWallet } from '@near-wallet-selector/near-mobile-wallet';
+import { setupNeth } from '@near-wallet-selector/neth';
+import { setupNightly } from '@near-wallet-selector/nightly';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupWelldoneWallet } from '@near-wallet-selector/welldone-wallet';
+
+import { signInContractId } from '@/utils/config';
+import { KEYPOM_OPTIONS } from '@/utils/keypom-options';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -35,7 +46,48 @@ export class Wallet {
   startUp = async (accountChangeHook) => {
     this.selector = setupWalletSelector({
       network: this.networkId,
-      modules: [setupMyNearWallet(), setupHereWallet()]
+      modules: [
+        setupMyNearWallet(),
+        setupSender(),
+        setupHereWallet(),
+        setupMintbaseWallet(),
+        setupMeteorWallet(),
+        setupNeth({
+          gas: '300000000000000',
+          bundle: false,
+        }),
+        setupNightly(),
+        setupWelldoneWallet(),
+        setupFastAuthWallet({
+          walletUrl:
+            this.networkId === 'testnet'
+              ? 'https://wallet.testnet.near.org/fastauth'
+              : 'https://wallet.near.org/fastauth',
+          relayerUrl:
+            this.networkId === 'testnet'
+              ? 'http://34.70.226.83:3030/relay'
+              : 'https://near-relayer-mainnet.api.pagoda.co/relay',
+        }),
+        setupKeypom({
+          trialAccountSpecs: {
+            url:
+              this.networkId === 'testnet'
+                ? 'https://test.near.org/#trial-url/ACCOUNT_ID/SECRET_KEY'
+                : 'https://dev.near.org/#trial-url/ACCOUNT_ID/SECRET_KEY',
+            modalOptions: KEYPOM_OPTIONS(this.networkId),
+          },
+          instantSignInSpecs: {
+            url:
+              this.networkId == 'testnet'
+                ? 'https://test.near.org/#instant-url/ACCOUNT_ID/SECRET_KEY/MODULE_ID'
+                : 'https://dev.near.org/#instant-url/ACCOUNT_ID/SECRET_KEY/MODULE_ID',
+          },
+          networkId: this.networkId,
+          signInContractId,
+        }),
+        setupLedger(),
+        setupNearMobileWallet(),
+      ],
     });
 
     const walletSelector = await this.selector;
@@ -83,7 +135,7 @@ export class Wallet {
     const url = `https://rpc.${this.networkId}.near.org`;
     const provider = new providers.JsonRpcProvider({ url });
 
-    let res = await provider.query({
+    const res = await provider.query({
       request_type: 'call_function',
       account_id: contractId,
       method_name: method,
@@ -92,7 +144,6 @@ export class Wallet {
     });
     return JSON.parse(Buffer.from(res.result).toString());
   };
-
 
   /**
    * Makes a call to a contract
@@ -139,4 +190,29 @@ export class Wallet {
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
   };
+
+  getBalance = async (accountId) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    // Retrieve account state from the network
+    const account = await provider.query({
+      request_type: 'view_account',
+      account_id: accountId,
+      finality: 'final',
+    });
+    // return amount on NEAR
+    return account.amount ? Number(utils.format.formatNearAmount(account.amount)) : 0;
+  };
+
+  signAndSendTransactions = async ({ transactions }) => {
+    const selectedWallet = await (await this.selector).wallet();
+    return selectedWallet.signAndSendTransactions({ transactions });
+  };
 }
+
+export const NearContext = createContext({
+  wallet: undefined,
+  signedAccountId: '',
+});
