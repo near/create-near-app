@@ -31,11 +31,14 @@ export async function getUserArgs(): Promise<UserConfig> {
   return { contract, frontend, components, projectName, install };
 }
 
-type Choices<T> = { title: string, description?: string, value: T }[];
+type Choices<T> = { title: string, description?: string, value: T, validate?: boolean | string }[];
 
 const appChoices: Choices<App> = [
   { title: 'A Web App', description: 'A Web App that talks with Near contracts', value: 'gateway' },
-  { title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
+  {
+    title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
+    validate: process.platform !== 'win32' ? show.sorryWindowsUsers() : true
+  },
 ];
 const contractChoices: Choices<Contract> = [
   { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },

@@ -29,11 +29,6 @@ import { trackUsage } from './tracking';
 
   show.creatingApp();
 
-  if (contract !== 'none' && process.platform === 'win32') {
-    trackUsage('none', false, 'none');
-    return show.windowsWarning();
-  }
-
   let createSuccess;
   try {
     createSuccess = await createProject({
