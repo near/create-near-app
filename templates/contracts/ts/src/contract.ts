@@ -3,6 +3,11 @@ import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
+
+  static schema = {
+    greeting: "string"
+  };
+
   greeting: string = 'Hello';
 
   @view({}) // This method is read-only and can be called for free
