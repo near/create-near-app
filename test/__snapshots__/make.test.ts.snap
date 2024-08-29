@@ -1,5 +1,203 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`create contract 'rs': --contract_rs--Cargo.toml 1`] = `
+[
+  "--contract_rs--Cargo.toml",
+  "[package]
+name = "contract-rs"
+description = "Hello Near Example"
+version = "0.1.0"
+edition = "2021"
+# TODO: Fill out the repository field to help NEAR ecosystem tools to discover your project.
+# NEP-0330 is automatically implemented for all contracts built with https://github.com/near/cargo-near.
+# Link to the repository will be available via \`contract_source_metadata\` view-function.
+#repository = "https://github.com/xxx/xxx"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+near-sdk = "5.3.0"
+
+[dev-dependencies]
+near-sdk = { version = "5.3.0", features = ["unit-testing"] }
+near-workspaces = { version = "0.11.0", features = ["unstable"] }
+tokio = { version = "1.12.0", features = ["full"] }
+serde_json = "1"
+
+[profile.release]
+codegen-units = 1
+# Tell \`rustc\` to optimize for small code size.
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+# Opt into extra safety checks on arithmetic operations https://stackoverflow.com/a/64136471/249801
+overflow-checks = true
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--README.md 1`] = `
+[
+  "--contract_rs--README.md",
+  "# contract-rs
+
+cargo-near-new-project-description
+
+## How to Build Locally?
+
+Install [\`cargo-near\`](https://github.com/near/cargo-near) and run:
+
+\`\`\`bash
+cargo near build
+\`\`\`
+
+## How to Test Locally?
+
+\`\`\`bash
+cargo test
+\`\`\`
+
+## How to Deploy?
+
+To deploy manually, install [\`cargo-near\`](https://github.com/near/cargo-near) and run:
+
+\`\`\`bash
+# Create a new account
+cargo near create-dev-account
+
+# Deploy the contract on it
+cargo near deploy <account-id>
+\`\`\`
+## Useful Links
+
+- [cargo-near](https://github.com/near/cargo-near) - NEAR smart contract development toolkit for Rust
+- [near CLI](https://docs.near.org/tools/near-cli) - Interact with NEAR blockchain from command line
+- [NEAR Rust SDK Documentation](https://docs.near.org/sdk/rust/introduction)
+- [NEAR Documentation](https://docs.near.org)
+- [NEAR StackOverflow](https://stackoverflow.com/questions/tagged/nearprotocol)
+- [NEAR Discord](https://near.chat)
+- [NEAR Telegram Developers Community Group](https://t.me/neardev)
+- NEAR DevHub: [Telegram](https://t.me/neardevhub), [Twitter](https://twitter.com/neardevhub)
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--rust-toolchain.toml 1`] = `
+[
+  "--contract_rs--rust-toolchain.toml",
+  "[toolchain]
+channel = "stable"
+components = ["rustfmt"]
+targets = ["wasm32-unknown-unknown"]
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--src--lib.rs 1`] = `
+[
+  "--contract_rs--src--lib.rs",
+  "// Find all our documentation at https://docs.near.org
+use near_sdk::{log, near};
+
+// Define the contract structure
+#[near(contract_state)]
+pub struct Contract {
+    greeting: String,
+}
+
+// Define the default, which automatically initializes the contract
+impl Default for Contract {
+    fn default() -> Self {
+        Self {
+            greeting: "Hello".to_string(),
+        }
+    }
+}
+
+// Implement the contract structure
+#[near]
+impl Contract {
+    // Public method - returns the greeting saved, defaulting to DEFAULT_GREETING
+    pub fn get_greeting(&self) -> String {
+        self.greeting.clone()
+    }
+
+    // Public method - accepts a greeting, such as "howdy", and records it
+    pub fn set_greeting(&mut self, greeting: String) {
+        log!("Saving greeting: {}", greeting);
+        self.greeting = greeting;
+    }
+}
+
+/*
+ * The rest of this file holds the inline tests for the code above
+ * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
+ */
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn get_default_greeting() {
+        let contract = Contract::default();
+        // this test did not call set_greeting so should return the default "Hello" greeting
+        assert_eq!(contract.get_greeting(), "Hello");
+    }
+
+    #[test]
+    fn set_then_get_greeting() {
+        let mut contract = Contract::default();
+        contract.set_greeting("howdy".to_string());
+        assert_eq!(contract.get_greeting(), "howdy");
+    }
+}
+",
+]
+`;
+
+exports[`create contract 'rs': --contract_rs--tests--test_basics.rs 1`] = `
+[
+  "--contract_rs--tests--test_basics.rs",
+  "use near_workspaces::types::NearToken;
+use serde_json::json;
+
+const FIVE_NEAR: NearToken = NearToken::from_near(5);
+
+#[tokio::test]
+async fn test_contract_is_operational() -> Result<(), Box<dyn std::error::Error>> {
+    let sandbox = near_workspaces::sandbox().await?;
+    let contract_wasm = near_workspaces::compile_project("./").await?;
+
+    let root = sandbox.root_account()?;
+
+    let user_account = root.create_subaccount("user").transact().await?.unwrap();
+    let contract_account = root.create_subaccount("contract").initial_balance(FIVE_NEAR).transact().await?.unwrap();
+
+    let contract = contract_account.deploy(&contract_wasm).await?.unwrap();
+
+    let outcome = user_account
+        .call(contract.id(), "set_greeting")
+        .args_json(json!({"greeting": "Hello World!"}))
+        .transact()
+        .await?;
+    assert!(outcome.is_success());
+
+    let user_message_outcome: serde_json::Value = user_account
+        .view(contract.id(), "get_greeting")
+        .args_json(json!({}))
+        .await?
+        .json()?;
+    assert_eq!(user_message_outcome, "Hello World!");
+
+    Ok(())
+}
+",
+]
+`;
+
 exports[`create contract 'ts': --contract_ts--README.md 1`] = `
 [
   "--contract_ts--README.md",
@@ -1057,6 +1255,7 @@ import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 import { setupSender } from '@near-wallet-selector/sender';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -1090,6 +1289,7 @@ export class Wallet {
         setupLedger(),
         setupMeteorWallet(),
         setupSender(),
+        setupBitteWallet(),
       ],
     });
 
@@ -1344,6 +1544,7 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "@near-wallet-selector/meteor-wallet": "^8.9.12",
     "@near-wallet-selector/modal-ui": "^8.9.12",
     "@near-wallet-selector/my-near-wallet": "^8.9.12",
+    "@near-wallet-selector/bitte-wallet": "^8.9.12",
     "@near-wallet-selector/sender": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
@@ -2070,6 +2271,7 @@ import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 import { setupSender } from '@near-wallet-selector/sender';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -2103,6 +2305,7 @@ export class Wallet {
         setupLedger(),
         setupMeteorWallet(),
         setupSender(),
+        setupBitteWallet(),
       ],
     });
 
