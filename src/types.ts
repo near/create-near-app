@@ -15,6 +15,7 @@ export interface UserConfig {
   components: boolean;
   projectName: ProjectName;
   install: boolean;
+  error: (() => void) | undefined;
 }
 
 export type CreateContractParams = {

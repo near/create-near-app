@@ -139,8 +139,3 @@ export const depsInstall = () =>
 
 export const depsInstallError = () =>
   show(chalk.red('Error installing NEAR project dependencies'));
-
-export const sorryWindowsUsers = () => {
-  trackUsage('none', false, 'none');
-  return chalk`{red Sorry, Windows is not supported for this option yet.}`;
-};
