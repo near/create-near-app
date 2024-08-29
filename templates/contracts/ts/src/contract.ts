@@ -5,7 +5,7 @@ import { NearBindgen, near, call, view } from 'near-sdk-js';
 class HelloNear {
 
   static schema = {
-    greeting: "string"
+    greeting: 'string'
   };
 
   greeting: string = 'Hello';
