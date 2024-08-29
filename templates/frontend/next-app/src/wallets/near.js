@@ -13,8 +13,6 @@ import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 import { setupSender } from '@near-wallet-selector/sender';
-import { setupMintbaseWallet } from '@near-wallet-selector/mintbase-wallet';
-import { setupNeth } from '@near-wallet-selector/neth';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -48,11 +46,6 @@ export class Wallet {
         setupLedger(),
         setupMeteorWallet(),
         setupSender(),
-        setupMintbaseWallet(),
-        setupNeth({
-          gas: '300000000000000',
-          bundle: false,
-        }),
       ],
     });
 
