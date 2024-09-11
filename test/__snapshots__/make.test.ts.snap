@@ -528,6 +528,7 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "@near-wallet-selector/meteor-wallet": "^8.9.12",
     "@near-wallet-selector/modal-ui": "^8.9.12",
     "@near-wallet-selector/my-near-wallet": "^8.9.12",
+    "@near-wallet-selector/bitte-wallet": "^8.9.12",
     "@near-wallet-selector/sender": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
