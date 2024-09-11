@@ -532,7 +532,7 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "@near-wallet-selector/sender": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^4.0.4",
+    "near-api-js": "^4.0.3",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
@@ -1549,7 +1549,7 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "@near-wallet-selector/sender": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^4.0.4",
+    "near-api-js": "^4.0.3",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
