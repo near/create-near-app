@@ -26,7 +26,7 @@ impl Contract {
 
     // Public method - accepts a greeting, such as "howdy", and records it
     pub fn set_greeting(&mut self, greeting: String) {
-        log!("Saving greeting: {greeting}");
+        log!("Saving greeting: {}", greeting);
         self.greeting = greeting;
     }
 }

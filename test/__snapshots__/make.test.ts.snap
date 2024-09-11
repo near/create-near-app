@@ -18,11 +18,11 @@ crate-type = ["cdylib", "rlib"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-near-sdk = "5.1.0"
+near-sdk = "5.3.0"
 
 [dev-dependencies]
-near-sdk = { version = "5.1.0", features = ["unit-testing"] }
-near-workspaces = { version = "0.10.0", features = ["unstable"] }
+near-sdk = { version = "5.3.0", features = ["unit-testing"] }
+near-workspaces = { version = "0.11.0", features = ["unstable"] }
 tokio = { version = "1.12.0", features = ["full"] }
 serde_json = "1"
 
@@ -127,7 +127,7 @@ impl Contract {
 
     // Public method - accepts a greeting, such as "howdy", and records it
     pub fn set_greeting(&mut self, greeting: String) {
-        log!("Saving greeting: {greeting}");
+        log!("Saving greeting: {}", greeting);
         self.greeting = greeting;
     }
 }
@@ -161,7 +161,7 @@ mod tests {
 exports[`create contract 'rs': --contract_rs--tests--test_basics.rs 1`] = `
 [
   "--contract_rs--tests--test_basics.rs",
-  "use near_sdk::NearToken;
+  "use near_workspaces::types::NearToken;
 use serde_json::json;
 
 const FIVE_NEAR: NearToken = NearToken::from_near(5);
@@ -185,11 +185,12 @@ async fn test_contract_is_operational() -> Result<(), Box<dyn std::error::Error>
         .await?;
     assert!(outcome.is_success());
 
-    let user_message_outcome = contract
-        .view("get_greeting")
+    let user_message_outcome: serde_json::Value = user_account
+        .view(contract.id(), "get_greeting")
         .args_json(json!({}))
-        .await?;
-    assert_eq!(user_message_outcome.json::<String>()?, "Hello World!");
+        .await?
+        .json()?;
+    assert_eq!(user_message_outcome, "Hello World!");
 
     Ok(())
 }
@@ -299,7 +300,7 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
     "test": "$npm_execpath run build && ava -- ./build/hello_near.wasm"
   },
   "dependencies": {
-    "near-sdk-js": "1.0.0"
+    "near-sdk-js": "2.0.0"
   },
   "devDependencies": {
     "ava": "^6.1.3",
@@ -307,7 +308,9 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
     "typescript": "^5.4.5"
   },
   "ava": {
-    "files": ["sandbox-test/*.ava.js"]
+    "files": [
+      "sandbox-test/*.ava.js"
+    ]
   }
 }
 ",
@@ -373,6 +376,11 @@ import { NearBindgen, near, call, view } from 'near-sdk-js';
 
 @NearBindgen({})
 class HelloNear {
+
+  static schema = {
+    greeting: 'string'
+  };
+
   greeting: string = 'Hello';
 
   @view({}) // This method is read-only and can be called for free
@@ -514,19 +522,23 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.9.7",
-    "@near-wallet-selector/here-wallet": "^8.9.7",
-    "@near-wallet-selector/modal-ui": "^8.9.7",
-    "@near-wallet-selector/my-near-wallet": "^8.9.7",
+    "@near-wallet-selector/core": "^8.9.12",
+    "@near-wallet-selector/here-wallet": "^8.9.12",
+    "@near-wallet-selector/ledger": "^8.9.12",
+    "@near-wallet-selector/meteor-wallet": "^8.9.12",
+    "@near-wallet-selector/modal-ui": "^8.9.12",
+    "@near-wallet-selector/my-near-wallet": "^8.9.12",
+    "@near-wallet-selector/bitte-wallet": "^8.9.12",
+    "@near-wallet-selector/sender": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^3.0.4",
+    "near-api-js": "^4.0.3",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
   },
-  "overrides": {
-    "near-api-js": "^3.0.4"
+  "resolutions": {
+    "near-api-js": "4.0.4"
   },
   "devDependencies": {
     "eslint": "^8",
@@ -1229,16 +1241,22 @@ export const NearContext = createContext({
 exports[`create frontend 'next-app': --frontend_next-app--src--wallets--near.js 1`] = `
 [
   "--frontend_next-app--src--wallets--near.js",
-  "// near api js
+  "import { createContext } from 'react';
+import { distinctUntilChanged, map } from 'rxjs';
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector
-import { distinctUntilChanged, map } from 'rxjs';
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
 import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -1266,7 +1284,14 @@ export class Wallet {
   startUp = async (accountChangeHook) => {
     this.selector = setupWalletSelector({
       network: this.networkId,
-      modules: [setupMyNearWallet(), setupHereWallet()]
+      modules: [
+        setupMyNearWallet(),
+        setupHereWallet(),
+        setupLedger(),
+        setupMeteorWallet(),
+        setupSender(),
+        setupBitteWallet(),
+      ],
     });
 
     const walletSelector = await this.selector;
@@ -1314,7 +1339,7 @@ export class Wallet {
     const url = \`https://rpc.\${this.networkId}.near.org\`;
     const provider = new providers.JsonRpcProvider({ url });
 
-    let res = await provider.query({
+    const res = await provider.query({
       request_type: 'call_function',
       account_id: contractId,
       method_name: method,
@@ -1323,7 +1348,6 @@ export class Wallet {
     });
     return JSON.parse(Buffer.from(res.result).toString());
   };
-
 
   /**
    * Makes a call to a contract
@@ -1370,7 +1394,32 @@ export class Wallet {
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
   };
-}",
+
+  getBalance = async (accountId) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    // Retrieve account state from the network
+    const account = await provider.query({
+      request_type: 'view_account',
+      account_id: accountId,
+      finality: 'final',
+    });
+    // return amount on NEAR
+    return account.amount ? Number(utils.format.formatNearAmount(account.amount)) : 0;
+  };
+
+  signAndSendTransactions = async ({ transactions }) => {
+    const selectedWallet = await (await this.selector).wallet();
+    return selectedWallet.signAndSendTransactions({ transactions });
+  };
+}
+
+export const NearContext = createContext({
+  wallet: undefined,
+  signedAccountId: '',
+});",
 ]
 `;
 
@@ -1381,6 +1430,16 @@ exports[`create frontend 'next-page': --frontend_next-page--.eslintrc.json 1`] =
   "extends": "next/core-web-vitals"
 }
 ",
+]
+`;
+
+exports[`create frontend 'next-page': --frontend_next-page--.gitignore 1`] = `
+[
+  "--frontend_next-page--.gitignore",
+  "**/node_modules
+**/.next
+yarn.lock
+package-lock.json",
 ]
 `;
 
@@ -1480,19 +1539,23 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/core": "^8.9.7",
-    "@near-wallet-selector/here-wallet": "^8.9.7",
-    "@near-wallet-selector/modal-ui": "^8.9.7",
-    "@near-wallet-selector/my-near-wallet": "^8.9.7",
+    "@near-wallet-selector/core": "^8.9.12",
+    "@near-wallet-selector/here-wallet": "^8.9.12",
+    "@near-wallet-selector/ledger": "^8.9.12",
+    "@near-wallet-selector/meteor-wallet": "^8.9.12",
+    "@near-wallet-selector/modal-ui": "^8.9.12",
+    "@near-wallet-selector/my-near-wallet": "^8.9.12",
+    "@near-wallet-selector/bitte-wallet": "^8.9.12",
+    "@near-wallet-selector/sender": "^8.9.12",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^3.0.4",
+    "near-api-js": "^4.0.3",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
   },
-  "overrides": {
-    "near-api-js": "^3.0.4"
+  "resolutions": {
+    "near-api-js": "4.0.4"
   },
   "devDependencies": {
     "eslint": "^8",
@@ -2194,16 +2257,22 @@ a {
 exports[`create frontend 'next-page': --frontend_next-page--src--wallets--near.js 1`] = `
 [
   "--frontend_next-page--src--wallets--near.js",
-  "// near api js
+  "import { createContext } from 'react';
+import { distinctUntilChanged, map } from 'rxjs';
+
+// near api js
 import { providers } from 'near-api-js';
 
 // wallet selector
-import { distinctUntilChanged, map } from 'rxjs';
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
 import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -2231,7 +2300,14 @@ export class Wallet {
   startUp = async (accountChangeHook) => {
     this.selector = setupWalletSelector({
       network: this.networkId,
-      modules: [setupMyNearWallet(), setupHereWallet()]
+      modules: [
+        setupMyNearWallet(),
+        setupHereWallet(),
+        setupLedger(),
+        setupMeteorWallet(),
+        setupSender(),
+        setupBitteWallet(),
+      ],
     });
 
     const walletSelector = await this.selector;
@@ -2279,7 +2355,7 @@ export class Wallet {
     const url = \`https://rpc.\${this.networkId}.near.org\`;
     const provider = new providers.JsonRpcProvider({ url });
 
-    let res = await provider.query({
+    const res = await provider.query({
       request_type: 'call_function',
       account_id: contractId,
       method_name: method,
@@ -2288,7 +2364,6 @@ export class Wallet {
     });
     return JSON.parse(Buffer.from(res.result).toString());
   };
-
 
   /**
    * Makes a call to a contract
@@ -2335,6 +2410,31 @@ export class Wallet {
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
   };
-}",
+
+  getBalance = async (accountId) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    // Retrieve account state from the network
+    const account = await provider.query({
+      request_type: 'view_account',
+      account_id: accountId,
+      finality: 'final',
+    });
+    // return amount on NEAR
+    return account.amount ? Number(utils.format.formatNearAmount(account.amount)) : 0;
+  };
+
+  signAndSendTransactions = async ({ transactions }) => {
+    const selectedWallet = await (await this.selector).wallet();
+    return selectedWallet.signAndSendTransactions({ transactions });
+  };
+}
+
+export const NearContext = createContext({
+  wallet: undefined,
+  signedAccountId: '',
+});",
 ]
 `;

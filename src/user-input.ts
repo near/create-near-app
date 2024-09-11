@@ -28,14 +28,16 @@ export async function getUserArgs(): Promise<UserConfig> {
   const options = program.opts();
   const [projectName] = program.args;
   const { contract, frontend, install, components } = options;
-  return { contract, frontend, components, projectName, install };
+  return { contract, frontend, components, projectName, install, error: undefined };
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
 
 const appChoices: Choices<App> = [
   { title: 'A Web App', description: 'A Web App that talks with Near contracts', value: 'gateway' },
-  { title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract' },
+  {
+    title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
+  },
 ];
 const contractChoices: Choices<Contract> = [
   { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
@@ -108,14 +110,19 @@ export async function getUserAnswers(): Promise<UserConfig> {
   if (app === 'gateway') {
     // If gateway, ask for the framework to use
     const { frontend, components, projectName, install } = await promptUser([frontendPrompt, componentsPrompt, namePrompts, npmPrompt]);
-    return { frontend, components, contract: 'none', projectName, install };
+    return { frontend, components, contract: 'none', projectName, install, error: undefined };
   } else {
+    // If platform is Window, return the error
+    if (process.platform === 'win32') {
+      return { frontend: 'none', components: false, contract: 'none', projectName: '', install: false, error: show.windowsWarning };
+    }
+
     // If contract, ask for the language for the contract
     let { contract } = await promptUser(contractPrompt);
 
     const { projectName } = await promptUser(namePrompts);
     const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
-    return { frontend: 'none', components: false, contract, projectName, install };
+    return { frontend: 'none', components: false, contract, projectName, install, error: undefined };
   }
 }
 
@@ -128,6 +135,11 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   if (!args.projectName) {
     show.welcome();
     args = await getUserAnswers();
+  }
+
+  if (args.error) {
+    trackUsage('none', false, 'none');
+    return args.error();
   }
 
   // Homogenizing terminal args with prompt args

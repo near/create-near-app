@@ -1,4 +1,4 @@
-use near_sdk::NearToken;
+use near_workspaces::types::NearToken;
 use serde_json::json;
 
 const FIVE_NEAR: NearToken = NearToken::from_near(5);
@@ -22,11 +22,12 @@ async fn test_contract_is_operational() -> Result<(), Box<dyn std::error::Error>
         .await?;
     assert!(outcome.is_success());
 
-    let user_message_outcome = contract
-        .view("get_greeting")
+    let user_message_outcome: serde_json::Value = user_account
+        .view(contract.id(), "get_greeting")
         .args_json(json!({}))
-        .await?;
-    assert_eq!(user_message_outcome.json::<String>()?, "Hello World!");
+        .await?
+        .json()?;
+    assert_eq!(user_message_outcome, "Hello World!");
 
     Ok(())
 }

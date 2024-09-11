@@ -24,7 +24,7 @@ Run [34mnpx create-near-app[39m without arguments, or use:
 npx create-near-app <projectName> [--frontend next-app|next-page] [--contract rs|ts|none]",
   ],
   [
-    "[31mPlease use Windows Subsystem for Linux (WSL)[39m
+    "[31mPlease use Windows Subsystem for Linux (WSL) to develop smart contracts[39m
 [33mLearn more here: https://docs.near.org/blog/getting-started-on-windows[39m
 ",
   ],

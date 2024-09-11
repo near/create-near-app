@@ -1,13 +1,19 @@
+import { createContext } from 'react';
+import { distinctUntilChanged, map } from 'rxjs';
+
 // near api js
 import { providers } from 'near-api-js';
 
 // wallet selector
-import { distinctUntilChanged, map } from 'rxjs';
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
 import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -35,7 +41,14 @@ export class Wallet {
   startUp = async (accountChangeHook) => {
     this.selector = setupWalletSelector({
       network: this.networkId,
-      modules: [setupMyNearWallet(), setupHereWallet()]
+      modules: [
+        setupMyNearWallet(),
+        setupHereWallet(),
+        setupLedger(),
+        setupMeteorWallet(),
+        setupSender(),
+        setupBitteWallet(),
+      ],
     });
 
     const walletSelector = await this.selector;
@@ -83,7 +96,7 @@ export class Wallet {
     const url = `https://rpc.${this.networkId}.near.org`;
     const provider = new providers.JsonRpcProvider({ url });
 
-    let res = await provider.query({
+    const res = await provider.query({
       request_type: 'call_function',
       account_id: contractId,
       method_name: method,
@@ -92,7 +105,6 @@ export class Wallet {
     });
     return JSON.parse(Buffer.from(res.result).toString());
   };
-
 
   /**
    * Makes a call to a contract
@@ -139,4 +151,29 @@ export class Wallet {
     const transaction = await provider.txStatus(txhash, 'unnused');
     return providers.getTransactionLastResult(transaction);
   };
+
+  getBalance = async (accountId) => {
+    const walletSelector = await this.selector;
+    const { network } = walletSelector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    // Retrieve account state from the network
+    const account = await provider.query({
+      request_type: 'view_account',
+      account_id: accountId,
+      finality: 'final',
+    });
+    // return amount on NEAR
+    return account.amount ? Number(utils.format.formatNearAmount(account.amount)) : 0;
+  };
+
+  signAndSendTransactions = async ({ transactions }) => {
+    const selectedWallet = await (await this.selector).wallet();
+    return selectedWallet.signAndSendTransactions({ transactions });
+  };
 }
+
+export const NearContext = createContext({
+  wallet: undefined,
+  signedAccountId: '',
+});
