@@ -12,7 +12,6 @@ export type ProjectName = string;
 export interface UserConfig {
   contract: Contract;
   frontend: Frontend;
-  components: boolean;
   projectName: ProjectName;
   install: boolean;
   error: (() => void) | undefined;
@@ -26,7 +25,6 @@ export type CreateContractParams = {
 
 export type CreateGatewayParams = {
   frontend: Frontend,
-  components: boolean,
   projectPath: string,
   templatesDir: string,
 }

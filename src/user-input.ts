@@ -19,7 +19,6 @@ export async function getUserArgs(): Promise<UserConfig> {
     .argument('[projectName]')
     .option('--frontend [next-page|next-app|none]')
     .option('--contract [ts|rs|none]')
-    .option('--components')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
 
@@ -27,8 +26,8 @@ export async function getUserArgs(): Promise<UserConfig> {
 
   const options = program.opts();
   const [projectName] = program.args;
-  const { contract, frontend, install, components } = options;
-  return { contract, frontend, components, projectName, install, error: undefined };
+  const { contract, frontend, install } = options;
+  return { contract, frontend, projectName, install, error: undefined };
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
@@ -49,11 +48,6 @@ const frontendChoices: Choices<Frontend> = [
   { title: 'NextJS (App Router)', description: 'A web-app built using Next.js new App Router', value: 'next-app' },
 ];
 
-const componentChoices: Choices<Boolean> = [
-  { title: 'No', value: false },
-  { title: 'Yes', value: true },
-];
-
 const appPrompt: PromptObject = {
   type: 'select',
   name: 'app',
@@ -66,13 +60,6 @@ const frontendPrompt: PromptObject = {
   name: 'frontend',
   message: 'Select a framework for your frontend',
   choices: frontendChoices,
-};
-
-const componentsPrompt: PromptObject = {
-  type: 'select',
-  name: 'components',
-  message: 'Are you planning in using on-chain NEAR Components (aka BOS Components)?',
-  choices: componentChoices,
 };
 
 const contractPrompt: PromptObject[] = [
@@ -109,12 +96,12 @@ export async function getUserAnswers(): Promise<UserConfig> {
 
   if (app === 'gateway') {
     // If gateway, ask for the framework to use
-    const { frontend, components, projectName, install } = await promptUser([frontendPrompt, componentsPrompt, namePrompts, npmPrompt]);
-    return { frontend, components, contract: 'none', projectName, install, error: undefined };
+    const { frontend, projectName, install } = await promptUser([frontendPrompt, namePrompts, npmPrompt]);
+    return { frontend, contract: 'none', projectName, install, error: undefined };
   } else {
     // If platform is Window, return the error
     if (process.platform === 'win32') {
-      return { frontend: 'none', components: false, contract: 'none', projectName: '', install: false, error: show.windowsWarning };
+      return { frontend: 'none', contract: 'none', projectName: '', install: false, error: show.windowsWarning };
     }
 
     // If contract, ask for the language for the contract
@@ -122,7 +109,7 @@ export async function getUserAnswers(): Promise<UserConfig> {
 
     const { projectName } = await promptUser(namePrompts);
     const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
-    return { frontend: 'none', components: false, contract, projectName, install, error: undefined };
+    return { frontend: 'none', contract, projectName, install, error: undefined };
   }
 }
 
@@ -138,7 +125,7 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   }
 
   if (args.error) {
-    trackUsage('none', false, 'none');
+    trackUsage('none', 'none');
     return args.error();
   }
 
@@ -149,8 +136,8 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   if (!validateUserArgs(args)) return;
 
   // track user input
-  const { frontend, components, contract } = args;
-  trackUsage(frontend, components, contract);
+  const { frontend, contract } = args;
+  trackUsage(frontend, contract);
 
   let path = projectPath(args.projectName);
 

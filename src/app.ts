@@ -4,7 +4,6 @@ import semver from 'semver';
 import { createProject, runDepsInstall } from './make';
 import { promptAndGetConfig, } from './user-input';
 import * as show from './messages';
-import { trackUsage } from './tracking';
 
 (async function () {
 
@@ -21,7 +20,6 @@ import { trackUsage } from './tracking';
       projectName,
       contract,
       frontend,
-      components,
       install,
     },
     projectPath,
@@ -34,7 +32,6 @@ import { trackUsage } from './tracking';
     createSuccess = await createProject({
       contract,
       frontend,
-      components,
       templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,
     });

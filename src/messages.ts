@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { trackingMessage, trackUsage } from './tracking';
+import { trackingMessage } from './tracking';
 import { Contract, Frontend, FrontendMessage, ProjectName } from './types';
 
 if (process.env.NEAR_NO_COLOR) {
@@ -14,7 +14,7 @@ export const welcome = () =>
 👋 {bold {green Welcome to Near!}} Learn more: https://docs.near.org/
 🔧 Let's get your project ready.
 {blue ======================================================}
-(${trackingMessage})`);
+(${trackingMessage})\n`);
 
 export const setupFailed = () =>
   show(chalk`{bold {red ==========================================}}
