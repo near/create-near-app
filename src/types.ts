@@ -1,5 +1,5 @@
-export type Contract = 'ts' | 'rs' | 'none';
-export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
+export type Contract = 'javascript' | 'rust' | 'none';
+export const CONTRACTS: Contract[] = ['javascript', 'rust', 'none'];
 
 export type Frontend = 'next-app' | 'next-page' | 'none';
 export const FRONTENDS: Frontend[] = ['next-app' , 'next-page', 'none'];
@@ -31,4 +31,17 @@ export type CreateGatewayParams = {
 
 export type FrontendMessage = {
   [key in Exclude<Frontend, 'none'>]: string;
+};
+
+export type TrackingEventName = 'contract' | 'frontend' | 'error';
+export type TrackingEventPayload = {
+  distinct_id: string,
+  event: TrackingEventName,
+  properties: {
+    engine: string,
+    os: string,
+    language?: string,
+    framework?: string
+  },
+  timestamp: Date,
 };

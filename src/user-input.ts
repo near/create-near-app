@@ -39,8 +39,8 @@ const appChoices: Choices<App> = [
   },
 ];
 const contractChoices: Choices<Contract> = [
-  { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
-  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs' },
+  { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'javascript' },
+  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rust' },
 ];
 
 const frontendChoices: Choices<Frontend> = [
