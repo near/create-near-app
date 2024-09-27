@@ -6,10 +6,10 @@ const MIXPANEL_TOKEN = '24177ef1ec09ffea5cb6f68909c66a61';
 
 const tracker = mixpanel.init(MIXPANEL_TOKEN);
 
-export const trackingMessage = chalk`Near collects anonymous information on the commands used. No personal information that could identify you is shared`;
+export const trackingMessage = chalk.italic('Near collects anonymous information on the commands used. No personal information that could identify you is shared');
 
 // TODO: track different failures & install usage
-export const trackUsage = async (frontend: Frontend, components: boolean, contract: Contract) => {
+export const trackUsage = async (frontend: Frontend, contract: Contract) => {
   // prevents logging from CI
   if (process.env.NEAR_ENV === 'ci' || process.env.NODE_ENV === 'ci') {
     console.log('Mixpanel logging is skipped in CI env');
@@ -18,7 +18,6 @@ export const trackUsage = async (frontend: Frontend, components: boolean, contra
   try {
     const mixPanelProperties = {
       frontend,
-      components,
       contract,
       os: process.platform,
       nodeVersion: process.versions.node,
