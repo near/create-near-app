@@ -17,7 +17,6 @@ describe('create contract', () => {
     await createProject({
       contract,
       frontend: 'none',
-      components: false,
       templatesDir: rootDir,
       projectPath,
     });
@@ -60,7 +59,6 @@ describe('create frontend', () => {
     await createProject({
       contract: 'none',
       frontend: frontend,
-      components: false,
       templatesDir: rootDir,
       projectPath,
     });
