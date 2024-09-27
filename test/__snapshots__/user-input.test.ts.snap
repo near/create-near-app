@@ -8,7 +8,8 @@ exports[`messages snapshot basic messages 1`] = `
 👋 [1m[32mWelcome to Near![39m[22m Learn more: https://docs.near.org/
 🔧 Let's get your project ready.
 [34m======================================================[39m
-(Near collects anonymous information on the commands used. No personal information that could identify you is shared)",
+([3mNear collects anonymous information on the commands used. No personal information that could identify you is shared[23m)
+",
   ],
   [
     "[1m[31m==========================================[39m[22m

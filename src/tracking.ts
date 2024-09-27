@@ -20,6 +20,7 @@ export const trackUsage = async (frontend: Frontend, contract: Contract) => {
     event: 'error',
     properties: {
       engine: process.versions.node,
+
       os: process.platform,
     },
     timestamp: new Date(),
