@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import {Contract, Frontend, TrackingEventPayload} from './types';
 
-const POSTHOG_API_KEY = 'phc_bMxqEAiInwlq3FMyZvuFPZ8qdYuVwh9L5YfqRpeFk0I';
+const POSTHOG_API_KEY = 'phc_95PGQnbyatmj2TBRPWYfhbHfqB6wgZj5QRL8WY9gW20';
 const POSTHOG_API_URL = 'https://eu.i.posthog.com/capture';
 
 
