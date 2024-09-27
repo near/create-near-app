@@ -20,5 +20,3 @@ jobs:
       run: npm run start -- hello-near --frontend next-page
     - name: Install
       run: cd hello-near && npm install
-    - name: Install
-      run: cd hello-components && npm install

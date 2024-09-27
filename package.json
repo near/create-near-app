@@ -27,16 +27,15 @@
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
     "cross-spawn": "^7.0.3",
-    "mixpanel": "^0.18.0",
     "ncp": "^2.0.0",
     "prompts": "^2.4.2",
     "semver": "^7.5.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.5",
     "@babel/core": "^7.23.2",
-    "@babel/plugin-transform-react-jsx": "^7.22.15",
+    "@babel/eslint-parser": "^7.22.5",
     "@babel/plugin-syntax-flow": "^7.22.5",
+    "@babel/plugin-transform-react-jsx": "^7.22.15",
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@release-it/conventional-changelog": "^5.1.1",

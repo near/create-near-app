@@ -32,3 +32,16 @@ export type CreateGatewayParams = {
 export type FrontendMessage = {
   [key in Exclude<Frontend, 'none'>]: string;
 };
+
+export type TrackingEventName = 'contract' | 'frontend' | 'error';
+export type TrackingEventPayload = {
+  distinct_id: string,
+  event: TrackingEventName,
+  properties: {
+    engine: string,
+    os: string,
+    language?: string,
+    framework?: string
+  },
+  timestamp: Date,
+};

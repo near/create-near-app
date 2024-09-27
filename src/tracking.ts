@@ -1,10 +1,9 @@
-import {Contract, Frontend} from './types';
 import chalk from 'chalk';
-import mixpanel from 'mixpanel';
+import {Contract, Frontend, TrackingEventPayload} from './types';
 
-const MIXPANEL_TOKEN = '24177ef1ec09ffea5cb6f68909c66a61';
+const POSTHOG_API_KEY = 'phc_95PGQnbyatmj2TBRPWYfhbHfqB6wgZj5QRL8WY9gW20';
+const POSTHOG_API_URL = 'https://eu.i.posthog.com/capture';
 
-const tracker = mixpanel.init(MIXPANEL_TOKEN);
 
 export const trackingMessage = chalk.italic('Near collects anonymous information on the commands used. No personal information that could identify you is shared');
 
@@ -12,18 +11,43 @@ export const trackingMessage = chalk.italic('Near collects anonymous information
 export const trackUsage = async (frontend: Frontend, contract: Contract) => {
   // prevents logging from CI
   if (process.env.NEAR_ENV === 'ci' || process.env.NODE_ENV === 'ci') {
-    console.log('Mixpanel logging is skipped in CI env');
+    console.log('PostHog logging is skipped in CI env');
     return;
   }
-  try {
-    const mixPanelProperties = {
-      frontend,
-      contract,
+
+  const payload: TrackingEventPayload = {
+    distinct_id: 'create-near-app',
+    event: 'error',
+    properties: {
+      engine: process.versions.node,
+
       os: process.platform,
-      nodeVersion: process.versions.node,
-      timestamp: new Date().toString()
-    };
-    tracker.track('CNA', mixPanelProperties);
+    },
+    timestamp: new Date(),
+  };
+
+  if (contract !== 'none') {
+    payload.event = 'contract';
+    payload.properties.language = contract;
+  }
+
+  if (frontend !== 'none') {
+    payload.event = 'frontend';
+    payload.properties.framework = frontend;
+  }
+
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+
+  try {
+    await fetch(POSTHOG_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        api_key: POSTHOG_API_KEY,
+        ...payload,
+      }),
+      headers,
+    });
   } catch (e) {
     console.error(
       'Warning: problem while sending tracking data. Error: ',
