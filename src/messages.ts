@@ -27,7 +27,7 @@ export const successContractToText = (contract: Contract) =>
   contract === 'none'
     ? ''
     : chalk`a smart contract in {bold ${
-      contract === 'rust' ? 'Rust' : 'Typescript'
+      contract === 'rs' ? 'Rust' : 'Typescript'
     }}`;
 
 const frontendTemplates: FrontendMessage = {
@@ -52,7 +52,7 @@ export const setupSuccess = (
   contract
 )}${successFrontendToText(frontend)}.
 ${
-  contract === 'rust'
+  contract === 'rs'
     ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n`
     : ''
 }
@@ -74,20 +74,20 @@ export const contractInstructions = (
    - {inverse Navigate to your project}:
          {blue cd {bold ${projectName}}}
 ${
-  contract === 'javascript' && !install
+  contract === 'ts' && !install
     ? chalk`   - {inverse Install all dependencies}
          {blue npm {bold install}}`
     : 'Then:'
 }
    - {inverse Build your contract}:
          ${
-  contract === 'javascript'
+  contract === 'ts'
     ? chalk`{blue npm {bold run build}}`
     : chalk`{blue {bold cargo near build}}`
 }
    - {inverse Test your contract} in the Sandbox:
          ${
-  contract === 'javascript'
+  contract === 'ts'
     ? chalk`{blue npm {bold run test}}`
     : chalk`{blue {bold cargo test}}`
 }
