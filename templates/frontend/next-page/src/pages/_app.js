@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import '@/styles/globals.css';
-import { NearContext } from '@/context';
 import { Navigation } from '@/components/navigation';
 
-import { Wallet } from '@/wallets/near';
+import { Wallet, NearContext } from '@/wallets/near';
 import { NetworkId } from '@/config';
 
 const wallet = new Wallet({ networkId: NetworkId });

@@ -3,11 +3,10 @@
 import { useEffect, useState } from 'react';
 
 import '@/app/globals.css';
-import { NearContext } from '@/context';
 import { Navigation } from '@/components/navigation';
 import { NetworkId } from '@/config';
 
-import { Wallet } from '@/wallets/near';
+import { NearContext, Wallet } from '@/wallets/near';
 
 const wallet = new Wallet({ networkId: NetworkId });
 

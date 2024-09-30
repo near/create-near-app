@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
 
-import { NearContext } from '@/context';
+import { NearContext } from '@/wallets/near';
 import { HelloNearContract } from '@/config';
 
 // Contract that the app will interact with
