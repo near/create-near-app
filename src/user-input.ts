@@ -46,6 +46,7 @@ const contractChoices: Choices<Contract> = [
 const frontendChoices: Choices<Frontend> = [
   { title: 'NextJs (Classic)', description: 'A web-app built using Next.js Page Router', value: 'next-page' },
   { title: 'NextJS (App Router)', description: 'A web-app built using Next.js new App Router', value: 'next-app' },
+  { title: 'Vite React', description: 'A web-app built using Vite with React', value: 'vite-react' },
 ];
 
 const appPrompt: PromptObject = {

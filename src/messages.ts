@@ -32,7 +32,8 @@ export const successContractToText = (contract: Contract) =>
 
 const frontendTemplates: FrontendMessage = {
   'next-page': 'NextJS (Classic)',
-  'next-app': 'NextJS (App Router)'
+  'next-app': 'NextJS (App Router)',
+  'vite-react': 'Vite React'
 };
 
 export const successFrontendToText = (frontend: Frontend) =>
