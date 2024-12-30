@@ -31,11 +31,6 @@
     "react-dom": "^18",
     "wagmi": "^2.12.16"
   },
-  "overrides": {
-    "@near-wallet-selector/ethereum-wallets": {
-      "near-api-js": "4.0.3"
-    }
-  },
   "devDependencies": {
     "encoding": "^0.1.13",
     "eslint": "^8",

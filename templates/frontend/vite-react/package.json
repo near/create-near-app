@@ -29,17 +29,11 @@
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
     "buffer": "^6.0.3",
-    "near-api-js": "^5.0.1",
+    "near-api-js": "^4.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.1.0",
     "wagmi": "^2.14.4",
     "wouter": "^3.3.5"
-  },
-  "overrides": {
-    "@near-wallet-selector/ethereum-wallets": {
-      "near-api-js": "4.0.3"
-    }
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
