@@ -2,7 +2,7 @@ import { useContext,useEffect, useState } from 'react';
 
 import NearLogo from '@/assets/near-logo.svg';
 import { NearContext } from '@/wallets/near';
-import { Link } from 'wouter';
+import { Link } from "react-router";
 import styles from '@/styles/app.module.css';
 
 export const Navigation = () => {
@@ -25,7 +25,7 @@ export const Navigation = () => {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <Link href="/">
+        <Link to="/">
           <img src={NearLogo} alt="NEAR" width="30" height="24" className={styles.logo} />
         </Link>
         <div className="navbar-nav pt-1">

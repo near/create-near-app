@@ -1,4 +1,5 @@
 import styles from '@/styles/app.module.css';
+import { Link } from 'react-router';
 
 export const Cards = () => {
   return (
@@ -15,12 +16,12 @@ export const Cards = () => {
         <p>Learn how this application works, and what you can build on Near.</p>
       </a>
 
-      <a href="/hello-near" className={styles.card} rel="noopener noreferrer">
+      <Link to="/hello-near" className={styles.card} rel="noopener noreferrer">
         <h2>
           Near Integration <span>-&gt;</span>
         </h2>
         <p>Discover how simple it is to interact with a Near smart contract.</p>
-      </a>
+      </Link>
     </div>
   );
 };

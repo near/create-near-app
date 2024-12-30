@@ -1,10 +1,11 @@
 import { Navigation } from './components/navigation';
 import Home from './pages/home';
-import { Route } from 'wouter';
+
 import HelloNear from './pages/hello_near';
 import { useEffect, useState } from 'react';
 import { NetworkId } from './config.js';
 import { NearContext, Wallet } from '@/wallets/near';
+import { BrowserRouter, Routes, Route } from "react-router";
 
 // Wallet instance
 const wallet = new Wallet({ NetworkId: NetworkId });
@@ -21,9 +22,13 @@ function App() {
 
   return (
     <NearContext.Provider value={{ wallet, signedAccountId }}>
-      <Navigation />
-      <Route path="/" component={Home} />
-      <Route path="/hello-near" component={HelloNear}/>
+      <BrowserRouter>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/hello-near" element={<HelloNear />} />
+        </Routes>
+      </BrowserRouter>
     </NearContext.Provider>
   )
 }
