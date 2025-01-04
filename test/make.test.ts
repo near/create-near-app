@@ -23,7 +23,7 @@ describe('create contract', () => {
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
       dir.readFiles(projectPath,
-        { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store', '.github'] },
+        { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store', '.github', '.git'] },
         function (err, content, next) {
           if (err) {
             reject(err);
