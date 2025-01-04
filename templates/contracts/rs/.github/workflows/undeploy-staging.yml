@@ -1,0 +1,25 @@
+name: Undeploy staging
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup-staging:
+    name: Cleanup staging account
+    runs-on: ubuntu-latest
+    env:
+      NEAR_CONTRACT_PR_STAGING_ACCOUNT_ID: gh-${{ github.event.number }}.${{ vars.NEAR_CONTRACT_STAGING_ACCOUNT_ID }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install near CLI
+        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/near-cli-rs/releases/download/v0.11.1/near-cli-rs-installer.sh | sh
+      - name: Remove staging account
+        run: |
+          near account delete-account "${{ env.NEAR_CONTRACT_PR_STAGING_ACCOUNT_ID }}" \
+            beneficiary "${{ vars.NEAR_CONTRACT_STAGING_ACCOUNT_ID }}" \
+            network-config "${{ vars.NEAR_CONTRACT_STAGING_NETWORK }}" \
+            sign-with-plaintext-private-key \
+              --signer-public-key "${{ vars.NEAR_CONTRACT_STAGING_ACCOUNT_PUBLIC_KEY }}" \
+              --signer-private-key "${{ secrets.NEAR_CONTRACT_STAGING_ACCOUNT_PRIVATE_KEY }}" \
+            send

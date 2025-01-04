@@ -10,12 +10,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '18'
+        node-version: '22'
     - name: Install modules
       run: npm install
     - name: Run tests
-      env:
-        NEAR_ENV: ci 
-        IS_GITHUB_ACTION: true
-        FORCE_COLOR: 1
       run: npm test

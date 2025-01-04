@@ -23,7 +23,7 @@ describe('create contract', () => {
     await new Promise<void>((resolve, reject) => {
       const allContent = [];
       dir.readFiles(projectPath,
-        { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store'] },
+        { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store', '.github', '.git'] },
         function (err, content, next) {
           if (err) {
             reject(err);
@@ -47,7 +47,7 @@ describe('create contract', () => {
 });
 
 describe('create frontend', () => {
-  const frontends: Frontend[] = ['next-app', 'next-page'];
+  const frontends: Frontend[] = ['next-app', 'next-page', 'vite-react'];
 
   const ts = Date.now();
   test.each(frontends)('%o', async (frontend: Frontend) => {
