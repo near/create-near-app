@@ -2076,20 +2076,26 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
   },
   "dependencies": {
     "@near-js/providers": "^1.0.0",
-    "@near-wallet-selector/bitte-wallet": "^8.9.13",
-    "@near-wallet-selector/core": "^8.9.13",
-    "@near-wallet-selector/ethereum-wallets": "^8.9.13",
-    "@near-wallet-selector/here-wallet": "^8.9.13",
-    "@near-wallet-selector/ledger": "^8.9.13",
-    "@near-wallet-selector/meteor-wallet": "^8.9.13",
-    "@near-wallet-selector/modal-ui": "^8.9.13",
-    "@near-wallet-selector/my-near-wallet": "^8.9.13",
-    "@near-wallet-selector/sender": "^8.9.13",
-    "@web3modal/wagmi": "^5.1.10",
+    "@near-wallet-selector/bitte-wallet": "^8.10.1",
+    "@near-wallet-selector/core": "^8.10.1",
+    "@near-wallet-selector/ethereum-wallets": "^8.10.1",
+    "@near-wallet-selector/here-wallet": "^8.10.1",
+    "@near-wallet-selector/hot-wallet": "^8.10.1",
+    "@near-wallet-selector/ledger": "^8.10.1",
+    "@near-wallet-selector/meteor-wallet": "^8.10.1",
+    "@near-wallet-selector/meteor-wallet-app": "^8.10.1",
+    "@near-wallet-selector/modal-ui": "^8.10.1",
+    "@near-wallet-selector/my-near-wallet": "^8.10.1",
+    "@near-wallet-selector/near-mobile-wallet": "^8.10.1",
+    "@near-wallet-selector/react-hook": "^8.10.1",
+    "@near-wallet-selector/sender": "^8.10.1",
+    "@near-wallet-selector/welldone-wallet": "^8.10.1",
+    "@reown/appkit": "^1.6.9",
+    "@reown/appkit-adapter-wagmi": "^1.6.9",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
     "near-api-js": "^4.0.3",
-    "next": "14.2.13",
+    "next": "15.2.1",
     "react": "^18",
     "react-dom": "^18",
     "wagmi": "^2.12.16"
@@ -2528,19 +2534,19 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--hello-near--
 [
   "--frontend_next-app--src--app--hello-near--page.js",
   "'use client';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
 
-import { NearContext } from '@/wallets/near';
 import { HelloNearContract } from '@/config';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -2548,11 +2554,9 @@ export default function HelloNear() {
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    if (!wallet) return;
-
-    wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' })
+    viewFunction({ contractId: CONTRACT, method: 'get_greeting' })
       .then(greeting => setGreeting(greeting));
-  }, [wallet]);
+  }, [viewFunction]);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
@@ -2560,8 +2564,8 @@ export default function HelloNear() {
 
   const storeGreeting = async () => {
     setShowSpinner(true);
-    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
-    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
+    await callFunction({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    const greeting = await viewFunction({ contractId: CONTRACT, method: 'get_greeting' });
     setGreeting(greeting);
     setShowSpinner(false);
   };
@@ -2609,25 +2613,50 @@ import { useEffect, useState } from 'react';
 
 import '@/app/globals.css';
 import { Navigation } from '@/components/navigation';
-import { NetworkId } from '@/config';
+import '@near-wallet-selector/modal-ui/styles.css';
+import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupMeteorWalletApp } from '@near-wallet-selector/meteor-wallet-app';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
+import { setupEthereumWallets } from '@near-wallet-selector/ethereum-wallets';
+import { setupHotWallet } from '@near-wallet-selector/hot-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+import { setupNearMobileWallet } from '@near-wallet-selector/near-mobile-wallet';
+import { setupWelldoneWallet } from '@near-wallet-selector/welldone-wallet';
+import { HelloNearContract, NetworkId } from '@/config';
+import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
+import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
-import { NearContext, Wallet } from '@/wallets/near';
-
-const wallet = new Wallet({ networkId: NetworkId });
+const walletSelectorConfig = {
+  network: NetworkId,
+  createAccessKeyFor: HelloNearContract,
+  modules: [
+    setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
+    setupBitteWallet(),
+    setupMeteorWallet(),
+    setupMeteorWalletApp({ contractId: HelloNearContract }),
+    setupHotWallet(),
+    setupLedger(),
+    setupSender(),
+    setupHereWallet(),
+    setupNearMobileWallet(),
+    setupWelldoneWallet(),
+    setupMyNearWallet(),
+  ],
+}
 
 // Layout Component
 export default function RootLayout({ children }) {
-  const [signedAccountId, setSignedAccountId] = useState('');
-
-  useEffect(() => { wallet.startUp(setSignedAccountId); }, []);
 
   return (
     <html lang="en">
       <body>
-        <NearContext.Provider value={{ wallet, signedAccountId }}>
+        <WalletSelectorProvider config={walletSelectorConfig}>
           <Navigation />
           {children}
-        </NearContext.Provider>
+        </WalletSelectorProvider>
       </body>
     </html>
   );
@@ -2723,27 +2752,25 @@ exports[`create frontend 'next-app': --frontend_next-app--src--components--navig
   "--frontend_next-app--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
-import { NearContext } from '@/wallets/near';
 import NearLogo from '/public/near-logo.svg';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 export const Navigation = () => {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId, signIn, signOut } = useWalletSelector();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
-    if (!wallet) return;
-
     if (signedAccountId) {
-      setAction(() => wallet.signOut);
+      setAction(() => signOut);
       setLabel(\`Logout \${signedAccountId}\`);
     } else {
-      setAction(() => wallet.signIn);
+      setAction(() => signIn);
       setLabel('Login');
     }
-  }, [signedAccountId, wallet]);
+  }, [signedAccountId, signIn, signOut]);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -2791,275 +2818,55 @@ export const EVMWalletChain = evmWalletChains[NetworkId];",
 ]
 `;
 
-exports[`create frontend 'next-app': --frontend_next-app--src--wallets--near.js 1`] = `
-[
-  "--frontend_next-app--src--wallets--near.js",
-  "import { createContext } from 'react';
-
-// near api js
-import { providers, utils } from 'near-api-js';
-
-// wallet selector
-import '@near-wallet-selector/modal-ui/styles.css';
-import { setupModal } from '@near-wallet-selector/modal-ui';
-import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupHereWallet } from '@near-wallet-selector/here-wallet';
-import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
-import { setupLedger } from '@near-wallet-selector/ledger';
-import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
-import { setupSender } from '@near-wallet-selector/sender';
-import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
-
-// ethereum wallets
-import { wagmiConfig, web3Modal } from '@/wallets/web3modal';
-import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
-
-const THIRTY_TGAS = '30000000000000';
-const NO_DEPOSIT = '0';
-
-export class Wallet {
-  /**
-   * @constructor
-   * @param {Object} options - the options for the wallet
-   * @param {string} options.networkId - the network id to connect to
-   * @param {string} options.createAccessKeyFor - the contract to create an access key for
-   * @example
-   * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
-   * wallet.startUp((signedAccountId) => console.log(signedAccountId));
-   */
-  constructor({ networkId = 'testnet', createAccessKeyFor = undefined }) {
-    this.createAccessKeyFor = createAccessKeyFor;
-    this.networkId = networkId;
-  }
-
-  /**
-   * To be called when the website loads
-   * @param {Function} accountChangeHook - a function that is called when the user signs in or out#
-   * @returns {Promise<string>} - the accountId of the signed-in user 
-   */
-  startUp = async (accountChangeHook) => {
-    this.selector = setupWalletSelector({
-      network: this.networkId,
-      modules: [
-        setupMyNearWallet(),
-        setupHereWallet(),
-        setupLedger(),
-        setupMeteorWallet(),
-        setupSender(),
-        setupBitteWallet(),
-        setupEthereumWallets({ wagmiConfig, web3Modal, alwaysOnboardDuringSignIn: true }),
-      ],
-    });
-
-    const walletSelector = await this.selector;
-    const isSignedIn = walletSelector.isSignedIn();
-    const accountId = isSignedIn ? walletSelector.store.getState().accounts[0].accountId : '';
-
-    walletSelector.store.observable.subscribe(async (state) => {
-      const signedAccount = state?.accounts.find(account => account.active)?.accountId;
-      accountChangeHook(signedAccount || '');
-    });
-
-    return accountId;
-  };
-
-  /**
-   * Displays a modal to login the user
-   */
-  signIn = async () => {
-    const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
-    modal.show();
-  };
-
-  /**
-   * Logout the user
-   */
-  signOut = async () => {
-    const selectedWallet = await (await this.selector).wallet();
-    selectedWallet.signOut();
-  };
-
-  /**
-   * Makes a read-only call to a contract
-   * @param {Object} options - the options for the call
-   * @param {string} options.contractId - the contract's account id
-   * @param {string} options.method - the method to call
-   * @param {Object} options.args - the arguments to pass to the method
-   * @returns {Promise<JSON.value>} - the result of the method call
-   */
-  viewMethod = async ({ contractId, method, args = {} }) => {
-    const url = \`https://rpc.\${this.networkId}.near.org\`;
-    const provider = new providers.JsonRpcProvider({ url });
-
-    const res = await provider.query({
-      request_type: 'call_function',
-      account_id: contractId,
-      method_name: method,
-      args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
-      finality: 'optimistic',
-    });
-    return JSON.parse(Buffer.from(res.result).toString());
-  };
-
-  /**
-   * Makes a call to a contract
-   * @param {Object} options - the options for the call
-   * @param {string} options.contractId - the contract's account id
-   * @param {string} options.method - the method to call
-   * @param {Object} options.args - the arguments to pass to the method
-   * @param {string} options.gas - the amount of gas to use
-   * @param {string} options.deposit - the amount of yoctoNEAR to deposit
-   * @returns {Promise<Transaction>} - the resulting transaction
-   */
-  callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
-    // Sign a transaction with the "FunctionCall" action
-    const selectedWallet = await (await this.selector).wallet();
-    const outcome = await selectedWallet.signAndSendTransaction({
-      receiverId: contractId,
-      actions: [
-        {
-          type: 'FunctionCall',
-          params: {
-            methodName: method,
-            args,
-            gas,
-            deposit,
-          },
-        },
-      ],
-    });
-
-    return providers.getTransactionLastResult(outcome);
-  };
-
-  /**
-   * Makes a call to a contract
-   * @param {string} txhash - the transaction hash
-   * @returns {Promise<JSON.value>} - the result of the transaction
-   */
-  getTransactionResult = async (txhash) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve transaction result from the network
-    const transaction = await provider.txStatus(txhash, 'unnused');
-    return providers.getTransactionLastResult(transaction);
-  };
-
-  /**
-   * Gets the balance of an account
-   * @param {string} accountId - the account id to get the balance of
-   * @returns {Promise<number>} - the balance of the account
-   *  
-   */
-  getBalance = async (accountId) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve account state from the network
-    const account = await provider.query({
-      request_type: 'view_account',
-      account_id: accountId,
-      finality: 'final',
-    });
-    // return amount on NEAR
-    return account.amount ? Number(utils.format.formatNearAmount(account.amount)) : 0;
-  };
-
-  /**
-   * Signs and sends transactions
-   * @param {Object[]} transactions - the transactions to sign and send
-   * @returns {Promise<Transaction[]>} - the resulting transactions
-   * 
-   */
-  signAndSendTransactions = async ({ transactions }) => {
-    const selectedWallet = await (await this.selector).wallet();
-    return selectedWallet.signAndSendTransactions({ transactions });
-  };
-
-  /**
-   * 
-   * @param {string} accountId
-   * @returns {Promise<Object[]>} - the access keys for the
-   */
-  getAccessKeys = async (accountId) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve account state from the network
-    const keys = await provider.query({
-      request_type: 'view_access_key_list',
-      account_id: accountId,
-      finality: 'final',
-    });
-    return keys.keys;
-  };
-}
-
-/**
- * @typedef NearContext
- * @property {import('./wallets/near').Wallet} wallet Current wallet
- * @property {string} signedAccountId The AccountId of the signed user
- */
-
-/** @type {import ('react').Context<NearContext>} */
-export const NearContext = createContext({
-  wallet: undefined,
-  signedAccountId: '',
-});",
-]
-`;
-
 exports[`create frontend 'next-app': --frontend_next-app--src--wallets--web3modal.js 1`] = `
 [
   "--frontend_next-app--src--wallets--web3modal.js",
-  "import { NetworkId, EVMWalletChain } from '@/config';
-import { reconnect, http, createConfig } from "@wagmi/core";
-import { walletConnect, injected } from "@wagmi/connectors";
-import { createWeb3Modal } from "@web3modal/wagmi";
-
-// Config
-const near = {
-  id: EVMWalletChain.chainId,
-  name: EVMWalletChain.name,
-  nativeCurrency: {
-    decimals: 18,
-    name: "NEAR",
-    symbol: "NEAR",
-  },
-  rpcUrls: {
-    default: { http: [EVMWalletChain.rpc] },
-    public: { http: [EVMWalletChain.rpc] },
-  },
-  blockExplorers: {
-    default: {
-      name: "NEAR Explorer",
-      url: EVMWalletChain.explorer,
-    },
-  },
-  testnet: NetworkId === "testnet",
-};
+  "import { injected,walletConnect } from '@wagmi/connectors';
+import { createAppKit } from "@reown/appkit/react";
+import { reconnect } from "@wagmi/core";
+import { nearTestnet } from "@reown/appkit/networks";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 
 // Get your projectId at https://cloud.reown.com
 const projectId = '5bb0fe33763b3bea40b8d69e4269b4ae';
 
-export const wagmiConfig = createConfig({
-  chains: [near],
-  transports: { [near.id]: http() },
-  connectors: [
-    walletConnect({ projectId, showQrModal: false }),
-    injected({ shimDisconnect: true }),
-  ],
+const connectors = [
+  walletConnect({
+    projectId,
+    metadata: {
+      name: "Guest-Book-Examples",
+      description: "Examples demonstrating integrations with NEAR blockchain",
+      url: "https://near.github.io/wallet-selector",
+      icons: ["https://near.github.io/wallet-selector/favicon.ico"],
+    },
+    showQrModal: false, // showQrModal must be false
+  }),
+  injected({ shimDisconnect: true }),
+];
+
+export const wagmiAdapter = new WagmiAdapter({
+  projectId,
+  connectors,
+  networks: [nearTestnet],
 });
 
-// Preserve login state on page reload
-reconnect(wagmiConfig);
+reconnect(wagmiAdapter.wagmiConfig);
 
-// Modal for login
-export const web3Modal = createWeb3Modal({ wagmiConfig, projectId });",
+export const web3Modal = createAppKit({
+  adapters: [wagmiAdapter],
+  projectId,
+  networks: [nearTestnet],
+  defaultNetwork: nearTestnet,
+  enableWalletConnect: true,
+  features: {
+    analytics: true,
+    swaps: false,
+    onramp: false,
+    email: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+    socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+  },
+  coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+});",
 ]
 `;
 
@@ -3180,20 +2987,26 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
   },
   "dependencies": {
     "@near-js/providers": "^1.0.0",
-    "@near-wallet-selector/bitte-wallet": "^8.9.13",
-    "@near-wallet-selector/core": "^8.9.13",
-    "@near-wallet-selector/ethereum-wallets": "^8.9.13",
-    "@near-wallet-selector/here-wallet": "^8.9.13",
-    "@near-wallet-selector/ledger": "^8.9.13",
-    "@near-wallet-selector/meteor-wallet": "^8.9.13",
-    "@near-wallet-selector/modal-ui": "^8.9.13",
-    "@near-wallet-selector/my-near-wallet": "^8.9.13",
-    "@near-wallet-selector/sender": "^8.9.13",
-    "@web3modal/wagmi": "^5.1.10",
+    "@near-wallet-selector/bitte-wallet": "^8.10.1",
+    "@near-wallet-selector/core": "^8.10.1",
+    "@near-wallet-selector/ethereum-wallets": "^8.10.1",
+    "@near-wallet-selector/here-wallet": "^8.10.1",
+    "@near-wallet-selector/hot-wallet": "^8.10.1",
+    "@near-wallet-selector/ledger": "^8.10.1",
+    "@near-wallet-selector/meteor-wallet": "^8.10.1",
+    "@near-wallet-selector/meteor-wallet-app": "^8.10.1",
+    "@near-wallet-selector/modal-ui": "^8.10.1",
+    "@near-wallet-selector/my-near-wallet": "^8.10.1",
+    "@near-wallet-selector/near-mobile-wallet": "^8.10.1",
+    "@near-wallet-selector/react-hook": "^8.10.1",
+    "@near-wallet-selector/sender": "^8.10.1",
+    "@near-wallet-selector/welldone-wallet": "^8.10.1",
+    "@reown/appkit": "^1.6.9",
+    "@reown/appkit-adapter-wagmi": "^1.6.9",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
     "near-api-js": "^4.0.3",
-    "next": "14.2.13",
+    "next": "15.2.1",
     "react": "^18",
     "react-dom": "^18",
     "wagmi": "^2.12.16"
@@ -3336,27 +3149,25 @@ exports[`create frontend 'next-page': --frontend_next-page--src--components--nav
   "--frontend_next-page--src--components--navigation.js",
   "import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
-import { NearContext } from '@/wallets/near';
 import NearLogo from '/public/near-logo.svg';
 
 export const Navigation = () => {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId, signIn, signOut } = useWalletSelector();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
-    if (!wallet) return;
-
     if (signedAccountId) {
-      setAction(() => wallet.signOut);
+      setAction(() => signOut);
       setLabel(\`Logout \${signedAccountId}\`);
     } else {
-      setAction(() => wallet.signIn);
-      setLabel('Login');
+      setAction(() => signIn);
+      setLabel("Login");
     }
-  }, [signedAccountId, wallet]);
+  }, [signedAccountId]);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -3407,26 +3218,49 @@ export const EVMWalletChain = evmWalletChains[NetworkId];",
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--_app.js 1`] = `
 [
   "--frontend_next-page--src--pages--_app.js",
-  "import { useEffect, useState } from 'react';
-
-import '@/styles/globals.css';
+  "import '@/styles/globals.css';
 import { Navigation } from '@/components/navigation';
 
-import { Wallet, NearContext } from '@/wallets/near';
-import { NetworkId } from '@/config';
+import '@near-wallet-selector/modal-ui/styles.css';
+import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupMeteorWalletApp } from '@near-wallet-selector/meteor-wallet-app';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
+import { setupEthereumWallets } from '@near-wallet-selector/ethereum-wallets';
+import { setupHotWallet } from '@near-wallet-selector/hot-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+import { setupNearMobileWallet } from '@near-wallet-selector/near-mobile-wallet';
+import { setupWelldoneWallet } from '@near-wallet-selector/welldone-wallet';
+import { HelloNearContract, NetworkId } from '@/config';
+import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
+import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
-const wallet = new Wallet({ networkId: NetworkId });
+const walletSelectorConfig = {
+  network: NetworkId,
+  createAccessKeyFor: HelloNearContract,
+  modules: [
+    setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
+    setupBitteWallet(),
+    setupMeteorWallet(),
+    setupMeteorWalletApp({contractId: HelloNearContract}),
+    setupHotWallet(),
+    setupLedger(),
+    setupSender(),
+    setupHereWallet(),
+    setupNearMobileWallet(),
+    setupWelldoneWallet(),
+    setupMyNearWallet(),
+  ],
+}
 
 export default function MyApp({ Component, pageProps }) {
-  const [signedAccountId, setSignedAccountId] = useState('');
-
-  useEffect(() => { wallet.startUp(setSignedAccountId) }, []);
-
   return (
-    <NearContext.Provider value={{ wallet, signedAccountId }}>
+    <WalletSelectorProvider config={walletSelectorConfig}>
       <Navigation />
       <Component {...pageProps} />
-    </NearContext.Provider>
+    </WalletSelectorProvider>
   );
 }
 ",
@@ -3436,18 +3270,18 @@ export default function MyApp({ Component, pageProps }) {
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--hello-near--index.js 1`] = `
 [
   "--frontend_next-page--src--pages--hello-near--index.js",
-  "import { useState, useEffect, useContext } from 'react';
+  "import { useState, useEffect } from 'react';
 
-import { NearContext } from '@/wallets/near';
 import styles from '@/styles/app.module.css';
 import { HelloNearContract } from '../../config';
 import { Cards } from '@/components/cards';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -3455,12 +3289,10 @@ export default function HelloNear() {
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    if (!wallet) return;
-
-    wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then(
+    viewFunction({ contractId: CONTRACT, method: 'get_greeting' }).then(
       greeting => setGreeting(greeting)
     );
-  }, [wallet]);
+  }, []);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
@@ -3468,8 +3300,8 @@ export default function HelloNear() {
 
   const saveGreeting = async () => {
     setShowSpinner(true);
-    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
-    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
+    await callFunction({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    const greeting = await viewFunction({ contractId: CONTRACT, method: 'get_greeting' });
     setGreeting(greeting);
     setShowSpinner(false);
   };
@@ -3894,275 +3726,56 @@ a {
 ]
 `;
 
-exports[`create frontend 'next-page': --frontend_next-page--src--wallets--near.js 1`] = `
-[
-  "--frontend_next-page--src--wallets--near.js",
-  "import { createContext } from 'react';
-
-// near api js
-import { providers, utils } from 'near-api-js';
-
-// wallet selector
-import '@near-wallet-selector/modal-ui/styles.css';
-import { setupModal } from '@near-wallet-selector/modal-ui';
-import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupHereWallet } from '@near-wallet-selector/here-wallet';
-import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
-import { setupLedger } from '@near-wallet-selector/ledger';
-import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
-import { setupSender } from '@near-wallet-selector/sender';
-import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
-
-// ethereum wallets
-import { wagmiConfig, web3Modal } from '@/wallets/web3modal';
-import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
-
-const THIRTY_TGAS = '30000000000000';
-const NO_DEPOSIT = '0';
-
-export class Wallet {
-  /**
-   * @constructor
-   * @param {Object} options - the options for the wallet
-   * @param {string} options.networkId - the network id to connect to
-   * @param {string} options.createAccessKeyFor - the contract to create an access key for
-   * @example
-   * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
-   * wallet.startUp((signedAccountId) => console.log(signedAccountId));
-   */
-  constructor({ networkId = 'testnet', createAccessKeyFor = undefined }) {
-    this.createAccessKeyFor = createAccessKeyFor;
-    this.networkId = networkId;
-  }
-
-  /**
-   * To be called when the website loads
-   * @param {Function} accountChangeHook - a function that is called when the user signs in or out#
-   * @returns {Promise<string>} - the accountId of the signed-in user 
-   */
-  startUp = async (accountChangeHook) => {
-    this.selector = setupWalletSelector({
-      network: this.networkId,
-      modules: [
-        setupMyNearWallet(),
-        setupHereWallet(),
-        setupLedger(),
-        setupMeteorWallet(),
-        setupSender(),
-        setupBitteWallet(),
-        setupEthereumWallets({ wagmiConfig, web3Modal, alwaysOnboardDuringSignIn: true }),
-      ],
-    });
-
-    const walletSelector = await this.selector;
-    const isSignedIn = walletSelector.isSignedIn();
-    const accountId = isSignedIn ? walletSelector.store.getState().accounts[0].accountId : '';
-
-    walletSelector.store.observable.subscribe(async (state) => {
-      const signedAccount = state?.accounts.find(account => account.active)?.accountId;
-      accountChangeHook(signedAccount || '');
-    });
-
-    return accountId;
-  };
-
-  /**
-   * Displays a modal to login the user
-   */
-  signIn = async () => {
-    const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
-    modal.show();
-  };
-
-  /**
-   * Logout the user
-   */
-  signOut = async () => {
-    const selectedWallet = await (await this.selector).wallet();
-    selectedWallet.signOut();
-  };
-
-  /**
-   * Makes a read-only call to a contract
-   * @param {Object} options - the options for the call
-   * @param {string} options.contractId - the contract's account id
-   * @param {string} options.method - the method to call
-   * @param {Object} options.args - the arguments to pass to the method
-   * @returns {Promise<JSON.value>} - the result of the method call
-   */
-  viewMethod = async ({ contractId, method, args = {} }) => {
-    const url = \`https://rpc.\${this.networkId}.near.org\`;
-    const provider = new providers.JsonRpcProvider({ url });
-
-    const res = await provider.query({
-      request_type: 'call_function',
-      account_id: contractId,
-      method_name: method,
-      args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
-      finality: 'optimistic',
-    });
-    return JSON.parse(Buffer.from(res.result).toString());
-  };
-
-  /**
-   * Makes a call to a contract
-   * @param {Object} options - the options for the call
-   * @param {string} options.contractId - the contract's account id
-   * @param {string} options.method - the method to call
-   * @param {Object} options.args - the arguments to pass to the method
-   * @param {string} options.gas - the amount of gas to use
-   * @param {string} options.deposit - the amount of yoctoNEAR to deposit
-   * @returns {Promise<Transaction>} - the resulting transaction
-   */
-  callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
-    // Sign a transaction with the "FunctionCall" action
-    const selectedWallet = await (await this.selector).wallet();
-    const outcome = await selectedWallet.signAndSendTransaction({
-      receiverId: contractId,
-      actions: [
-        {
-          type: 'FunctionCall',
-          params: {
-            methodName: method,
-            args,
-            gas,
-            deposit,
-          },
-        },
-      ],
-    });
-
-    return providers.getTransactionLastResult(outcome);
-  };
-
-  /**
-   * Makes a call to a contract
-   * @param {string} txhash - the transaction hash
-   * @returns {Promise<JSON.value>} - the result of the transaction
-   */
-  getTransactionResult = async (txhash) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve transaction result from the network
-    const transaction = await provider.txStatus(txhash, 'unnused');
-    return providers.getTransactionLastResult(transaction);
-  };
-
-  /**
-   * Gets the balance of an account
-   * @param {string} accountId - the account id to get the balance of
-   * @returns {Promise<number>} - the balance of the account
-   *  
-   */
-  getBalance = async (accountId) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve account state from the network
-    const account = await provider.query({
-      request_type: 'view_account',
-      account_id: accountId,
-      finality: 'final',
-    });
-    // return amount on NEAR
-    return account.amount ? Number(utils.format.formatNearAmount(account.amount)) : 0;
-  };
-
-  /**
-   * Signs and sends transactions
-   * @param {Object[]} transactions - the transactions to sign and send
-   * @returns {Promise<Transaction[]>} - the resulting transactions
-   * 
-   */
-  signAndSendTransactions = async ({ transactions }) => {
-    const selectedWallet = await (await this.selector).wallet();
-    return selectedWallet.signAndSendTransactions({ transactions });
-  };
-
-  /**
-   * 
-   * @param {string} accountId
-   * @returns {Promise<Object[]>} - the access keys for the
-   */
-  getAccessKeys = async (accountId) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve account state from the network
-    const keys = await provider.query({
-      request_type: 'view_access_key_list',
-      account_id: accountId,
-      finality: 'final',
-    });
-    return keys.keys;
-  };
-}
-
-/**
- * @typedef NearContext
- * @property {import('./wallets/near').Wallet} wallet Current wallet
- * @property {string} signedAccountId The AccountId of the signed user
- */
-
-/** @type {import ('react').Context<NearContext>} */
-export const NearContext = createContext({
-  wallet: undefined,
-  signedAccountId: '',
-});",
-]
-`;
-
 exports[`create frontend 'next-page': --frontend_next-page--src--wallets--web3modal.js 1`] = `
 [
   "--frontend_next-page--src--wallets--web3modal.js",
-  "import { NetworkId, EVMWalletChain } from '@/config';
-import { reconnect, http, createConfig } from "@wagmi/core";
-import { walletConnect, injected } from "@wagmi/connectors";
-import { createWeb3Modal } from "@web3modal/wagmi";
+  "import { injected,walletConnect } from '@wagmi/connectors';
+import { createAppKit } from "@reown/appkit/react";
+import { reconnect } from "@wagmi/core";
+import { nearTestnet } from "@reown/appkit/networks";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 
-// Config
-const near = {
-  id: EVMWalletChain.chainId,
-  name: EVMWalletChain.name,
-  nativeCurrency: {
-    decimals: 18,
-    name: "NEAR",
-    symbol: "NEAR",
-  },
-  rpcUrls: {
-    default: { http: [EVMWalletChain.rpc] },
-    public: { http: [EVMWalletChain.rpc] },
-  },
-  blockExplorers: {
-    default: {
-      name: "NEAR Explorer",
-      url: EVMWalletChain.explorer,
-    },
-  },
-  testnet: NetworkId === "testnet",
-};
 
 // Get your projectId at https://cloud.reown.com
 const projectId = '5bb0fe33763b3bea40b8d69e4269b4ae';
 
-export const wagmiConfig = createConfig({
-  chains: [near],
-  transports: { [near.id]: http() },
-  connectors: [
-    walletConnect({ projectId, showQrModal: false }),
-    injected({ shimDisconnect: true }),
-  ],
+const connectors = [
+  walletConnect({
+    projectId,
+    metadata: {
+      name: "Guest-Book-Examples",
+      description: "Examples demonstrating integrations with NEAR blockchain",
+      url: "https://near.github.io/wallet-selector",
+      icons: ["https://near.github.io/wallet-selector/favicon.ico"],
+    },
+    showQrModal: false, // showQrModal must be false
+  }),
+  injected({ shimDisconnect: true }),
+];
+
+export const wagmiAdapter = new WagmiAdapter({
+  projectId,
+  connectors,
+  networks: [nearTestnet],
 });
 
-// Preserve login state on page reload
-reconnect(wagmiConfig);
+reconnect(wagmiAdapter.wagmiConfig);
 
-// Modal for login
-export const web3Modal = createWeb3Modal({ wagmiConfig, projectId });",
+export const web3Modal = createAppKit({
+  adapters: [wagmiAdapter],
+  projectId,
+  networks: [nearTestnet],
+  defaultNetwork: nearTestnet,
+  enableWalletConnect: true,
+  features: {
+    analytics: true,
+    swaps: false,
+    onramp: false,
+    email: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+    socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+  },
+  coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+});",
 ]
 `;
 
@@ -4283,19 +3896,25 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
     "@near-wallet-selector/core": "^8.9.14",
     "@near-wallet-selector/ethereum-wallets": "^8.9.14",
     "@near-wallet-selector/here-wallet": "^8.9.14",
+    "@near-wallet-selector/hot-wallet": "^8.10.1",
     "@near-wallet-selector/ledger": "^8.9.14",
     "@near-wallet-selector/meteor-wallet": "^8.9.14",
+    "@near-wallet-selector/meteor-wallet-app": "^8.10.1",
     "@near-wallet-selector/modal-ui": "^8.9.14",
     "@near-wallet-selector/my-near-wallet": "^8.9.14",
     "@near-wallet-selector/near-mobile-wallet": "^8.9.14",
+    "@near-wallet-selector/react-hook": "^8.10.1",
     "@near-wallet-selector/sender": "^8.9.14",
     "@near-wallet-selector/welldone-wallet": "^8.9.14",
+    "@reown/appkit": "^1.6.9",
+    "@reown/appkit-adapter-wagmi": "^1.6.9",
     "@wagmi/connectors": "^5.7.1",
     "@wagmi/core": "^2.16.1",
     "@web3modal/wagmi": "^5.1.11",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
     "buffer": "^6.0.3",
+    "import": "^0.0.6",
     "near-api-js": "^4.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -4338,26 +3957,46 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--App.jsx 1`] =
 import Home from './pages/home';
 
 import HelloNear from './pages/hello_near';
-import { useEffect, useState } from 'react';
-import { NetworkId } from './config.js';
-import { NearContext, Wallet } from '@/wallets/near';
+import { HelloNearContract, NetworkId } from './config.js';
 import { BrowserRouter, Routes, Route } from "react-router";
+import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
-// Wallet instance
-const wallet = new Wallet({ NetworkId: NetworkId });
+import '@near-wallet-selector/modal-ui/styles.css';
+import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { setupMeteorWalletApp } from '@near-wallet-selector/meteor-wallet-app';
+import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
+import { setupEthereumWallets } from '@near-wallet-selector/ethereum-wallets';
+import { setupHotWallet } from '@near-wallet-selector/hot-wallet';
+import { setupLedger } from '@near-wallet-selector/ledger';
+import { setupSender } from '@near-wallet-selector/sender';
+import { setupHereWallet } from '@near-wallet-selector/here-wallet';
+import { setupNearMobileWallet } from '@near-wallet-selector/near-mobile-wallet';
+import { setupWelldoneWallet } from '@near-wallet-selector/welldone-wallet';
+import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
 
-// Optional: Create an access key so the user does not need to sign transactions. Read more about access keys here: https://docs.near.org/concepts/protocol/access-keys
-// const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: HelloNearContract });
+const walletSelectorConfig = {
+  network: NetworkId,
+  createAccessKeyFor: HelloNearContract,
+  modules: [
+    setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
+    setupBitteWallet(),
+    setupMeteorWallet(),
+    setupMeteorWalletApp({contractId: HelloNearContract}),
+    setupHotWallet(),
+    setupLedger(),
+    setupSender(),
+    setupHereWallet(),
+    setupNearMobileWallet(),
+    setupWelldoneWallet(),
+    setupMyNearWallet(),
+  ],
+}
+
 
 function App() {
-  const [signedAccountId, setSignedAccountId] = useState(null);
-
-  useEffect(() => {
-    wallet.startUp(setSignedAccountId);
-  }, []);
-
   return (
-    <NearContext.Provider value={{ wallet, signedAccountId }}>
+    <WalletSelectorProvider config={walletSelectorConfig}>
       <BrowserRouter>
         <Navigation />
         <Routes>
@@ -4365,7 +4004,7 @@ function App() {
           <Route path="/hello-near" element={<HelloNear />} />
         </Routes>
       </BrowserRouter>
-    </NearContext.Provider>
+      </WalletSelectorProvider>
   )
 }
 
@@ -4476,29 +4115,27 @@ export const Cards = () => {
 exports[`create frontend 'vite-react': --frontend_vite-react--src--components--navigation.jsx 1`] = `
 [
   "--frontend_vite-react--src--components--navigation.jsx",
-  "import { useContext,useEffect, useState } from 'react';
+  "import { useEffect, useState } from 'react';
 
 import NearLogo from '@/assets/near-logo.svg';
-import { NearContext } from '@/wallets/near';
 import { Link } from "react-router";
 import styles from '@/styles/app.module.css';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 export const Navigation = () => {
-  const { signedAccountId, wallet } = useContext(NearContext);
-  const [action, setAction] = useState(() => {});
+  const { signedAccountId, signIn, signOut } = useWalletSelector();
+  const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
-    if (!wallet) return;
-
     if (signedAccountId) {
-      setAction(() => wallet.signOut);
+      setAction(() => signOut);
       setLabel(\`Logout \${signedAccountId}\`);
     } else {
-      setAction(() => wallet.signIn);
-      setLabel('Login');
+      setAction(() => signIn);
+      setLabel("Login");
     }
-  }, [signedAccountId, wallet]);
+  }, [signedAccountId, signIn, signOut]);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -4570,19 +4207,20 @@ createRoot(document.getElementById('root')).render(
 exports[`create frontend 'vite-react': --frontend_vite-react--src--pages--hello_near.jsx 1`] = `
 [
   "--frontend_vite-react--src--pages--hello_near.jsx",
-  "import { useContext, useEffect, useState } from 'react';
+  "import { useEffect, useState } from 'react';
 
 import { Cards } from '@/components/cards';
 import styles from '@/styles/app.module.css';
-import { NearContext } from '@/wallets/near';
 
 import { HelloNearContract } from '@/config';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
+
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -4590,19 +4228,17 @@ export default function HelloNear() {
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    if (!wallet) return;
-
-    wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then((greeting) => setGreeting(greeting));
-  }, [wallet]);
+    viewFunction({ contractId: CONTRACT, method: 'get_greeting' }).then((greeting) => setGreeting(greeting));
+  }, [viewFunction]);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
   }, [signedAccountId]);
 
   const saveGreeting = async () => {
-    wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } })
+    callFunction({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } })
       .catch(async () => {
-        wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then((greeting) => setGreeting(greeting));
+        viewFunction({ contractId: CONTRACT, method: 'get_greeting' }).then((greeting) => setGreeting(greeting));
       });
 
     setShowSpinner(true);
@@ -5015,287 +4651,56 @@ a {
 ]
 `;
 
-exports[`create frontend 'vite-react': --frontend_vite-react--src--wallets--near.js 1`] = `
-[
-  "--frontend_vite-react--src--wallets--near.js",
-  "// wallet selector
-import '@near-wallet-selector/modal-ui/styles.css';
-
-import { setupBitteWallet } from '@near-wallet-selector/bitte-wallet';
-import { setupWalletSelector } from '@near-wallet-selector/core';
-import { setupEthereumWallets } from '@near-wallet-selector/ethereum-wallets';
-import { setupLedger } from '@near-wallet-selector/ledger';
-import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
-import { setupModal } from '@near-wallet-selector/modal-ui';
-import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
-import { setupSender } from '@near-wallet-selector/sender';
-import { setupHereWallet } from '@near-wallet-selector/here-wallet';
-import { setupNearMobileWallet } from '@near-wallet-selector/near-mobile-wallet';
-import { setupWelldoneWallet } from '@near-wallet-selector/welldone-wallet';
-import { Buffer } from 'buffer';
-
-
-// near api js
-import { providers, utils } from 'near-api-js';
-import { createContext } from 'react';
-
-// ethereum wallets
-import { wagmiConfig, web3Modal } from '@/wallets/web3modal';
-
-const THIRTY_TGAS = '30000000000000';
-const NO_DEPOSIT = '0';
-
-export class Wallet {
-  /**
-   * @constructor
-   * @param {Object} options - the options for the wallet
-   * @param {string} options.networkId - the network id to connect to
-   * @param {string} options.createAccessKeyFor - the contract to create an access key for
-   * @example
-   * const wallet = new Wallet({ networkId: 'testnet', createAccessKeyFor: 'contractId' });
-   * wallet.startUp((signedAccountId) => console.log(signedAccountId));
-   */
-  constructor({ networkId = 'testnet', createAccessKeyFor = undefined }) {
-    this.createAccessKeyFor = createAccessKeyFor;
-    this.networkId = networkId;
-  }
-
-  /**
-   * To be called when the website loads
-   * @param {Function} accountChangeHook - a function that is called when the user signs in or out#
-   * @returns {Promise<string>} - the accountId of the signed-in user
-   */
-  startUp = async (accountChangeHook) => {
-    this.selector = setupWalletSelector({
-      network: this.networkId,
-      modules: [
-        setupMeteorWallet(),
-        setupEthereumWallets({ wagmiConfig, web3Modal, alwaysOnboardDuringSignIn: true }),
-        setupLedger(),
-        setupBitteWallet(),
-        setupHereWallet(),
-        setupSender(),
-        setupNearMobileWallet(),
-        setupWelldoneWallet(),
-        setupMyNearWallet(),
-      ],
-    });
-
-    const walletSelector = await this.selector;
-    const isSignedIn = walletSelector.isSignedIn();
-    const accountId = isSignedIn ? walletSelector.store.getState().accounts[0].accountId : '';
-
-    walletSelector.store.observable.subscribe(async (state) => {
-      const signedAccount = state?.accounts.find((account) => account.active)?.accountId;
-      accountChangeHook(signedAccount || '');
-    });
-
-    return accountId;
-  };
-
-  /**
-   * Displays a modal to login the user
-   */
-  signIn = async () => {
-    const modal = setupModal(await this.selector, { contractId: this.createAccessKeyFor });
-    modal.show();
-  };
-
-  /**
-   * Logout the user
-   */
-  signOut = async () => {
-    const selectedWallet = await (await this.selector).wallet();
-    selectedWallet.signOut();
-  };
-
-  /**
-   * Makes a read-only call to a contract
-   * @param {Object} options - the options for the call
-   * @param {string} options.contractId - the contract's account id
-   * @param {string} options.method - the method to call
-   * @param {Object} options.args - the arguments to pass to the method
-   * @returns {Promise<JSON.value>} - the result of the method call
-   */
-  viewMethod = async ({ contractId, method, args = {} }) => {
-    const url = \`https://rpc.\${this.networkId}.near.org\`;
-    const provider = new providers.JsonRpcProvider({ url });
-
-    const res = await provider.query({
-      request_type: 'call_function',
-      account_id: contractId,
-      method_name: method,
-      args_base64: Buffer.from(JSON.stringify(args)).toString('base64'),
-      finality: 'optimistic',
-    });
-    return JSON.parse(Buffer.from(res.result).toString());
-  };
-
-  /**
-   * Makes a call to a contract
-   * @param {Object} options - the options for the call
-   * @param {string} options.contractId - the contract's account id
-   * @param {string} options.method - the method to call
-   * @param {Object} options.args - the arguments to pass to the method
-   * @param {string} options.gas - the amount of gas to use
-   * @param {string} options.deposit - the amount of yoctoNEAR to deposit
-   * @returns {Promise<Transaction>} - the resulting transaction
-   */
-  callMethod = async ({ contractId, method, args = {}, gas = THIRTY_TGAS, deposit = NO_DEPOSIT }) => {
-    // Sign a transaction with the "FunctionCall" action
-    const selectedWallet = await (await this.selector).wallet();
-    const outcome = await selectedWallet.signAndSendTransaction({
-      receiverId: contractId,
-      actions: [
-        {
-          type: 'FunctionCall',
-          params: {
-            methodName: method,
-            args,
-            gas,
-            deposit,
-          },
-        },
-      ],
-    });
-
-    return providers.getTransactionLastResult(outcome);
-  };
-
-  /**
-   * Makes a call to a contract
-   * @param {string} txhash - the transaction hash
-   * @returns {Promise<JSON.value>} - the result of the transaction
-   */
-  getTransactionResult = async (txhash) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve transaction result from the network
-    const transaction = await provider.txStatus(txhash, 'unnused');
-    return providers.getTransactionLastResult(transaction);
-  };
-
-  /**
-   * Gets the balance of an account
-   * @param {string} accountId - the account id to get the balance of
-   * @param {boolean} format - whether to format the balance
-   * @returns {Promise<number>} - the balance of the account
-   *
-   */
-  getBalance = async (accountId, format = false) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve account state from the network
-    const account = await provider.query({
-      request_type: 'view_account',
-      account_id: accountId,
-      finality: 'final',
-    });
-
-    // Format the amount if needed
-    if (format) {
-      return account.amount ? utils.format.formatNearAmount(account.amount) : '0';
-    } else {
-      return account.amount || '0';
-    }
-  };
-
-  /**
-   * Signs and sends transactions
-   * @param {Object[]} transactions - the transactions to sign and send
-   * @returns {Promise<Transaction[]>} - the resulting transactions
-   *
-   */
-  signAndSendTransactions = async ({ transactions }) => {
-    const selectedWallet = await (await this.selector).wallet();
-    return selectedWallet.signAndSendTransactions({ transactions });
-  };
-
-  /**
-   *
-   * @param {string} accountId
-   * @returns {Promise<Object[]>} - the access keys for the
-   */
-  getAccessKeys = async (accountId) => {
-    const walletSelector = await this.selector;
-    const { network } = walletSelector.options;
-    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-
-    // Retrieve account state from the network
-    const keys = await provider.query({
-      request_type: 'view_access_key_list',
-      account_id: accountId,
-      finality: 'final',
-    });
-    return keys.keys;
-  };
-}
-
-/**
- * @typedef NearContext
- * @property {import('./wallets/near').Wallet} wallet Current wallet
- * @property {string} signedAccountId The AccountId of the signed user
- */
-
-/** @type {import ('react').Context<NearContext>} */
-export const NearContext = createContext({
-  wallet: undefined,
-  signedAccountId: '',
-});
-",
-]
-`;
-
 exports[`create frontend 'vite-react': --frontend_vite-react--src--wallets--web3modal.js 1`] = `
 [
   "--frontend_vite-react--src--wallets--web3modal.js",
   "import { injected,walletConnect } from '@wagmi/connectors';
-import { createConfig,http, reconnect } from '@wagmi/core';
-import { createWeb3Modal } from '@web3modal/wagmi';
+import { createAppKit } from "@reown/appkit/react";
+import { reconnect } from "@wagmi/core";
+import { nearTestnet } from "@reown/appkit/networks";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 
-import { EVMWalletChain,NetworkId } from '@/config';
-
-// Config
-const near = {
-  id: EVMWalletChain.chainId,
-  name: EVMWalletChain.name,
-  nativeCurrency: {
-    decimals: 18,
-    name: 'NEAR',
-    symbol: 'NEAR',
-  },
-  rpcUrls: {
-    default: { http: [EVMWalletChain.rpc] },
-    public: { http: [EVMWalletChain.rpc] },
-  },
-  blockExplorers: {
-    default: {
-      name: 'NEAR Explorer',
-      url: EVMWalletChain.explorer,
-    },
-  },
-  testnet: NetworkId === 'testnet',
-};
 
 // Get your projectId at https://cloud.reown.com
 const projectId = '5bb0fe33763b3bea40b8d69e4269b4ae';
 
-export const wagmiConfig = createConfig({
-  chains: [near],
-  transports: { [near.id]: http() },
-  connectors: [walletConnect({ projectId, showQrModal: false }), injected({ shimDisconnect: true })],
+const connectors = [
+  walletConnect({
+    projectId,
+    metadata: {
+      name: "Guest-Book-Examples",
+      description: "Examples demonstrating integrations with NEAR blockchain",
+      url: "https://near.github.io/wallet-selector",
+      icons: ["https://near.github.io/wallet-selector/favicon.ico"],
+    },
+    showQrModal: false, // showQrModal must be false
+  }),
+  injected({ shimDisconnect: true }),
+];
+
+export const wagmiAdapter = new WagmiAdapter({
+  projectId,
+  connectors,
+  networks: [nearTestnet],
 });
 
-// Preserve login state on page reload
-reconnect(wagmiConfig);
+reconnect(wagmiAdapter.wagmiConfig);
 
-// Modal for login
-export const web3Modal = createWeb3Modal({ wagmiConfig, projectId });
-",
+export const web3Modal = createAppKit({
+  adapters: [wagmiAdapter],
+  projectId,
+  networks: [nearTestnet],
+  defaultNetwork: nearTestnet,
+  enableWalletConnect: true,
+  features: {
+    analytics: true,
+    swaps: false,
+    onramp: false,
+    email: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+    socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+  },
+  coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
+});",
 ]
 `;
 
