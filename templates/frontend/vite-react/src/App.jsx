@@ -4,7 +4,7 @@ import Home from './pages/home';
 import HelloNear from './pages/hello_near';
 import { HelloNearContract, NetworkId } from './config.js';
 import { BrowserRouter, Routes, Route } from "react-router";
-import { wagmiConfig, web3Modal } from '@/wallets/web3modal';
+import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
@@ -24,7 +24,7 @@ const walletSelectorConfig = {
   network: NetworkId,
   createAccessKeyFor: HelloNearContract,
   modules: [
-    setupEthereumWallets({ wagmiConfig, web3Modal, alwaysOnboardDuringSignIn: true }),
+    setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
     setupBitteWallet(),
     setupMeteorWallet(),
     setupMeteorWalletApp({contractId: HelloNearContract}),

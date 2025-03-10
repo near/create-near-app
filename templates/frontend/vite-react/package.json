@@ -26,6 +26,8 @@
     "@near-wallet-selector/react-hook": "^8.9.15",
     "@near-wallet-selector/sender": "^8.9.14",
     "@near-wallet-selector/welldone-wallet": "^8.9.14",
+    "@reown/appkit": "^1.6.9",
+    "@reown/appkit-adapter-wagmi": "^1.6.9",
     "@wagmi/connectors": "^5.7.1",
     "@wagmi/core": "^2.16.1",
     "@web3modal/wagmi": "^5.1.11",
