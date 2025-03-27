@@ -4,7 +4,6 @@
 
 Quickly build apps backed by the [NEAR](https://near.org) blockchain
 
-
 ## Prerequisites
 
 Make sure you have a [current version of Node.js](https://nodejs.org) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
@@ -37,7 +36,6 @@ You can create a web application in:
 
 - [Next (Pages Router)](https://nextjs.org/docs/pages/building-your-application/routing)
 - [Next (App Router)](https://nextjs.org/docs/app/building-your-application/routing)
-
 
 :::
 We strongly recommend you to follow our [web app quickstart](https://docs.near.org/build/web3-apps/quickstart) if you are new to NEAR WebApps.
