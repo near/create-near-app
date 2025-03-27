@@ -4,7 +4,6 @@
 
 Quickly build apps backed by the [NEAR](https://near.org) blockchain
 
-
 ## Prerequisites
 
 Make sure you have a [current version of Node.js](https://nodejs.org) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
@@ -18,7 +17,6 @@ To create a new NEAR project run this and follow interactive prompts:
     npx create-near-app@latest
 
 Follow the instructions in the README.md in the project you just created! 🚀
-
 
 ### Contracts
 You can create contracts written in:
