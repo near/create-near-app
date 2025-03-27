@@ -1,17 +1,17 @@
 'use client';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
 
-import { NearContext } from '@/wallets/near';
 import { HelloNearContract } from '@/config';
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -19,11 +19,9 @@ export default function HelloNear() {
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    if (!wallet) return;
-
-    wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' })
+    viewFunction({ contractId: CONTRACT, method: 'get_greeting' })
       .then(greeting => setGreeting(greeting));
-  }, [wallet]);
+  }, [viewFunction]);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
@@ -31,8 +29,8 @@ export default function HelloNear() {
 
   const storeGreeting = async () => {
     setShowSpinner(true);
-    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
-    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
+    await callFunction({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
+    const greeting = await viewFunction({ contractId: CONTRACT, method: 'get_greeting' });
     setGreeting(greeting);
     setShowSpinner(false);
   };
