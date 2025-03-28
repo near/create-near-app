@@ -137,6 +137,39 @@ export class Wallet {
   };
 
   /**
+   * Signs a message using the selected wallet
+   * @param {Object} options - the options for signing
+   * @param {string} options.message - the message to sign
+   * @param {Buffer} options.nonce - the nonce as a buffer
+   * @param {string} options.recipient - the recipient of the message
+   * @param {string} options.callbackUrl - the callback URL
+   * @returns {Promise<Object>} - the signed message result
+   */
+  signMessage = async ({ message, nonce, recipient, callbackUrl }) => {
+    const selectedWallet = await (await this.selector).wallet();
+
+    // Check if the selected wallet supports message signing
+    if (!selectedWallet.signMessage) {
+      throw new Error("The selected wallet does not support message signing");
+    }
+
+    try {
+      // Sign the message using the selected wallet
+      const signedMessage = await selectedWallet.signMessage({
+        message,
+        nonce,
+        recipient,
+        callbackUrl,
+      });
+
+      return signedMessage;
+    } catch (error) {
+      console.error("Error signing message:", error);
+      throw error;
+    }
+  };
+
+  /**
    * Makes a call to a contract
    * @param {string} txhash - the transaction hash
    * @returns {Promise<JSON.value>} - the result of the transaction
