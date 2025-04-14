@@ -6,12 +6,14 @@ import { useWalletSelector } from '@near-wallet-selector/react-hook';
 import NearLogo from '/public/near-logo.svg';
 
 export const Navigation = () => {
-  const { signedAccountId, signIn, signOut } = useWalletSelector();
+  const { signedAccountId, signIn, signOut, walletSelector } = useWalletSelector();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
     if (signedAccountId) {
+      if (!walletSelector) return;
+
       setAction(() => signOut);
       setLabel(`Logout ${signedAccountId}`);
     } else {

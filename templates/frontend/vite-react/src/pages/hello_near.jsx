@@ -12,7 +12,6 @@ const CONTRACT = HelloNearContract;
 export default function HelloNear() {
   const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
 
-
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
   const [loggedIn, setLoggedIn] = useState(false);

@@ -22,12 +22,12 @@ import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
 
 const walletSelectorConfig = {
   network: NetworkId,
-  createAccessKeyFor: HelloNearContract,
+  // createAccessKeyFor: HelloNearContract,
   modules: [
+    setupMeteorWallet(),
     setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
     setupBitteWallet(),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({contractId: HelloNearContract}),
+    setupMeteorWalletApp({ contractId: HelloNearContract }),
     setupHotWallet(),
     setupLedger(),
     setupSender(),
@@ -49,7 +49,7 @@ function App() {
           <Route path="/hello-near" element={<HelloNear />} />
         </Routes>
       </BrowserRouter>
-      </WalletSelectorProvider>
+    </WalletSelectorProvider>
   )
 }
 

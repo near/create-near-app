@@ -19,12 +19,12 @@ import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
 const walletSelectorConfig = {
   network: NetworkId,
-  createAccessKeyFor: HelloNearContract,
+  // createAccessKeyFor: HelloNearContract,
   modules: [
+    setupMeteorWallet(),
     setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
     setupBitteWallet(),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({contractId: HelloNearContract}),
+    setupMeteorWalletApp({ contractId: HelloNearContract }),
     setupHotWallet(),
     setupLedger(),
     setupSender(),
