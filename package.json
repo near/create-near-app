@@ -1,6 +1,6 @@
 {
   "name": "create-near-app",
-  "version": "8.1.0",
+  "version": "8.2.0",
   "description": "Quickly scaffold your dApp on NEAR Blockchain",
   "main": "index.js",
   "engines": {
@@ -18,6 +18,7 @@
     "build": "tsc",
     "test": "npm run build && FORCE_COLOR=1 jest --runInBand",
     "test-e2e": "npm run build && ./test/e2e.sh",
+    "test:update": "jest -u",
     "lint": "eslint .",
     "fix": "eslint . --fix",
     "release": "npm run build && release-it",
