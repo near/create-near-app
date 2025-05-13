@@ -2051,6 +2051,7 @@ exports[`create frontend 'next-app': --frontend_next-app--next.config.js 1`] = `
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ['reown'],
 };
 
 module.exports = nextConfig;
@@ -2075,39 +2076,37 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-js/providers": "^1.0.0",
-    "@near-wallet-selector/bitte-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/core": "^9.0.0-beta.0",
-    "@near-wallet-selector/ethereum-wallets": "^9.0.0-beta.0",
-    "@near-wallet-selector/here-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/hot-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/ledger": "^9.0.0-beta.0",
-    "@near-wallet-selector/meteor-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/meteor-wallet-app": "^9.0.0-beta.0",
-    "@near-wallet-selector/modal-ui": "^9.0.0-beta.0",
-    "@near-wallet-selector/my-near-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/near-mobile-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/react-hook": "^9.0.0-beta.0",
-    "@near-wallet-selector/sender": "^9.0.0-beta.0",
-    "@near-wallet-selector/welldone-wallet": "^9.0.0-beta.0",
-    "@reown/appkit": "^1.6.9",
-    "@reown/appkit-adapter-wagmi": "^1.6.9",
+    "@near-wallet-selector/bitte-wallet": "^9.0.1",
+    "@near-wallet-selector/core": "^9.0.1",
+    "@near-wallet-selector/ethereum-wallets": "^9.0.1",
+    "@near-wallet-selector/here-wallet": "^9.0.1",
+    "@near-wallet-selector/hot-wallet": "^9.0.1",
+    "@near-wallet-selector/ledger": "^9.0.1",
+    "@near-wallet-selector/meteor-wallet": "^9.0.1",
+    "@near-wallet-selector/meteor-wallet-app": "^9.0.1",
+    "@near-wallet-selector/modal-ui": "^9.0.1",
+    "@near-wallet-selector/my-near-wallet": "^9.0.1",
+    "@near-wallet-selector/near-mobile-wallet": "^9.0.1",
+    "@near-wallet-selector/react-hook": "^9.0.1",
+    "@near-wallet-selector/sender": "^9.0.1",
+    "@near-wallet-selector/welldone-wallet": "^9.0.1",
+    "@reown/appkit": "^1.7.4",
+    "@reown/appkit-adapter-wagmi": "^1.7.4",
+    "@wagmi/core": "^2.17.1",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^4.0.3",
-    "next": "15.2.1",
+    "near-api-js": "^5.0.0",
+    "next": "^15",
     "react": "^18",
-    "react-dom": "^18",
-    "wagmi": "^2.12.16"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "encoding": "^0.1.13",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.13",
+    "eslint": "^9",
+    "eslint-config-next": "^15",
     "pino-pretty": "^11.2.2"
   }
-}
-",
+}",
 ]
 `;
 
@@ -2631,11 +2630,11 @@ import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
 const walletSelectorConfig = {
   network: NetworkId,
-  createAccessKeyFor: HelloNearContract,
+  // createAccessKeyFor: HelloNearContract,
   modules: [
+    setupMeteorWallet(),
     setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
     setupBitteWallet(),
-    setupMeteorWallet(),
     setupMeteorWalletApp({ contractId: HelloNearContract }),
     setupHotWallet(),
     setupLedger(),
@@ -2775,7 +2774,7 @@ export const Navigation = () => {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <Link href="/" passHref legacyBehavior>
+        <Link href="/" passHref>
           <Image priority src={NearLogo} alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
         </Link>
         <div className='navbar-nav pt-1'>
@@ -2796,67 +2795,31 @@ exports[`create frontend 'next-app': --frontend_next-app--src--config.js 1`] = `
   testnet: 'hello.near-examples.testnet',
 };
 
-// Chains for EVM Wallets 
-const evmWalletChains = {
-  mainnet: {
-    chainId: 397,
-    name: "Near Mainnet",
-    explorer: "https://eth-explorer.near.org",
-    rpc: "https://eth-rpc.mainnet.near.org",
-  },
-  testnet: {
-    chainId: 398,
-    name: "Near Testnet",
-    explorer: "https://eth-explorer-testnet.near.org",
-    rpc: "https://eth-rpc.testnet.near.org",
-  },
-}
-
 export const NetworkId = 'testnet';
-export const HelloNearContract = contractPerNetwork[NetworkId];
-export const EVMWalletChain = evmWalletChains[NetworkId];",
+export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
 exports[`create frontend 'next-app': --frontend_next-app--src--wallets--web3modal.js 1`] = `
 [
   "--frontend_next-app--src--wallets--web3modal.js",
-  "import { injected,walletConnect } from '@wagmi/connectors';
+  "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
-import { reconnect } from "@wagmi/core";
 import { nearTestnet } from "@reown/appkit/networks";
-import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { reconnect } from "@wagmi/core";
 
-// Get your projectId at https://cloud.reown.com
-const projectId = '5bb0fe33763b3bea40b8d69e4269b4ae';
-
-const connectors = [
-  walletConnect({
-    projectId,
-    metadata: {
-      name: "Guest-Book-Examples",
-      description: "Examples demonstrating integrations with NEAR blockchain",
-      url: "https://near.github.io/wallet-selector",
-      icons: ["https://near.github.io/wallet-selector/favicon.ico"],
-    },
-    showQrModal: false, // showQrModal must be false
-  }),
-  injected({ shimDisconnect: true }),
-];
+// Get a project ID at https://cloud.reown.com
+const projectId = "30147604c5f01d0bc4482ab0665b5697";
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  connectors,
   networks: [nearTestnet],
 });
-
-reconnect(wagmiAdapter.wagmiConfig);
 
 export const web3Modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
   networks: [nearTestnet],
-  defaultNetwork: nearTestnet,
   enableWalletConnect: true,
   features: {
     analytics: true,
@@ -2866,7 +2829,15 @@ export const web3Modal = createAppKit({
     socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
   },
   coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-});",
+  allWallets: "SHOW",
+});
+
+// force reconnecting if the user has already signed in with an ethereum wallet
+// this is a workaround until \`ethereum-wallets\` supports the \`reconnect\` method
+if (typeof window !== "undefined") {
+  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
+  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
+} ",
 ]
 `;
 
@@ -2962,6 +2933,7 @@ exports[`create frontend 'next-page': --frontend_next-page--next.config.js 1`] =
   "/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ['reown'],
 };
 
 module.exports = nextConfig;
@@ -2986,39 +2958,37 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-js/providers": "^1.0.0",
-    "@near-wallet-selector/bitte-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/core": "^9.0.0-beta.0",
-    "@near-wallet-selector/ethereum-wallets": "^9.0.0-beta.0",
-    "@near-wallet-selector/here-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/hot-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/ledger": "^9.0.0-beta.0",
-    "@near-wallet-selector/meteor-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/meteor-wallet-app": "^9.0.0-beta.0",
-    "@near-wallet-selector/modal-ui": "^9.0.0-beta.0",
-    "@near-wallet-selector/my-near-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/near-mobile-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/react-hook": "^9.0.0-beta.0",
-    "@near-wallet-selector/sender": "^9.0.0-beta.0",
-    "@near-wallet-selector/welldone-wallet": "^9.0.0-beta.0",
-    "@reown/appkit": "^1.6.9",
-    "@reown/appkit-adapter-wagmi": "^1.6.9",
+    "@near-wallet-selector/bitte-wallet": "^9.0.1",
+    "@near-wallet-selector/core": "^9.0.1",
+    "@near-wallet-selector/ethereum-wallets": "^9.0.1",
+    "@near-wallet-selector/here-wallet": "^9.0.1",
+    "@near-wallet-selector/hot-wallet": "^9.0.1",
+    "@near-wallet-selector/ledger": "^9.0.1",
+    "@near-wallet-selector/meteor-wallet": "^9.0.1",
+    "@near-wallet-selector/meteor-wallet-app": "^9.0.1",
+    "@near-wallet-selector/modal-ui": "^9.0.1",
+    "@near-wallet-selector/my-near-wallet": "^9.0.1",
+    "@near-wallet-selector/near-mobile-wallet": "^9.0.1",
+    "@near-wallet-selector/react-hook": "^9.0.1",
+    "@near-wallet-selector/sender": "^9.0.1",
+    "@near-wallet-selector/welldone-wallet": "^9.0.1",
+    "@reown/appkit": "^1.7.4",
+    "@reown/appkit-adapter-wagmi": "^1.7.4",
+    "@wagmi/core": "^2.17.1",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^4.0.3",
-    "next": "15.2.1",
+    "near-api-js": "^5.0.0",
+    "next": "^15",
     "react": "^18",
-    "react-dom": "^18",
-    "wagmi": "^2.12.16"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "encoding": "^0.1.13",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.13",
+    "eslint": "^9",
+    "eslint-config-next": "^15",
     "pino-pretty": "^11.2.2"
   }
-}
-",
+}",
 ]
 `;
 
@@ -3193,25 +3163,8 @@ exports[`create frontend 'next-page': --frontend_next-page--src--config.js 1`] =
   testnet: 'hello.near-examples.testnet',
 };
 
-// Chains for EVM Wallets 
-const evmWalletChains = {
-  mainnet: {
-    chainId: 397,
-    name: "Near Mainnet",
-    explorer: "https://eth-explorer.near.org",
-    rpc: "https://eth-rpc.mainnet.near.org",
-  },
-  testnet: {
-    chainId: 398,
-    name: "Near Testnet",
-    explorer: "https://eth-explorer-testnet.near.org",
-    rpc: "https://eth-rpc.testnet.near.org",
-  },
-}
-
 export const NetworkId = 'testnet';
-export const HelloNearContract = contractPerNetwork[NetworkId];
-export const EVMWalletChain = evmWalletChains[NetworkId];",
+export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
@@ -3239,12 +3192,12 @@ import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
 
 const walletSelectorConfig = {
   network: NetworkId,
-  createAccessKeyFor: HelloNearContract,
+  // createAccessKeyFor: HelloNearContract,
   modules: [
+    setupMeteorWallet(),
     setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
     setupBitteWallet(),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({contractId: HelloNearContract}),
+    setupMeteorWalletApp({ contractId: HelloNearContract }),
     setupHotWallet(),
     setupLedger(),
     setupSender(),
@@ -3729,43 +3682,23 @@ a {
 exports[`create frontend 'next-page': --frontend_next-page--src--wallets--web3modal.js 1`] = `
 [
   "--frontend_next-page--src--wallets--web3modal.js",
-  "import { injected,walletConnect } from '@wagmi/connectors';
+  "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
-import { reconnect } from "@wagmi/core";
 import { nearTestnet } from "@reown/appkit/networks";
-import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { reconnect } from "@wagmi/core";
 
-
-// Get your projectId at https://cloud.reown.com
-const projectId = '5bb0fe33763b3bea40b8d69e4269b4ae';
-
-const connectors = [
-  walletConnect({
-    projectId,
-    metadata: {
-      name: "Guest-Book-Examples",
-      description: "Examples demonstrating integrations with NEAR blockchain",
-      url: "https://near.github.io/wallet-selector",
-      icons: ["https://near.github.io/wallet-selector/favicon.ico"],
-    },
-    showQrModal: false, // showQrModal must be false
-  }),
-  injected({ shimDisconnect: true }),
-];
+// Get a project ID at https://cloud.reown.com
+const projectId = "30147604c5f01d0bc4482ab0665b5697";
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  connectors,
   networks: [nearTestnet],
 });
-
-reconnect(wagmiAdapter.wagmiConfig);
 
 export const web3Modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
   networks: [nearTestnet],
-  defaultNetwork: nearTestnet,
   enableWalletConnect: true,
   features: {
     analytics: true,
@@ -3775,7 +3708,15 @@ export const web3Modal = createAppKit({
     socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
   },
   coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-});",
+  allWallets: "SHOW",
+});
+
+// force reconnecting if the user has already signed in with an ethereum wallet
+// this is a workaround until \`ethereum-wallets\` supports the \`reconnect\` method
+if (typeof window !== "undefined") {
+  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
+  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
+} ",
 ]
 `;
 
@@ -3882,7 +3823,6 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
   "name": "hello-near",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -3890,48 +3830,42 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
     "preview": "vite preview"
   },
   "dependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@near-js/providers": "^1.0.1",
-    "@near-wallet-selector/bitte-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/core": "^9.0.0-beta.0",
-    "@near-wallet-selector/ethereum-wallets": "^9.0.0-beta.0",
-    "@near-wallet-selector/here-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/hot-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/ledger": "^9.0.0-beta.0",
-    "@near-wallet-selector/meteor-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/meteor-wallet-app": "^9.0.0-beta.0",
-    "@near-wallet-selector/modal-ui": "^9.0.0-beta.0",
-    "@near-wallet-selector/my-near-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/near-mobile-wallet": "^9.0.0-beta.0",
-    "@near-wallet-selector/react-hook": "^9.0.0-beta.0",
-    "@near-wallet-selector/sender": "^9.0.0-beta.0",
-    "@near-wallet-selector/welldone-wallet": "^9.0.0-beta.0",
-    "@reown/appkit": "^1.6.9",
-    "@reown/appkit-adapter-wagmi": "^1.6.9",
-    "@wagmi/connectors": "^5.7.1",
-    "@wagmi/core": "^2.16.1",
-    "@web3modal/wagmi": "^5.1.11",
+    "@near-wallet-selector/bitte-wallet": "^9.0.1",
+    "@near-wallet-selector/core": "^9.0.1",
+    "@near-wallet-selector/ethereum-wallets": "^9.0.1",
+    "@near-wallet-selector/here-wallet": "^9.0.1",
+    "@near-wallet-selector/hot-wallet": "^9.0.1",
+    "@near-wallet-selector/ledger": "^9.0.1",
+    "@near-wallet-selector/meteor-wallet": "^9.0.1",
+    "@near-wallet-selector/meteor-wallet-app": "^9.0.1",
+    "@near-wallet-selector/modal-ui": "^9.0.1",
+    "@near-wallet-selector/my-near-wallet": "^9.0.1",
+    "@near-wallet-selector/near-mobile-wallet": "^9.0.1",
+    "@near-wallet-selector/react-hook": "^9.0.1",
+    "@near-wallet-selector/sender": "^9.0.1",
+    "@near-wallet-selector/welldone-wallet": "^9.0.1",
+    "@reown/appkit": "^1.7.4",
+    "@reown/appkit-adapter-wagmi": "^1.7.4",
+    "@wagmi/core": "^2.17.1",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "buffer": "^6.0.3",
-    "import": "^0.0.6",
-    "near-api-js": "^4.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router": "^7.1.1",
-    "vite-plugin-eslint": "^1.8.1"
+    "near-api-js": "^5.1.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-router": "^7"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "vite": "^6.0.5"
+    "vite": "^6.3.5",
+    "vite-plugin-node-polyfills": "^0.23.0"
   }
 }
 ",
@@ -3977,12 +3911,12 @@ import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
 
 const walletSelectorConfig = {
   network: NetworkId,
-  createAccessKeyFor: HelloNearContract,
+  // createAccessKeyFor: HelloNearContract,
   modules: [
+    setupMeteorWallet(),
     setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
     setupBitteWallet(),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({contractId: HelloNearContract}),
+    setupMeteorWalletApp({ contractId: HelloNearContract }),
     setupHotWallet(),
     setupLedger(),
     setupSender(),
@@ -4004,7 +3938,7 @@ function App() {
           <Route path="/hello-near" element={<HelloNear />} />
         </Routes>
       </BrowserRouter>
-      </WalletSelectorProvider>
+    </WalletSelectorProvider>
   )
 }
 
@@ -4164,26 +4098,8 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--config.js 1`]
   testnet: 'hello.near-examples.testnet',
 };
 
-// Chains for EVM Wallets
-const evmWalletChains = {
-  mainnet: {
-    chainId: 397,
-    name: 'Near Mainnet',
-    explorer: 'https://eth-explorer.near.org',
-    rpc: 'https://eth-rpc.mainnet.near.org',
-  },
-  testnet: {
-    chainId: 398,
-    name: 'Near Testnet',
-    explorer: 'https://eth-explorer-testnet.near.org',
-    rpc: 'https://eth-rpc.testnet.near.org',
-  },
-};
-
 export const NetworkId = 'testnet';
-export const HelloNearContract = contractPerNetwork[NetworkId];
-export const EVMWalletChain = evmWalletChains[NetworkId];
-",
+export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
@@ -4220,7 +4136,6 @@ const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
   const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
-
 
   const [greeting, setGreeting] = useState('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -4654,43 +4569,23 @@ a {
 exports[`create frontend 'vite-react': --frontend_vite-react--src--wallets--web3modal.js 1`] = `
 [
   "--frontend_vite-react--src--wallets--web3modal.js",
-  "import { injected,walletConnect } from '@wagmi/connectors';
+  "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
-import { reconnect } from "@wagmi/core";
 import { nearTestnet } from "@reown/appkit/networks";
-import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { reconnect } from "@wagmi/core";
 
-
-// Get your projectId at https://cloud.reown.com
-const projectId = '5bb0fe33763b3bea40b8d69e4269b4ae';
-
-const connectors = [
-  walletConnect({
-    projectId,
-    metadata: {
-      name: "Guest-Book-Examples",
-      description: "Examples demonstrating integrations with NEAR blockchain",
-      url: "https://near.github.io/wallet-selector",
-      icons: ["https://near.github.io/wallet-selector/favicon.ico"],
-    },
-    showQrModal: false, // showQrModal must be false
-  }),
-  injected({ shimDisconnect: true }),
-];
+// Get a project ID at https://cloud.reown.com
+const projectId = "30147604c5f01d0bc4482ab0665b5697";
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  connectors,
   networks: [nearTestnet],
 });
-
-reconnect(wagmiAdapter.wagmiConfig);
 
 export const web3Modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
   networks: [nearTestnet],
-  defaultNetwork: nearTestnet,
   enableWalletConnect: true,
   features: {
     analytics: true,
@@ -4700,7 +4595,15 @@ export const web3Modal = createAppKit({
     socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
   },
   coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-});",
+  allWallets: "SHOW",
+});
+
+// force reconnecting if the user has already signed in with an ethereum wallet
+// this is a workaround until \`ethereum-wallets\` supports the \`reconnect\` method
+if (typeof window !== "undefined") {
+  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
+  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
+} ",
 ]
 `;
 
@@ -4709,30 +4612,17 @@ exports[`create frontend 'vite-react': --frontend_vite-react--vite.config.js 1`]
   "--frontend_vite-react--vite.config.js",
   "import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import eslint from 'vite-plugin-eslint';
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint()],
+  plugins: [nodePolyfills(), react()],
   resolve: {
     alias: {
       '@': '/src',
       buffer: 'buffer',
     },
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: 'globalThis'
-      },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          buffer: true
-        })
-      ]
-    }
-  }
 })",
 ]
 `;
