@@ -2,22 +2,12 @@ import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { nearTestnet } from "@reown/appkit/networks";
 import { reconnect } from "@wagmi/core";
-import { injected, walletConnect } from "@wagmi/connectors";
 
 // Get a project ID at https://cloud.reown.com
-const projectId = "5bb0fe33763b3bea40b8d69e4269b4ae";
-
-export const connectors = [
-  walletConnect({
-    projectId,
-    showQrModal: false, // showQrModal must be false
-  }),
-  injected({ shimDisconnect: true }),
-];
+const projectId = "30147604c5f01d0bc4482ab0665b5697";
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  connectors,
   networks: [nearTestnet],
 });
 
@@ -37,4 +27,9 @@ export const web3Modal = createAppKit({
   allWallets: "SHOW",
 });
 
-reconnect(wagmiAdapter.wagmiConfig);
+// force reconnecting if the user has already signed in with an ethereum wallet
+// this is a workaround until `ethereum-wallets` supports the `reconnect` method
+if (typeof window !== "undefined") {
+  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
+  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
+} 

@@ -6,13 +6,11 @@ import styles from '@/styles/app.module.css';
 import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 export const Navigation = () => {
-  const { signedAccountId, signIn, signOut, walletSelector } = useWalletSelector();
+  const { signedAccountId, signIn, signOut } = useWalletSelector();
   const [action, setAction] = useState(() => { });
   const [label, setLabel] = useState('Loading...');
 
   useEffect(() => {
-    if (!walletSelector) return;
-
     if (signedAccountId) {
       setAction(() => signOut);
       setLabel(`Logout ${signedAccountId}`);
