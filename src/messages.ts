@@ -16,6 +16,8 @@ export const welcome = () =>
 {blue ======================================================}
 (${trackingMessage})\n`);
 
+export const downloadTemplateFailed = () => show(chalk`\n{red ⛔️ There was a problem during the project downloading. Check your internet connection.}\n`);
+
 export const setupFailed = () =>
   show(chalk`{bold {red ==========================================}}
 {red ⛔️ There was a problem during the project setup}.
