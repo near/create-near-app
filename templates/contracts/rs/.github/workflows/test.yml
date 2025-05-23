@@ -28,5 +28,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Install cargo-near CLI
+        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/download/cargo-near-vcargo-near-new-ci-tool-version-self/cargo-near-installer.sh | sh
       - name: Run cargo test
         run: cargo test
