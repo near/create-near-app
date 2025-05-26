@@ -16,7 +16,7 @@ export const welcome = () =>
 {blue ======================================================}
 (${trackingMessage})\n`);
 
-export const downloadTemplateFailed = () => show(chalk`\n{red ⛔️ There was a problem during the project downloading. Check your internet connection.}\n`);
+export const downloadFilesFailed = () => show(chalk`\n{yellow There was a problem during the Cargo.toml and rust-toolchain.toml files remote updating. Check your internet connection.}`);
 
 export const setupFailed = () =>
   show(chalk`{bold {red ==========================================}}
@@ -134,6 +134,7 @@ export const directoryExists = (dirName: string) =>
   show(chalk`{red This directory already exists! ${dirName}}`);
 
 export const creatingApp = () => show(chalk`\nCreating a new {bold NEAR dApp}`);
+export const updatingFiles = () => show(chalk`\Updating Cargo.toml and rust-toolchain.toml files from the remote source`);
 
 export const depsInstall = () =>
   show(chalk`
