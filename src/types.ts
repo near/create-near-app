@@ -1,6 +1,3 @@
-export type Contract = 'ts' | 'rs' | 'none';
-export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
-
 export type Frontend = 'next-app' | 'next-page' | 'vite-react' | 'none';
 export const FRONTENDS: Frontend[] = ['next-app', 'next-page', 'vite-react', 'none'];
 
@@ -10,7 +7,7 @@ export const APPS: App[] = ['contract', 'gateway'];
 export type ProjectName = string;
 
 export interface UserConfig {
-  contract: Contract;
+  contract: boolean;
   frontend: Frontend;
   projectName: ProjectName;
   install: boolean;
@@ -18,7 +15,6 @@ export interface UserConfig {
 }
 
 export type CreateContractParams = {
-  contract: Contract,
   projectPath: string,
   templatesDir: string,
 }

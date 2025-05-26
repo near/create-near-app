@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { trackingMessage } from './tracking';
-import { Contract, Frontend, FrontendMessage, ProjectName } from './types';
+import { Frontend, FrontendMessage, ProjectName } from './types';
 
 if (process.env.NEAR_NO_COLOR) {
   chalk.level = 0;
@@ -16,8 +16,6 @@ export const welcome = () =>
 {blue ======================================================}
 (${trackingMessage})\n`);
 
-export const downloadFilesFailed = () => show(chalk`\n{yellow There was a problem during the Cargo.toml and rust-toolchain.toml files remote updating. Check your internet connection.}`);
-
 export const setupFailed = () =>
   show(chalk`{bold {red ==========================================}}
 {red ⛔️ There was a problem during the project setup}.
@@ -25,12 +23,10 @@ Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-export const successContractToText = (contract: Contract) =>
-  contract === 'none'
-    ? ''
-    : chalk`a smart contract in {bold ${
-      contract === 'rs' ? 'Rust' : 'Typescript'
-    }}`;
+export const successContractToText = (contract: boolean) =>
+  contract
+    ? chalk`a smart contract in {bold Typescript}`
+    : '';
 
 const frontendTemplates: FrontendMessage = {
   'next-page': 'NextJS (Classic)',
@@ -45,7 +41,7 @@ export const successFrontendToText = (frontend: Frontend) =>
 
 export const setupSuccess = (
   projectName: ProjectName,
-  contract: Contract,
+  contract: boolean,
   frontend: Frontend,
   install: boolean
 ) =>
@@ -54,11 +50,7 @@ export const setupSuccess = (
 ✅  Success! Created '${projectName}', ${successContractToText(
   contract
 )}${successFrontendToText(frontend)}.
-${
-  contract === 'rs'
-    ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n`
-    : ''
-}
+
 {bold {bgYellow {black Next steps}}}:
 ${contractInstructions(projectName, contract, install)}${gatewayInstructions(
   projectName,
@@ -68,34 +60,33 @@ ${contractInstructions(projectName, contract, install)}${gatewayInstructions(
 
 export const contractInstructions = (
   projectName: ProjectName,
-  contract: Contract,
+  contract: boolean,
   install: boolean
 ) =>
-  contract === 'none'
-    ? ''
-    : chalk`
+  contract
+    ? chalk`
    - {inverse Navigate to your project}:
          {blue cd {bold ${projectName}}}
 ${
-  contract === 'ts' && !install
+  contract && !install
     ? chalk`   - {inverse Install all dependencies}
          {blue npm {bold install}}`
     : 'Then:'
 }
    - {inverse Build your contract}:
          ${
-  contract === 'ts'
+  contract
     ? chalk`{blue npm {bold run build}}`
     : chalk`{blue {bold cargo near build}}`
 }
    - {inverse Test your contract} in the Sandbox:
          ${
-  contract === 'ts'
+  contract
     ? chalk`{blue npm {bold run test}}`
     : chalk`{blue {bold cargo test}}`
 }
    
-🧠 Read {bold {greenBright README.md}} to explore further`;
+🧠 Read {bold {greenBright README.md}} to explore further` : '';
 
 export const gatewayInstructions = (
   projectName: ProjectName,
@@ -120,7 +111,7 @@ export const argsError = (msg: string) =>
   show(chalk`{red Arguments error: {white ${msg}}}
 
 Run {blue npx create-near-app} without arguments, or use:
-npx create-near-app <projectName> [--frontend next-app|next-page] [--contract rs|ts|none]`);
+npx create-near-app <projectName> [--frontend next-app|next-page] [--contract]`);
 
 export const unsupportedNodeVersion = (supported: string) =>
   show(chalk`{red We support node.js version ${supported} or later}`);
@@ -134,7 +125,6 @@ export const directoryExists = (dirName: string) =>
   show(chalk`{red This directory already exists! ${dirName}}`);
 
 export const creatingApp = () => show(chalk`\nCreating a new {bold NEAR dApp}`);
-export const updatingFiles = () => show(chalk`\Updating Cargo.toml and rust-toolchain.toml files from the remote source`);
 
 export const depsInstall = () =>
   show(chalk`

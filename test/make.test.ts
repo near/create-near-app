@@ -2,20 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import dir from 'node-dir';
 import { createProject } from '../src/make';
-import { Contract, Frontend } from '../src/types';
+import { Frontend } from '../src/types';
 
 describe('create contract', () => {
-  const contracts: Contract[] = ['ts', 'rs'];
-
   const ts = Date.now();
-  test.each(contracts)('%o', async (contract: Contract) => {
-    const projectName = `contract_${contract}`;
+  test('%o', async () => {
+    const projectName = 'contract';
     const rootDir = path.resolve(__dirname, '../templates/');
     fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), { recursive: true });
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
     await createProject({
-      contract,
+      contract: true,
       frontend: 'none',
       templatesDir: rootDir,
       projectPath,
@@ -57,7 +55,7 @@ describe('create frontend', () => {
     const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
     const projectPath = path.resolve(projectPathPrefix, projectName);
     await createProject({
-      contract: 'none',
+      contract: false,
       frontend: frontend,
       templatesDir: rootDir,
       projectPath,

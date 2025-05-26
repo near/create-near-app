@@ -17,6 +17,6 @@ jobs:
     - name: Install modules
       run: npm install
     - name: Create Contract TS
-      run: npm run start -- hello-near --frontend none --contract ts
+      run: npm run start -- hello-near --frontend none --contract
     - name: Run tests
       run: cd hello-near && npm install && npm run test

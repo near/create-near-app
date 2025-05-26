@@ -19,8 +19,7 @@ describe('messages', () => {
   test('snapshot messages with params', () => {
     showSpy = jest.spyOn(show, 'show').mockImplementation(() => {});
 
-    show.successContractToText('ts');
-    show.successContractToText('rs');
+    show.successContractToText(true);
 
     show.successFrontendToText('next-page');
     show.successFrontendToText('next-app');

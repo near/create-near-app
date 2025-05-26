@@ -1,24 +1,22 @@
-import {
-  App,
-  Contract,
-  CONTRACTS,
-  Frontend,
-  FRONTENDS,
-  ProjectName,
-  UserConfig
-} from './types';
+import fs from 'fs';
 import chalk from 'chalk';
 import prompt, { PromptObject } from 'prompts';
 import { program } from 'commander';
 import * as show from './messages';
 import { trackUsage } from './tracking';
-import fs from 'fs';
+import {
+  App,
+  Frontend,
+  FRONTENDS,
+  ProjectName,
+  UserConfig
+} from './types';
 
 export async function getUserArgs(): Promise<UserConfig> {
   program
     .argument('[projectName]')
     .option('--frontend [next-page|next-app|none]')
-    .option('--contract [ts|rs|none]')
+    .option('--contract')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
 
@@ -37,10 +35,6 @@ const appChoices: Choices<App> = [
   {
     title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
   },
-];
-const contractChoices: Choices<Contract> = [
-  { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
-  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs' },
 ];
 
 const frontendChoices: Choices<Frontend> = [
@@ -62,15 +56,6 @@ const frontendPrompt: PromptObject = {
   message: 'Select a framework for your frontend',
   choices: frontendChoices,
 };
-
-const contractPrompt: PromptObject[] = [
-  {
-    type: 'select',
-    name: 'contract',
-    message: 'Select a smart contract template for your project',
-    choices: contractChoices,
-  }
-];
 
 const namePrompts: PromptObject = {
   type: 'text',
@@ -98,19 +83,16 @@ export async function getUserAnswers(): Promise<UserConfig> {
   if (app === 'gateway') {
     // If gateway, ask for the framework to use
     const { frontend, projectName, install } = await promptUser([frontendPrompt, namePrompts, npmPrompt]);
-    return { frontend, contract: 'none', projectName, install, error: undefined };
+    return { frontend, contract: false, projectName, install, error: undefined };
   } else {
     // If platform is Window, return the error
     if (process.platform === 'win32') {
-      return { frontend: 'none', contract: 'none', projectName: '', install: false, error: show.windowsWarning };
+      return { frontend: 'none', contract: false, projectName: '', install: false, error: show.windowsWarning };
     }
 
-    // If contract, ask for the language for the contract
-    let { contract } = await promptUser(contractPrompt);
-
     const { projectName } = await promptUser(namePrompts);
-    const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
-    return { frontend: 'none', contract, projectName, install, error: undefined };
+    const install = (await promptUser(npmPrompt)).install as boolean;
+    return { frontend: 'none', contract: true, projectName, install, error: undefined };
   }
 }
 
@@ -126,12 +108,12 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   }
 
   if (args.error) {
-    trackUsage('none', 'none');
+    trackUsage('none', false);
     return args.error();
   }
 
   // Homogenizing terminal args with prompt args
-  args.contract = args.contract || 'none';
+  args.contract = args.contract || false;
   args.frontend = args.frontend || 'none';
 
   if (!validateUserArgs(args)) return;
@@ -158,17 +140,12 @@ const validateUserArgs = (args: UserConfig) => {
     return false;
   }
 
-  if (!CONTRACTS.includes(args.contract)) {
-    show.argsError(`Invalid contract type: ${args.contract}`);
-    return false;
-  }
-
   if (!args.projectName) {
     show.argsError('Please provide a project name');
     return false;
   }
 
-  if ((args.contract === 'none') === (args.frontend === 'none')) {
+  if ((!args.contract) === (args.frontend === 'none')) {
     show.argsError('Please create a contract OR a frontend');
     return false;
   }
