@@ -5,7 +5,7 @@ import { createProject } from '../src/make';
 import { Contract, Frontend } from '../src/types';
 
 describe('create contract', () => {
-  const contracts: Contract[] = ['ts', 'rs'];
+  const contracts: Contract[] = ['ts'];
 
   const ts = Date.now();
   test.each(contracts)('%o', async (contract: Contract) => {

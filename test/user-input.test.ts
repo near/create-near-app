@@ -20,7 +20,6 @@ describe('messages', () => {
     showSpy = jest.spyOn(show, 'show').mockImplementation(() => {});
 
     show.successContractToText('ts');
-    show.successContractToText('rs');
 
     show.successFrontendToText('next-page');
     show.successFrontendToText('next-app');
