@@ -30,7 +30,7 @@ export async function getUserArgs(): Promise<UserConfig> {
   return { contract, frontend, projectName, install, error: undefined };
 }
 
-type Choices<T> = { title: string, description?: string, value: T }[];
+type Choices<T> = { title: string, description?: string, value: T, disabled?: boolean }[];
 
 const appChoices: Choices<App> = [
   { title: 'A Web App', description: 'A Web App that talks with Near contracts', value: 'gateway' },
@@ -40,7 +40,7 @@ const appChoices: Choices<App> = [
 ];
 const contractChoices: Choices<Contract> = [
   { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
-  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs' },
+  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs', disabled: true },
 ];
 
 const frontendChoices: Choices<Frontend> = [
@@ -69,6 +69,7 @@ const contractPrompt: PromptObject[] = [
     name: 'contract',
     message: 'Select a smart contract template for your project',
     choices: contractChoices,
+    warn: chalk`{yellow Use cargo-near extension to create a Rust contract: https://github.com/near/cargo-near}`,
   }
 ];
 
