@@ -21,13 +21,15 @@ Follow the instructions in the README.md in the project you just created! 🚀
 
 
 ### Contracts
-You can create contracts written in Javascript.
+You can create contracts written in:
+- `Javascript`
+- `Rust`
 
 :::
 We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/build/smart-contracts/quickstart) if you are new to NEAR contracts.
 :::
 
-For testing we use a sandboxed environment.
+For testing we use a sandboxed environment. You can write the tests in JavaScript or Rust.
 
 ### WebApps
 
