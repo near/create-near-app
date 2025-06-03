@@ -3,7 +3,7 @@ import fs from 'fs';
 import { ncp } from 'ncp';
 import path from 'path';
 import * as show from './messages';
-import { downloadFile, isCargoNearInstalled } from './utils';
+import { downloadFile } from './utils';
 import { CreateContractParams, CreateGatewayParams } from './types';
 
 export async function createProject({ contract, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
