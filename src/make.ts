@@ -3,7 +3,7 @@ import fs from 'fs';
 import { ncp } from 'ncp';
 import path from 'path';
 import * as show from './messages';
-import downloadFile from './donwloadFile';
+import { downloadFile, isCargoNearInstalled } from './utils';
 import { CreateContractParams, CreateGatewayParams } from './types';
 
 export async function createProject({ contract, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
@@ -44,7 +44,17 @@ async function updateTemplateFiles(projectPath: string) {
     await downloadFile(cargoTomlRemotePath, cargoTomlFilePath);
     await downloadFile(rustToolchainRemotePath, rustToolchainFilePath);
   } catch (err) {
-    show.downloadFilesFailed();
+    show.updateFilesFailed();
+  }
+
+  show.checkingCargoNear();
+
+  try {
+    if (!(await isCargoNearInstalled())) {
+      show.cargoNearIsNotInstalled();
+    }
+  } catch (err) {
+    show.cargoNearIsNotInstalled();
   }
 }
 

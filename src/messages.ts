@@ -16,8 +16,6 @@ export const welcome = () =>
 {blue ======================================================}
 (${trackingMessage})\n`);
 
-export const downloadFilesFailed = () => show(chalk`\n{yellow There was a problem during the Cargo.toml and rust-toolchain.toml files remote updating. Check your internet connection.}`);
-
 export const setupFailed = () =>
   show(chalk`{bold {red ==========================================}}
 {red ⛔️ There was a problem during the project setup}.
@@ -133,9 +131,9 @@ export const windowsWarning = () =>
 export const directoryExists = (dirName: string) =>
   show(chalk`{red This directory already exists! ${dirName}}`);
 
-export const creatingApp = () => show(chalk`\nCreating a new {bold NEAR dApp}`);
-export const updatingFiles = () => show(chalk`\Updating Cargo.toml and rust-toolchain.toml files from the remote source`);
+export const creatingApp = () => show(chalk`\n- Creating a new {bold NEAR dApp}...`);
 
+// Installing dependencies messages
 export const depsInstall = () =>
   show(chalk`
 {green Installing dependencies in a few folders, this might take a while.}
@@ -143,3 +141,11 @@ export const depsInstall = () =>
 
 export const depsInstallError = () =>
   show(chalk.red('Error installing NEAR project dependencies'));
+
+// Updating files messages
+export const updatingFiles = () => show(chalk`- Updating Cargo.toml and rust-toolchain.toml files from the remote source...`);
+export const updateFilesFailed = () => show(chalk`  {yellow There was a problem during the Cargo.toml and rust-toolchain.toml files remote updating. Check your internet connection.}\n`);
+
+// Checking cargo-near messages
+export const checkingCargoNear = () => show(chalk`- Checking if cargo-near extension is installed...`);
+export const cargoNearIsNotInstalled = () => show(chalk`  {bold {yellow Cargo-near is not installed or an error occurred. Please install it to build and deploy Rust smart contracts: https://github.com/near/cargo-near}}`);
