@@ -45,7 +45,8 @@ export const setupSuccess = (
   projectName: ProjectName,
   contract: Contract,
   frontend: Frontend,
-  install: boolean
+  install: boolean,
+  needsToInstallCargoNear: boolean
 ) =>
   show(chalk`
 {green ======================================================}
@@ -58,7 +59,7 @@ ${
     : ''
 }
 {bold {bgYellow {black Next steps}}}:
-${contractInstructions(projectName, contract, install)}${gatewayInstructions(
+${contractInstructions(projectName, contract, install, needsToInstallCargoNear)}${gatewayInstructions(
   projectName,
   frontend,
   install
@@ -67,11 +68,13 @@ ${contractInstructions(projectName, contract, install)}${gatewayInstructions(
 export const contractInstructions = (
   projectName: ProjectName,
   contract: Contract,
-  install: boolean
+  install: boolean,
+  needsToInstallCargoNear: boolean
 ) =>
   contract === 'none'
     ? ''
     : chalk`
+   ${needsToInstallCargoNear? chalk`- {inverse Install cargo-near (https://github.com/near/cargo-near)}\n`: ''}
    - {inverse Navigate to your project}:
          {blue cd {bold ${projectName}}}
 ${
@@ -148,4 +151,4 @@ export const updateFilesFailed = () => show(chalk`  {yellow There was a problem 
 
 // Checking cargo-near messages
 export const checkingCargoNear = () => show(chalk`- Checking if cargo-near extension is installed...`);
-export const cargoNearIsNotInstalled = () => show(chalk`  {bold {yellow Cargo-near is not installed or an error occurred. Please install it to build and deploy Rust smart contracts: https://github.com/near/cargo-near}}`);
+export const cargoNearIsNotInstalled = () => show(chalk`  {bold {yellow Did not find cargo-near, please install it to build and deploy Rust contracts: https://github.com/near/cargo-near}}`);

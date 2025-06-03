@@ -46,16 +46,6 @@ async function updateTemplateFiles(projectPath: string) {
   } catch (err) {
     show.updateFilesFailed();
   }
-
-  show.checkingCargoNear();
-
-  try {
-    if (!(await isCargoNearInstalled())) {
-      show.cargoNearIsNotInstalled();
-    }
-  } catch (err) {
-    show.cargoNearIsNotInstalled();
-  }
 }
 
 async function createGateway({ frontend, projectPath, templatesDir }: CreateGatewayParams) {

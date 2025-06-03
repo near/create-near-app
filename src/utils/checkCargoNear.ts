@@ -1,8 +1,13 @@
 const { execSync } = require('child_process');
 
 function isCargoNearInstalled() {
-  const output = execSync('cargo --list', { encoding: 'utf-8' });
-  return output.includes('    near');
+  try {
+    // execute but hide output
+    execSync('cargo near --version', { stdio: 'ignore' });
+    return true; 
+  } catch (error) {
+    return false;
+  }
 }
 
 export default isCargoNearInstalled;
