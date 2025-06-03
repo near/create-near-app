@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install cargo-near CLI
-        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/download/cargo-near-vcargo-near-new-ci-tool-version-self/cargo-near-installer.sh | sh
+        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/latest/download/cargo-near-installer.sh | sh
       - name: Deploy to production
         run: |
           cargo near deploy build-reproducible-wasm "${{ vars.NEAR_CONTRACT_PRODUCTION_ACCOUNT_ID }}" \

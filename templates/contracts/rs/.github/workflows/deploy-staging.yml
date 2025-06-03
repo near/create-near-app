@@ -32,7 +32,7 @@ jobs:
             send
 
       - name: Install cargo-near CLI
-        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/download/cargo-near-vcargo-near-new-ci-tool-version-self/cargo-near-installer.sh | sh
+        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/latest/download/cargo-near-installer.sh | sh
       - name: Deploy to staging
         # `--skip-git-remote-check` was used
         # as pull request git refs `refs/pull/NUMBER/merge` are somewhat harder to access and live only as long as PRs do
