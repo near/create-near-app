@@ -70,33 +70,48 @@ export const contractInstructions = (
   contract: Contract,
   install: boolean,
   needsToInstallCargoNear: boolean
-) =>
-  contract === 'none'
-    ? ''
-    : chalk`
-   ${needsToInstallCargoNear? chalk`- {inverse Install cargo-near (https://github.com/near/cargo-near)}\n`: ''}
-   - {inverse Navigate to your project}:
-         {blue cd {bold ${projectName}}}
-${
-  contract === 'ts' && !install
-    ? chalk`   - {inverse Install all dependencies}
-         {blue npm {bold install}}`
-    : 'Then:'
-}
-   - {inverse Build your contract}:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run build}}`
-    : chalk`{blue {bold cargo near build}}`
-}
-   - {inverse Test your contract} in the Sandbox:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run test}}`
-    : chalk`{blue {bold cargo test}}`
-}
-   
-🧠 Read {bold {greenBright README.md}} to explore further`;
+) => {
+  if (contract === 'none') {
+    return '';
+  }
+
+  let message = '';
+
+  if (needsToInstallCargoNear) {
+    message += chalk`   - {inverse Install cargo-near}:
+         {blue Go to {bold https://github.com/near/cargo-near}}\n`;
+  }
+
+  message += chalk`   - {inverse Navigate to your project}:
+         {blue cd {bold ${projectName}}}\n`;
+
+  if (contract === 'ts' && !install) {
+    message += chalk`   - {inverse Install all dependencies}
+         {blue npm {bold install}}\n`;
+  } else {
+    message += chalk`Then:\n`;
+  }
+
+  message += chalk`   - {inverse Build your contract}:\n`;
+
+  if (contract === 'ts') {
+    message += chalk`         {blue npm {bold run build}}\n`;
+  } else {
+    message += chalk`         {blue {bold cargo near build}}\n`;
+  }
+
+  message += chalk`   - {inverse Test your contract} in the Sandbox:\n`;
+
+  if (contract === 'ts') {
+    message += chalk`         {blue npm {bold run test}}\n`;
+  } else {
+    message += chalk`         {blue {bold cargo near test}}\n`;
+  }
+  
+  message += chalk`\n🧠 Read {bold {greenBright README.md}} to explore further`;
+
+  return message;
+};
 
 export const gatewayInstructions = (
   projectName: ProjectName,
