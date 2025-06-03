@@ -15,7 +15,9 @@ jobs:
         node-version: '22'
     - name: Install modules
       run: npm install
-    - name: Create Contract TS
+    - name: Create Contract RS
       run: npm run start -- hello-near --frontend none --contract rs
+    - name: Install cargo-near
+      run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/latest/download/cargo-near-installer.sh | sh
     - name: Run tests
       run: cd hello-near && cargo test
