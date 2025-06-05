@@ -49,7 +49,6 @@ export const setupSuccess = (
   needsToInstallCargoNear: boolean
 ) =>
   show(chalk`
-{green ======================================================}
 ✅  Success! Created '${projectName}', ${successContractToText(
   contract
 )}${successFrontendToText(frontend)}.
@@ -88,8 +87,6 @@ export const contractInstructions = (
   if (contract === 'ts' && !install) {
     message += chalk`   - {inverse Install all dependencies}
          {blue npm {bold install}}\n`;
-  } else {
-    message += chalk`Then:\n`;
   }
 
   message += chalk`   - {inverse Build your contract}:\n`;
@@ -153,9 +150,7 @@ export const creatingApp = () => show(chalk`\n- Creating a new {bold NEAR dApp}.
 
 // Installing dependencies messages
 export const depsInstall = () =>
-  show(chalk`
-{green Installing dependencies in a few folders, this might take a while.}
-`);
+  show(chalk`- Installing dependencies in a few folders, this might take a while...`);
 
 export const depsInstallError = () =>
   show(chalk.red('Error installing NEAR project dependencies'));

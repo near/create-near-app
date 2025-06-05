@@ -41,10 +41,11 @@ import { isCargoNearInstalled } from './utils';
     createSuccess = false;
   }
 
-  show.checkingCargoNear();
   let needsToInstallCargoNear = false;
 
   if (contract === 'rs') {
+    show.checkingCargoNear();
+
     let cargoNearInstalled = await isCargoNearInstalled();
     if (!cargoNearInstalled) {
       needsToInstallCargoNear = true;
