@@ -1,9 +1,10 @@
-import { CreateContractParams, CreateGatewayParams } from './types';
-import * as show from './messages';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import { ncp } from 'ncp';
 import path from 'path';
+import * as show from './messages';
+import { downloadFile } from './utils';
+import { CreateContractParams, CreateGatewayParams } from './types';
 
 export async function createProject({ contract, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
   if (contract !== 'none') {
@@ -16,11 +17,35 @@ export async function createProject({ contract, frontend, projectPath, templates
 }
 
 async function createContract({ contract, projectPath, templatesDir }: CreateContractParams) {
+  await createContractFromTemplate({ contract, projectPath, templatesDir });
+
+  if (contract === 'rs') {
+    await updateTemplateFiles(projectPath);
+  }
+}
+
+async function createContractFromTemplate({ contract, projectPath, templatesDir }: CreateContractParams) {
   // contract folder
   const sourceContractDir = path.resolve(templatesDir, 'contracts', contract);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceContractDir, projectPath);
+}
 
+async function updateTemplateFiles(projectPath: string) {
+  const targetDir = path.join(projectPath);
+  const cargoTomlRemotePath = 'https://raw.githubusercontent.com/near/cargo-near/refs/heads/main/cargo-near/src/commands/new/new-project-template/Cargo.template.toml';
+  const cargoTomlFilePath = path.join(targetDir, 'Cargo.toml');
+  const rustToolchainRemotePath = 'https://raw.githubusercontent.com/near/cargo-near/refs/heads/main/cargo-near/src/commands/new/new-project-template/rust-toolchain.toml';
+  const rustToolchainFilePath = path.join(targetDir, 'rust-toolchain.toml');
+
+  show.updatingFiles();
+
+  try {
+    await downloadFile(cargoTomlRemotePath, cargoTomlFilePath);
+    await downloadFile(rustToolchainRemotePath, rustToolchainFilePath);
+  } catch (err) {
+    show.updateFilesFailed();
+  }
 }
 
 async function createGateway({ frontend, projectPath, templatesDir }: CreateGatewayParams) {

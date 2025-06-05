@@ -50,8 +50,7 @@ export const trackUsage = async (frontend: Frontend, contract: Contract) => {
     });
   } catch (e) {
     console.error(
-      'Warning: problem while sending tracking data. Error: ',
-      e
+      '  Warning: problem while sending tracking data\n',
     );
   }
 };

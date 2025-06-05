@@ -21,6 +21,12 @@ cargo test
 Deployment is automated with GitHub Actions CI/CD pipeline.
 To deploy manually, install [`cargo-near`](https://github.com/near/cargo-near) and run:
 
+If you deploy for debugging purposes:
+```bash
+cargo near deploy build-non-reproducible-wasm <account-id>
+```
+
+If you deploy a production ready smart contract:
 ```bash
 cargo near deploy build-reproducible-wasm <account-id>
 ```

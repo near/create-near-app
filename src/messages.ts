@@ -45,10 +45,10 @@ export const setupSuccess = (
   projectName: ProjectName,
   contract: Contract,
   frontend: Frontend,
-  install: boolean
+  install: boolean,
+  needsToInstallCargoNear: boolean
 ) =>
   show(chalk`
-{green ======================================================}
 ✅  Success! Created '${projectName}', ${successContractToText(
   contract
 )}${successFrontendToText(frontend)}.
@@ -58,7 +58,7 @@ ${
     : ''
 }
 {bold {bgYellow {black Next steps}}}:
-${contractInstructions(projectName, contract, install)}${gatewayInstructions(
+${contractInstructions(projectName, contract, install, needsToInstallCargoNear)}${gatewayInstructions(
   projectName,
   frontend,
   install
@@ -67,33 +67,48 @@ ${contractInstructions(projectName, contract, install)}${gatewayInstructions(
 export const contractInstructions = (
   projectName: ProjectName,
   contract: Contract,
-  install: boolean
-) =>
-  contract === 'none'
-    ? ''
-    : chalk`
-   - {inverse Navigate to your project}:
-         {blue cd {bold ${projectName}}}
-${
-  contract === 'ts' && !install
-    ? chalk`   - {inverse Install all dependencies}
-         {blue npm {bold install}}`
-    : 'Then:'
-}
-   - {inverse Build your contract}:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run build}}`
-    : chalk`{blue {bold cargo near build}}`
-}
-   - {inverse Test your contract} in the Sandbox:
-         ${
-  contract === 'ts'
-    ? chalk`{blue npm {bold run test}}`
-    : chalk`{blue {bold cargo test}}`
-}
-   
-🧠 Read {bold {greenBright README.md}} to explore further`;
+  install: boolean,
+  needsToInstallCargoNear: boolean
+) => {
+  if (contract === 'none') {
+    return '';
+  }
+
+  let message = '';
+
+  if (needsToInstallCargoNear) {
+    message += chalk`   - {inverse Install cargo-near}:
+         {blue Go to {bold https://github.com/near/cargo-near}}\n`;
+  }
+
+  message += chalk`   - {inverse Navigate to your project}:
+         {blue cd {bold ${projectName}}}\n`;
+
+  if (contract === 'ts' && !install) {
+    message += chalk`   - {inverse Install all dependencies}
+         {blue npm {bold install}}\n`;
+  }
+
+  message += chalk`   - {inverse Build your contract}:\n`;
+
+  if (contract === 'ts') {
+    message += chalk`         {blue npm {bold run build}}\n`;
+  } else {
+    message += chalk`         {blue {bold cargo near build}}\n`;
+  }
+
+  message += chalk`   - {inverse Test your contract} in the Sandbox:\n`;
+
+  if (contract === 'ts') {
+    message += chalk`         {blue npm {bold run test}}\n`;
+  } else {
+    message += chalk`         {blue {bold cargo near test}}\n`;
+  }
+  
+  message += chalk`\n🧠 Read {bold {greenBright README.md}} to explore further`;
+
+  return message;
+};
 
 export const gatewayInstructions = (
   projectName: ProjectName,
@@ -131,12 +146,19 @@ export const windowsWarning = () =>
 export const directoryExists = (dirName: string) =>
   show(chalk`{red This directory already exists! ${dirName}}`);
 
-export const creatingApp = () => show(chalk`\nCreating a new {bold NEAR dApp}`);
+export const creatingApp = () => show(chalk`\n- Creating a new {bold NEAR dApp}...`);
 
+// Installing dependencies messages
 export const depsInstall = () =>
-  show(chalk`
-{green Installing dependencies in a few folders, this might take a while.}
-`);
+  show(chalk`- Installing dependencies in a few folders, this might take a while...`);
 
 export const depsInstallError = () =>
   show(chalk.red('Error installing NEAR project dependencies'));
+
+// Updating files messages
+export const updatingFiles = () => show(chalk`- Updating Cargo.toml and rust-toolchain.toml files from the remote source...`);
+export const updateFilesFailed = () => show(chalk`  {yellow There was a problem during the Cargo.toml and rust-toolchain.toml files remote updating. Check your internet connection.}\n`);
+
+// Checking cargo-near messages
+export const checkingCargoNear = () => show(chalk`- Checking if cargo-near extension is installed...`);
+export const cargoNearIsNotInstalled = () => show(chalk`  {bold {yellow Did not find cargo-near, please install it to build and deploy Rust contracts: https://github.com/near/cargo-near}}`);

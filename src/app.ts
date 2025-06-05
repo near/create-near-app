@@ -4,6 +4,7 @@ import semver from 'semver';
 import { createProject, runDepsInstall } from './make';
 import { promptAndGetConfig, } from './user-input';
 import * as show from './messages';
+import { isCargoNearInstalled } from './utils';
 
 (async function () {
 
@@ -40,9 +41,22 @@ import * as show from './messages';
     createSuccess = false;
   }
 
+  let needsToInstallCargoNear = false;
+
+  if (contract === 'rs') {
+    show.checkingCargoNear();
+
+    let cargoNearInstalled = await isCargoNearInstalled();
+    if (!cargoNearInstalled) {
+      needsToInstallCargoNear = true;
+      show.cargoNearIsNotInstalled();
+    }
+  }
+
+
   if (createSuccess) {
     install && await runDepsInstall(projectPath);
-    show.setupSuccess(projectName, contract, frontend, install);
+    show.setupSuccess(projectName, contract, frontend, install, needsToInstallCargoNear);
   } else {
     return show.setupFailed();
   }
