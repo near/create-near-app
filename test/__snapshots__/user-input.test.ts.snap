@@ -34,9 +34,7 @@ npx create-near-app <projectName> [--frontend next-app|next-page] [--contract rs
 - Creating a new [1mNEAR dApp[22m...",
   ],
   [
-    "
-[32mInstalling dependencies in a few folders, this might take a while.[39m
-",
+    "- Installing dependencies in a few folders, this might take a while...",
   ],
   [
     "[31mError installing NEAR project dependencies[39m",

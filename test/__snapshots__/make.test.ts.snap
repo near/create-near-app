@@ -717,29 +717,30 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/bitte-wallet": "^9.0.1",
-    "@near-wallet-selector/core": "^9.0.1",
-    "@near-wallet-selector/ethereum-wallets": "^9.0.1",
-    "@near-wallet-selector/here-wallet": "^9.0.1",
-    "@near-wallet-selector/hot-wallet": "^9.0.1",
-    "@near-wallet-selector/ledger": "^9.0.1",
-    "@near-wallet-selector/meteor-wallet": "^9.0.1",
-    "@near-wallet-selector/meteor-wallet-app": "^9.0.1",
-    "@near-wallet-selector/modal-ui": "^9.0.1",
-    "@near-wallet-selector/my-near-wallet": "^9.0.1",
-    "@near-wallet-selector/near-mobile-wallet": "^9.0.1",
-    "@near-wallet-selector/react-hook": "^9.0.1",
-    "@near-wallet-selector/sender": "^9.0.1",
-    "@near-wallet-selector/welldone-wallet": "^9.0.1",
-    "@reown/appkit": "^1.7.4",
-    "@reown/appkit-adapter-wagmi": "^1.7.4",
-    "@wagmi/core": "^2.17.1",
+    "@near-wallet-selector/bitte-wallet": "^9.0.2",
+    "@near-wallet-selector/core": "^9.0.2",
+    "@near-wallet-selector/ethereum-wallets": "^9.0.2",
+    "@near-wallet-selector/here-wallet": "^9.0.2",
+    "@near-wallet-selector/hot-wallet": "^9.0.2",
+    "@near-wallet-selector/ledger": "^9.0.2",
+    "@near-wallet-selector/meteor-wallet": "^9.0.2",
+    "@near-wallet-selector/meteor-wallet-app": "^9.0.2",
+    "@near-wallet-selector/modal-ui": "^9.0.2",
+    "@near-wallet-selector/my-near-wallet": "^9.0.2",
+    "@near-wallet-selector/near-mobile-wallet": "^9.0.2",
+    "@near-wallet-selector/react-hook": "^9.0.2",
+    "@near-wallet-selector/sender": "^9.0.2",
+    "@near-wallet-selector/welldone-wallet": "^9.0.2",
+    "@reown/appkit": "^1.7.7",
+    "@reown/appkit-adapter-wagmi": "^1.7.7",
+    "@wagmi/core": "^2.17.2",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
     "near-api-js": "^5.0.0",
     "next": "^15",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "viem": "^2.30.5"
   },
   "devDependencies": {
     "encoding": "^0.1.13",
@@ -1472,13 +1473,7 @@ export const web3Modal = createAppKit({
   coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
   allWallets: "SHOW",
 });
-
-// force reconnecting if the user has already signed in with an ethereum wallet
-// this is a workaround until \`ethereum-wallets\` supports the \`reconnect\` method
-if (typeof window !== "undefined") {
-  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
-  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
-} ",
+",
 ]
 `;
 
@@ -1599,29 +1594,30 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/bitte-wallet": "^9.0.1",
-    "@near-wallet-selector/core": "^9.0.1",
-    "@near-wallet-selector/ethereum-wallets": "^9.0.1",
-    "@near-wallet-selector/here-wallet": "^9.0.1",
-    "@near-wallet-selector/hot-wallet": "^9.0.1",
-    "@near-wallet-selector/ledger": "^9.0.1",
-    "@near-wallet-selector/meteor-wallet": "^9.0.1",
-    "@near-wallet-selector/meteor-wallet-app": "^9.0.1",
-    "@near-wallet-selector/modal-ui": "^9.0.1",
-    "@near-wallet-selector/my-near-wallet": "^9.0.1",
-    "@near-wallet-selector/near-mobile-wallet": "^9.0.1",
-    "@near-wallet-selector/react-hook": "^9.0.1",
-    "@near-wallet-selector/sender": "^9.0.1",
-    "@near-wallet-selector/welldone-wallet": "^9.0.1",
-    "@reown/appkit": "^1.7.4",
-    "@reown/appkit-adapter-wagmi": "^1.7.4",
-    "@wagmi/core": "^2.17.1",
+    "@near-wallet-selector/bitte-wallet": "^9.0.2",
+    "@near-wallet-selector/core": "^9.0.2",
+    "@near-wallet-selector/ethereum-wallets": "^9.0.2",
+    "@near-wallet-selector/here-wallet": "^9.0.2",
+    "@near-wallet-selector/hot-wallet": "^9.0.2",
+    "@near-wallet-selector/ledger": "^9.0.2",
+    "@near-wallet-selector/meteor-wallet": "^9.0.2",
+    "@near-wallet-selector/meteor-wallet-app": "^9.0.2",
+    "@near-wallet-selector/modal-ui": "^9.0.2",
+    "@near-wallet-selector/my-near-wallet": "^9.0.2",
+    "@near-wallet-selector/near-mobile-wallet": "^9.0.2",
+    "@near-wallet-selector/react-hook": "^9.0.2",
+    "@near-wallet-selector/sender": "^9.0.2",
+    "@near-wallet-selector/welldone-wallet": "^9.0.2",
+    "@reown/appkit": "^1.7.7",
+    "@reown/appkit-adapter-wagmi": "^1.7.7",
+    "@wagmi/core": "^2.17.2",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
     "near-api-js": "^5.0.0",
     "next": "^15",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "viem": "^2.30.5"
   },
   "devDependencies": {
     "encoding": "^0.1.13",
@@ -2351,13 +2347,7 @@ export const web3Modal = createAppKit({
   coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
   allWallets: "SHOW",
 });
-
-// force reconnecting if the user has already signed in with an ethereum wallet
-// this is a workaround until \`ethereum-wallets\` supports the \`reconnect\` method
-if (typeof window !== "undefined") {
-  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
-  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
-} ",
+",
 ]
 `;
 
@@ -2493,7 +2483,8 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
     "near-api-js": "^5.1.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-router": "^7"
+    "react-router": "^7",
+    "viem": "^2.30.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -3238,13 +3229,7 @@ export const web3Modal = createAppKit({
   coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
   allWallets: "SHOW",
 });
-
-// force reconnecting if the user has already signed in with an ethereum wallet
-// this is a workaround until \`ethereum-wallets\` supports the \`reconnect\` method
-if (typeof window !== "undefined") {
-  const recentWallets = localStorage.getItem("near-wallet-selector:recentlySignedInWallets");
-  recentWallets && recentWallets.includes("ethereum-wallets") && reconnect(wagmiAdapter.wagmiConfig)
-} ",
+",
 ]
 `;
 
