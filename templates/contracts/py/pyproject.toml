@@ -1,0 +1,10 @@
+[project]
+name = "py-near"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "near-pytest>=0.7.1",
+    "near-sdk-py>=0.7.3",
+]
