@@ -23,12 +23,23 @@ Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
+const mapContractLanguage = (contract: Contract) => {
+  switch (contract) {
+    case 'ts':
+      return 'Typescript';
+    case 'rs':
+      return 'Rust';
+    case 'py':
+      return 'Python';
+    default:
+      return '';
+  }
+};
+
 export const successContractToText = (contract: Contract) =>
   contract === 'none'
     ? ''
-    : chalk`a smart contract in {bold ${
-      contract === 'rs' ? 'Rust' : 'Typescript'
-    }}`;
+    : chalk`a smart contract in {bold ${mapContractLanguage(contract)}}`;
 
 const frontendTemplates: FrontendMessage = {
   'next-page': 'NextJS (Classic)',
@@ -49,7 +60,7 @@ export const setupSuccess = (
   needsToInstallCargoNear: boolean
 ) =>
   show(chalk`
-✅  Success! Created '${projectName}', ${successContractToText(
+✅ Success! Created '${projectName}', ${successContractToText(
   contract
 )}${successFrontendToText(frontend)}.
 ${
@@ -93,6 +104,8 @@ export const contractInstructions = (
 
   if (contract === 'ts') {
     message += chalk`         {blue npm {bold run build}}\n`;
+  } else if (contract === 'py') {
+    message += chalk`         {blue {bold uvx nearc contract.py --create-venv}}\n`;
   } else {
     message += chalk`         {blue {bold cargo near build}}\n`;
   }
@@ -101,6 +114,8 @@ export const contractInstructions = (
 
   if (contract === 'ts') {
     message += chalk`         {blue npm {bold run test}}\n`;
+  } else if (contract === 'py') {
+    message += chalk`         {blue {bold uv run pytest}}\n`;
   } else {
     message += chalk`         {blue {bold cargo near test}}\n`;
   }

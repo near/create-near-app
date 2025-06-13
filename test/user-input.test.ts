@@ -21,6 +21,7 @@ describe('messages', () => {
 
     show.successContractToText('ts');
     show.successContractToText('rs');
+    show.successContractToText('py');
 
     show.successFrontendToText('next-page');
     show.successFrontendToText('next-app');

@@ -1,5 +1,5 @@
-export type Contract = 'ts' | 'rs' | 'none';
-export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
+export type Contract = 'ts' | 'rs' | 'py' |'none';
+export const CONTRACTS: Contract[] = ['ts', 'rs', 'py', 'none'];
 
 export type Frontend = 'next-app' | 'next-page' | 'vite-react' | 'none';
 export const FRONTENDS: Frontend[] = ['next-app', 'next-page', 'vite-react', 'none'];

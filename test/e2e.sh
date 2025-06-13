@@ -29,8 +29,12 @@ scaffold ts none
 test "ts"
 
 ## CONTRACT:RUST
-scaffold rust none
-test "rust"
+scaffold rs none
+test "rs"
+
+## CONTRACT:PYTHON
+scaffold py none
+test "py"
 
 ## Frontend: Pages router
 scaffold none next-pages
