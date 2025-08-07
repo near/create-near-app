@@ -1299,9 +1299,9 @@ crate-type = ["cdylib", "rlib"]
 # in https://github.com/near/NEPs/blob/master/neps/nep-0330.md
 [package.metadata.near.reproducible_build]
 # docker image, descriptor of build environment
-image = "sourcescan/cargo-near:0.16.0-rust-1.86.0"
+image = "sourcescan/cargo-near:0.16.1-rust-1.86.0"
 # tag after colon above serves only descriptive purpose; image is identified by digest
-image_digest = "sha256:3220302ebb7036c1942e772810f21edd9381edf9a339983da43487c77fbad488"
+image_digest = "sha256:5dff91e3271ace8e679dec5c12b724108c43c2c441a52ba7c94d7ee9e20a87de"
 # list of environment variables names, whose values, if set, will be used as external build parameters
 # in a reproducible manner
 # supported by \`sourcescan/cargo-near:0.10.1-rust-1.82.0\` image or later images
@@ -2557,7 +2557,6 @@ exports[`create frontend 'next-app': --frontend_next-app--src--wallets--web3moda
   "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { nearTestnet } from "@reown/appkit/networks";
-import { reconnect } from "@wagmi/core";
 
 // Get a project ID at https://cloud.reown.com
 const projectId = "30147604c5f01d0bc4482ab0665b5697";
@@ -3431,7 +3430,6 @@ exports[`create frontend 'next-page': --frontend_next-page--src--wallets--web3mo
   "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { nearTestnet } from "@reown/appkit/networks";
-import { reconnect } from "@wagmi/core";
 
 // Get a project ID at https://cloud.reown.com
 const projectId = "30147604c5f01d0bc4482ab0665b5697";
@@ -3606,7 +3604,7 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "vite": "^6.3.5",
-    "vite-plugin-node-polyfills": "^0.23.0"
+    "vite-plugin-node-polyfills": "^0.24.0"
   }
 }
 ",
@@ -4313,7 +4311,6 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--wallets--web3
   "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { nearTestnet } from "@reown/appkit/networks";
-import { reconnect } from "@wagmi/core";
 
 // Get a project ID at https://cloud.reown.com
 const projectId = "30147604c5f01d0bc4482ab0665b5697";
