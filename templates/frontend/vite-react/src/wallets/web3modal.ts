@@ -1,7 +1,6 @@
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { nearTestnet } from "@reown/appkit/networks";
-import { reconnect } from "@wagmi/core";
 
 // Get a project ID at https://cloud.reown.com
 const projectId = "30147604c5f01d0bc4482ab0665b5697";

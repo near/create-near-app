@@ -1,40 +1,41 @@
-import { useEffect, useState } from 'react';
 
 import { Cards } from '@/components/cards';
+
+import { useEffect, useState } from 'react';
 import styles from '@/styles/app.module.css';
 
-import { HelloNearContract } from '@/config';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { HelloNearContract } from '../../config';
 
-// Contract that the app will interact with
-const CONTRACT = HelloNearContract;
+import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 export default function HelloNear() {
   const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
 
-  const [greeting, setGreeting] = useState('loading...');
-  const [newGreeting, setNewGreeting] = useState('loading...');
+  const [greeting, setGreeting] = useState<string>('loading...');
+  const [newGreeting, setNewGreeting] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    viewFunction({ contractId: CONTRACT, method: 'get_greeting' }).then((greeting) => setGreeting(greeting));
-  }, [viewFunction]);
+    viewFunction({ contractId: HelloNearContract, method: 'get_greeting' }).then((greeting) => setGreeting(greeting as string));
+  }, []);
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
   }, [signedAccountId]);
 
   const saveGreeting = async () => {
-    callFunction({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } })
-      .catch(async () => {
-        viewFunction({ contractId: CONTRACT, method: 'get_greeting' }).then((greeting) => setGreeting(greeting));
+    // Try to store greeting, revert if it fails
+    callFunction({ contractId: HelloNearContract, method: 'set_greeting', args: { greeting: newGreeting } })
+      .then(async () => {
+        const greeting = (await viewFunction({ contractId: HelloNearContract, method: 'get_greeting' })) as string;
+        setGreeting(greeting);
+        setShowSpinner(false);
       });
 
+    // Assume the transaction will be successful and update the UI optimistically
     setShowSpinner(true);
-    await new Promise(resolve => setTimeout(resolve, 300));
     setGreeting(newGreeting);
-    setShowSpinner(false);
   };
 
   return (
@@ -42,9 +43,10 @@ export default function HelloNear() {
       <div className={styles.description}>
         <p>
           Interacting with the contract: &nbsp;
-          <code className={styles.code}>{CONTRACT}</code>
+          <code className={styles.code}>{HelloNearContract}</code>
         </p>
       </div>
+
       <div className={styles.center}>
         <h1 className="w-100">
           The contract says: <code>{greeting}</code>
