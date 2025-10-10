@@ -35,7 +35,6 @@ import type { WalletModuleFactory } from "@near-wallet-selector/core";
 const walletSelectorConfig = {
   network: NetworkId,
   modules: [
-    setupMeteorWallet(),
     setupEthereumWallets({
       wagmiConfig: wagmiAdapter.wagmiConfig,
       web3Modal,
