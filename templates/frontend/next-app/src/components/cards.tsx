@@ -1,6 +1,5 @@
-import Link from 'next/link';
-
-import styles from '@/app/app.module.css';
+import Link from "next/link";
+import styles from "@/app/app.module.css";
 
 export const Cards = () => {
   return (
@@ -8,7 +7,7 @@ export const Cards = () => {
       <Link
         href="https://docs.near.org/build/web3-apps/quickstart"
         className={styles.card}
-        target='_blank'
+        target="_blank"
         rel="noopener noreferrer"
       >
         <h2>
@@ -17,11 +16,7 @@ export const Cards = () => {
         <p>Learn how this application works, and what you can build on Near.</p>
       </Link>
 
-      <Link
-        href="/hello-near"
-        className={styles.card}
-        rel="noopener noreferrer"
-      >
+      <Link href="/hello-near" className={styles.card} rel="noopener noreferrer">
         <h2>
           Near Integration <span>-&gt;</span>
         </h2>

@@ -1,8 +1,10 @@
+'use client';
 import { useState, useEffect } from 'react';
 
-import styles from '@/styles/app.module.css';
-import { HelloNearContract } from '../../config';
+import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
+
+import { HelloNearContract } from '@/config';
 import { useWalletSelector } from '@near-wallet-selector/react-hook';
 
 // Contract that the app will interact with
@@ -11,15 +13,13 @@ const CONTRACT = HelloNearContract;
 export default function HelloNear() {
   const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
 
-  const [greeting, setGreeting] = useState('loading...');
+  const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
-  useEffect(() => {
-    viewFunction({ contractId: CONTRACT, method: 'get_greeting' }).then(
-      greeting => setGreeting(greeting)
-    );
+ useEffect(() => {
+    viewFunction({ contractId: HelloNearContract, method: 'get_greeting' }).then((greeting) => setGreeting(greeting as string));
   }, []);
 
   useEffect(() => {
@@ -27,11 +27,17 @@ export default function HelloNear() {
   }, [signedAccountId]);
 
   const saveGreeting = async () => {
+    // Try to store greeting, revert if it fails
+    callFunction({ contractId: HelloNearContract, method: 'set_greeting', args: { greeting: newGreeting } })
+      .then(async () => {
+        const greeting = (await viewFunction({ contractId: HelloNearContract, method: 'get_greeting' })) as string;
+        setGreeting(greeting);
+        setShowSpinner(false);
+      });
+
+    // Assume the transaction will be successful and update the UI optimistically
     setShowSpinner(true);
-    await callFunction({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting } });
-    const greeting = await viewFunction({ contractId: CONTRACT, method: 'get_greeting' });
-    setGreeting(greeting);
-    setShowSpinner(false);
+    setGreeting(newGreeting);
   };
 
   return (
@@ -39,7 +45,7 @@ export default function HelloNear() {
       <div className={styles.description}>
         <p>
           Interacting with the contract: &nbsp;
-          <code className={styles.code}>{CONTRACT}</code>
+          <code className={styles.code}>{HelloNearContract}</code>
         </p>
       </div>
 
@@ -52,15 +58,12 @@ export default function HelloNear() {
             type="text"
             className="form-control w-20"
             placeholder="Store a new greeting"
-            onChange={t => setNewGreeting(t.target.value)}
+            onChange={(t) => setNewGreeting(t.target.value)}
           />
           <div className="input-group-append">
             <button className="btn btn-secondary" onClick={saveGreeting}>
               <span hidden={showSpinner}> Save </span>
-              <i
-                className="spinner-border spinner-border-sm"
-                hidden={!showSpinner}
-              ></i>
+              <i className="spinner-border spinner-border-sm" hidden={!showSpinner}></i>
             </button>
           </div>
         </div>

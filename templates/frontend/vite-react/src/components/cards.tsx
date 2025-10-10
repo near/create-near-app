@@ -1,5 +1,5 @@
-import styles from '@/styles/app.module.css';
-import { Link } from 'react-router';
+import styles from '@/styles/app.module.css'
+import { Link } from 'react-router'
 
 export const Cards = () => {
   return (
@@ -23,5 +23,5 @@ export const Cards = () => {
         <p>Discover how simple it is to interact with a Near smart contract.</p>
       </Link>
     </div>
-  );
-};
+  )
+}

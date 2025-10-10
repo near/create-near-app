@@ -1,14 +1,14 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import NearLogo from '/public/near.svg';
-import NextLogo from '/public/next.svg';
-import styles from '@/styles/app.module.css';
-import { Cards } from '@/components/cards';
+import NearLogo from "/public/near.svg";
+import NextLogo from "/public/next.svg";
+import { Cards } from "@/components/cards";
+import styles from "@/styles/app.module.css";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}> </div>
+      <div className={styles.description}></div>
 
       <div className={styles.center}>
         <Image
@@ -24,8 +24,8 @@ export default function Home() {
           className={styles.logo}
           src={NextLogo}
           alt="Next.js Logo"
-          width={300 * .58}
-          height={61 * .58}
+          width={300 * 0.58}
+          height={61 * 0.58}
           priority
         />
       </div>
