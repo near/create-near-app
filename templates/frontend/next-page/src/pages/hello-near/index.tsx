@@ -6,10 +6,10 @@ import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '../../config';
 
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNear } from "@/hooks/useNear";
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
+  const { signedAccountId, viewFunction, callFunction } = useNear();
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState('');
