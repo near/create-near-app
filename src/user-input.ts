@@ -23,7 +23,7 @@ export async function getUserArgs(): Promise<UserConfig> {
     .option('--contract [ts|rs|none]')
     .option('--template [guest-book|auction]')
     .option('--install')
-    .addHelpText('after', 'You can create a frontend, a contract with tests, or both together');
+    .addHelpText('after', 'You can create a frontend or a contract with tests');
 
   program.parse();
 
@@ -190,8 +190,8 @@ const validateUserArgs = (args: UserConfig) => {
     return false;
   }
 
-  if (args.contract === 'none' && args.frontend === 'none') {
-    show.argsError('Please create at least a contract or a frontend');
+  if ((args.contract === 'none') === (args.frontend === 'none')) {
+    show.argsError('Please create a contract OR a frontend');
     return false;
   }
 
