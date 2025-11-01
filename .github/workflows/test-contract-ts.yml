@@ -8,6 +8,7 @@ jobs:
       matrix:
         platform: [ubuntu-latest, macos-latest]
         node-version: [18, 20, 22]
+        template: [guest-book, auction]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v4
@@ -16,7 +17,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install modules
       run: npm install
-    - name: Create Contract TS
-      run: npm run start -- hello-near --frontend none --contract ts
+    - name: Create Contract TS - ${{ matrix.template }}
+      run: npm run start -- test-app --frontend none --contract ts --template ${{ matrix.template }}
     - name: Run tests
-      run: cd hello-near && npm install && npm run test
+      run: cd test-app && npm install && npm run test
