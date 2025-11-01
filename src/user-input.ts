@@ -19,11 +19,11 @@ import fs from 'fs';
 export async function getUserArgs(): Promise<UserConfig> {
   program
     .argument('[projectName]')
-    .option('--frontend [next-page|next-app|none]')
+    .option('--frontend [next-page|next-app|vite-react|none]')
     .option('--contract [ts|rs|none]')
     .option('--template [guest-book|auction]')
     .option('--install')
-    .addHelpText('after', 'You can create a frontend or a contract with tests');
+    .addHelpText('after', 'You can create a frontend, a contract with tests, or both together');
 
   program.parse();
 
@@ -190,8 +190,8 @@ const validateUserArgs = (args: UserConfig) => {
     return false;
   }
 
-  if ((args.contract === 'none') === (args.frontend === 'none')) {
-    show.argsError('Please create a contract OR a frontend');
+  if (args.contract === 'none' && args.frontend === 'none') {
+    show.argsError('Please create at least a contract or a frontend');
     return false;
   }
 

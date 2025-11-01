@@ -9,7 +9,9 @@ import { CreateContractParams, CreateGatewayParams } from './types';
 export async function createProject({ contract, template, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
   if (contract !== 'none') {
     await createContract({ contract, template, projectPath, templatesDir });
-  } else {
+  }
+  
+  if (frontend !== 'none') {
     await createGateway({ frontend, projectPath, templatesDir });
   }
 
