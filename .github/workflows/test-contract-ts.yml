@@ -19,5 +19,9 @@ jobs:
       run: npm install
     - name: Create Contract TS - ${{ matrix.template }}
       run: npm run start -- test-app --frontend none --contract ts --template ${{ matrix.template }}
+    - name: Install test app dependencies
+      working-directory: test-app
+      run: npm install
     - name: Run tests
-      run: cd test-app && npm install && npm run test
+      working-directory: test-app
+      run: npm run test
