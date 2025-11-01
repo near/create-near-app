@@ -9,7 +9,6 @@ jobs:
         platform: [ubuntu-latest, macos-latest]
         node-version: [18, 20, 22]
         frontend: [next-page, next-app, vite-react]
-        template: [guest-book, auction]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v4
@@ -18,7 +17,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install modules
       run: npm install
-    - name: Create Frontend - ${{ matrix.frontend }} with ${{ matrix.template }}
-      run: npm run start -- test-app --frontend ${{ matrix.frontend }} --contract ts --template ${{ matrix.template }}
+    - name: Create Frontend - ${{ matrix.frontend }}
+      run: npm run start -- test-app --frontend ${{ matrix.frontend }}
     - name: Install
       run: cd test-app && npm install
