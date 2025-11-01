@@ -6,9 +6,9 @@ import * as show from './messages';
 import { downloadFile } from './utils';
 import { CreateContractParams, CreateGatewayParams } from './types';
 
-export async function createProject({ contract, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
+export async function createProject({ contract, template, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
   if (contract !== 'none') {
-    await createContract({ contract, projectPath, templatesDir });
+    await createContract({ contract, template, projectPath, templatesDir });
   } else {
     await createGateway({ frontend, projectPath, templatesDir });
   }
@@ -16,17 +16,16 @@ export async function createProject({ contract, frontend, projectPath, templates
   return true;
 }
 
-async function createContract({ contract, projectPath, templatesDir }: CreateContractParams) {
-  await createContractFromTemplate({ contract, projectPath, templatesDir });
+async function createContract({ contract, template, projectPath, templatesDir }: CreateContractParams) {
+  await createContractFromTemplate({ contract, template, projectPath, templatesDir });
 
   if (contract === 'rs') {
     await updateTemplateFiles(projectPath);
   }
 }
 
-async function createContractFromTemplate({ contract, projectPath, templatesDir }: CreateContractParams) {
-  // contract folder
-  const sourceContractDir = path.resolve(templatesDir, 'contracts', contract);
+async function createContractFromTemplate({ contract, template, projectPath, templatesDir }: CreateContractParams) {
+  const sourceContractDir = path.resolve(templatesDir, 'contracts', template, contract);
   fs.mkdirSync(projectPath, { recursive: true });
   await copyDir(sourceContractDir, projectPath);
 }

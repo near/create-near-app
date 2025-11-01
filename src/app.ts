@@ -20,6 +20,7 @@ import { isCargoNearInstalled } from './utils';
     config: {
       projectName,
       contract,
+      template,
       frontend,
       install,
     },
@@ -32,6 +33,7 @@ import { isCargoNearInstalled } from './utils';
   try {
     createSuccess = await createProject({
       contract,
+      template: template || 'guest-book',
       frontend,
       templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,

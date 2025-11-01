@@ -1,0 +1,22 @@
+{
+  "name": "guest_book",
+  "version": "2.0.0",
+  "license": "(MIT AND Apache-2.0)",
+  "type": "module",
+  "scripts": {
+    "build": "near-sdk-js build src/contract.ts build/guest_book.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/guest_book.wasm"
+  },
+  "dependencies": {
+    "near-sdk-js": "2.0.0"
+  },
+  "devDependencies": {
+    "ava": "^6.1.3",
+    "near-workspaces": "^3.5.0",
+    "typescript": "^5.4.5"
+  },
+  "ava": {
+    "timeout": "20000",
+    "files": ["sandbox-test/*.ava.js"]
+  }
+}

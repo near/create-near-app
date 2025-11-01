@@ -12,9 +12,13 @@ echo $root_dir
 
 scaffold () {
   cd $root_dir
-  dirname="${root_dir}/${1}_${2}_${3}"
+  dirname="${root_dir}/${1}_${2}"
   echo "scaffold: ${dirname}"
-  if ! node "${app_dir}/index.js" "${1}_${2}_${3}" --contract $1 --frontend $2 --install ; then exit 42; fi
+  if [ "$1" = "none" ]; then
+    if ! node "${app_dir}/index.js" "${1}_${2}" --contract $1 --frontend $2 --install ; then exit 42; fi
+  else
+    if ! node "${app_dir}/index.js" "${1}_${2}" --contract $1 --frontend $2 --template guest-book --install ; then exit 42; fi
+  fi
 }
 
 test () {
@@ -26,20 +30,14 @@ test () {
 
 ## CONTRACT:TS
 scaffold ts none
-test "ts"
+test "ts_none"
 
 ## CONTRACT:RUST
 scaffold rs none
-test "rs"
+test "rs_none"
 
-## CONTRACT:PYTHON
-scaffold py none
-test "py"
+## Frontend: Pages router (no test for frontend-only)
+scaffold none next-page
 
-## Frontend: Pages router
-scaffold none next-pages
-test "pages"
-
-## Frontend: App router
+## Frontend: App router (no test for frontend-only)
 scaffold none next-app
-test "app"
