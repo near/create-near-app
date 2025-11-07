@@ -1,6 +1,6 @@
 [package]
 name = "auction-contract"
-description = "Auction Example Part 1"
+description = "Auction Example Part 3"
 version = "0.1.0"
 edition = "2021"
 

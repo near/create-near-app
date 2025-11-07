@@ -1,83 +1,47 @@
-# Hello NEAR Contract
+# Basic Auction Contract
 
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
+This directory contains a JavaScript contract that is used as part of the [Basic Auction Tutorial](https://docs.near.org/tutorials/auction/basic-auction).
 
-```ts
-@NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
+The contract is a simple auction where you can place bids, view the highest bid, and claim the tokens at the end of the auction.
 
-  @view // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
-  }
+This repo showcases the basic anatomy of a contract including how to store data in a contract, how to update the state, and then how to view it. It also looks at how to use environment variables and macros. We have also written sandbox test the contract locally.
 
-  @call // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
-    // Record a log permanently to the blockchain!
-    near.log(`Saving greeting ${greeting}`);
-    this.greeting = greeting;
-  }
-}
+---
+
+## How to Build Locally?
+
+Install the [NEAR CLI](https://docs.near.org/tools/near-cli#installation) and run:
+
+Install the dependencies:
+
+```bash
+npm install
 ```
 
-<br />
-
-# Quickstart
-
-1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
-2. Install the [`NEAR CLI`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build and Test the Contract
-You can automatically compile and test the contract by running:
+Build the contract:
 
 ```bash
 npm run build
 ```
 
-<br />
-
-## 2. Create an Account and Deploy the Contract
-You can create a new account and deploy the contract by running:
+## How to Test Locally?
 
 ```bash
-near create-account <your-account.testnet> --useFaucet
-near deploy <your-account.testnet> build/release/hello_near.wasm
+npm run test
 ```
 
-<br />
+## How to Deploy?
 
-
-## 3. Retrieve the Greeting
-
-`get_greeting` is a read-only method (aka `view` method).
-
-`View` methods can be called for **free** by anyone, even people **without a NEAR account**!
+Install the [NEAR CLI](https://docs.near.org/tools/near-cli#installation) and run:
 
 ```bash
-# Use near-cli to get the greeting
-near view <your-account.testnet> get_greeting
+# Create a new account
+near create <contractId> --useFaucet
+
+# Deploy the contract
+near deploy <contractId> ./build/auction-contract.wasm
+
+# Initialize the contract
+TWO_MINUTES_FROM_NOW=$(date -v+2M +%s000000000)
+near call <contractId> init '{"end_time": "'$TWO_MINUTES_FROM_NOW'", "auctioneer": "<auctioneerAccountId>"}' --accountId <contractId>
 ```
-
-<br />
-
-## 4. Store a New Greeting
-`set_greeting` changes the contract's state, for which it is a `call` method.
-
-`Call` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
-
-```bash
-# Use near-cli to set a new greeting
-near call <your-account.testnet> set_greeting '{"greeting":"howdy"}' --accountId <your-account.testnet>
-```
-
-**Tip:** If you would like to call `set_greeting` using another account, first login into NEAR using:
-
-```bash
-# Use near-cli to login your NEAR account
-near login
-```
-
-and then use the logged account to sign the transaction: `--accountId <another-account>`.

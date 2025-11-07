@@ -6,27 +6,48 @@ class Bid {
   bid: bigint;
 }
 
-const THIRTY_TGAS = BigInt("30000000000000");
-const NO_DEPOSIT = BigInt(0);
-
 @NearBindgen({ requireInit: true })
 class AuctionContract {
-  highest_bid: Bid = { bidder: '', bid: BigInt(1) };
+  highest_bid: Bid = { bidder: '', bid: BigInt(0) };
   auction_end_time: bigint = BigInt(0);
-  auctioneer: string = "";
+  auctioneer: AccountId = "";
   claimed: boolean = false;
-  ft_contract: AccountId = "";
-  nft_contract: AccountId = "";
-  token_id: string = "";
 
   @initialize({ privateFunction: true })
-  init({ end_time, auctioneer, ft_contract, nft_contract, token_id, starting_price }: { end_time: bigint, auctioneer: string, ft_contract: AccountId, nft_contract: AccountId, token_id: string, starting_price: bigint }) {
+  init({ end_time, auctioneer}: { end_time: bigint, auctioneer: AccountId}) {
     this.auction_end_time = end_time;
-    this.highest_bid = { bidder: near.currentAccountId(), bid: starting_price };
+    this.highest_bid = { bidder: near.currentAccountId(), bid: BigInt(1) };
     this.auctioneer = auctioneer;
-    this.ft_contract = ft_contract;
-    this.nft_contract = nft_contract;
-    this.token_id = token_id;
+  }
+
+  @call({ payableFunction: true })
+  bid(): NearPromise {
+    // Assert the auction is still ongoing
+    assert(this.auction_end_time > near.blockTimestamp(), "Auction has ended");
+
+    // Current bid
+    const bid = near.attachedDeposit();
+    const bidder = near.predecessorAccountId();
+
+    // Last bid
+    const { bidder: lastBidder, bid: lastBid } = this.highest_bid;
+
+    // Check if the deposit is higher than the current bid
+    assert(bid > lastBid, "You must place a higher bid");
+
+    // Update the highest bid
+    this.highest_bid = { bidder, bid }; // Save the new bid
+
+    // Transfer tokens back to the last bidder
+    return NearPromise.new(lastBidder).transfer(lastBid);
+  }
+
+  @call({})
+  claim() {
+    assert(this.auction_end_time <= near.blockTimestamp(), "Auction has not ended yet");
+    assert(!this.claimed, "Auction has been claimed");
+    this.claimed = true;
+    return NearPromise.new(this.auctioneer).transfer(this.highest_bid.bid)
   }
 
   @view({})
@@ -39,51 +60,13 @@ class AuctionContract {
     return this.auction_end_time;
   }
 
-  @call({})
-  claim() {
-    assert(this.auction_end_time <= near.blockTimestamp(), "Auction has not ended yet");
-    assert(!this.claimed, "Auction has been claimed");
-
-    this.claimed = true;
-
-    return NearPromise.new(this.nft_contract)
-      .functionCall("nft_transfer", JSON.stringify({ receiver_id: this.highest_bid.bidder, token_id: this.token_id }), BigInt(1), THIRTY_TGAS)
-      .then(NearPromise.new(this.ft_contract)
-      .functionCall("ft_transfer", JSON.stringify({ receiver_id: this.auctioneer, amount: this.highest_bid.bid }), BigInt(1), THIRTY_TGAS))
-      .asReturn()
+  @view({})
+  get_auctioneer(): AccountId {
+    return this.auctioneer;
   }
 
-  @call({})
-  ft_on_transfer({ sender_id, amount, msg }: { sender_id: AccountId, amount: bigint, msg: String }) {
-
-    const previous = { ...this.highest_bid };
-
-    assert(this.auction_end_time > near.blockTimestamp(), "Auction has ended");
-    assert(near.predecessorAccountId() == this.ft_contract, "The token is not supported");
-    assert(amount >= previous.bid, "You must place a higher bid");
-
-    this.highest_bid = {
-      bidder: sender_id,
-      bid: amount,
-    };
-
-    if (previous.bidder != near.currentAccountId()) {
-      near.log("inside bid");
-      // this.ft_transfer(this.highest_bid.bidder, this.highest_bid.bid)
-      return NearPromise.new(this.ft_contract)
-        .functionCall("ft_transfer", JSON.stringify({ receiver_id: previous.bidder, amount: previous.bid }), BigInt(1), THIRTY_TGAS)
-        .then(
-          NearPromise.new(near.currentAccountId())
-            .functionCall("ft_transfer_callback", JSON.stringify({}), NO_DEPOSIT, THIRTY_TGAS)
-        )
-        .asReturn()
-    } else {
-      return BigInt(0);
-    }
-  }
-
-  @call({ privateFunction: true })
-  ft_transfer_callback({ }): BigInt {
-    return BigInt(0);
+  @view({})
+  get_claimed(): boolean {
+    return this.claimed;
   }
 }

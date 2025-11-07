@@ -1,14 +1,14 @@
 {
-  "name": "hello_near",
+  "name": "auction-contract",
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/hello_near.wasm",
-    "test": "$npm_execpath run build && ava -- ./build/hello_near.wasm"
+    "build": "near-sdk-js build src/contract.ts build/auction-contract.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/auction-contract.wasm"
   },
   "dependencies": {
-    "near-sdk-js": "1.0.0"
+    "near-sdk-js": "2.0.0"
   },
   "devDependencies": {
     "ava": "^6.1.3",

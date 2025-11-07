@@ -1,11 +1,11 @@
 {
-  "name": "guest_book",
-  "version": "2.0.0",
+  "name": "auction-contract",
+  "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/guest_book.wasm",
-    "test": "$npm_execpath run build && ava -- ./build/guest_book.wasm"
+    "build": "near-sdk-js build src/contract.ts build/auction-contract.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/auction-contract.wasm"
   },
   "dependencies": {
     "near-sdk-js": "2.0.0"
@@ -16,7 +16,7 @@
     "typescript": "^5.4.5"
   },
   "ava": {
-    "timeout": "20000",
+    "timeout": "50000",
     "files": ["sandbox-test/*.ava.js"]
   }
 }
