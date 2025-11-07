@@ -5,13 +5,13 @@ import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
 
 import { HelloNearContract } from '@/config';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNear } from "@/hooks/useNear";
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
+  const { signedAccountId, viewFunction, callFunction } = useNear();
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');

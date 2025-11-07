@@ -2,16 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router'
 import NearLogo from '@/assets/near-logo.svg';
 import styles from '@/styles/app.module.css';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
-
-interface WalletSelectorHook {
-  signedAccountId: string | null;
-  signIn: () => void;
-  signOut: () => void;
-}
+import { useNear } from "@/hooks/useNear";
 
 export const Navigation = () => {
-  const { signedAccountId, signIn, signOut } = useWalletSelector() as WalletSelectorHook;
+  const { signedAccountId, signIn, signOut } = useNear();
 
   const [action, setAction] = useState<() => void>(() => () => {});
   const [label, setLabel] = useState<string>('Loading...');
