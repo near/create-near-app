@@ -21,7 +21,7 @@ export async function getUserArgs(): Promise<UserConfig> {
     .argument('[projectName]')
     .option('--frontend [next-page|next-app|vite-react|none]')
     .option('--contract [ts|rs|none]')
-    .option('--template [guest-book|auction]')
+    .option('--template [auction-adv|auction]')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
 
@@ -43,8 +43,8 @@ const appChoices: Choices<App> = [
 ];
 
 const templateChoices: Choices<Template> = [
-  { title: 'Guest Book', description: 'A simple guest book contract (basic example)', value: 'guest-book' },
-  { title: 'Auction', description: 'An auction contract with FT and NFT support (full example)', value: 'auction' },
+  { title: 'Auction', description: 'A simple auction smart contract', value: 'auction' },
+  { title: 'Auction (advance)', description: 'An auction contract were users can bid with FT and the winner gets a NFT', value: 'auction-adv' },
 ];
 
 const contractChoices: Choices<Contract> = [

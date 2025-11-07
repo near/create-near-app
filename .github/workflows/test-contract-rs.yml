@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest]
-        template: [guest-book, auction]
+        template: [auction, auction-adv]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v4

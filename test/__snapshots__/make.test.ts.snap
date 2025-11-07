@@ -65,9 +65,15 @@ overflow-checks = true
 exports[`create contract 'rs': --contract_rs--README.md 1`] = `
 [
   "--contract_rs--README.md",
-  "# Guest Book Contract
+  "# Basic Auction Contract 
 
-This smart contract stores messages from users. If the user attaches more than 0.1 NEAR tokens the message is marked as premium.
+This directory contains a Rust contract that is used as part of the [Basic Auction Tutorial](https://docs.near.org/tutorials/auction/basic-auction).
+
+The contract is a simple auction where you can place bids, view the highest bid, and claim the tokens at the end of the auction.
+
+This repo showcases the basic anatomy of a contract including how to store data in a contract, how to update the state, and then how to view it. It also looks at how to use environment variables and macros. We have also written sandbox test the contract locally.
+
+---
 
 ## How to Build Locally?
 
@@ -85,80 +91,19 @@ cargo test
 
 ## How to Deploy?
 
-To deploy manually, install [\`cargo-near\`](https://github.com/near/cargo-near) and run:
+To deploy manually, install [NEAR CLI](https://docs.near.org/tools/near-cli#installation) and run:
 
 \`\`\`bash
 # Create a new account
-cargo near create-dev-account
+near create <contractId> --useFaucet
 
 # Deploy the contract on it
-cargo near deploy <account-id>
+near deploy <contractId> ./target/near/auction-contract.wasm
+
+# Initialize the contract
+TWO_MINUTES_FROM_NOW=$(date -v+2M +%s000000000)
+near call <contractId> init '{"end_time": "'$TWO_MINUTES_FROM_NOW'", "auctioneer": "<auctioneerAccountId>"}' --accountId <contractId>
 \`\`\`
-
-
-## How to Interact?
-
-_In this example we will be using [NEAR CLI](https://github.com/near/near-cli)
-to intract with the NEAR blockchain and the smart contract_
-
-_If you want full control over of your interactions we recommend using the
-[near-cli-rs](https://near.cli.rs)._
-
-
-## 1. Add a Message
-\`add_message\` adds a message to the vector of \`messages\` and marks it as premium if the user attached more than \`0.1 NEAR\`.
-
-\`\`\`rust
-// Public - Adds a new message.
-#[payable]
-pub fn add_message(&mut self, text: String) {
-  // If the user attaches more than 0.01N the message is premium
-  let premium = env::attached_deposit() >= POINT_ONE;
-  let sender = env::predecessor_account_id();
-
-  let message = PostedMessage{premium, sender, text};
-  self.messages.push(&message);
-}
-\`\`\`
-
-\`\`\`bash
-near call <dev-account> add_message '{"text": "a message"}' --amount 0.1 --accountId <account>
-\`\`\`
-
-### 2. Retrieve the Stored Messages
-\`get_messages\` is a read-only method (\`view\` method) that returns a slice of the vector \`messages\`.
-Please note that \`from_index\` and \`limit\` are optional parameters.
-
-\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
-
-\`\`\`rust
-    // Public Method - Returns a slice of the messages.
-    pub fn get_messages(&self, from_index: Option<U64>, limit: Option<U64>) -> Vec<&PostedMessage> {
-        let from = u64::from(from_index.unwrap_or(U64(0)));
-        let limit = u64::from(limit.unwrap_or(U64(10)));
-
-        self.messages
-            .iter()
-            .skip(from as usize)
-            .take(limit as usize)
-            .collect()
-    }
-\`\`\`
-
-\`\`\`bash
-near view <dev-account> get_messages '{"from_index":0, "limit":10}'
-\`\`\`
-
-## Useful Links
-
-- [cargo-near](https://github.com/near/cargo-near) - NEAR smart contract development toolkit for Rust
-- [near CLI-rs](https://near.cli.rs) - Iteract with NEAR blockchain from command line
-- [NEAR Rust SDK Documentation](https://docs.near.org/sdk/rust/introduction)
-- [NEAR Documentation](https://docs.near.org)
-- [NEAR StackOverflow](https://stackoverflow.com/questions/tagged/nearprotocol)
-- [NEAR Discord](https://near.chat)
-- [NEAR Telegram Developers Community Group](https://t.me/neardev)
-- NEAR DevHub: [Telegram](https://t.me/neardevhub), [Twitter](https://twitter.com/neardevhub)
 ",
 ]
 `;
@@ -179,165 +124,276 @@ exports[`create contract 'rs': --contract_rs--src--lib.rs 1`] = `
   "--contract_rs--src--lib.rs",
   "// Find all our documentation at https://docs.near.org
 use near_sdk::json_types::U64;
-use near_sdk::store::Vector;
-use near_sdk::{env, near, AccountId, NearToken};
+use near_sdk::{env, near, require, AccountId, NearToken, PanicOnDefault, Promise};
 
-const POINT_ONE: NearToken = NearToken::from_millinear(100);
-
-#[near(serializers = [borsh, json])]
-pub struct PostedMessage {
-    pub premium: bool,
-    pub sender: AccountId,
-    pub text: String,
+#[near(serializers = [json, borsh])]
+#[derive(Clone)]
+pub struct Bid {
+    pub bidder: AccountId,
+    pub bid: NearToken,
 }
 
-// Define the contract structure
 #[near(contract_state)]
+#[derive(PanicOnDefault)]
 pub struct Contract {
-    messages: Vector<PostedMessage>,
+    highest_bid: Bid,
+    auction_end_time: U64,
+    auctioneer: AccountId,
+    claimed: bool,
 }
 
-// Define the default, which automatically initializes the contract
-impl Default for Contract {
-    fn default() -> Self {
-        Self {
-            messages: Vector::new(b"m"),
-        }
-    }
-}
-
-// Implement the contract structure
 #[near]
 impl Contract {
-    // Public Method - Adds a message to the vector
+    #[init]
+    #[private] // only callable by the contract's account
+    pub fn init(end_time: U64, auctioneer: AccountId) -> Self {
+        Self {
+            highest_bid: Bid {
+                bidder: env::current_account_id(),
+                bid: NearToken::from_yoctonear(1),
+            },
+            auction_end_time: end_time,
+            claimed: false,
+            auctioneer,
+        }
+    }
+
     #[payable]
-    pub fn add_message(&mut self, text: String) {
-        // If the user attaches more than 0.01N the message is premium
-        let premium = env::attached_deposit() >= POINT_ONE;
-        let sender = env::predecessor_account_id();
+    pub fn bid(&mut self) -> Promise {
+        // Assert the auction is still ongoing
+        require!(
+            env::block_timestamp() < self.auction_end_time.into(),
+            "Auction has ended"
+        );
 
-        let message = PostedMessage {
-            premium,
-            sender,
-            text,
-        };
+        // Current bid
+        let bid = env::attached_deposit();
+        let bidder = env::predecessor_account_id();
 
-        self.messages.push(message);
+        // Last bid
+        let Bid {
+            bidder: last_bidder,
+            bid: last_bid,
+        } = self.highest_bid.clone();
+
+        // Check if the deposit is higher than the current bid
+        require!(bid > last_bid, "You must place a higher bid");
+
+        // Update the highest bid
+        self.highest_bid = Bid { bidder, bid };
+
+        // Transfer tokens back to the last bidder
+        Promise::new(last_bidder).transfer(last_bid)
     }
 
-    // Public Method - Returns a slice of the messages.
-    pub fn get_messages(&self, from_index: Option<U64>, limit: Option<U64>) -> Vec<&PostedMessage> {
-        let from = u64::from(from_index.unwrap_or(U64(0)));
-        let limit = u64::from(limit.unwrap_or(U64(10)));
+    pub fn claim(&mut self) -> Promise {
+        require!(
+            env::block_timestamp() > self.auction_end_time.into(),
+            "Auction has not ended yet"
+        );
 
-        self.messages
-            .iter()
-            .skip(from as usize)
-            .take(limit as usize)
-            .collect()
+        require!(!self.claimed, "Auction has already been claimed");
+        self.claimed = true;
+
+        // Transfer tokens to the auctioneer
+        Promise::new(self.auctioneer.clone()).transfer(self.highest_bid.bid)
     }
 
-    pub fn total_messages(&self) -> u32 {
-        self.messages.len()
+    pub fn get_highest_bid(&self) -> Bid {
+        self.highest_bid.clone()
+    }
+
+    pub fn get_auction_end_time(&self) -> U64 {
+        self.auction_end_time
+    }
+
+    pub fn get_auctioneer(&self) -> AccountId {
+        self.auctioneer.clone()
+    }
+
+    pub fn get_claimed(&self) -> bool {
+        self.claimed
     }
 }
 
-/*
- * The rest of this file holds the inline tests for the code above
- * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
- */
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn add_message() {
-        let mut contract = Contract::default();
-        contract.add_message("A message".to_string());
+    fn init_contract() {
+        let end_time: U64 = U64::from(1000);
+        let alice: AccountId = "alice.near".parse().unwrap();
+        let contract = Contract::init(end_time.clone(), alice.clone());
 
-        let posted_message = &contract.get_messages(None, None)[0];
-        assert_eq!(posted_message.premium, false);
-        assert_eq!(posted_message.text, "A message".to_string());
-    }
+        let default_bid = contract.get_highest_bid();
+        assert_eq!(default_bid.bidder, env::current_account_id());
+        assert_eq!(default_bid.bid, NearToken::from_yoctonear(1));
 
-    #[test]
-    fn iters_messages() {
-        let mut contract = Contract::default();
-        contract.add_message("1st message".to_string());
-        contract.add_message("2nd message".to_string());
-        contract.add_message("3rd message".to_string());
+        let auction_end_time = contract.get_auction_end_time();
+        assert_eq!(auction_end_time, end_time);
 
-        let total = &contract.total_messages();
-        assert!(*total == 3);
+        let auctioneer = contract.get_auctioneer();
+        assert_eq!(auctioneer, alice);
 
-        let last_message = &contract.get_messages(Some(U64::from(1)), Some(U64::from(2)))[1];
-        assert_eq!(last_message.premium, false);
-        assert_eq!(last_message.text, "3rd message".to_string());
+        let claimed = contract.get_claimed();
+        assert_eq!(claimed, false);
     }
 }
 ",
 ]
 `;
 
-exports[`create contract 'rs': --contract_rs--tests--sandbox.rs 1`] = `
+exports[`create contract 'rs': --contract_rs--tests--test_basics.rs 1`] = `
 [
-  "--contract_rs--tests--sandbox.rs",
-  "use near_sdk::near;
+  "--contract_rs--tests--test_basics.rs",
+  "use std::time::SystemTime;
+use near_sdk::near;
+use near_workspaces::types::{AccountId, Gas, NearToken};
 use serde_json::json;
-use near_workspaces::types::{NearToken, AccountId};
+
+#[near(serializers = [json])]
+#[derive(Clone)]
+pub struct Bid {
+    pub bidder: AccountId,
+    pub bid: NearToken,
+}
+
+const TEN_NEAR: NearToken = NearToken::from_near(10);
 
 #[tokio::test]
-async fn test_guestbook_contract() -> Result<(), Box<dyn std::error::Error>> {
+async fn test_contract_is_operational() -> Result<(), Box<dyn std::error::Error>> {
     let sandbox = near_workspaces::sandbox().await?;
+
+    let root = sandbox.root_account()?;
+
+    // Create accounts
+    let alice = create_subaccount(&root, "alice").await?;
+    let bob = create_subaccount(&root, "bob").await?;
+    let auctioneer = create_subaccount(&root, "auctioneer").await?;
+    let contract_account = create_subaccount(&root, "contract").await?;
+
+    // Deploy and initialize contract
     let contract_wasm = near_workspaces::compile_project("./").await?;
+    let contract = contract_account.deploy(&contract_wasm).await?.unwrap();
 
-    let contract = sandbox.dev_deploy(&contract_wasm).await?;
+    let now = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?.as_secs();
+    let a_minute_from_now = (now + 60) * 1000000000;
 
-    let alice_account = sandbox.dev_create_account().await?;
-    let bob_account = sandbox.dev_create_account().await?;
-
-    let alice_outcome = alice_account
-        .call(contract.id(), "add_message")
-        .args_json(json!({"text": "Hello World!"}))
-        .deposit(NearToken::from_near(0))
+    let init = contract
+        .call("init")
+        .args_json(json!({"end_time": a_minute_from_now.to_string(),"auctioneer":auctioneer.id()}))
         .transact()
         .await?;
 
-    assert!(alice_outcome.is_success());
+    assert!(init.is_success());
 
-    let bob_outcome = bob_account
-        .call(contract.id(), "add_message")
-        .args_json(json!({"text": "Hello Near!"}))
+    // Alice makes first bid
+    let alice_bid = alice
+        .call(contract.id(), "bid")
         .deposit(NearToken::from_near(1))
         .transact()
         .await?;
 
-    assert!(bob_outcome.is_success());
+    assert!(alice_bid.is_success());
 
-    #[derive(Debug, PartialEq)]
-    #[near(serializers = [json])]
-    struct PostedMessage {
-         premium: bool,
-         sender: AccountId,
-         text: String,
-    }
+    let highest_bid_json = contract.view("get_highest_bid").await?;
+    let highest_bid: Bid = highest_bid_json.json::<Bid>()?;
+    assert_eq!(highest_bid.bid, NearToken::from_near(1));
+    assert_eq!(highest_bid.bidder, *alice.id());
 
-    let messages_vec: Vec<PostedMessage> = contract.view("get_messages").args_json(json!({})).await?.json()?;
+    let alice_balance = alice.view_account().await?.balance;
 
-    assert_eq!(messages_vec, vec![
-        PostedMessage {
-            premium: false,
-            sender: alice_account.id().clone(),
-            text: "Hello World!".to_string(),
-        },
-        PostedMessage {
-            premium: true,
-            sender: bob_account.id().clone(),
-            text: "Hello Near!".to_string(),
-        },
-    ]);
+    // Bob makes a higher bid
+    let bob_bid = bob
+        .call(contract.id(), "bid")
+        .deposit(NearToken::from_near(2))
+        .transact()
+        .await?;
+
+    assert!(bob_bid.is_success());
+
+    let highest_bid_json = contract.view("get_highest_bid").await?;
+    let highest_bid: Bid = highest_bid_json.json::<Bid>()?;
+    assert_eq!(highest_bid.bid, NearToken::from_near(2));
+    assert_eq!(highest_bid.bidder, *bob.id());
+
+    // Check that Alice was returned her bid
+    let new_alice_balance = alice.view_account().await?.balance;
+    assert!(new_alice_balance == alice_balance.saturating_add(NearToken::from_near(1)));
+
+    // Alice tries to make a bid with less NEAR than the previous
+    let alice_bid = alice
+        .call(contract.id(), "bid")
+        .deposit(NearToken::from_near(1))
+        .transact()
+        .await?;
+
+    assert!(alice_bid.is_failure());
+
+    // Auctioneer claims auction but did not finish
+    let auctioneer_claim = auctioneer
+        .call(contract_account.id(), "claim")
+        .args_json(json!({}))
+        .gas(Gas::from_tgas(300))
+        .transact()
+        .await?;
+
+    assert!(auctioneer_claim.is_failure());
+
+    // Fast forward 200 blocks
+    let blocks_to_advance = 200;
+    sandbox.fast_forward(blocks_to_advance).await?;
+
+    // Auctioneer claims the auction
+    let auctioneer_claim = auctioneer
+        .call(contract_account.id(), "claim")
+        .args_json(json!({}))
+        .gas(Gas::from_tgas(300))
+        .transact()
+        .await?;
+
+    assert!(auctioneer_claim.is_success());
+
+    // Checks the auctioneer has the correct balance
+    let auctioneer_balance = auctioneer.view_account().await?.balance;
+    assert!(auctioneer_balance <= NearToken::from_near(12));
+    assert!(auctioneer_balance > NearToken::from_millinear(11990));
+
+    // Auctioneer tries to claim the auction again
+    let auctioneer_claim = auctioneer
+        .call(contract_account.id(), "claim")
+        .args_json(json!({}))
+        .gas(Gas::from_tgas(300))
+        .transact()
+        .await?;
+
+    assert!(auctioneer_claim.is_failure());
+
+    // Alice tries to make a bid when the auction is over
+    let alice_bid = alice
+        .call(contract.id(), "bid")
+        .deposit(NearToken::from_near(3))
+        .transact()
+        .await?;
+
+    assert!(alice_bid.is_failure());
 
     Ok(())
+}
+
+async fn create_subaccount(
+    root: &near_workspaces::Account,
+    name: &str,
+) -> Result<near_workspaces::Account, Box<dyn std::error::Error>> {
+    let subaccount = root
+        .create_subaccount(name)
+        .initial_balance(TEN_NEAR)
+        .transact()
+        .await?
+        .unwrap();
+
+    Ok(subaccount)
 }
 ",
 ]
@@ -346,87 +402,53 @@ async fn test_guestbook_contract() -> Result<(), Box<dyn std::error::Error>> {
 exports[`create contract 'ts': --contract_ts--README.md 1`] = `
 [
   "--contract_ts--README.md",
-  "# Guest Book Contract
+  "# Basic Auction Contract
 
-The smart contract stores messages from users. Messages can be \`premium\` if the user attaches sufficient money (0.1 $NEAR).
+This directory contains a JavaScript contract that is used as part of the [Basic Auction Tutorial](https://docs.near.org/tutorials/auction/basic-auction).
 
-\`\`\`ts
-this.messages = [];
+The contract is a simple auction where you can place bids, view the highest bid, and claim the tokens at the end of the auction.
 
-@call
-// Public - Adds a new message.
-add_message({ text }: { text: string }) {
-  // If the user attaches more than 0.1N the message is premium
-  const premium = near.attachedDeposit() >= BigInt(POINT_ONE);
-  const sender = near.predecessorAccountId();
+This repo showcases the basic anatomy of a contract including how to store data in a contract, how to update the state, and then how to view it. It also looks at how to use environment variables and macros. We have also written sandbox test the contract locally.
 
-  const message = new PostedMessage({premium, sender, text});
-  this.messages.push(message);
-}
-  
-@view
-// Returns an array of messages.
-get_messages({ fromIndex = 0, limit = 10 }: { fromIndex: number, limit: number }): PostedMessage[] {
-  return this.messages.slice(fromIndex, fromIndex + limit);
-}
+---
+
+## How to Build Locally?
+
+Install the [NEAR CLI](https://docs.near.org/tools/near-cli#installation) and run:
+
+Install the dependencies:
+
+\`\`\`bash
+npm install
 \`\`\`
 
-<br />
+Build the contract:
 
-# Quickstart
+\`\`\`bash
+npm run build
+\`\`\`
 
-1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
-2. Install the [\`NEAR CLI\`](https://github.com/near/near-cli#setup)
-
-<br />
-
-## 1. Build and Test the Contract
-You can automatically compile and test the contract by running:
+## How to Test Locally?
 
 \`\`\`bash
 npm run test
 \`\`\`
 
-<br />
+## How to Deploy?
 
-## 2. Create an Account and Deploy
-You can create a testnet account and deploy the contract by running:
-
-\`\`\`bash
-near create-account <your-account.testnet> --useFaucet
-near deploy <your-account.testnet> build/release/hello_near.wasm
-\`\`\`
-
-## 3. Retrieve the Stored Messages
-\`get_messages\` is a read-only method (\`view\` method) that returns a slice of the vector \`messages\`.
-
-\`View\` methods can be called for **free** by anyone, even people **without a NEAR account**!
+Install the [NEAR CLI](https://docs.near.org/tools/near-cli#installation) and run:
 
 \`\`\`bash
-near view <your-account.testnet> get_messages '{"from_index":0, "limit":10}'
-\`\`\`
+# Create a new account
+near create <contractId> --useFaucet
 
-<br />
+# Deploy the contract
+near deploy <contractId> ./build/auction-contract.wasm
 
-## 4. Add a Message
-\`add_message\` adds a message to the vector of \`messages\` and marks it as premium if the user attached more than \`0.1 NEAR\`.
-
-\`add_message\` is a payable method for which can only be invoked using a NEAR account. The account needs to attach money and pay GAS for the transaction.
-
-\`\`\`bash
-# Use near-cli to donate 1 NEAR
-near call <your-account.testnet> add_message '{"text": "a message"}' --amount 0.1 --accountId <your-account.testnet>
-\`\`\`
-
-**Tip:** If you would like to add a message another account, first login into NEAR using:
-
-\`\`\`bash
-# Use near-cli to login your NEAR account
-near login
-\`\`\`
-
-and then use the logged account to sign the transaction: \`--accountId <your-account.testnet>\`.
-",
+# Initialize the contract
+TWO_MINUTES_FROM_NOW=$(date -v+2M +%s000000000)
+near call <contractId> init '{"end_time": "'$TWO_MINUTES_FROM_NOW'", "auctioneer": "<auctioneerAccountId>"}' --accountId <contractId>
+\`\`\`",
 ]
 `;
 
@@ -434,13 +456,13 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
 [
   "--contract_ts--package.json",
   "{
-  "name": "guest_book",
-  "version": "2.0.0",
+  "name": "auction-contract",
+  "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/guest_book.wasm",
-    "test": "$npm_execpath run build && ava -- ./build/guest_book.wasm"
+    "build": "near-sdk-js build src/contract.ts build/auction-contract.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/auction-contract.wasm"
   },
   "dependencies": {
     "near-sdk-js": "2.0.0"
@@ -451,7 +473,7 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
     "typescript": "^5.4.5"
   },
   "ava": {
-    "timeout": "20000",
+    "timeout": "50000",
     "files": ["sandbox-test/*.ava.js"]
   }
 }
@@ -463,7 +485,7 @@ exports[`create contract 'ts': --contract_ts--sandbox-test--main.ava.js 1`] = `
 [
   "--contract_ts--sandbox-test--main.ava.js",
   "import anyTest from 'ava';
-import { Worker, NEAR } from 'near-workspaces';
+import { NEAR, Worker } from 'near-workspaces';
 import { setDefaultResultOrder } from 'dns'; setDefaultResultOrder('ipv4first'); // temp fix for node >v17
 
 /**
@@ -471,27 +493,30 @@ import { setDefaultResultOrder } from 'dns'; setDefaultResultOrder('ipv4first');
  *  @type {import('ava').TestFn<{worker: Worker, accounts: Record<string, NearAccount>}>}
  */
 const test = anyTest;
-
 test.beforeEach(async (t) => {
-  // Create sandbox, accounts, deploy contracts, etc.
+  // Init the worker and start a Sandbox server
   const worker = t.context.worker = await Worker.init();
 
-  // deploy contract
+  // Create accounts
   const root = worker.rootAccount;
 
-  // some test accounts
-  const alice = await root.createSubAccount("alice", {
-    initialBalance: NEAR.parse("30 N").toJSON(),
-  });
-  const contract = await root.createSubAccount("contract", {
-    initialBalance: NEAR.parse("30 N").toJSON(),
-  });
+  const alice = await root.createSubAccount("alice", { initialBalance: NEAR.parse("10 N").toString() });
+  const bob = await root.createSubAccount("bob", { initialBalance: NEAR.parse("10 N").toString() });
+  const auctioneer = await root.createSubAccount("auctioneer", { initialBalance: NEAR.parse("10 N").toString() });
+  const contract = await root.createSubAccount("contract", { initialBalance: NEAR.parse("10 N").toString() });
 
-  // Get wasm file path from package.json test script in folder above
+  // Deploy contract (input from package.json)
   await contract.deploy(process.argv[2]);
 
+  // Initialize contract, finishes in 1 minute
+  await contract.call(contract, "init", {
+    end_time: String((Date.now() + 60000) * 10 ** 6),
+    auctioneer: auctioneer.accountId,
+  });
+
   // Save state for test runs, it is unique for each test
-  t.context.accounts = { root, contract, alice };
+  t.context.worker = worker;
+  t.context.accounts = { alice, bob, contract, auctioneer };
 });
 
 test.afterEach.always(async (t) => {
@@ -501,96 +526,128 @@ test.afterEach.always(async (t) => {
   });
 });
 
-test("send one message and retrieve it", async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, "add_message", { text: "aloha" });
-  const msgs = await contract.view("get_messages");
-  const expectedMessagesResult = [
-    { premium: false, sender: root.accountId, text: "aloha" },
-  ];
-  t.deepEqual(msgs, expectedMessagesResult);
-});
+test("Test full contract", async (t) => {
+  const { alice, bob, auctioneer, contract } = t.context.accounts;
 
-test("send two messages and expect two total", async (t) => {
-  const { root, contract, alice } = t.context.accounts;
-  await root.call(contract, "add_message", { text: "aloha" });
-  await alice.call(contract, "add_message", { text: "hola" }, { attachedDeposit: NEAR.parse('1') });
+  // Alice makes first bid
+  await alice.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("1 N").toString() });
+  let highest_bid = await contract.view("get_highest_bid", {});
+  t.is(highest_bid.bidder, alice.accountId);
+  t.is(highest_bid.bid, NEAR.parse("1 N").toString());
+  const aliceBalance = await alice.balance();
 
-  const total_messages = await contract.view("total_messages");
-  t.is(total_messages, 2);
+  // Bob makes a higher bid
+  await bob.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("2 N").toString() });
+  highest_bid = await contract.view("get_highest_bid", {});
+  t.is(highest_bid.bidder, bob.accountId);
+  t.is(highest_bid.bid, NEAR.parse("2 N").toString());
 
-  const msgs = await contract.view("get_messages");
-  const expected = [
-    { premium: false, sender: root.accountId, text: "aloha" },
-    { premium: true, sender: alice.accountId, text: "hola" },
-  ];
+  // Check that alice was returned her bid
+  const aliceNewBalance = await alice.balance();
+  t.deepEqual(aliceNewBalance.available, aliceBalance.available.add(NEAR.parse("1 N")));
 
-  t.deepEqual(msgs, expected);
-});
-",
+  // Alice tires to make a bid with less NEAR than the previous 
+  await t.throwsAsync(alice.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("1 N").toString() }));
+
+  // Auctioneer claims auction but did not finish
+  await t.throwsAsync(auctioneer.call(contract, "claim", {}, { gas: "300000000000000" }));
+
+  // Fast forward 200 blocks
+  await t.context.worker.provider.fastForward(200)
+
+  const auctioneerBalance = await auctioneer.balance();
+  const available = parseFloat(auctioneerBalance.available.toHuman());
+
+  // Auctioneer claims the auction
+  await auctioneer.call(contract, "claim", {}, { gas: "300000000000000" });
+
+  // Checks that the auctioneer has the correct balance
+  const contractNewBalance = await auctioneer.balance();
+  const new_available = parseFloat(contractNewBalance.available.toHuman());
+  t.is(new_available.toFixed(1), (available + 2).toFixed(1));
+
+  // Auctioneer tries to claim the auction again
+  await t.throwsAsync(auctioneer.call(contract, "claim", {}, { gas: "300000000000000" }))
+
+  // Alice tries to make a bid when the auction is over
+  await t.throwsAsync(alice.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("1 N").toString() }));
+});",
 ]
 `;
 
 exports[`create contract 'ts': --contract_ts--src--contract.ts 1`] = `
 [
   "--contract_ts--src--contract.ts",
-  "import { NearBindgen, near, call, view, Vector } from 'near-sdk-js'
-import { POINT_ONE, PostedMessage } from './model'
+  "// Find all our documentation at https://docs.near.org
+import { NearBindgen, near, call, view, AccountId, NearPromise, initialize, assert } from "near-sdk-js";
 
-@NearBindgen({})
-class GuestBook {
-  messages: Vector<PostedMessage> = new Vector<PostedMessage>("v-uid");
+class Bid {
+  bidder: AccountId;
+  bid: bigint;
+}
 
-  static schema = {
-    'messages': { class: Vector, value: PostedMessage }
+@NearBindgen({ requireInit: true })
+class AuctionContract {
+  highest_bid: Bid = { bidder: '', bid: BigInt(0) };
+  auction_end_time: bigint = BigInt(0);
+  auctioneer: AccountId = "";
+  claimed: boolean = false;
+
+  @initialize({ privateFunction: true })
+  init({ end_time, auctioneer}: { end_time: bigint, auctioneer: AccountId}) {
+    this.auction_end_time = end_time;
+    this.highest_bid = { bidder: near.currentAccountId(), bid: BigInt(1) };
+    this.auctioneer = auctioneer;
   }
 
   @call({ payableFunction: true })
-  // Public - Adds a new message.
-  add_message({ text }: { text: string }) {
-    // If the user attaches more than 0.1N the message is premium
-    const premium = near.attachedDeposit() >= BigInt(POINT_ONE);
-    const sender = near.predecessorAccountId();
+  bid(): NearPromise {
+    // Assert the auction is still ongoing
+    assert(this.auction_end_time > near.blockTimestamp(), "Auction has ended");
 
-    const message = new PostedMessage(premium, sender, text);
-    this.messages.push(message);
+    // Current bid
+    const bid = near.attachedDeposit();
+    const bidder = near.predecessorAccountId();
+
+    // Last bid
+    const { bidder: lastBidder, bid: lastBid } = this.highest_bid;
+
+    // Check if the deposit is higher than the current bid
+    assert(bid > lastBid, "You must place a higher bid");
+
+    // Update the highest bid
+    this.highest_bid = { bidder, bid }; // Save the new bid
+
+    // Transfer tokens back to the last bidder
+    return NearPromise.new(lastBidder).transfer(lastBid);
+  }
+
+  @call({})
+  claim() {
+    assert(this.auction_end_time <= near.blockTimestamp(), "Auction has not ended yet");
+    assert(!this.claimed, "Auction has been claimed");
+    this.claimed = true;
+    return NearPromise.new(this.auctioneer).transfer(this.highest_bid.bid)
   }
 
   @view({})
-  // Returns an array of messages.
-  get_messages({ from_index = 0, limit = 10 }: { from_index: number, limit: number }): PostedMessage[] {
-    return this.messages.toArray().slice(from_index, from_index + limit);
+  get_highest_bid(): Bid {
+    return this.highest_bid;
   }
 
   @view({})
-  total_messages(): number { return this.messages.length }
-}
-",
-]
-`;
-
-exports[`create contract 'ts': --contract_ts--src--model.ts 1`] = `
-[
-  "--contract_ts--src--model.ts",
-  "import { near } from "near-sdk-js";
-
-export const POINT_ONE = '100000000000000000000000';
-
-export class PostedMessage {
-  static schema = {
-    'premium': 'boolean',
-    'sender': 'string',
-    'text': 'string',
+  get_auction_end_time(): BigInt {
+    return this.auction_end_time;
   }
 
-  premium: boolean;
-  sender: string;
-  text: string;
+  @view({})
+  get_auctioneer(): AccountId {
+    return this.auctioneer;
+  }
 
-  constructor(premium: boolean, sender: string, text: string) {
-    this.premium = premium;
-    this.sender = sender;
-    this.text = text;
+  @view({})
+  get_claimed(): boolean {
+    return this.claimed;
   }
 }",
 ]

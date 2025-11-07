@@ -17,7 +17,7 @@ scaffold () {
   if [ "$1" = "none" ]; then
     if ! node "${app_dir}/index.js" "${1}_${2}" --contract $1 --frontend $2 --install ; then exit 42; fi
   else
-    if ! node "${app_dir}/index.js" "${1}_${2}" --contract $1 --frontend $2 --template guest-book --install ; then exit 42; fi
+    if ! node "${app_dir}/index.js" "${1}_${2}" --contract $1 --frontend $2 --template auction --install ; then exit 42; fi
   fi
 }
 

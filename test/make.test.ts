@@ -6,7 +6,7 @@ import { Contract, Frontend, Template } from '../src/types';
 
 describe('create contract', () => {
   const contracts: Contract[] = ['ts', 'rs'];
-  const template: Template = 'guest-book';
+  const template: Template = 'auction';
 
   const ts = Date.now();
   test.each(contracts)('%o', async (contract: Contract) => {
@@ -50,7 +50,7 @@ describe('create contract', () => {
 
 describe('create frontend', () => {
   const frontends: Frontend[] = ['next-app', 'next-page', 'vite-react'];
-  const template: Template = 'guest-book';
+  const template: Template = 'auction';
 
   const ts = Date.now();
   test.each(frontends)('%o', async (frontend: Frontend) => {
