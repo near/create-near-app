@@ -2,6 +2,8 @@ import {
   App,
   Contract,
   CONTRACTS,
+  Template,
+  TEMPLATES,
   Frontend,
   FRONTENDS,
   ProjectName,
@@ -17,8 +19,9 @@ import fs from 'fs';
 export async function getUserArgs(): Promise<UserConfig> {
   program
     .argument('[projectName]')
-    .option('--frontend [next-page|next-app|none]')
+    .option('--frontend [next-page|next-app|vite-react|none]')
     .option('--contract [ts|rs|none]')
+    .option('--template [auction-adv|auction]')
     .option('--install')
     .addHelpText('after', 'You can create a frontend or a contract with tests');
 
@@ -26,8 +29,8 @@ export async function getUserArgs(): Promise<UserConfig> {
 
   const options = program.opts();
   const [projectName] = program.args;
-  const { contract, frontend, install } = options;
-  return { contract, frontend, projectName, install, error: undefined };
+  const { contract, frontend, template, install } = options;
+  return { contract, frontend, template, projectName, install, error: undefined };
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
@@ -38,10 +41,15 @@ const appChoices: Choices<App> = [
     title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
   },
 ];
+
+const templateChoices: Choices<Template> = [
+  { title: 'Auction', description: 'A simple auction smart contract', value: 'auction' },
+  { title: 'Auction (advance)', description: 'An auction contract were users can bid with FT and the winner gets a NFT', value: 'auction-adv' },
+];
+
 const contractChoices: Choices<Contract> = [
-  { title: 'JS/TS Contract', description: 'A Near contract written in javascript/typescript', value: 'ts' },
+  { title: 'TS Contract', description: 'A Near contract written in typescript', value: 'ts' },
   { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs' },
-  { title: 'Python Contract', description: 'A Near contract written in Python', value: 'py' },
 ];
 
 const frontendChoices: Choices<Frontend> = [
@@ -57,6 +65,13 @@ const appPrompt: PromptObject = {
   choices: appChoices,
 };
 
+const templatePrompt: PromptObject = {
+  type: 'select',
+  name: 'template',
+  message: 'Select a contract template',
+  choices: templateChoices,
+};
+
 const frontendPrompt: PromptObject = {
   type: 'select',
   name: 'frontend',
@@ -68,7 +83,7 @@ const contractPrompt: PromptObject[] = [
   {
     type: 'select',
     name: 'contract',
-    message: 'Select a smart contract template for your project',
+    message: 'Select a language for your contract',
     choices: contractChoices,
   }
 ];
@@ -106,12 +121,13 @@ export async function getUserAnswers(): Promise<UserConfig> {
       return { frontend: 'none', contract: 'none', projectName: '', install: false, error: show.windowsWarning };
     }
 
-    // If contract, ask for the language for the contract
+    // If contract, ask for the template and language
+    const { template } = await promptUser(templatePrompt);
     let { contract } = await promptUser(contractPrompt);
 
     const { projectName } = await promptUser(namePrompts);
     const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
-    return { frontend: 'none', contract, projectName, install, error: undefined };
+    return { frontend: 'none', contract, template, projectName, install, error: undefined };
   }
 }
 
@@ -164,6 +180,11 @@ const validateUserArgs = (args: UserConfig) => {
     return false;
   }
 
+  if (args.template && !TEMPLATES.includes(args.template)) {
+    show.argsError(`Invalid template type: ${args.template}`);
+    return false;
+  }
+
   if (!args.projectName) {
     show.argsError('Please provide a project name');
     return false;
@@ -171,6 +192,11 @@ const validateUserArgs = (args: UserConfig) => {
 
   if ((args.contract === 'none') === (args.frontend === 'none')) {
     show.argsError('Please create a contract OR a frontend');
+    return false;
+  }
+
+  if (args.contract !== 'none' && !args.template) {
+    show.argsError('Please specify a template for your contract');
     return false;
   }
 
