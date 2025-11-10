@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { Navigation } from "@/components/navigation";
 import Home from "@/pages/home";
 import HelloNear from "@/pages/hello_near";
+import { NearProvider } from "@/hooks/useNear";
 
 
 function App () {
   return (
+    <NearProvider>
       <BrowserRouter>
         <Navigation />
         <Routes>
@@ -14,6 +16,7 @@ function App () {
           <Route path="/hello-near" element={<HelloNear />} />
         </Routes>
       </BrowserRouter>
+    </NearProvider>
   );
 };
 
