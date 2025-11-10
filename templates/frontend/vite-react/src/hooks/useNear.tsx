@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import { JsonRpcProvider } from "@near-js/providers";
-import type { NearConnector, NearWalletBase } from "@hot-labs/near-connect";
+import { NearConnector, type NearWalletBase } from "@hot-labs/near-connect";
 
 interface ViewFunctionParams {
   contractId: string;
@@ -35,36 +35,24 @@ interface NearContextValue {
 
 const NearContext = createContext<NearContextValue | undefined>(undefined);
 
+let connector: NearConnector;
 
 const provider = new JsonRpcProvider({ url: "https://test.rpc.fastnear.com" });
 
+if (typeof window !== "undefined") {
+  connector = new NearConnector({ network: "mainnet" })
+}
+
 export function NearProvider({ children }: { children: ReactNode }) {
-  const [connector, setConnector] = useState<NearConnector | null>(null)
   const [wallet, setWallet] = useState<NearWalletBase | undefined>(undefined);
   const [signedAccountId, setSignedAccountId] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    let isSubscribed = true;
-
     async function initializeConnector() {
-      const { NearConnector } = await import("@hot-labs/near-connect");
-      const newConnector = new NearConnector({ network: "testnet",walletConnect: {
-        projectId: "0a18fbf67d13fc647805fd87d2ccdb46",
-        metadata: {
-          name: "Example App",
-          description: "Example App",
-          url: "https://example.com",
-          icons: ["/favicon.ico"],
-        },
-      },});
+      const connectedWallet = await connector.getConnectedWallet().catch(() => null);
 
-      if (!isSubscribed) return;
-
-      const connectedWallet = await newConnector.getConnectedWallet().catch(() => null);
-      if (connectedWallet && isSubscribed) {
+      if (connectedWallet) {
         setWallet(connectedWallet.wallet);
         setSignedAccountId(connectedWallet.accounts[0].accountId);
       }
@@ -80,25 +68,21 @@ export function NearProvider({ children }: { children: ReactNode }) {
         setSignedAccountId(accounts[0]?.accountId || "");
       };
 
-      newConnector.on("wallet:signOut", onSignOut);
-      newConnector.on("wallet:signIn", onSignIn);
+      connector.on("wallet:signOut", onSignOut);
+      connector.on("wallet:signIn", onSignIn);
 
-      if (isSubscribed) {
-        setConnector(newConnector);
-        setLoading(false);
-      }
+      setLoading(false);
     }
 
     initializeConnector();
 
     return () => {
-      isSubscribed = false;
       if (connector) {
         connector.removeAllListeners("wallet:signOut");
         connector.removeAllListeners("wallet:signIn");
       }
     };
-  }, []); 
+  }, []);
 
   async function signIn() {
     if (!connector) return;
@@ -135,7 +119,8 @@ export function NearProvider({ children }: { children: ReactNode }) {
     gas = "30000000000000",
     deposit = "0",
   }: FunctionCallParams) {
-    if (!wallet) throw new Error("Wallet not connected");
+
+    const wallet = await connector.wallet()
 
     return wallet.signAndSendTransactions({
       transactions: [
@@ -172,7 +157,7 @@ export function NearProvider({ children }: { children: ReactNode }) {
   return <NearContext.Provider value={value}>{children}</NearContext.Provider>;
 }
 
-export function useNear() {
+export function useNearWallet() {
   const context = useContext(NearContext);
   if (context === undefined) {
     throw new Error("useNear must be used within a NearProvider");

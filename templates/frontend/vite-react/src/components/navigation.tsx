@@ -1,10 +1,10 @@
 import { Link } from 'react-router'
 import NearLogo from '@/assets/near-logo.svg';
 import styles from '@/styles/app.module.css';
-import { useNear } from "@/hooks/useNear";
+import { useNearWallet } from "@/hooks/useNear";
 
 export const Navigation = () => {
- const { signedAccountId, loading, signIn, signOut } = useNear();
+ const { signedAccountId, loading, signIn, signOut } = useNearWallet();
 
   const handleAction = () => {
     if (signedAccountId) {

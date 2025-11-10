@@ -23,14 +23,14 @@ describe('create contract', () => {
       projectPath,
     });
     await new Promise<void>((resolve, reject) => {
-      const allContent = [];
+      const allContent: string[] = [];
       dir.readFiles(projectPath,
         { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store', '.github', '.git'] },
         function (err, content, next) {
           if (err) {
             reject(err);
           }
-          allContent.push(content);
+          allContent.push(content as string);
           next();
         },
         function (err, files) {
@@ -67,14 +67,14 @@ describe('create frontend', () => {
       projectPath,
     });
     await new Promise<void>((resolve, reject) => {
-      const allContent = [];
+      const allContent: string[] = [];
       dir.readFiles(projectPath,
         { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store'] },
         function (err, content, next) {
           if (err) {
             reject(err);
           }
-          allContent.push(content);
+          allContent.push(content as string);
           next();
         },
         function (err, files) {

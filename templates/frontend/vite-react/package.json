@@ -9,23 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hot-labs/near-connect": "^0.6.8",
-    "@near-js/crypto": "^2.5.1",
+    "@hot-labs/near-connect": "0.6.8",
     "@near-js/providers": "^2.5.1",
-    "@near-js/transactions": "^2.5.1",
-    "@near-js/utils": "^2.5.1",
-    "@walletconnect/sign-client": "^2.23.0",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^6.5.1",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19",
+    "react-dom": "^19",
     "react-router": "^7"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",

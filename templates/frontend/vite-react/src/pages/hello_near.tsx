@@ -3,7 +3,7 @@ import { Cards } from '@/components/cards';
 import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '@/config';
-import { useNear } from "@/hooks/useNear";
+import { useNearWallet } from "@/hooks/useNear";
 
 interface useNearHook {
   signedAccountId: string | null;
@@ -15,7 +15,7 @@ interface useNearHook {
 const CONTRACT = HelloNearContract as string;
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useNear() as useNearHook;
+  const { signedAccountId, viewFunction, callFunction } = useNearWallet() as useNearHook;
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState<string>('loading...');

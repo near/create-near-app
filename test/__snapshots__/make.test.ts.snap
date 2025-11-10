@@ -778,34 +778,18 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/bitget-wallet": "9.5.4",
-    "@near-wallet-selector/coin98-wallet": "9.5.4",
-    "@near-wallet-selector/core": "9.5.4",
-    "@near-wallet-selector/ethereum-wallets": "9.5.4",
-    "@near-wallet-selector/hot-wallet": "9.5.4",
-    "@near-wallet-selector/intear-wallet": "9.5.4",
-    "@near-wallet-selector/ledger": "9.5.4",
-    "@near-wallet-selector/math-wallet": "9.5.4",
-    "@near-wallet-selector/meteor-wallet": "9.5.4",
-    "@near-wallet-selector/meteor-wallet-app": "9.5.4",
-    "@near-wallet-selector/modal-ui": "9.5.4",
-    "@near-wallet-selector/near-mobile-wallet": "9.5.4",
-    "@near-wallet-selector/okx-wallet": "9.5.4",
-    "@near-wallet-selector/ramper-wallet": "9.5.4",
-    "@near-wallet-selector/react-hook": "9.5.4",
-    "@near-wallet-selector/sender": "9.5.4",
-    "@near-wallet-selector/unity-wallet": "9.5.4",
-    "@near-wallet-selector/welldone-wallet": "9.5.4",
-    "@reown/appkit": "^1.7.7",
-    "@reown/appkit-adapter-wagmi": "^1.7.7",
-    "@wagmi/core": "^2.17.2",
+    "@hot-labs/near-connect": "^0.6.8",
+    "@near-js/crypto": "^2.5.1",
+    "@near-js/providers": "^2.5.1",
+    "@near-js/transactions": "^2.5.1",
+    "@near-js/utils": "^2.5.1",
+    "@walletconnect/sign-client": "^2.23.0",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^5.0.0",
+    "near-api-js": "^6.5.1",
     "next": "^15",
     "react": "^18",
-    "react-dom": "^18",
-    "viem": "^2.30.5"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^24.7.0",
@@ -816,10 +800,6 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "eslint-config-next": "^15",
     "pino-pretty": "^11.2.2",
     "typescript": "^5.9.3"
-  },
-  "overrides": {
-    "@wagmi/core": "^2.17.2",
-    "viem": "^2.30.5"
   }
 }
 ",
@@ -1255,13 +1235,13 @@ import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
 
 import { HelloNearContract } from '@/config';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNear } from "@/hooks/useNear";
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
+  const { signedAccountId, viewFunction, callFunction } = useNear();
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState('loading...');
@@ -1332,67 +1312,12 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--layout.tsx 1
 [
   "--frontend_next-app--src--app--layout.tsx",
   "'use client';
-
 import '@/app/globals.css';
-import '@near-wallet-selector/modal-ui/styles.css';
 
 import { Navigation } from '@/components/navigation';
-import { HelloNearContract, NetworkId } from '@/config';
-import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
+import { NearProvider } from '@/hooks/useNear';
 
 import { ReactNode } from 'react';
-
-// Wallet setups
-import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
-import { setupMeteorWalletApp } from "@near-wallet-selector/meteor-wallet-app";
-import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
-import { setupHotWallet } from "@near-wallet-selector/hot-wallet";
-import { setupLedger } from "@near-wallet-selector/ledger";
-import { setupSender } from "@near-wallet-selector/sender";
-import { setupNearMobileWallet } from "@near-wallet-selector/near-mobile-wallet";
-import { setupWelldoneWallet } from "@near-wallet-selector/welldone-wallet";
-import { setupMathWallet } from "@near-wallet-selector/math-wallet";
-import { setupBitgetWallet } from "@near-wallet-selector/bitget-wallet";
-import { setupRamperWallet } from "@near-wallet-selector/ramper-wallet";
-import { setupUnityWallet } from "@near-wallet-selector/unity-wallet";
-import { setupOKXWallet } from "@near-wallet-selector/okx-wallet";
-import { setupCoin98Wallet } from "@near-wallet-selector/coin98-wallet";
-import { setupIntearWallet } from "@near-wallet-selector/intear-wallet";
-
-// Ethereum adapters
-import { wagmiAdapter, web3Modal } from '@/wallets/web3modal';
-
-// Types
-import type { WalletModuleFactory, Network, WalletSelectorParams } from "@near-wallet-selector/core";
-
-const walletSelectorConfig: WalletSelectorParams = {
-  network: NetworkId as unknown as Network,
-  modules: [
-    setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({ contractId: HelloNearContract }),
-    setupHotWallet(),
-    setupLedger(),
-    setupSender(),
-    setupNearMobileWallet(),
-    setupWelldoneWallet(),
-    setupMathWallet(),
-    setupBitgetWallet(),
-    setupRamperWallet(),
-    setupUnityWallet({ 
-        projectId: "your-project-id",
-        metadata: {
-          name: "Hello NEAR",
-          description: "Hello NEAR Example",
-          url: "https://near.org",
-          icons: ["https://near.org/favicon.ico"],
-          }
-        }),
-    setupOKXWallet(),
-    setupCoin98Wallet(),
-    setupIntearWallet(),  
-    ] as WalletModuleFactory[]
-    };
 
 // Layout Component
 interface RootLayoutProps {
@@ -1403,10 +1328,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <WalletSelectorProvider config={walletSelectorConfig}>
+        <NearProvider>
           <Navigation />
           {children}
-        </WalletSelectorProvider>
+        </NearProvider>
       </body>
     </html>
   );
@@ -1496,31 +1421,31 @@ exports[`create frontend 'next-app': --frontend_next-app--src--components--navig
   "--frontend_next-app--src--components--navigation.tsx",
   "import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNear } from "@/hooks/useNear";
 
 import NearLogo from '../../public/near-logo.svg';
 
 export const Navigation = () => {
-  // Type the action as a function that returns void
-  const [action, setAction] = useState<() => void>(() => () => {});
-  const [label, setLabel] = useState<string>('Loading...');
-  const { signedAccountId, signIn, signOut } = useWalletSelector();
+   const { signedAccountId, loading, signIn, signOut } = useNear();
 
-  useEffect(() => {
+  const handleAction = () => {
     if (signedAccountId) {
-      setAction(() => signOut);
-      setLabel(\`Logout \${signedAccountId}\`);
+      signOut();
     } else {
-      setAction(() => signIn);
-      setLabel('Login');
+      signIn();
     }
-  }, [signedAccountId, signIn, signOut]);
+  };
+
+  const label = loading
+    ? "Loading..."
+    : signedAccountId
+    ? \`Logout \${signedAccountId}\`
+    : "Login";
 
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <Link href="/" passHref>
+        <Link href="/">
           <Image
             priority
             src={NearLogo}
@@ -1531,7 +1456,7 @@ export const Navigation = () => {
           />
         </Link>
         <div className="navbar-nav pt-1">
-          <button className="btn btn-secondary" onClick={action}>
+          <button className="btn btn-secondary" onClick={handleAction}>
             {label}
           </button>
         </div>
@@ -1555,36 +1480,183 @@ export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
-exports[`create frontend 'next-app': --frontend_next-app--src--wallets--web3modal.ts 1`] = `
+exports[`create frontend 'next-app': --frontend_next-app--src--hooks--useNear.tsx 1`] = `
 [
-  "--frontend_next-app--src--wallets--web3modal.ts",
-  "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { createAppKit } from "@reown/appkit/react";
-import { nearTestnet } from "@reown/appkit/networks";
+  "--frontend_next-app--src--hooks--useNear.tsx",
+  "import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react';
+import { JsonRpcProvider } from '@near-js/providers';
+import type { NearConnector, NearWalletBase } from '@hot-labs/near-connect';
 
-// Get a project ID at https://cloud.reown.com
-const projectId = "30147604c5f01d0bc4482ab0665b5697";
+interface ViewFunctionParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
+}
 
-export const wagmiAdapter = new WagmiAdapter({
-  projectId,
-  networks: [nearTestnet],
-});
+interface FunctionCallParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
+  gas?: string;
+  deposit?: string;
+}
 
-export const web3Modal = createAppKit({
-  adapters: [wagmiAdapter],
-  projectId,
-  networks: [nearTestnet],
-  enableWalletConnect: true,
-  features: {
-    analytics: true,
-    swaps: false,
-    onramp: false,
-    email: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-    socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-  },
-  coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-  allWallets: "SHOW",
-});
+interface NearContextValue {
+  signedAccountId: string;
+  wallet: NearWalletBase | undefined;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+  loading: boolean;
+  viewFunction: (params: ViewFunctionParams) => Promise<any>;
+  callFunction: (params: FunctionCallParams) => Promise<any>;
+  provider: JsonRpcProvider;
+}
+
+const NearContext = createContext<NearContextValue | undefined>(undefined);
+
+const provider = new JsonRpcProvider({ url: 'https://test.rpc.fastnear.com' });
+
+export function NearProvider({ children }: { children: ReactNode }) {
+  const [connector, setConnector] = useState<NearConnector | null>(null);
+  const [wallet, setWallet] = useState<NearWalletBase | undefined>(undefined);
+  const [signedAccountId, setSignedAccountId] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let isSubscribed = true;
+
+    async function initializeConnector() {
+      const { NearConnector } = await import('@hot-labs/near-connect');
+      const newConnector = new NearConnector({ network: 'testnet' });
+
+      if (!isSubscribed) return;
+
+      const connectedWallet = await newConnector
+        .getConnectedWallet()
+        .catch(() => null);
+      if (connectedWallet && isSubscribed) {
+        setWallet(connectedWallet.wallet);
+        setSignedAccountId(connectedWallet.accounts[0].accountId);
+      }
+
+      const onSignOut = () => {
+        setWallet(undefined);
+        setSignedAccountId('');
+      };
+
+      const onSignIn = async (payload: { wallet: NearWalletBase }) => {
+        setWallet(payload.wallet);
+        const accounts = await payload.wallet.getAccounts();
+        setSignedAccountId(accounts[0]?.accountId || '');
+      };
+
+      newConnector.on('wallet:signOut', onSignOut);
+      newConnector.on('wallet:signIn', onSignIn);
+
+      if (isSubscribed) {
+        setConnector(newConnector);
+        setLoading(false);
+      }
+    }
+
+    initializeConnector();
+
+    return () => {
+      isSubscribed = false;
+      if (connector) {
+        connector.removeAllListeners('wallet:signOut');
+        connector.removeAllListeners('wallet:signIn');
+      }
+    };
+  }, []);
+
+  async function signIn() {
+    if (!connector) return;
+    const wallet = await connector.connect();
+    console.log('Connected wallet', wallet);
+    if (wallet) {
+      setWallet(wallet);
+      const accounts = await wallet.getAccounts();
+      setSignedAccountId(accounts[0]?.accountId || '');
+    }
+  }
+
+  async function signOut() {
+    if (!connector || !wallet) return;
+    await connector.disconnect(wallet);
+    console.log('Disconnected wallet');
+
+    setWallet(undefined);
+    setSignedAccountId('');
+  }
+
+  async function viewFunction({
+    contractId,
+    method,
+    args = {},
+  }: ViewFunctionParams) {
+    return provider.callFunction(contractId, method, args);
+  }
+
+  async function callFunction({
+    contractId,
+    method,
+    args = {},
+    gas = '30000000000000',
+    deposit = '0',
+  }: FunctionCallParams) {
+    if (!wallet) throw new Error('Wallet not connected');
+
+    return wallet.signAndSendTransactions({
+      transactions: [
+        {
+          signerId: signedAccountId,
+          receiverId: contractId,
+          actions: [
+            {
+              type: 'FunctionCall',
+              params: {
+                methodName: method,
+                args,
+                gas,
+                deposit,
+              },
+            },
+          ],
+        },
+      ],
+    });
+  }
+
+  const value: NearContextValue = {
+    signedAccountId,
+    wallet,
+    signIn,
+    signOut,
+    loading,
+    viewFunction,
+    callFunction,
+    provider,
+  };
+
+  return <NearContext.Provider value={value}>{children}</NearContext.Provider>;
+}
+
+export function useNear() {
+  const context = useContext(NearContext);
+  if (context === undefined) {
+    throw new Error('useNear must be used within a NearProvider');
+  }
+  return context;
+}
 ",
 ]
 `;
@@ -1754,36 +1826,21 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "@near-wallet-selector/bitget-wallet": "9.5.4",
-    "@near-wallet-selector/coin98-wallet": "9.5.4",
-    "@near-wallet-selector/core": "9.5.4",
-    "@near-wallet-selector/ethereum-wallets": "9.5.4",
-    "@near-wallet-selector/hot-wallet": "9.5.4",
-    "@near-wallet-selector/intear-wallet": "9.5.4",
-    "@near-wallet-selector/ledger": "9.5.4",
-    "@near-wallet-selector/math-wallet": "9.5.4",
-    "@near-wallet-selector/meteor-wallet": "9.5.4",
-    "@near-wallet-selector/meteor-wallet-app": "9.5.4",
-    "@near-wallet-selector/modal-ui": "9.5.4",
-    "@near-wallet-selector/near-mobile-wallet": "9.5.4",
-    "@near-wallet-selector/okx-wallet": "9.5.4",
-    "@near-wallet-selector/ramper-wallet": "9.5.4",
-    "@near-wallet-selector/react-hook": "9.5.4",
-    "@near-wallet-selector/sender": "9.5.4",
-    "@near-wallet-selector/unity-wallet": "9.5.4",
-    "@near-wallet-selector/welldone-wallet": "9.5.4",
-    "@reown/appkit": "^1.7.7",
-    "@reown/appkit-adapter-wagmi": "^1.7.7",
-    "@wagmi/core": "^2.17.2",
+    "@hot-labs/near-connect": "^0.6.8",
+    "@near-js/crypto": "^2.5.1",
+    "@near-js/providers": "^2.5.1",
+    "@near-js/transactions": "^2.5.1",
+    "@near-js/utils": "^2.5.1",
+    "@walletconnect/sign-client": "^2.23.0",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^5.0.0",
+    "near-api-js": "^6.5.1",
     "next": "^15",
     "react": "^18",
-    "react-dom": "^18",
-    "viem": "^2.30.5"
+    "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/node": "24.8.1",
     "@types/react": "^18.3.26",
     "@types/react-dom": "^18.3.7",
     "encoding": "^0.1.13",
@@ -1924,31 +1981,31 @@ exports[`create frontend 'next-page': --frontend_next-page--src--components--nav
   "--frontend_next-page--src--components--navigation.tsx",
   "import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNear } from "@/hooks/useNear";
 
 import NearLogo from '../../public/near-logo.svg';
 
 export const Navigation = () => {
-  // Type the action as a function that returns void
-  const [action, setAction] = useState<() => void>(() => () => {});
-  const [label, setLabel] = useState<string>('Loading...');
-  const { signedAccountId, signIn, signOut } = useWalletSelector();
+   const { signedAccountId, loading, signIn, signOut } = useNear();
 
-  useEffect(() => {
+  const handleAction = () => {
     if (signedAccountId) {
-      setAction(() => signOut);
-      setLabel(\`Logout \${signedAccountId}\`);
+      signOut();
     } else {
-      setAction(() => signIn);
-      setLabel('Login');
+      signIn();
     }
-  }, [signedAccountId, signIn, signOut]);
+  };
+
+  const label = loading
+    ? "Loading..."
+    : signedAccountId
+    ? \`Logout \${signedAccountId}\`
+    : "Login";
 
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <Link href="/" passHref legacyBehavior>
+        <Link href="/">
           <Image
             priority
             src={NearLogo}
@@ -1959,7 +2016,7 @@ export const Navigation = () => {
           />
         </Link>
         <div className="navbar-nav pt-1">
-          <button className="btn btn-secondary" onClick={action}>
+          <button className="btn btn-secondary" onClick={handleAction}>
             {label}
           </button>
         </div>
@@ -1983,75 +2040,201 @@ export const HelloNearContract = contractPerNetwork[NetworkId];",
 ]
 `;
 
+exports[`create frontend 'next-page': --frontend_next-page--src--hooks--useNear.tsx 1`] = `
+[
+  "--frontend_next-page--src--hooks--useNear.tsx",
+  "import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
+import { JsonRpcProvider } from "@near-js/providers";
+import type { NearConnector, NearWalletBase } from "@hot-labs/near-connect";
+
+interface ViewFunctionParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
+}
+
+interface FunctionCallParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
+  gas?: string;
+  deposit?: string;
+}
+
+interface NearContextValue {
+  signedAccountId: string;
+  wallet: NearWalletBase | undefined;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+  loading: boolean;
+  viewFunction: (params: ViewFunctionParams) => Promise<any>;
+  callFunction: (params: FunctionCallParams) => Promise<any>;
+  provider: JsonRpcProvider;
+}
+
+const NearContext = createContext<NearContextValue | undefined>(undefined);
+
+
+const provider = new JsonRpcProvider({ url: "https://test.rpc.fastnear.com" });
+
+export function NearProvider({ children }: { children: ReactNode }) {
+  const [connector, setConnector] = useState<NearConnector | null>(null)
+  const [wallet, setWallet] = useState<NearWalletBase | undefined>(undefined);
+  const [signedAccountId, setSignedAccountId] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let isSubscribed = true;
+
+    async function initializeConnector() {
+      const { NearConnector } = await import("@hot-labs/near-connect");
+      const newConnector = new NearConnector({ network: "testnet" });
+
+      if (!isSubscribed) return;
+
+      const connectedWallet = await newConnector.getConnectedWallet().catch(() => null);
+      if (connectedWallet && isSubscribed) {
+        setWallet(connectedWallet.wallet);
+        setSignedAccountId(connectedWallet.accounts[0].accountId);
+      }
+
+      const onSignOut = () => {
+        setWallet(undefined);
+        setSignedAccountId("");
+      };
+
+      const onSignIn = async (payload: { wallet: NearWalletBase }) => {
+        setWallet(payload.wallet);
+        const accounts = await payload.wallet.getAccounts();
+        setSignedAccountId(accounts[0]?.accountId || "");
+      };
+
+      newConnector.on("wallet:signOut", onSignOut);
+      newConnector.on("wallet:signIn", onSignIn);
+
+      if (isSubscribed) {
+        setConnector(newConnector);
+        setLoading(false);
+      }
+    }
+
+    initializeConnector();
+
+    return () => {
+      isSubscribed = false;
+      if (connector) {
+        connector.removeAllListeners("wallet:signOut");
+        connector.removeAllListeners("wallet:signIn");
+      }
+    };
+  }, []); 
+
+  async function signIn() {
+    if (!connector) return;
+    const wallet = await connector.connect();
+    console.log("Connected wallet", wallet);
+    if (wallet) {
+      setWallet(wallet);
+      const accounts = await wallet.getAccounts();
+      setSignedAccountId(accounts[0]?.accountId || "");
+    }
+  }
+
+  async function signOut() {
+    if (!connector || !wallet) return;
+    await connector.disconnect(wallet);
+    console.log("Disconnected wallet");
+
+    setWallet(undefined);
+    setSignedAccountId("");
+  }
+
+  async function viewFunction({
+    contractId,
+    method,
+    args = {},
+  }: ViewFunctionParams) {
+    return provider.callFunction(contractId, method, args);
+  }
+
+  async function callFunction({
+    contractId,
+    method,
+    args = {},
+    gas = "30000000000000",
+    deposit = "0",
+  }: FunctionCallParams) {
+    if (!wallet) throw new Error("Wallet not connected");
+
+    return wallet.signAndSendTransactions({
+      transactions: [
+        {
+          signerId: signedAccountId,
+          receiverId: contractId,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: method,
+                args,
+                gas,
+                deposit,
+              },
+            },
+          ],
+        },
+      ],
+    });
+  }
+
+  const value: NearContextValue = {
+    signedAccountId,
+    wallet,
+    signIn,
+    signOut,
+    loading,
+    viewFunction,
+    callFunction,
+    provider,
+  };
+
+  return <NearContext.Provider value={value}>{children}</NearContext.Provider>;
+}
+
+export function useNear() {
+  const context = useContext(NearContext);
+  if (context === undefined) {
+    throw new Error("useNear must be used within a NearProvider");
+  }
+  return context;
+}",
+]
+`;
+
 exports[`create frontend 'next-page': --frontend_next-page--src--pages--_app.tsx 1`] = `
 [
   "--frontend_next-page--src--pages--_app.tsx",
   "import "@/styles/globals.css";
-import "@near-wallet-selector/modal-ui/styles.css";
 
 import type { AppProps } from "next/app";
-import { WalletSelectorProvider } from "@near-wallet-selector/react-hook";
 import { Navigation } from "@/components/navigation";
-import { HelloNearContract, NetworkId } from "@/config";
+import { NearProvider } from "@/hooks/useNear";
 
-// Wallet setups
-import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
-import { setupMeteorWalletApp } from "@near-wallet-selector/meteor-wallet-app";
-import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
-import { setupHotWallet } from "@near-wallet-selector/hot-wallet";
-import { setupLedger } from "@near-wallet-selector/ledger";
-import { setupSender } from "@near-wallet-selector/sender";
-import { setupNearMobileWallet } from "@near-wallet-selector/near-mobile-wallet";
-import { setupWelldoneWallet } from "@near-wallet-selector/welldone-wallet";
-import { setupMathWallet } from "@near-wallet-selector/math-wallet";
-import { setupBitgetWallet } from "@near-wallet-selector/bitget-wallet";
-import { setupRamperWallet } from "@near-wallet-selector/ramper-wallet";
-import { setupUnityWallet } from "@near-wallet-selector/unity-wallet";
-import { setupOKXWallet } from "@near-wallet-selector/okx-wallet";
-import { setupCoin98Wallet } from "@near-wallet-selector/coin98-wallet";
-import { setupIntearWallet } from "@near-wallet-selector/intear-wallet";
-
-// Ethereum adapters
-import { wagmiAdapter, web3Modal } from "@/wallets/web3modal";
-
-// Types
-import type { WalletModuleFactory } from "@near-wallet-selector/core";
-
-const walletSelectorConfig = {
-  network: NetworkId,
-  modules: [
-    setupEthereumWallets({ wagmiConfig: wagmiAdapter.wagmiConfig, web3Modal }),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({ contractId: HelloNearContract }),
-    setupHotWallet(),
-    setupLedger(),
-    setupSender(),
-    setupNearMobileWallet(),
-    setupWelldoneWallet(),
-    setupMathWallet(),
-    setupBitgetWallet(),
-    setupRamperWallet(),
-    setupUnityWallet({ 
-      projectId: "your-project-id",
-      metadata: {
-        name: "Hello NEAR",
-        description: "Hello NEAR Example",
-        url: "https://near.org",
-        icons: ["https://near.org/favicon.ico"],
-      }
-    }),
-    setupOKXWallet(),
-    setupCoin98Wallet(),
-    setupIntearWallet(),  
-  ] as WalletModuleFactory[]
-};
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WalletSelectorProvider config={walletSelectorConfig}>
+    <NearProvider>
       <Navigation />
       <Component {...pageProps} />
-    </WalletSelectorProvider>
+    </NearProvider>
   );
 }",
 ]
@@ -2068,10 +2251,10 @@ import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '../../config';
 
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNear } from "@/hooks/useNear";
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useWalletSelector();
+  const { signedAccountId, viewFunction, callFunction } = useNear();
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState('');
@@ -2518,40 +2701,6 @@ a {
 ]
 `;
 
-exports[`create frontend 'next-page': --frontend_next-page--src--wallets--web3modal.ts 1`] = `
-[
-  "--frontend_next-page--src--wallets--web3modal.ts",
-  "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { createAppKit } from "@reown/appkit/react";
-import { nearTestnet } from "@reown/appkit/networks";
-
-// Get a project ID at https://cloud.reown.com
-const projectId = "30147604c5f01d0bc4482ab0665b5697";
-
-export const wagmiAdapter = new WagmiAdapter({
-  projectId,
-  networks: [nearTestnet],
-});
-
-export const web3Modal = createAppKit({
-  adapters: [wagmiAdapter],
-  projectId,
-  networks: [nearTestnet],
-  enableWalletConnect: true,
-  features: {
-    analytics: true,
-    swaps: false,
-    onramp: false,
-    email: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-    socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-  },
-  coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-  allWallets: "SHOW",
-});
-",
-]
-`;
-
 exports[`create frontend 'next-page': --frontend_next-page--tsconfig.json 1`] = `
 [
   "--frontend_next-page--tsconfig.json",
@@ -2706,39 +2855,18 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
     "preview": "vite preview"
   },
   "dependencies": {
-    "@near-wallet-selector/bitget-wallet": "9.5.4",
-    "@near-wallet-selector/coin98-wallet": "9.5.4",
-    "@near-wallet-selector/core": "9.5.4",
-    "@near-wallet-selector/ethereum-wallets": "9.5.4",
-    "@near-wallet-selector/hot-wallet": "9.5.4",
-    "@near-wallet-selector/intear-wallet": "9.5.4",
-    "@near-wallet-selector/ledger": "9.5.4",
-    "@near-wallet-selector/math-wallet": "9.5.4",
-    "@near-wallet-selector/meteor-wallet": "9.5.4",
-    "@near-wallet-selector/meteor-wallet-app": "9.5.4",
-    "@near-wallet-selector/modal-ui": "9.5.4",
-    "@near-wallet-selector/near-mobile-wallet": "9.5.4",
-    "@near-wallet-selector/okx-wallet": "9.5.4",
-    "@near-wallet-selector/ramper-wallet": "9.5.4",
-    "@near-wallet-selector/react-hook": "9.5.4",
-    "@near-wallet-selector/sender": "9.5.4",
-    "@near-wallet-selector/unity-wallet": "9.5.4",
-    "@near-wallet-selector/welldone-wallet": "9.5.4",
-    "@reown/appkit": "^1.7.7",
-    "@reown/appkit-adapter-wagmi": "^1.7.7",
-    "@wagmi/core": "^2.17.1",
+    "@hot-labs/near-connect": "0.6.8",
+    "@near-js/providers": "^2.5.1",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^5.1.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-router": "^7",
-    "viem": "^2.30.5"
+    "react": "^19",
+    "react-dom": "^19",
+    "react-router": "^7"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
@@ -2774,70 +2902,12 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--App.tsx 1`] =
 import { Navigation } from "@/components/navigation";
 import Home from "@/pages/home";
 import HelloNear from "@/pages/hello_near";
-import { HelloNearContract, NetworkId } from "@/config";
+import { NearProvider } from "@/hooks/useNear";
 
-import "@near-wallet-selector/modal-ui/styles.css";
-
-// Wallet setups
-import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
-import { setupMeteorWalletApp } from "@near-wallet-selector/meteor-wallet-app";
-import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
-import { setupHotWallet } from "@near-wallet-selector/hot-wallet";
-import { setupLedger } from "@near-wallet-selector/ledger";
-import { setupSender } from "@near-wallet-selector/sender";
-import { setupNearMobileWallet } from "@near-wallet-selector/near-mobile-wallet";
-import { setupWelldoneWallet } from "@near-wallet-selector/welldone-wallet";
-import { setupMathWallet } from "@near-wallet-selector/math-wallet";
-import { setupBitgetWallet } from "@near-wallet-selector/bitget-wallet";
-import { setupRamperWallet } from "@near-wallet-selector/ramper-wallet";
-import { setupUnityWallet } from "@near-wallet-selector/unity-wallet";
-import { setupOKXWallet } from "@near-wallet-selector/okx-wallet";
-import { setupCoin98Wallet } from "@near-wallet-selector/coin98-wallet";
-import { setupIntearWallet } from "@near-wallet-selector/intear-wallet";
-
-import { WalletSelectorProvider } from '@near-wallet-selector/react-hook';
-
-// Ethereum adapters
-import { wagmiAdapter, web3Modal } from "@/wallets/web3modal";
-
-// Types
-import type { WalletModuleFactory } from "@near-wallet-selector/core";
-
-const walletSelectorConfig = {
-  network: NetworkId,
-  modules: [
-    setupEthereumWallets({
-      wagmiConfig: wagmiAdapter.wagmiConfig,
-      web3Modal,
-    }),
-    setupMeteorWallet(),
-    setupMeteorWalletApp({ contractId: HelloNearContract }),
-    setupHotWallet(),
-    setupLedger(),
-    setupSender(),
-    setupNearMobileWallet(),
-    setupWelldoneWallet(),
-    setupMathWallet(),
-    setupBitgetWallet(),
-    setupRamperWallet(),
-    setupUnityWallet({ 
-      projectId: "your-project-id",
-      metadata: {
-        name: "Hello NEAR",
-        description: "Hello NEAR Example",
-        url: "https://near.org",
-        icons: ["https://near.org/favicon.ico"],
-      }
-    }),
-    setupOKXWallet(),
-    setupCoin98Wallet(),
-    setupIntearWallet(),  
-  ] as WalletModuleFactory[]
-};
 
 function App () {
   return (
-    <WalletSelectorProvider config={walletSelectorConfig}>
+    <NearProvider>
       <BrowserRouter>
         <Navigation />
         <Routes>
@@ -2845,7 +2915,7 @@ function App () {
           <Route path="/hello-near" element={<HelloNear />} />
         </Routes>
       </BrowserRouter>
-    </WalletSelectorProvider>
+    </NearProvider>
   );
 };
 
@@ -2955,33 +3025,27 @@ export const Cards = () => {
 exports[`create frontend 'vite-react': --frontend_vite-react--src--components--navigation.tsx 1`] = `
 [
   "--frontend_vite-react--src--components--navigation.tsx",
-  "import { useEffect, useState } from 'react';
-import { Link } from 'react-router'
+  "import { Link } from 'react-router'
 import NearLogo from '@/assets/near-logo.svg';
 import styles from '@/styles/app.module.css';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
-
-interface WalletSelectorHook {
-  signedAccountId: string | null;
-  signIn: () => void;
-  signOut: () => void;
-}
+import { useNearWallet } from "@/hooks/useNear";
 
 export const Navigation = () => {
-  const { signedAccountId, signIn, signOut } = useWalletSelector() as WalletSelectorHook;
+ const { signedAccountId, loading, signIn, signOut } = useNearWallet();
 
-  const [action, setAction] = useState<() => void>(() => () => {});
-  const [label, setLabel] = useState<string>('Loading...');
-
-  useEffect(() => {
+  const handleAction = () => {
     if (signedAccountId) {
-      setAction(() => signOut);
-      setLabel(\`Logout \${signedAccountId}\`);
+      signOut();
     } else {
-      setAction(() => signIn);
-      setLabel('Login');
+      signIn();
     }
-  }, [signedAccountId, signIn, signOut]);
+  };
+
+  const label = loading
+    ? "Loading..."
+    : signedAccountId
+    ? \`Logout \${signedAccountId}\`
+    : "Login";
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -2996,7 +3060,7 @@ export const Navigation = () => {
           />
         </Link>
         <div className="navbar-nav pt-1">
-          <button className="btn btn-secondary" onClick={action}>
+          <button className="btn btn-secondary" onClick={handleAction}>
             {label}
           </button>
         </div>
@@ -3019,6 +3083,198 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--config.ts 1`]
 export const NetworkId = 'testnet';
 export const HelloNearContract = contractPerNetwork[NetworkId];
 ",
+]
+`;
+
+exports[`create frontend 'vite-react': --frontend_vite-react--src--global.d.ts 1`] = `
+[
+  "--frontend_vite-react--src--global.d.ts",
+  "// CSS module declarations
+declare module '*.module.css';
+declare module '*.module.scss';
+declare module '*.module.sass';
+
+// Image declarations
+declare module '*.svg';
+declare module '*.png';
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.gif';
+declare module '*.webp';
+
+",
+]
+`;
+
+exports[`create frontend 'vite-react': --frontend_vite-react--src--hooks--useNear.tsx 1`] = `
+[
+  "--frontend_vite-react--src--hooks--useNear.tsx",
+  "import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
+import { JsonRpcProvider } from "@near-js/providers";
+import { NearConnector, type NearWalletBase } from "@hot-labs/near-connect";
+
+interface ViewFunctionParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
+}
+
+interface FunctionCallParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
+  gas?: string;
+  deposit?: string;
+}
+
+interface NearContextValue {
+  signedAccountId: string;
+  wallet: NearWalletBase | undefined;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+  loading: boolean;
+  viewFunction: (params: ViewFunctionParams) => Promise<any>;
+  callFunction: (params: FunctionCallParams) => Promise<any>;
+  provider: JsonRpcProvider;
+}
+
+const NearContext = createContext<NearContextValue | undefined>(undefined);
+
+let connector: NearConnector;
+
+const provider = new JsonRpcProvider({ url: "https://test.rpc.fastnear.com" });
+
+if (typeof window !== "undefined") {
+  connector = new NearConnector({ network: "mainnet" })
+}
+
+export function NearProvider({ children }: { children: ReactNode }) {
+  const [wallet, setWallet] = useState<NearWalletBase | undefined>(undefined);
+  const [signedAccountId, setSignedAccountId] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function initializeConnector() {
+      const connectedWallet = await connector.getConnectedWallet().catch(() => null);
+
+      if (connectedWallet) {
+        setWallet(connectedWallet.wallet);
+        setSignedAccountId(connectedWallet.accounts[0].accountId);
+      }
+
+      const onSignOut = () => {
+        setWallet(undefined);
+        setSignedAccountId("");
+      };
+
+      const onSignIn = async (payload: { wallet: NearWalletBase }) => {
+        setWallet(payload.wallet);
+        const accounts = await payload.wallet.getAccounts();
+        setSignedAccountId(accounts[0]?.accountId || "");
+      };
+
+      connector.on("wallet:signOut", onSignOut);
+      connector.on("wallet:signIn", onSignIn);
+
+      setLoading(false);
+    }
+
+    initializeConnector();
+
+    return () => {
+      if (connector) {
+        connector.removeAllListeners("wallet:signOut");
+        connector.removeAllListeners("wallet:signIn");
+      }
+    };
+  }, []);
+
+  async function signIn() {
+    if (!connector) return;
+    const wallet = await connector.connect();
+    console.log("Connected wallet", wallet);
+    if (wallet) {
+      setWallet(wallet);
+      const accounts = await wallet.getAccounts();
+      setSignedAccountId(accounts[0]?.accountId || "");
+    }
+  }
+
+  async function signOut() {
+    if (!connector || !wallet) return;
+    await connector.disconnect(wallet);
+    console.log("Disconnected wallet");
+
+    setWallet(undefined);
+    setSignedAccountId("");
+  }
+
+  async function viewFunction({
+    contractId,
+    method,
+    args = {},
+  }: ViewFunctionParams) {
+    return provider.callFunction(contractId, method, args);
+  }
+
+  async function callFunction({
+    contractId,
+    method,
+    args = {},
+    gas = "30000000000000",
+    deposit = "0",
+  }: FunctionCallParams) {
+
+    const wallet = await connector.wallet()
+
+    return wallet.signAndSendTransactions({
+      transactions: [
+        {
+          signerId: signedAccountId,
+          receiverId: contractId,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: method,
+                args,
+                gas,
+                deposit,
+              },
+            },
+          ],
+        },
+      ],
+    });
+  }
+
+  const value: NearContextValue = {
+    signedAccountId,
+    wallet,
+    signIn,
+    signOut,
+    loading,
+    viewFunction,
+    callFunction,
+    provider,
+  };
+
+  return <NearContext.Provider value={value}>{children}</NearContext.Provider>;
+}
+
+export function useNearWallet() {
+  const context = useContext(NearContext);
+  if (context === undefined) {
+    throw new Error("useNear must be used within a NearProvider");
+  }
+  return context;
+}",
 ]
 `;
 
@@ -3050,9 +3306,9 @@ import { Cards } from '@/components/cards';
 import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '@/config';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNearWallet } from "@/hooks/useNear";
 
-interface WalletSelectorHook {
+interface useNearHook {
   signedAccountId: string | null;
   viewFunction: (params: { contractId: string; method: string; args?: Record<string, unknown> }) => Promise<any>;
   callFunction: (params: { contractId: string; method: string; args?: Record<string, unknown> }) => Promise<any>;
@@ -3062,7 +3318,7 @@ interface WalletSelectorHook {
 const CONTRACT = HelloNearContract as string;
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useWalletSelector() as WalletSelectorHook;
+  const { signedAccountId, viewFunction, callFunction } = useNearWallet() as useNearHook;
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState<string>('loading...');
@@ -3506,40 +3762,6 @@ a {
     color-scheme: dark;
   }
 }
-",
-]
-`;
-
-exports[`create frontend 'vite-react': --frontend_vite-react--src--wallets--web3modal.ts 1`] = `
-[
-  "--frontend_vite-react--src--wallets--web3modal.ts",
-  "import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { createAppKit } from "@reown/appkit/react";
-import { nearTestnet } from "@reown/appkit/networks";
-
-// Get a project ID at https://cloud.reown.com
-const projectId = "30147604c5f01d0bc4482ab0665b5697";
-
-export const wagmiAdapter = new WagmiAdapter({
-  projectId,
-  networks: [nearTestnet],
-});
-
-export const web3Modal = createAppKit({
-  adapters: [wagmiAdapter],
-  projectId,
-  networks: [nearTestnet],
-  enableWalletConnect: true,
-  features: {
-    analytics: true,
-    swaps: false,
-    onramp: false,
-    email: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-    socials: false, // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-  },
-  coinbasePreference: "eoaOnly", // Smart accounts (Safe contract) not available on NEAR Protocol, only EOA.
-  allWallets: "SHOW",
-});
 ",
 ]
 `;
