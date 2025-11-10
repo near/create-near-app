@@ -12,15 +12,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@hot-labs/near-connect": "^0.6.2",
-    "@near-js/crypto": "^2.3.1",
-    "@near-js/providers": "^2.3.1",
-    "@near-js/transactions": "^2.3.1",
-    "@near-js/utils": "^2.3.1",
-    "@walletconnect/sign-client": "^2.21.9",
+    "@hot-labs/near-connect": "^0.6.8",
+    "@near-js/crypto": "^2.5.1",
+    "@near-js/providers": "^2.5.1",
+    "@near-js/transactions": "^2.5.1",
+    "@near-js/utils": "^2.5.1",
+    "@walletconnect/sign-client": "^2.23.0",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
-    "near-api-js": "^5.0.0",
+    "near-api-js": "^6.5.1",
     "next": "^15",
     "react": "^18",
     "react-dom": "^18"

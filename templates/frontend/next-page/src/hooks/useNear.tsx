@@ -1,10 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import { JsonRpcProvider } from "@near-js/providers";
-import { NearConnector, NearWallet } from "@hot-labs/near-connect";
+import type { NearConnector, NearWalletBase } from "@hot-labs/near-connect";
 
-interface ConnectedWallet {
-  wallet: NearWallet;
-  accounts: { accountId: string }[];
+interface ViewFunctionParams {
+  contractId: string;
+  method: string;
+  args?: Record<string, unknown>;
 }
 
 interface FunctionCallParams {
@@ -15,98 +22,135 @@ interface FunctionCallParams {
   deposit?: string;
 }
 
-interface ViewFunctionParams {
-  contractId: string;
-  method: string;
-  args?: Record<string, unknown>;
+interface NearContextValue {
+  signedAccountId: string;
+  wallet: NearWalletBase | undefined;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+  loading: boolean;
+  viewFunction: (params: ViewFunctionParams) => Promise<any>;
+  callFunction: (params: FunctionCallParams) => Promise<any>;
+  provider: JsonRpcProvider;
 }
 
-let connector: NearConnector | undefined;
+const NearContext = createContext<NearContextValue | undefined>(undefined);
+
+
 const provider = new JsonRpcProvider({ url: "https://test.rpc.fastnear.com" });
 
-if (typeof window !== "undefined") {
-  connector = new NearConnector({ network: "testnet" });
-}
-
-export function useNear() {
-  const [wallet, setWallet] = useState<NearWallet | undefined>(undefined);
-  const [signedAccountId, setSignedAccountId] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const signIn = useCallback(async () => {
-    if (!connector) return;
-    const connectedWallet = await connector.connect();
-    console.log("Connected wallet", connectedWallet);
-  }, []);
-
-  const signOut = useCallback(async () => {
-    if (!wallet || !connector) return;
-    await connector.disconnect(wallet);
-    console.log("Disconnected wallet");
-    setWallet(undefined);
-    setSignedAccountId("");
-  }, [wallet]);
+export function NearProvider({ children }: { children: ReactNode }) {
+  const [connector, setConnector] = useState<NearConnector | null>(null)
+  const [wallet, setWallet] = useState<NearWalletBase | undefined>(undefined);
+  const [signedAccountId, setSignedAccountId] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!connector) return;
+    if (typeof window === "undefined") return;
 
-    async function reload() {
-      try {
-        const { wallet, accounts } = (await connector!.getConnectedWallet()) as ConnectedWallet;
-        setWallet(wallet);
-        setSignedAccountId(accounts[0]?.accountId || "");
-      } catch {
+    let isSubscribed = true;
+
+    async function initializeConnector() {
+      const { NearConnector } = await import("@hot-labs/near-connect");
+      const newConnector = new NearConnector({ network: "testnet" });
+
+      if (!isSubscribed) return;
+
+      const connectedWallet = await newConnector.getConnectedWallet().catch(() => null);
+      if (connectedWallet && isSubscribed) {
+        setWallet(connectedWallet.wallet);
+        setSignedAccountId(connectedWallet.accounts[0].accountId);
+      }
+
+      const onSignOut = () => {
         setWallet(undefined);
         setSignedAccountId("");
-      } finally {
+      };
+
+      const onSignIn = async (payload: { wallet: NearWalletBase }) => {
+        setWallet(payload.wallet);
+        const accounts = await payload.wallet.getAccounts();
+        setSignedAccountId(accounts[0]?.accountId || "");
+      };
+
+      newConnector.on("wallet:signOut", onSignOut);
+      newConnector.on("wallet:signIn", onSignIn);
+
+      if (isSubscribed) {
+        setConnector(newConnector);
         setLoading(false);
       }
     }
 
-    const onSignOut = () => {
-      setWallet(undefined);
-      setSignedAccountId("");
-    };
-
-    const onSignIn = async (payload: { wallet: NearWallet }) => {
-      console.log("Signed in with payload", payload);
-      setWallet(payload.wallet);
-      const accountId = await payload.wallet.getAddress();
-      setSignedAccountId(accountId);
-    };
-
-    connector.on("wallet:signOut", onSignOut);
-    connector.on("wallet:signIn", onSignIn);
-
-    reload();
+    initializeConnector();
 
     return () => {
-      connector?.off("wallet:signOut", onSignOut);
-      connector?.off("wallet:signIn", onSignIn);
+      isSubscribed = false;
+      if (connector) {
+        connector.removeAllListeners("wallet:signOut");
+        connector.removeAllListeners("wallet:signIn");
+      }
     };
-  }, []);
+  }, []); 
 
-  const viewFunction = useCallback(async ({ contractId, method, args = {} }: ViewFunctionParams) => {
+  async function signIn() {
+    if (!connector) return;
+    const wallet = await connector.connect();
+    console.log("Connected wallet", wallet);
+    if (wallet) {
+      setWallet(wallet);
+      const accounts = await wallet.getAccounts();
+      setSignedAccountId(accounts[0]?.accountId || "");
+    }
+  }
+
+  async function signOut() {
+    if (!connector || !wallet) return;
+    await connector.disconnect(wallet);
+    console.log("Disconnected wallet");
+
+    setWallet(undefined);
+    setSignedAccountId("");
+  }
+
+  async function viewFunction({
+    contractId,
+    method,
+    args = {},
+  }: ViewFunctionParams) {
     return provider.callFunction(contractId, method, args);
-  }, []);
+  }
 
-  const callFunction = useCallback(
-    async ({ contractId, method, args = {}, gas = "30000000000000", deposit = "0" }: FunctionCallParams) => {
-      if (!wallet) throw new Error("Wallet not connected");
-      return wallet.signAndSendTransaction({
-        receiverId: contractId,
-        actions: [
-          {
-            type: "FunctionCall",
-            params: { methodName: method, args, gas, deposit },
-          },
-        ],
-      });
-    },
-    [wallet]
-  );
+  async function callFunction({
+    contractId,
+    method,
+    args = {},
+    gas = "30000000000000",
+    deposit = "0",
+  }: FunctionCallParams) {
+    if (!wallet) throw new Error("Wallet not connected");
 
-  return {
+    return wallet.signAndSendTransactions({
+      transactions: [
+        {
+          signerId: signedAccountId,
+          receiverId: contractId,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: method,
+                args,
+                gas,
+                deposit,
+              },
+            },
+          ],
+        },
+      ],
+    });
+  }
+
+  const value: NearContextValue = {
     signedAccountId,
     wallet,
     signIn,
@@ -116,4 +160,14 @@ export function useNear() {
     callFunction,
     provider,
   };
+
+  return <NearContext.Provider value={value}>{children}</NearContext.Provider>;
+}
+
+export function useNear() {
+  const context = useContext(NearContext);
+  if (context === undefined) {
+    throw new Error("useNear must be used within a NearProvider");
+  }
+  return context;
 }
