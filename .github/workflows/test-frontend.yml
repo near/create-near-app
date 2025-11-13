@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest]
-        node-version: [18, 20, 22]
+        node-version: [22, 24]
         frontend: [next-page, next-app, vite-react]
     runs-on: ${{ matrix.platform }}
     steps:
