@@ -3,7 +3,7 @@ import { Cards } from '@/components/cards';
 import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '@/config';
-import { useNearWallet } from "@/hooks/useNear";
+import { useNearWallet } from 'near-connect-hooks';
 
 interface useNearHook {
   signedAccountId: string | null;

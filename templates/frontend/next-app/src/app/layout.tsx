@@ -2,7 +2,7 @@
 import '@/app/globals.css';
 
 import { Navigation } from '@/components/navigation';
-import { NearProvider } from '@/hooks/useNear';
+import { NearProvider } from 'near-connect-hooks';
 
 import { ReactNode } from 'react';
 

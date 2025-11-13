@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useNear } from "@/hooks/useNear";
+import { useNearWallet } from 'near-connect-hooks';
 
 import NearLogo from '../../public/near-logo.svg';
 
 export const Navigation = () => {
-   const { signedAccountId, loading, signIn, signOut } = useNear();
+   const { signedAccountId, loading, signIn, signOut } = useNearWallet();
 
   const handleAction = () => {
     if (signedAccountId) {

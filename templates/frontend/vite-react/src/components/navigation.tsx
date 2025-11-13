@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import NearLogo from '@/assets/near-logo.svg';
 import styles from '@/styles/app.module.css';
-import { useNearWallet } from "@/hooks/useNear";
+import { useNearWallet } from 'near-connect-hooks';
 
 export const Navigation = () => {
  const { signedAccountId, loading, signIn, signOut } = useNearWallet();

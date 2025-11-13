@@ -9,10 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hot-labs/near-connect": "0.6.8",
-    "@near-js/providers": "^2.5.1",
     "bootstrap": "^5",
     "bootstrap-icons": "^1.11.3",
+    "near-connect-hooks": "^1.0.2",
     "react": "^19",
     "react-dom": "^19",
     "react-router": "^7"
