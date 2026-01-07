@@ -36,9 +36,9 @@ export async function getUserArgs(): Promise<UserConfig> {
 type Choices<T> = { title: string, description?: string, value: T }[];
 
 const appChoices: Choices<App> = [
-  { title: 'A Web App', description: 'A Web App that talks with Near contracts', value: 'gateway' },
+  { title: 'Web Application', description: 'A Web App that talks with Near contracts', value: 'gateway' },
   {
-    title: 'A Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
+    title: 'Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
   },
 ];
 
@@ -48,14 +48,14 @@ const templateChoices: Choices<Template> = [
 ];
 
 const contractChoices: Choices<Contract> = [
-  { title: 'TS Contract', description: 'A Near contract written in typescript', value: 'ts' },
-  { title: 'Rust Contract', description: 'A Near contract written in Rust', value: 'rs' },
+  { title: 'Rust (recommended)', description: 'A smart contract written in Rust', value: 'rs' },
+  { title: 'Typescript (experimental)', description: 'A smart contract written in typescript', value: 'ts' },
 ];
 
 const frontendChoices: Choices<Frontend> = [
+  { title: 'Vite (React)', description: 'A web-app built using Vite with React', value: 'vite-react' },
   { title: 'NextJs (Classic)', description: 'A web-app built using Next.js Page Router', value: 'next-page' },
   { title: 'NextJS (App Router)', description: 'A web-app built using Next.js new App Router', value: 'next-app' },
-  { title: 'Vite (React)', description: 'A web-app built using Vite with React', value: 'vite-react' },
 ];
 
 const appPrompt: PromptObject = {
@@ -92,7 +92,7 @@ const namePrompts: PromptObject = {
   type: 'text',
   name: 'projectName',
   message: 'Name your project (we will create a directory with that name)',
-  initial: 'hello-near',
+  initial: 'near-template',
 };
 
 const npmPrompt: PromptObject = {

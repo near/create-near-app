@@ -20,9 +20,9 @@ crate-type = ["cdylib", "rlib"]
 # in https://github.com/near/NEPs/blob/master/neps/nep-0330.md
 [package.metadata.near.reproducible_build]
 # docker image, descriptor of build environment
-image = "sourcescan/cargo-near:0.16.2-rust-1.86.0"
+image = "sourcescan/cargo-near:0.18.0-rust-1.86.0"
 # tag after colon above serves only descriptive purpose; image is identified by digest
-image_digest = "sha256:74c24d4d912f893198b8b13e01d43e0f78f3b00b3df45bf555a707eb4918a54e"
+image_digest = "sha256:2d0d458d2357277df669eac6fa23a1ac922e5ed16646e1d3315336e4dff18043"
 # list of environment variables names, whose values, if set, will be used as external build parameters
 # in a reproducible manner
 # supported by \`sourcescan/cargo-near:0.10.1-rust-1.82.0\` image or later images
@@ -41,13 +41,15 @@ container_build_command = [
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-near-sdk = "5.16"
+near-sdk = "5.23"
 
 [dev-dependencies]
-near-sdk = { version = "5.16", features = ["unit-testing"] }
-near-workspaces = { version = "0.21", features = ["unstable"] }
+near-sdk = { version = "5.23", features = ["unit-testing"] }
+near-sandbox = "0.3"
+near-api = "0.8"
+cargo-near-build = "0.9.0"
 tokio = { version = "1.12.0", features = ["full"] }
-serde_json = "1"
+testresult = "0.4.1"
 
 [profile.release]
 codegen-units = 1
@@ -114,8 +116,7 @@ exports[`create contract 'rs': --contract_rs--rust-toolchain.toml 1`] = `
   "[toolchain]
 channel = "1.86.0"
 components = ["rustfmt", "clippy", "rust-analyzer"]
-targets = ["wasm32-unknown-unknown"]
-",
+targets = ["wasm32-unknown-unknown"]",
 ]
 `;
 
@@ -247,153 +248,187 @@ mod tests {
 exports[`create contract 'rs': --contract_rs--tests--test_basics.rs 1`] = `
 [
   "--contract_rs--tests--test_basics.rs",
-  "use std::time::SystemTime;
-use near_sdk::near;
-use near_workspaces::types::{AccountId, Gas, NearToken};
-use serde_json::json;
+  "use near_api::{AccountId, NearGas, NearToken};
+use near_sdk::serde_json::json;
 
-#[near(serializers = [json])]
-#[derive(Clone)]
+#[derive(near_sdk::serde::Deserialize)]
+#[serde(crate = "near_sdk::serde")]
 pub struct Bid {
     pub bidder: AccountId,
     pub bid: NearToken,
 }
 
-const TEN_NEAR: NearToken = NearToken::from_near(10);
-
 #[tokio::test]
-async fn test_contract_is_operational() -> Result<(), Box<dyn std::error::Error>> {
-    let sandbox = near_workspaces::sandbox().await?;
+async fn test_contract_is_operational() -> testresult::TestResult<()> {
+    let contract_wasm_path = cargo_near_build::build_with_cli(Default::default())?;
+    let contract_wasm = std::fs::read(contract_wasm_path)?;
 
-    let root = sandbox.root_account()?;
+    let sandbox = near_sandbox::Sandbox::start_sandbox().await?;
+    let sandbox_network =
+        near_api::NetworkConfig::from_rpc_url("sandbox", sandbox.rpc_addr.parse()?);
 
     // Create accounts
-    let alice = create_subaccount(&root, "alice").await?;
-    let bob = create_subaccount(&root, "bob").await?;
-    let auctioneer = create_subaccount(&root, "auctioneer").await?;
-    let contract_account = create_subaccount(&root, "contract").await?;
+    let alice = create_subaccount(&sandbox, "alice.sandbox").await?;
+    let bob = create_subaccount(&sandbox, "bob.sandbox").await?;
+    let auctioneer = create_subaccount(&sandbox, "auctioneer.sandbox").await?;
+    let contract = create_subaccount(&sandbox, "contract.sandbox")
+        .await?
+        .as_contract();
 
     // Deploy and initialize contract
-    let contract_wasm = near_workspaces::compile_project("./").await?;
-    let contract = contract_account.deploy(&contract_wasm).await?.unwrap();
-
-    let now = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?.as_secs();
+    let signer = near_api::Signer::from_secret_key(
+        near_sandbox::config::DEFAULT_GENESIS_ACCOUNT_PRIVATE_KEY
+            .parse()
+            .unwrap(),
+    )?;
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::SystemTime::UNIX_EPOCH)?
+        .as_secs();
     let a_minute_from_now = (now + 60) * 1000000000;
-
-    let init = contract
-        .call("init")
-        .args_json(json!({"end_time": a_minute_from_now.to_string(),"auctioneer":auctioneer.id()}))
-        .transact()
-        .await?;
-
-    assert!(init.is_success());
+    near_api::Contract::deploy(contract.account_id().clone())
+        .use_code(contract_wasm)
+        .with_init_call(
+            "init",
+            json!({"end_time": a_minute_from_now.to_string(), "auctioneer": auctioneer.account_id()}),
+        )?
+        .with_signer(signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_success();
 
     // Alice makes first bid
-    let alice_bid = alice
-        .call(contract.id(), "bid")
+    contract
+        .call_function("bid", ())
+        .transaction()
         .deposit(NearToken::from_near(1))
-        .transact()
-        .await?;
+        .with_signer(alice.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_success();
 
-    assert!(alice_bid.is_success());
-
-    let highest_bid_json = contract.view("get_highest_bid").await?;
-    let highest_bid: Bid = highest_bid_json.json::<Bid>()?;
+    let highest_bid: Bid = contract
+        .call_function("get_highest_bid", ())
+        .read_only()
+        .fetch_from(&sandbox_network)
+        .await?
+        .data;
     assert_eq!(highest_bid.bid, NearToken::from_near(1));
-    assert_eq!(highest_bid.bidder, *alice.id());
+    assert_eq!(&highest_bid.bidder, alice.account_id());
 
-    let alice_balance = alice.view_account().await?.balance;
+    let alice_balance = alice
+        .tokens()
+        .near_balance()
+        .fetch_from(&sandbox_network)
+        .await?
+        .total;
 
     // Bob makes a higher bid
-    let bob_bid = bob
-        .call(contract.id(), "bid")
+    contract
+        .call_function("bid", ())
+        .transaction()
         .deposit(NearToken::from_near(2))
-        .transact()
-        .await?;
+        .with_signer(bob.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_success();
 
-    assert!(bob_bid.is_success());
-
-    let highest_bid_json = contract.view("get_highest_bid").await?;
-    let highest_bid: Bid = highest_bid_json.json::<Bid>()?;
+    let highest_bid: Bid = contract
+        .call_function("get_highest_bid", ())
+        .read_only()
+        .fetch_from(&sandbox_network)
+        .await?
+        .data;
     assert_eq!(highest_bid.bid, NearToken::from_near(2));
-    assert_eq!(highest_bid.bidder, *bob.id());
+    assert_eq!(&highest_bid.bidder, bob.account_id());
 
-    // Check that Alice was returned her bid
-    let new_alice_balance = alice.view_account().await?.balance;
+    // Check that Alice was refunded
+    let new_alice_balance = alice
+        .tokens()
+        .near_balance()
+        .fetch_from(&sandbox_network)
+        .await?
+        .total;
+
     assert!(new_alice_balance == alice_balance.saturating_add(NearToken::from_near(1)));
 
     // Alice tries to make a bid with less NEAR than the previous
-    let alice_bid = alice
-        .call(contract.id(), "bid")
+    contract
+        .call_function("bid", ())
+        .transaction()
         .deposit(NearToken::from_near(1))
-        .transact()
-        .await?;
-
-    assert!(alice_bid.is_failure());
+        .with_signer(alice.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_failure();
 
     // Auctioneer claims auction but did not finish
-    let auctioneer_claim = auctioneer
-        .call(contract_account.id(), "claim")
-        .args_json(json!({}))
-        .gas(Gas::from_tgas(300))
-        .transact()
-        .await?;
-
-    assert!(auctioneer_claim.is_failure());
+    contract
+        .call_function("claim", ())
+        .transaction()
+        .gas(NearGas::from_tgas(30))
+        .with_signer(auctioneer.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_failure();
 
     // Fast forward 200 blocks
     let blocks_to_advance = 200;
     sandbox.fast_forward(blocks_to_advance).await?;
 
     // Auctioneer claims the auction
-    let auctioneer_claim = auctioneer
-        .call(contract_account.id(), "claim")
-        .args_json(json!({}))
-        .gas(Gas::from_tgas(300))
-        .transact()
-        .await?;
-
-    assert!(auctioneer_claim.is_success());
+    contract
+        .call_function("claim", ())
+        .transaction()
+        .gas(NearGas::from_tgas(30))
+        .with_signer(auctioneer.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_success();
 
     // Checks the auctioneer has the correct balance
-    let auctioneer_balance = auctioneer.view_account().await?.balance;
+    let auctioneer_balance = auctioneer
+        .tokens()
+        .near_balance()
+        .fetch_from(&sandbox_network)
+        .await?
+        .total;
     assert!(auctioneer_balance <= NearToken::from_near(12));
     assert!(auctioneer_balance > NearToken::from_millinear(11990));
 
     // Auctioneer tries to claim the auction again
-    let auctioneer_claim = auctioneer
-        .call(contract_account.id(), "claim")
-        .args_json(json!({}))
-        .gas(Gas::from_tgas(300))
-        .transact()
-        .await?;
-
-    assert!(auctioneer_claim.is_failure());
+    contract
+        .call_function("claim", ())
+        .transaction()
+        .gas(NearGas::from_tgas(30))
+        .with_signer(auctioneer.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_failure();
 
     // Alice tries to make a bid when the auction is over
-    let alice_bid = alice
-        .call(contract.id(), "bid")
-        .deposit(NearToken::from_near(3))
-        .transact()
-        .await?;
-
-    assert!(alice_bid.is_failure());
+    contract
+        .call_function("bid", ())
+        .transaction()
+        .deposit(NearToken::from_near(1))
+        .with_signer(alice.account_id().clone(), signer.clone())
+        .send_to(&sandbox_network)
+        .await?
+        .assert_failure();
 
     Ok(())
 }
 
 async fn create_subaccount(
-    root: &near_workspaces::Account,
+    sandbox: &near_sandbox::Sandbox,
     name: &str,
-) -> Result<near_workspaces::Account, Box<dyn std::error::Error>> {
-    let subaccount = root
-        .create_subaccount(name)
-        .initial_balance(TEN_NEAR)
-        .transact()
-        .await?
-        .unwrap();
-
-    Ok(subaccount)
+) -> testresult::TestResult<near_api::Account> {
+    let account_id: AccountId = name.parse().unwrap();
+    sandbox
+        .create_account(account_id.clone())
+        .initial_balance(NearToken::from_near(10))
+        .send()
+        .await?;
+    Ok(near_api::Account(account_id))
 }
 ",
 ]

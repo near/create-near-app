@@ -111,7 +111,7 @@ export const contractInstructions = (
   if (contract === 'ts') {
     message += chalk`         {blue npm {bold run test}}\n`;
   } else {
-    message += chalk`         {blue {bold cargo near test}}\n`;
+    message += chalk`         {blue {bold cargo test}}\n`;
   }
   
   message += chalk`\n🧠 Read {bold {greenBright README.md}} to explore further`;
