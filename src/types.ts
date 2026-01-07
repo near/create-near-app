@@ -1,5 +1,8 @@
-export type Contract = 'ts' | 'rs' | 'py' |'none';
-export const CONTRACTS: Contract[] = ['ts', 'rs', 'py', 'none'];
+export type Contract = 'ts' | 'rs' | 'none';
+export const CONTRACTS: Contract[] = ['ts', 'rs', 'none'];
+
+export type Template = 'auction' | 'auction-adv';
+export const TEMPLATES: Template[] = ['auction', 'auction-adv'];
 
 export type Frontend = 'next-app' | 'next-page' | 'vite-react' | 'none';
 export const FRONTENDS: Frontend[] = ['next-app', 'next-page', 'vite-react', 'none'];
@@ -11,6 +14,7 @@ export type ProjectName = string;
 
 export interface UserConfig {
   contract: Contract;
+  template?: Template;
   frontend: Frontend;
   projectName: ProjectName;
   install: boolean;
@@ -19,6 +23,7 @@ export interface UserConfig {
 
 export type CreateContractParams = {
   contract: Contract,
+  template: Template,
   projectPath: string,
   templatesDir: string,
 }

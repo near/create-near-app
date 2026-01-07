@@ -7,7 +7,8 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest]
-        node-version: [18, 20, 22]
+        node-version: [22, 24]
+        frontend: [next-page, next-app, vite-react]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v4
@@ -16,7 +17,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install modules
       run: npm install
-    - name: Create Frontend No Components
-      run: npm run start -- hello-near --frontend next-page
+    - name: Create Frontend - ${{ matrix.frontend }}
+      run: npm run start -- test-app --frontend ${{ matrix.frontend }}
     - name: Install
-      run: cd hello-near && npm install
+      run: cd test-app && npm install

@@ -1,6 +1,6 @@
 {
   "name": "create-near-app",
-  "version": "8.5.0",
+  "version": "9.0.0",
   "description": "Quickly scaffold your dApp on NEAR Blockchain",
   "main": "index.js",
   "engines": {
@@ -44,6 +44,7 @@
     "@types/jest": "^29.5.2",
     "@types/ncp": "^2.0.5",
     "@types/node": "^20.3.2",
+    "@types/node-dir": "^0.0.37",
     "@types/prompts": "^2.4.4",
     "@types/semver": "^7.5.0",
     "eslint": "^8.43.0",

@@ -1936,6 +1936,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/node-dir@^0.0.37":
+  version "0.0.37"
+  resolved "https://registry.yarnpkg.com/@types/node-dir/-/node-dir-0.0.37.tgz#d315c25a9a5c97e6cac62d32c29a2f0ab588d1d5"
+  integrity sha512-QRQfeHPWcXXTlMXIMjqu2vBvLd4Pxl7/e5ejQYXjLbYeJhjblUr/rAjrNJikwVqbMVJW8gwO4Irep/a1ArL06Q==
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*", "@types/node@^20.3.2":
   version "20.12.2"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.12.2.tgz"
@@ -4047,7 +4054,7 @@ fs.realpath@^1.0.0:
 
 fsevents@^2.3.2:
   version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:

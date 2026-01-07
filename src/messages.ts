@@ -29,8 +29,6 @@ const mapContractLanguage = (contract: Contract) => {
       return 'Typescript';
     case 'rs':
       return 'Rust';
-    case 'py':
-      return 'Python';
     default:
       return '';
   }
@@ -104,8 +102,6 @@ export const contractInstructions = (
 
   if (contract === 'ts') {
     message += chalk`         {blue npm {bold run build}}\n`;
-  } else if (contract === 'py') {
-    message += chalk`         {blue {bold uvx nearc contract.py --create-venv}}\n`;
   } else {
     message += chalk`         {blue {bold cargo near build}}\n`;
   }
@@ -114,10 +110,8 @@ export const contractInstructions = (
 
   if (contract === 'ts') {
     message += chalk`         {blue npm {bold run test}}\n`;
-  } else if (contract === 'py') {
-    message += chalk`         {blue {bold uv run pytest}}\n`;
   } else {
-    message += chalk`         {blue {bold cargo near test}}\n`;
+    message += chalk`         {blue {bold cargo test}}\n`;
   }
   
   message += chalk`\n🧠 Read {bold {greenBright README.md}} to explore further`;

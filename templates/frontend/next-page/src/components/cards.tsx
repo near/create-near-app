@@ -20,7 +20,6 @@ export const Cards = () => {
       <Link
         href="/hello-near"
         className={styles.card}
-        rel="noopener noreferrer"
       >
         <h2>
           Near Integration <span>-&gt;</span>

@@ -3,9 +3,9 @@ import { Cards } from '@/components/cards';
 import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '@/config';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
+import { useNearWallet } from 'near-connect-hooks';
 
-interface WalletSelectorHook {
+interface useNearHook {
   signedAccountId: string | null;
   viewFunction: (params: { contractId: string; method: string; args?: Record<string, unknown> }) => Promise<any>;
   callFunction: (params: { contractId: string; method: string; args?: Record<string, unknown> }) => Promise<any>;
@@ -15,7 +15,7 @@ interface WalletSelectorHook {
 const CONTRACT = HelloNearContract as string;
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useWalletSelector() as WalletSelectorHook;
+  const { signedAccountId, viewFunction, callFunction } = useNearWallet() as useNearHook;
 
   const [greeting, setGreeting] = useState<string>('loading...');
   const [newGreeting, setNewGreeting] = useState<string>('loading...');

@@ -1,30 +1,24 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router'
 import NearLogo from '@/assets/near-logo.svg';
 import styles from '@/styles/app.module.css';
-import { useWalletSelector } from '@near-wallet-selector/react-hook';
-
-interface WalletSelectorHook {
-  signedAccountId: string | null;
-  signIn: () => void;
-  signOut: () => void;
-}
+import { useNearWallet } from 'near-connect-hooks';
 
 export const Navigation = () => {
-  const { signedAccountId, signIn, signOut } = useWalletSelector() as WalletSelectorHook;
+ const { signedAccountId, loading, signIn, signOut } = useNearWallet();
 
-  const [action, setAction] = useState<() => void>(() => () => {});
-  const [label, setLabel] = useState<string>('Loading...');
-
-  useEffect(() => {
+  const handleAction = () => {
     if (signedAccountId) {
-      setAction(() => signOut);
-      setLabel(`Logout ${signedAccountId}`);
+      signOut();
     } else {
-      setAction(() => signIn);
-      setLabel('Login');
+      signIn();
     }
-  }, [signedAccountId, signIn, signOut]);
+  };
+
+  const label = loading
+    ? "Loading..."
+    : signedAccountId
+    ? `Logout ${signedAccountId}`
+    : "Login";
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -39,7 +33,7 @@ export const Navigation = () => {
           />
         </Link>
         <div className="navbar-nav pt-1">
-          <button className="btn btn-secondary" onClick={action}>
+          <button className="btn btn-secondary" onClick={handleAction}>
             {label}
           </button>
         </div>
