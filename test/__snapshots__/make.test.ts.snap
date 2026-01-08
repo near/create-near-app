@@ -4,8 +4,8 @@ exports[`create contract 'rs': --contract_rs--Cargo.toml 1`] = `
 [
   "--contract_rs--Cargo.toml",
   "[package]
-name = "cargo-near-new-project-name"
-description = "cargo-near-new-project-description"
+name = "auction"
+description = "An auction smart contract"
 version = "0.1.0"
 edition = "2021"
 # TODO: Fill out the repository field to help NEAR ecosystem tools to discover your project.
@@ -491,13 +491,13 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
 [
   "--contract_ts--package.json",
   "{
-  "name": "auction-contract",
+  "name": "auction",
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/auction-contract.wasm",
-    "test": "$npm_execpath run build && ava -- ./build/auction-contract.wasm"
+    "build": "near-sdk-js build src/contract.ts build/auction.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/auction.wasm"
   },
   "dependencies": {
     "near-sdk-js": "2.0.0"
