@@ -29,9 +29,7 @@ jobs:
     - name: Create Contract PY - ${{ matrix.template }}
       run: npm run start -- test-app --frontend none --contract py --template ${{ matrix.template }}
     - name: Build and test contract
-      working-directory: test-app
       run: |
-        cd contract-py
         uv venv
         uv sync
         uvx nearc contract.py
