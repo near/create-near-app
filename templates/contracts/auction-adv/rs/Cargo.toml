@@ -1,6 +1,6 @@
 [package]
-name = "cargo-near-new-project-name"
-description = "cargo-near-new-project-description"
+name = "auction"
+description = "An auction where users can bid using Fungible Tokens"
 version = "0.1.0"
 edition = "2021"
 # TODO: Fill out the repository field to help NEAR ecosystem tools to discover your project.

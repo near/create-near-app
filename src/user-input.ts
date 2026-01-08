@@ -43,8 +43,8 @@ const appChoices: Choices<App> = [
 ];
 
 const templateChoices: Choices<Template> = [
-  { title: 'Auction', description: 'A simple auction smart contract', value: 'auction' },
-  { title: 'Auction (advance)', description: 'An auction contract were users can bid with FT and the winner gets a NFT', value: 'auction-adv' },
+  { title: 'Auction', description: 'A simple smart contract where users bid using NEAR, ideal for beginners', value: 'auction' },
+  { title: 'Auction (with FT)', description: 'A more advanced contract where users bid using FT and the winner gets an NFT, for experienced users', value: 'auction-adv' },
 ];
 
 const contractChoices: Choices<Contract> = [

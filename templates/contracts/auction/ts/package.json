@@ -1,11 +1,11 @@
 {
-  "name": "auction-contract",
+  "name": "auction",
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "type": "module",
   "scripts": {
-    "build": "near-sdk-js build src/contract.ts build/auction-contract.wasm",
-    "test": "$npm_execpath run build && ava -- ./build/auction-contract.wasm"
+    "build": "near-sdk-js build src/contract.ts build/auction.wasm",
+    "test": "$npm_execpath run build && ava -- ./build/auction.wasm"
   },
   "dependencies": {
     "near-sdk-js": "2.0.0"
