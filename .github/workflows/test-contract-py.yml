@@ -1,0 +1,36 @@
+name: Test Contract PY
+on: push
+env:
+  NODE_ENV: 'ci'
+jobs:
+  tests:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+        template: [auction, auction-adv]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - name: Install modules
+      run: npm install
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+    - name: Install Emscripten
+      run: |
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        source ./emsdk_env.sh
+        echo "PATH=$PATH" >> $GITHUB_ENV
+    - name: Create Contract PY - ${{ matrix.template }}
+      run: npm run start -- test-app --frontend none --contract py --template ${{ matrix.template }}
+    - name: Build and test contract
+      run: |
+        uv venv
+        uv sync
+        uvx nearc contract.py
+        uv run pytest
