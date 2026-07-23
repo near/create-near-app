@@ -53,6 +53,8 @@ impl Contract {
     }
 
     // Users bid by transferring FT tokens
+    // `msg` is unused but required by the NEP-141 `ft_on_transfer` interface
+    #[allow(unused_variables)]
     pub fn ft_on_transfer(&mut self, sender_id: AccountId, amount: U128, msg: String) -> U128 {
         require!(
             env::block_timestamp() < self.auction_end_time.into(),

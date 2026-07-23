@@ -8,6 +8,8 @@ import { isCargoNearInstalled } from './utils';
 
 (async function () {
 
+  // require (not import) so tsc doesn't pull package.json into the compilation and change the dist/ layout
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const supportedNodeVersion = require('../package.json').engines.node;
   if (!semver.satisfies(process.version, supportedNodeVersion)) {
     return show.unsupportedNodeVersion(supportedNodeVersion);
@@ -48,7 +50,7 @@ import { isCargoNearInstalled } from './utils';
   if (contract === 'rs') {
     show.checkingCargoNear();
 
-    let cargoNearInstalled = await isCargoNearInstalled();
+    const cargoNearInstalled = await isCargoNearInstalled();
     if (!cargoNearInstalled) {
       needsToInstallCargoNear = true;
       show.cargoNearIsNotInstalled();
@@ -57,7 +59,9 @@ import { isCargoNearInstalled } from './utils';
 
 
   if (createSuccess) {
-    install && await runDepsInstall(projectPath);
+    if (install) {
+      await runDepsInstall(projectPath);
+    }
     show.setupSuccess(projectName, contract, frontend, install, needsToInstallCargoNear);
   } else {
     return show.setupFailed();

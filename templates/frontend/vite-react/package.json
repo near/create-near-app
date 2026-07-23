@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "^5",
-    "bootstrap-icons": "^1.11.3",
-    "near-connect-hooks": "^1.0.2",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "near-connect-hooks": "^1.1.6",
     "react": "^19",
     "react-dom": "^19",
     "react-router": "^7"
