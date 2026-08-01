@@ -25,7 +25,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 To learn more about NEAR, take a look at the following resources:
 
 - [NEAR Documentation](https://docs.near.org) - learn about NEAR.
-- [Frontend Docs](https://docs.near.org/build/web3-apps/quickstart) - learn about this example.
+- [Frontend Docs](https://docs.near.org/web3-apps/quickstart) - learn about this example.
 
 You can check out [the NEAR repository](https://github.com/near) - your feedback and contributions are welcome!
 

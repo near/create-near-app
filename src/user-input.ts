@@ -123,7 +123,7 @@ export async function getUserAnswers(): Promise<UserConfig> {
 
     // If contract, ask for the template and language
     const { template } = await promptUser(templatePrompt);
-    let { contract } = await promptUser(contractPrompt);
+    const { contract } = await promptUser(contractPrompt);
 
     const { projectName } = await promptUser(namePrompts);
     const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
@@ -157,7 +157,7 @@ export async function promptAndGetConfig(): Promise<{ config: UserConfig, projec
   const { frontend, contract } = args;
   trackUsage(frontend, contract);
 
-  let path = projectPath(args.projectName);
+  const path = projectPath(args.projectName);
 
   if (fs.existsSync(path)) {
     return show.directoryExists(path);

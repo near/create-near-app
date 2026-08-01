@@ -1,5 +1,12 @@
 name: Test Contract RS
-on: push
+on:
+  push:
+    paths: ["templates/contracts/**/rs/**", "src/**", "index.js", "package.json"]
+  pull_request:
+    paths: ["templates/contracts/**/rs/**", "src/**", "index.js", "package.json"]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   NODE_ENV: 'ci'
 jobs:
@@ -16,8 +23,14 @@ jobs:
         node-version: '22'
     - name: Install modules
       run: npm install
+    - name: Install system dependencies
+      if: matrix.platform == 'ubuntu-latest'
+      run: sudo apt-get update && sudo apt-get install -y libudev-dev
     - name: Create Contract RS - ${{ matrix.template }}
       run: npm run start -- test-app --frontend none --contract rs --template ${{ matrix.template }}
+    - uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: test-app
     - name: Install cargo-near
       run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/latest/download/cargo-near-installer.sh | sh
     - name: Run tests

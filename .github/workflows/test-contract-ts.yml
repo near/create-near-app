@@ -1,5 +1,12 @@
 name: Test Contract TS
-on: push
+on:
+  push:
+    paths: ["templates/contracts/**/ts/**", "src/**", "index.js", "package.json"]
+  pull_request:
+    paths: ["templates/contracts/**/ts/**", "src/**", "index.js", "package.json"]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   NODE_ENV: 'ci'
 jobs:

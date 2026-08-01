@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`create contract 'rs': --contract_rs--Cargo.toml 1`] = `
 [
@@ -20,9 +20,9 @@ crate-type = ["cdylib", "rlib"]
 # in https://github.com/near/NEPs/blob/master/neps/nep-0330.md
 [package.metadata.near.reproducible_build]
 # docker image, descriptor of build environment
-image = "sourcescan/cargo-near:0.18.0-rust-1.86.0"
+image = "sourcescan/cargo-near:0.22.0-rust-1.97.1"
 # tag after colon above serves only descriptive purpose; image is identified by digest
-image_digest = "sha256:2d0d458d2357277df669eac6fa23a1ac922e5ed16646e1d3315336e4dff18043"
+image_digest = "sha256:7467038bdddc86484b73b416eeadce926ff59013e128e53dec5a19e1cb4b2234"
 # list of environment variables names, whose values, if set, will be used as external build parameters
 # in a reproducible manner
 # supported by \`sourcescan/cargo-near:0.10.1-rust-1.82.0\` image or later images
@@ -41,14 +41,14 @@ container_build_command = [
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-near-sdk = "5.23"
+near-sdk = "5.29.0"
 
 [dev-dependencies]
-near-sdk = { version = "5.23", features = ["unit-testing"] }
+near-sdk = { version = "5.29.0", features = ["unit-testing"] }
 near-sandbox = "0.3"
 near-api = "0.8"
-cargo-near-build = "0.9.0"
-tokio = { version = "1.12.0", features = ["full"] }
+cargo-near-build = "0.11"
+tokio = { version = "1.48.0", features = ["full"] }
 testresult = "0.4.1"
 
 [profile.release]
@@ -114,7 +114,7 @@ exports[`create contract 'rs': --contract_rs--rust-toolchain.toml 1`] = `
 [
   "--contract_rs--rust-toolchain.toml",
   "[toolchain]
-channel = "1.86.0"
+channel = "1.97.1"
 components = ["rustfmt", "clippy", "rust-analyzer"]
 targets = ["wasm32-unknown-unknown"]",
 ]
@@ -497,19 +497,22 @@ exports[`create contract 'ts': --contract_ts--package.json 1`] = `
   "type": "module",
   "scripts": {
     "build": "near-sdk-js build src/contract.ts build/auction.wasm",
-    "test": "$npm_execpath run build && ava -- ./build/auction.wasm"
+    "test": "$npm_execpath run build && ava --serial -- ./build/auction.wasm"
   },
   "dependencies": {
     "near-sdk-js": "2.0.0"
   },
   "devDependencies": {
-    "ava": "^6.1.3",
-    "near-workspaces": "^3.5.0",
-    "typescript": "^5.4.5"
+    "ava": "^8.0.1",
+    "near-api-js": "^7.2.0",
+    "near-sandbox": "^0.3.1",
+    "typescript": "^5.9.3"
   },
   "ava": {
-    "timeout": "50000",
-    "files": ["sandbox-test/*.ava.js"]
+    "timeout": "120000",
+    "files": [
+      "sandbox-test/*.ava.js"
+    ]
   }
 }
 ",
@@ -520,93 +523,167 @@ exports[`create contract 'ts': --contract_ts--sandbox-test--main.ava.js 1`] = `
 [
   "--contract_ts--sandbox-test--main.ava.js",
   "import anyTest from 'ava';
-import { NEAR, Worker } from 'near-workspaces';
-import { setDefaultResultOrder } from 'dns'; setDefaultResultOrder('ipv4first'); // temp fix for node >v17
+import { readFileSync } from 'fs';
+import { Sandbox, DEFAULT_ACCOUNT_ID, DEFAULT_PRIVATE_KEY } from 'near-sandbox';
+import { Account, JsonRpcProvider, KeyPair, KeyPairSigner, nearToYocto } from 'near-api-js';
 
 /**
- *  @typedef {import('near-workspaces').NearAccount} NearAccount
- *  @type {import('ava').TestFn<{worker: Worker, accounts: Record<string, NearAccount>}>}
+ *  @type {import('ava').TestFn<{sandbox: import('near-sandbox').Sandbox, provider: JsonRpcProvider, alice: Account, bob: Account, auctioneer: Account, contract: Account}>}
  */
 const test = anyTest;
+
+// Advance the sandbox chain by \`deltaHeight\` blocks (sandbox-only RPC method)
+async function fastForward(provider, deltaHeight) {
+  await provider.sendJsonRpc('sandbox_fast_forward', { delta_height: deltaHeight });
+}
+
 test.beforeEach(async (t) => {
-  // Init the worker and start a Sandbox server
-  const worker = t.context.worker = await Worker.init();
+  // Start a fresh sandbox for each test
+  const sandbox = await Sandbox.start({});
+  const provider = new JsonRpcProvider({ url: sandbox.rpcUrl });
 
-  // Create accounts
-  const root = worker.rootAccount;
+  // All accounts share the sandbox genesis key for simplicity
+  const keyPair = KeyPair.fromString(DEFAULT_PRIVATE_KEY);
+  const signer = new KeyPairSigner(keyPair);
 
-  const alice = await root.createSubAccount("alice", { initialBalance: NEAR.parse("10 N").toString() });
-  const bob = await root.createSubAccount("bob", { initialBalance: NEAR.parse("10 N").toString() });
-  const auctioneer = await root.createSubAccount("auctioneer", { initialBalance: NEAR.parse("10 N").toString() });
-  const contract = await root.createSubAccount("contract", { initialBalance: NEAR.parse("10 N").toString() });
+  const root = new Account(DEFAULT_ACCOUNT_ID, provider, signer);
 
-  // Deploy contract (input from package.json)
-  await contract.deploy(process.argv[2]);
+  // Create test accounts
+  const names = ['alice', 'bob', 'auctioneer', 'contract'];
+  for (const name of names) {
+    await root.createSubAccount({
+      accountOrPrefix: name,
+      publicKey: keyPair.getPublicKey(),
+      nearToTransfer: nearToYocto('10'),
+    });
+  }
+
+  const [alice, bob, auctioneer, contract] = names.map(
+    (name) => new Account(\`\${name}.\${DEFAULT_ACCOUNT_ID}\`, provider, signer),
+  );
+
+  // Deploy the wasm file passed by the package.json test script
+  await contract.deployContract(readFileSync(process.argv[2]));
 
   // Initialize contract, finishes in 1 minute
-  await contract.call(contract, "init", {
-    end_time: String((Date.now() + 60000) * 10 ** 6),
-    auctioneer: auctioneer.accountId,
+  await contract.callFunction({
+    contractId: contract.accountId,
+    methodName: 'init',
+    args: {
+      end_time: String((Date.now() + 60000) * 10 ** 6),
+      auctioneer: auctioneer.accountId,
+    },
   });
 
   // Save state for test runs, it is unique for each test
-  t.context.worker = worker;
-  t.context.accounts = { alice, bob, contract, auctioneer };
+  t.context = { sandbox, provider, alice, bob, auctioneer, contract };
 });
 
 test.afterEach.always(async (t) => {
-  // Stop Sandbox server
-  await t.context.worker.tearDown().catch((error) => {
+  // Stop the sandbox and clean up temporary files
+  await t.context.sandbox.tearDown().catch((error) => {
     console.log('Failed to stop the Sandbox:', error);
   });
 });
 
-test("Test full contract", async (t) => {
-  const { alice, bob, auctioneer, contract } = t.context.accounts;
+test('Test full contract', async (t) => {
+  const { provider, alice, bob, auctioneer, contract } = t.context;
 
   // Alice makes first bid
-  await alice.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("1 N").toString() });
-  let highest_bid = await contract.view("get_highest_bid", {});
+  await alice.callFunction({
+    contractId: contract.accountId,
+    methodName: 'bid',
+    args: {},
+    deposit: nearToYocto('1'),
+  });
+  let highest_bid = await provider.callFunction({
+    contractId: contract.accountId,
+    method: 'get_highest_bid',
+    args: {},
+  });
   t.is(highest_bid.bidder, alice.accountId);
-  t.is(highest_bid.bid, NEAR.parse("1 N").toString());
-  const aliceBalance = await alice.balance();
+  t.is(highest_bid.bid, nearToYocto('1').toString());
+  const aliceBalance = await alice.getBalance();
 
   // Bob makes a higher bid
-  await bob.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("2 N").toString() });
-  highest_bid = await contract.view("get_highest_bid", {});
+  await bob.callFunction({
+    contractId: contract.accountId,
+    methodName: 'bid',
+    args: {},
+    deposit: nearToYocto('2'),
+  });
+  highest_bid = await provider.callFunction({
+    contractId: contract.accountId,
+    method: 'get_highest_bid',
+    args: {},
+  });
   t.is(highest_bid.bidder, bob.accountId);
-  t.is(highest_bid.bid, NEAR.parse("2 N").toString());
+  t.is(highest_bid.bid, nearToYocto('2').toString());
 
-  // Check that alice was returned her bid
-  const aliceNewBalance = await alice.balance();
-  t.deepEqual(aliceNewBalance.available, aliceBalance.available.add(NEAR.parse("1 N")));
+  // Check that alice was returned her bid (plus the gas refund from her bid tx)
+  const aliceNewBalance = await alice.getBalance();
+  const returned = aliceNewBalance - aliceBalance;
+  t.true(returned >= nearToYocto('1') && returned < nearToYocto('1.001'));
 
-  // Alice tires to make a bid with less NEAR than the previous 
-  await t.throwsAsync(alice.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("1 N").toString() }));
+  // Alice tries to make a bid with less NEAR than the previous
+  await t.throwsAsync(
+    alice.callFunction({
+      contractId: contract.accountId,
+      methodName: 'bid',
+      args: {},
+      deposit: nearToYocto('1'),
+    }),
+  );
 
   // Auctioneer claims auction but did not finish
-  await t.throwsAsync(auctioneer.call(contract, "claim", {}, { gas: "300000000000000" }));
+  await t.throwsAsync(
+    auctioneer.callFunction({
+      contractId: contract.accountId,
+      methodName: 'claim',
+      args: {},
+      gas: '300000000000000',
+    }),
+  );
 
-  // Fast forward 200 blocks
-  await t.context.worker.provider.fastForward(200)
+  // Fast forward 200 blocks so the auction is over
+  await fastForward(provider, 200);
 
-  const auctioneerBalance = await auctioneer.balance();
-  const available = parseFloat(auctioneerBalance.available.toHuman());
+  const auctioneerBalance = await auctioneer.getBalance();
 
   // Auctioneer claims the auction
-  await auctioneer.call(contract, "claim", {}, { gas: "300000000000000" });
+  await auctioneer.callFunction({
+    contractId: contract.accountId,
+    methodName: 'claim',
+    args: {},
+    gas: '300000000000000',
+  });
 
-  // Checks that the auctioneer has the correct balance
-  const contractNewBalance = await auctioneer.balance();
-  const new_available = parseFloat(contractNewBalance.available.toHuman());
-  t.is(new_available.toFixed(1), (available + 2).toFixed(1));
+  // Checks that the auctioneer received the highest bid (minus a small amount of gas)
+  const auctioneerNewBalance = await auctioneer.getBalance();
+  const received = auctioneerNewBalance - auctioneerBalance;
+  t.true(received > nearToYocto('1.99') && received <= nearToYocto('2'));
 
   // Auctioneer tries to claim the auction again
-  await t.throwsAsync(auctioneer.call(contract, "claim", {}, { gas: "300000000000000" }))
+  await t.throwsAsync(
+    auctioneer.callFunction({
+      contractId: contract.accountId,
+      methodName: 'claim',
+      args: {},
+      gas: '300000000000000',
+    }),
+  );
 
   // Alice tries to make a bid when the auction is over
-  await t.throwsAsync(alice.call(contract, "bid", {}, { attachedDeposit: NEAR.parse("1 N").toString() }));
-});",
+  await t.throwsAsync(
+    alice.callFunction({
+      contractId: contract.accountId,
+      methodName: 'bid',
+      args: {},
+      deposit: nearToYocto('1'),
+    }),
+  );
+});
+",
 ]
 `;
 
@@ -694,17 +771,20 @@ exports[`create contract 'ts': --contract_ts--tsconfig.json 1`] = `
   "{
   "compilerOptions": {
     "experimentalDecorators": true,
-    "target": "ES5",
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "noEmit": true,
-    "noImplicitAny": false,
+    "noImplicitAny": false
   },
   "files": [
     "src/contract.ts"
   ],
   "exclude": [
     "node_modules"
-  ],
-}",
+  ]
+}
+",
 ]
 `;
 
@@ -747,7 +827,7 @@ This project uses [\`next/font\`](https://nextjs.org/docs/basic-features/font-op
 To learn more about NEAR, take a look at the following resources:
 
 - [NEAR Documentation](https://docs.near.org) - learn about NEAR.
-- [Frontend Docs](https://docs.near.org/build/web3-apps/quickstart) - learn about this example.
+- [Frontend Docs](https://docs.near.org/web3-apps/quickstart) - learn about this example.
 
 You can check out [the NEAR repository](https://github.com/near) - your feedback and contributions are welcome!
 
@@ -776,6 +856,9 @@ exports[`create frontend 'next-app': --frontend_next-app--next.config.js 1`] = `
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['reown'],
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 module.exports = nextConfig;
@@ -788,7 +871,7 @@ exports[`create frontend 'next-app': --frontend_next-app--next-env.d.ts 1`] = `
   "--frontend_next-app--next-env.d.ts",
   "/// <reference types="next" />
 /// <reference types="next/image-types/global" />
-/// <reference path="./.next/types/routes.d.ts" />
+import "./.next/types/routes.d.ts";
 
 // NOTE: This file should not be edited
 // see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
@@ -813,22 +896,23 @@ exports[`create frontend 'next-app': --frontend_next-app--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "bootstrap": "^5",
-    "bootstrap-icons": "^1.11.3",
-    "near-connect-hooks": "^1.0.2",
-    "next": "^15",
-    "react": "^18",
-    "react-dom": "^18"
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "near-connect-hooks": "^1.1.6",
+    "next": "16.2.11",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
-    "@types/node": "^24.7.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
-    "encoding": "^0.1.13",
-    "eslint": "^9",
-    "eslint-config-next": "^15",
-    "pino-pretty": "^11.2.2",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "eslint": "^10.7.0",
+    "eslint-config-next": "16.2.11",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.12",
+    "sharp": "^0.35.0"
   }
 }
 ",
@@ -915,8 +999,8 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--app.module.c
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 2rem 6rem;
+  flex: 1;
 }
 
 .description {
@@ -953,9 +1037,11 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--app.module.c
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(25%, auto));
-  max-width: 100%;
-  width: var(--max-width);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--max-width);
 }
 
 .card {
@@ -1156,8 +1242,8 @@ IHDR   @   @   �iq�  SIDATx�՛�m�0�?t��2�Fh4A�	�
 exports[`create frontend 'next-app': --frontend_next-app--src--app--globals.css 1`] = `
 [
   "--frontend_next-app--src--app--globals.css",
-  "@import 'bootstrap';
-@import 'bootstrap-icons';
+  "@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 :root {
   --max-width: 1100px;
@@ -1231,6 +1317,13 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+/* nav + main fill exactly one viewport, no vertical scroll */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
 }
 
 body {
@@ -1353,7 +1446,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
         <NearProvider>
           <Navigation />
@@ -1371,8 +1464,8 @@ exports[`create frontend 'next-app': --frontend_next-app--src--app--page.tsx 1`]
   "--frontend_next-app--src--app--page.tsx",
   "import Image from 'next/image';
 
-import NearLogo from '/public/near.svg';
-import NextLogo from '/public/next.svg';
+import NearLogo from '../../public/near.svg';
+import NextLogo from '../../public/next.svg';
 import styles from './app.module.css';
 import { Cards } from '@/components/cards';
 
@@ -1386,8 +1479,8 @@ export default function Home() {
           className={styles.logo}
           src={NearLogo}
           alt="NEAR Logo"
-          width={110 * 1.5}
-          height={28 * 1.5}
+          width={165}
+          height={42}
           priority
         />
         <h3 className="ms-2 me-3 text-dark"> + </h3>
@@ -1395,32 +1488,36 @@ export default function Home() {
           className={styles.logo}
           src={NextLogo}
           alt="Next.js Logo"
-          width={300 * .58}
-          height={61 * .58}
+          width={174}
+          height={35}
+          style={{ width: 174, height: 'auto' }}
           priority
         />
       </div>
 
-      <div className={styles.grid}>
-        <Cards />
-      </div>
+      <Cards />
     </main>
   );
-}",
+}
+",
 ]
 `;
 
 exports[`create frontend 'next-app': --frontend_next-app--src--components--cards.tsx 1`] = `
 [
   "--frontend_next-app--src--components--cards.tsx",
-  "import Link from "next/link";
+  "'use client';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "@/app/app.module.css";
 
 export const Cards = () => {
+  const onHelloNear = usePathname() === "/hello-near";
+
   return (
     <div className={styles.grid}>
       <Link
-        href="https://docs.near.org/build/web3-apps/quickstart"
+        href="https://docs.near.org/web3-apps/quickstart"
         className={styles.card}
         target="_blank"
         rel="noopener noreferrer"
@@ -1431,15 +1528,25 @@ export const Cards = () => {
         <p>Learn how this application works, and what you can build on Near.</p>
       </Link>
 
-      <Link href="/hello-near" className={styles.card} rel="noopener noreferrer">
-        <h2>
-          Near Integration <span>-&gt;</span>
-        </h2>
-        <p>Discover how simple it is to interact with a Near smart contract.</p>
-      </Link>
+      {onHelloNear ? (
+        <Link href="/" className={styles.card}>
+          <h2>
+            Home <span>-&gt;</span>
+          </h2>
+          <p>Go back to the home page.</p>
+        </Link>
+      ) : (
+        <Link href="/hello-near" className={styles.card}>
+          <h2>
+            Near Integration <span>-&gt;</span>
+          </h2>
+          <p>Discover how simple it is to interact with a Near smart contract.</p>
+        </Link>
+      )}
     </div>
   );
-};",
+};
+",
 ]
 `;
 
@@ -1527,7 +1634,7 @@ exports[`create frontend 'next-app': --frontend_next-app--tsconfig.json 1`] = `
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -1546,7 +1653,8 @@ exports[`create frontend 'next-app': --frontend_next-app--tsconfig.json 1`] = `
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/app/global.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
@@ -1606,7 +1714,7 @@ This project uses [\`next/font\`](https://nextjs.org/docs/basic-features/font-op
 To learn more about NEAR, take a look at the following resources:
 
 - [NEAR Documentation](https://docs.near.org) - learn about NEAR.
-- [Frontend Docs](https://docs.near.org/build/web3-apps/quickstart) - learn about this example.
+- [Frontend Docs](https://docs.near.org/web3-apps/quickstart) - learn about this example.
 
 You can check out [the NEAR repository](https://github.com/near) - your feedback and contributions are welcome!
 
@@ -1635,6 +1743,9 @@ exports[`create frontend 'next-page': --frontend_next-page--next.config.js 1`] =
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['reown'],
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 module.exports = nextConfig;
@@ -1647,7 +1758,7 @@ exports[`create frontend 'next-page': --frontend_next-page--next-env.d.ts 1`] = 
   "--frontend_next-page--next-env.d.ts",
   "/// <reference types="next" />
 /// <reference types="next/image-types/global" />
-/// <reference path="./.next/types/routes.d.ts" />
+import "./.next/types/routes.d.ts";
 
 // NOTE: This file should not be edited
 // see https://nextjs.org/docs/pages/api-reference/config/typescript for more information.
@@ -1672,22 +1783,23 @@ exports[`create frontend 'next-page': --frontend_next-page--package.json 1`] = `
     "lint": "next lint"
   },
   "dependencies": {
-    "bootstrap": "^5",
-    "bootstrap-icons": "^1.11.3",
-    "near-connect-hooks": "^1.0.2",
-    "next": "^15",
-    "react": "^18",
-    "react-dom": "^18"
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "near-connect-hooks": "^1.1.6",
+    "next": "16.2.11",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
-    "@types/node": "24.8.1",
-    "@types/react": "^18.3.26",
-    "@types/react-dom": "^18.3.7",
-    "encoding": "^0.1.13",
-    "eslint": "^9",
-    "eslint-config-next": "^15",
-    "pino-pretty": "^11.2.2",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "eslint": "^10.7.0",
+    "eslint-config-next": "16.2.11",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.12",
+    "sharp": "^0.35.0"
   }
 }
 ",
@@ -1782,14 +1894,17 @@ exports[`create frontend 'next-page': --frontend_next-page--src--components--car
 [
   "--frontend_next-page--src--components--cards.tsx",
   "import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/app.module.css';
 
 export const Cards = () => {
+  const onHelloNear = useRouter().pathname === '/hello-near';
+
   return (
     <div className={styles.grid}>
       <Link
-        href="https://docs.near.org/build/web3-apps/quickstart"
+        href="https://docs.near.org/web3-apps/quickstart"
         className={styles.card}
         target='_blank'
         rel="noopener noreferrer"
@@ -1800,18 +1915,25 @@ export const Cards = () => {
         <p>Learn how this application works, and what you can build on Near.</p>
       </Link>
 
-      <Link
-        href="/hello-near"
-        className={styles.card}
-      >
-        <h2>
-          Near Integration <span>-&gt;</span>
-        </h2>
-        <p>Discover how simple it is to interact with a Near smart contract.</p>
-      </Link>
+      {onHelloNear ? (
+        <Link href="/" className={styles.card}>
+          <h2>
+            Home <span>-&gt;</span>
+          </h2>
+          <p>Go back to the home page.</p>
+        </Link>
+      ) : (
+        <Link href="/hello-near" className={styles.card}>
+          <h2>
+            Near Integration <span>-&gt;</span>
+          </h2>
+          <p>Discover how simple it is to interact with a Near smart contract.</p>
+        </Link>
+      )}
     </div>
   );
-};",
+};
+",
 ]
 `;
 
@@ -1897,6 +2019,26 @@ export default function App({ Component, pageProps }: AppProps) {
     </NearProvider>
   );
 }",
+]
+`;
+
+exports[`create frontend 'next-page': --frontend_next-page--src--pages--_document.tsx 1`] = `
+[
+  "--frontend_next-page--src--pages--_document.tsx",
+  "import { Html, Head, Main, NextScript } from "next/document";
+
+export default function Document() {
+  return (
+    <Html data-scroll-behavior="smooth">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+",
 ]
 `;
 
@@ -1987,8 +2129,8 @@ exports[`create frontend 'next-page': --frontend_next-page--src--pages--index.ts
   "--frontend_next-page--src--pages--index.tsx",
   "import Image from "next/image";
 
-import NearLogo from "/public/near.svg";
-import NextLogo from "/public/next.svg";
+import NearLogo from "../../public/near.svg";
+import NextLogo from "../../public/next.svg";
 import { Cards } from "@/components/cards";
 import styles from "@/styles/app.module.css";
 
@@ -2002,8 +2144,8 @@ export default function Home() {
           className={styles.logo}
           src={NearLogo}
           alt="NEAR Logo"
-          width={110 * 1.5}
-          height={28 * 1.5}
+          width={165}
+          height={42}
           priority
         />
         <h3 className="ms-2 me-3 text-dark"> + </h3>
@@ -2011,18 +2153,18 @@ export default function Home() {
           className={styles.logo}
           src={NextLogo}
           alt="Next.js Logo"
-          width={300 * 0.58}
-          height={61 * 0.58}
+          width={174}
+          height={35}
+          style={{ width: 174, height: 'auto' }}
           priority
         />
       </div>
 
-      <div className={styles.grid}>
-        <Cards />
-      </div>
+      <Cards />
     </main>
   );
-}",
+}
+",
 ]
 `;
 
@@ -2034,8 +2176,8 @@ exports[`create frontend 'next-page': --frontend_next-page--src--styles--app.mod
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 2rem 6rem;
+  flex: 1;
 }
 
 .description {
@@ -2072,9 +2214,11 @@ exports[`create frontend 'next-page': --frontend_next-page--src--styles--app.mod
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(25%, auto));
-  max-width: 100%;
-  width: var(--max-width);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--max-width);
 }
 
 .card {
@@ -2263,8 +2407,8 @@ exports[`create frontend 'next-page': --frontend_next-page--src--styles--app.mod
 exports[`create frontend 'next-page': --frontend_next-page--src--styles--globals.css 1`] = `
 [
   "--frontend_next-page--src--styles--globals.css",
-  "@import 'bootstrap';
-@import 'bootstrap-icons';
+  "@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 :root {
   --max-width: 1100px;
@@ -2340,6 +2484,13 @@ body {
   overflow-x: hidden;
 }
 
+/* nav + main fill exactly one viewport, no vertical scroll */
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,
@@ -2372,9 +2523,9 @@ exports[`create frontend 'next-page': --frontend_next-page--tsconfig.json 1`] = 
         "./src/*"
       ]
     },
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "target": "ES2017",
     "lib": [
@@ -2515,9 +2666,9 @@ exports[`create frontend 'vite-react': --frontend_vite-react--package.json 1`] =
     "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "^5",
-    "bootstrap-icons": "^1.11.3",
-    "near-connect-hooks": "^1.0.2",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "near-connect-hooks": "^1.1.6",
     "react": "^19",
     "react-dom": "^19",
     "react-router": "^7"
@@ -2651,13 +2802,15 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--components--c
 [
   "--frontend_vite-react--src--components--cards.tsx",
   "import styles from '@/styles/app.module.css'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 
 export const Cards = () => {
+  const onHelloNear = useLocation().pathname === '/hello-near'
+
   return (
     <div className={styles.grid}>
       <a
-        href="https://docs.near.org/build/web3-apps/quickstart"
+        href="https://docs.near.org/web3-apps/quickstart"
         className={styles.card}
         target="_blank"
         rel="noopener noreferrer"
@@ -2668,15 +2821,25 @@ export const Cards = () => {
         <p>Learn how this application works, and what you can build on Near.</p>
       </a>
 
-      <Link to="/hello-near" className={styles.card} rel="noopener noreferrer">
-        <h2>
-          Near Integration <span>-&gt;</span>
-        </h2>
-        <p>Discover how simple it is to interact with a Near smart contract.</p>
-      </Link>
+      {onHelloNear ? (
+        <Link to="/" className={styles.card}>
+          <h2>
+            Home <span>-&gt;</span>
+          </h2>
+          <p>Go back to the home page.</p>
+        </Link>
+      ) : (
+        <Link to="/hello-near" className={styles.card}>
+          <h2>
+            Near Integration <span>-&gt;</span>
+          </h2>
+          <p>Discover how simple it is to interact with a Near smart contract.</p>
+        </Link>
+      )}
     </div>
   )
-}",
+}
+",
 ]
 `;
 
@@ -2891,31 +3054,28 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--pages--home.t
   "--frontend_vite-react--src--pages--home.tsx",
   "import styles from '@/styles/app.module.css';
 import NearLogo from '@/assets/near-logo.svg';
-import NextLogo from '@/assets/react.svg';
+import ReactLogo from '@/assets/react.svg';
 import { Cards } from '@/components/cards';
 
 const Home = () => {
   return (
-
     <main className={styles.main}>
-    <div className={styles.description}> </div>
+      <div className={styles.description}> </div>
 
-    <div className={styles.center}>
-      <img className={styles.logo} src={NearLogo} alt="NEAR Logo" width={110 * 1.5} height={28 * 1.5} />
-      <h3 className="ms-2 me-3 text-dark"> + </h3>
-      <img
+      <div className={styles.center}>
+        <img className={styles.logo} src={NearLogo} alt="NEAR Logo" width={165} height={42} />
+        <h3 className="ms-2 me-3 text-dark"> + </h3>
+        <img
           className={styles.reactLogo}
-          src={NextLogo}
+          src={ReactLogo}
           alt="React Logo"
-          width={300 * 0.58}
-          height={61 * 0.58}
+          width={174}
+          height={35}
         />
-    </div>
+      </div>
 
-    <div className={styles.grid}>
       <Cards />
-    </div>
-  </main>
+    </main>
   )
 }
 
@@ -2932,8 +3092,8 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--styles--app.m
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 2rem 6rem;
+  flex: 1;
 }
 
 .description {
@@ -2970,9 +3130,11 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--styles--app.m
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(25%, auto));
-  max-width: 100%;
-  width: var(--max-width);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--max-width);
 }
 
 .card {
@@ -3160,8 +3322,8 @@ exports[`create frontend 'vite-react': --frontend_vite-react--src--styles--app.m
 exports[`create frontend 'vite-react': --frontend_vite-react--src--styles--globals.css 1`] = `
 [
   "--frontend_vite-react--src--styles--globals.css",
-  "@import 'bootstrap';
-@import 'bootstrap-icons';
+  "@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 :root {
   --max-width: 1100px;
@@ -3221,6 +3383,13 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+/* nav + main fill exactly one viewport, no vertical scroll */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
 }
 
 body {
@@ -3308,6 +3477,13 @@ export default defineConfig({
       '@': '/src',
       buffer: 'buffer',
     },
+  },
+  optimizeDeps: {
+    include: [
+      'vite-plugin-node-polyfills/shims/buffer',
+      'vite-plugin-node-polyfills/shims/global',
+      'vite-plugin-node-polyfills/shims/process',
+    ],
   },
 })",
 ]

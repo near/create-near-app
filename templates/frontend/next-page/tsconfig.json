@@ -6,9 +6,9 @@
         "./src/*"
       ]
     },
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "target": "ES2017",
     "lib": [

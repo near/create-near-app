@@ -15,9 +15,9 @@ crate-type = ["cdylib", "rlib"]
 # in https://github.com/near/NEPs/blob/master/neps/nep-0330.md
 [package.metadata.near.reproducible_build]
 # docker image, descriptor of build environment
-image = "sourcescan/cargo-near:0.18.0-rust-1.86.0"
+image = "sourcescan/cargo-near:0.22.0-rust-1.97.1"
 # tag after colon above serves only descriptive purpose; image is identified by digest
-image_digest = "sha256:2d0d458d2357277df669eac6fa23a1ac922e5ed16646e1d3315336e4dff18043"
+image_digest = "sha256:7467038bdddc86484b73b416eeadce926ff59013e128e53dec5a19e1cb4b2234"
 # list of environment variables names, whose values, if set, will be used as external build parameters
 # in a reproducible manner
 # supported by `sourcescan/cargo-near:0.10.1-rust-1.82.0` image or later images
@@ -36,14 +36,14 @@ container_build_command = [
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-near-sdk = "5.23"
+near-sdk = "5.29.0"
 
 [dev-dependencies]
-near-sdk = { version = "5.23", features = ["unit-testing"] }
+near-sdk = { version = "5.29.0", features = ["unit-testing"] }
 near-sandbox = "0.3"
 near-api = "0.8"
-cargo-near-build = "0.9.0"
-tokio = { version = "1.12.0", features = ["full"] }
+cargo-near-build = "0.11"
+tokio = { version = "1.48.0", features = ["full"] }
 testresult = "0.4.1"
 
 [profile.release]

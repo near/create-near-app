@@ -11,4 +11,11 @@ export default defineConfig({
       buffer: 'buffer',
     },
   },
+  optimizeDeps: {
+    include: [
+      'vite-plugin-node-polyfills/shims/buffer',
+      'vite-plugin-node-polyfills/shims/global',
+      'vite-plugin-node-polyfills/shims/process',
+    ],
+  },
 })

@@ -1,7 +1,0 @@
-dist
-node_modules
-templates/frontend/
-templates/contracts/
-src/*.js
-jest.config.js
-_testrun
