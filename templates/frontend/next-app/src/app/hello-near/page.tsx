@@ -1,41 +1,38 @@
 'use client';
-import { useState, useEffect } from 'react';
-
-import styles from '@/app/app.module.css';
 import { Cards } from '@/components/cards';
 
-import { HelloNearContract } from '@/config';
-import { useNearWallet } from 'near-connect-hooks';
+import { useEffect, useState } from 'react';
+import styles from '@/app/app.module.css';
 
+import { HelloNearContract } from '@/config';
+
+import { useNearWallet } from '@/providers/near-provider';
 
 export default function HelloNear() {
   const { signedAccountId, viewFunction, callFunction } = useNearWallet();
-
   const [greeting, setGreeting] = useState<string>('loading...');
-  const [newGreeting, setNewGreeting] = useState('loading...');
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [newGreeting, setNewGreeting] = useState('');
+  const loggedIn = !!signedAccountId;
+  const [error, setError] = useState('');
   const [showSpinner, setShowSpinner] = useState(false);
 
- useEffect(() => {
-    viewFunction({ contractId: HelloNearContract, method: 'get_greeting' }).then((greeting) => setGreeting(greeting as string));
-  }, []);
-
   useEffect(() => {
-    setLoggedIn(!!signedAccountId);
-  }, [signedAccountId]);
+    viewFunction({ contractId: HelloNearContract, method: 'get_greeting' }).then((greeting) => setGreeting(String(greeting)))
+      .catch((error: Error) => setError(error.message));
+  }, [viewFunction]);
 
   const saveGreeting = async () => {
-    // Try to store greeting, revert if it fails
-    callFunction({ contractId: HelloNearContract, method: 'set_greeting', args: { greeting: newGreeting } })
-      .then(async () => {
-        const greeting = (await viewFunction({ contractId: HelloNearContract, method: 'get_greeting' })) as string;
-        setGreeting(greeting);
-        setShowSpinner(false);
-      });
-
-    // Assume the transaction will be successful and update the UI optimistically
     setShowSpinner(true);
-    setGreeting(newGreeting);
+    setError('');
+    try {
+      await callFunction({ contractId: HelloNearContract, method: 'set_greeting', args: { greeting: newGreeting } });
+      const updated = await viewFunction({ contractId: HelloNearContract, method: 'get_greeting' });
+      setGreeting(String(updated));
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Unable to save greeting');
+    } finally {
+      setShowSpinner(false);
+    }
   };
 
   return (
@@ -59,7 +56,7 @@ export default function HelloNear() {
             onChange={(t) => setNewGreeting(t.target.value)}
           />
           <div className="input-group-append">
-            <button className="btn btn-secondary" onClick={saveGreeting}>
+            <button className="btn btn-secondary" disabled={showSpinner} onClick={saveGreeting}>
               <span hidden={showSpinner}> Save </span>
               <i className="spinner-border spinner-border-sm" hidden={!showSpinner}></i>
             </button>
@@ -69,6 +66,7 @@ export default function HelloNear() {
           <p className="m-0"> Please login to change the greeting </p>
         </div>
       </div>
+      {error && <p role="alert">{error}</p>}
       <Cards />
     </main>
   );

@@ -1,58 +1,37 @@
-import { useEffect, useState, ChangeEvent } from 'react';
 import { Cards } from '@/components/cards';
+
+import { useEffect, useState } from 'react';
 import styles from '@/styles/app.module.css';
 
 import { HelloNearContract } from '@/config';
-import { useNearWallet } from 'near-connect-hooks';
 
-interface useNearHook {
-  signedAccountId: string | null;
-  viewFunction: (params: { contractId: string; method: string; args?: Record<string, unknown> }) => Promise<any>;
-  callFunction: (params: { contractId: string; method: string; args?: Record<string, unknown> }) => Promise<any>;
-}
-
-// Contract constant
-const CONTRACT = HelloNearContract as string;
+import { useNearWallet } from '@/providers/near-provider';
 
 export default function HelloNear() {
-  const { signedAccountId, viewFunction, callFunction } = useNearWallet() as useNearHook;
-
+  const { signedAccountId, viewFunction, callFunction } = useNearWallet();
   const [greeting, setGreeting] = useState<string>('loading...');
-  const [newGreeting, setNewGreeting] = useState<string>('loading...');
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const [showSpinner, setShowSpinner] = useState<boolean>(false);
+  const [newGreeting, setNewGreeting] = useState('');
+  const loggedIn = !!signedAccountId;
+  const [error, setError] = useState('');
+  const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
-    viewFunction({ contractId: CONTRACT, method: 'get_greeting' })
-      .then((greeting) => setGreeting(greeting))
-      .catch(console.error);
+    viewFunction({ contractId: HelloNearContract, method: 'get_greeting' }).then((greeting) => setGreeting(String(greeting)))
+      .catch((error: Error) => setError(error.message));
   }, [viewFunction]);
 
-  useEffect(() => {
-    setLoggedIn(!!signedAccountId);
-  }, [signedAccountId]);
-
   const saveGreeting = async () => {
-    try {
-      await callFunction({
-        contractId: CONTRACT,
-        method: 'set_greeting',
-        args: { greeting: newGreeting },
-      });
-    } catch (error) {
-      console.error(error);
-      const greeting = await viewFunction({ contractId: CONTRACT, method: 'get_greeting' });
-      setGreeting(greeting);
-    }
-
     setShowSpinner(true);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setGreeting(newGreeting);
-    setShowSpinner(false);
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewGreeting(e.target.value);
+    setError('');
+    try {
+      await callFunction({ contractId: HelloNearContract, method: 'set_greeting', args: { greeting: newGreeting } });
+      const updated = await viewFunction({ contractId: HelloNearContract, method: 'get_greeting' });
+      setGreeting(String(updated));
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Unable to save greeting');
+    } finally {
+      setShowSpinner(false);
+    }
   };
 
   return (
@@ -60,35 +39,33 @@ export default function HelloNear() {
       <div className={styles.description}>
         <p>
           Interacting with the contract: &nbsp;
-          <code className={styles.code}>{CONTRACT}</code>
+          <code className={styles.code}>{HelloNearContract}</code>
         </p>
       </div>
+
       <div className={styles.center}>
         <h1 className="w-100">
           The contract says: <code>{greeting}</code>
         </h1>
-
-        {loggedIn ? (
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control w-20"
-              placeholder="Store a new greeting"
-              onChange={handleChange}
-            />
-            <div className="input-group-append">
-              <button className="btn btn-secondary" onClick={saveGreeting}>
-                <span hidden={showSpinner}>Save</span>
-                <i className="spinner-border spinner-border-sm" hidden={!showSpinner}></i>
-              </button>
-            </div>
+        <div className="input-group" hidden={!loggedIn}>
+          <input
+            type="text"
+            className="form-control w-20"
+            placeholder="Store a new greeting"
+            onChange={(t) => setNewGreeting(t.target.value)}
+          />
+          <div className="input-group-append">
+            <button className="btn btn-secondary" disabled={showSpinner} onClick={saveGreeting}>
+              <span hidden={showSpinner}> Save </span>
+              <i className="spinner-border spinner-border-sm" hidden={!showSpinner}></i>
+            </button>
           </div>
-        ) : (
-          <div className="w-100 text-end align-text-center">
-            <p className="m-0">Please login to change the greeting</p>
-          </div>
-        )}
+        </div>
+        <div className="w-100 text-end align-text-center" hidden={loggedIn}>
+          <p className="m-0"> Please login to change the greeting </p>
+        </div>
       </div>
+      {error && <p role="alert">{error}</p>}
       <Cards />
     </main>
   );

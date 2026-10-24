@@ -1,93 +1,43 @@
+import { fileURLToPath } from 'node:url';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
-import dir from 'node-dir';
 import { createProject } from '../src/make';
-import { Contract, Frontend, Template } from '../src/types';
+import { UserConfig } from '../src/types';
 
-describe('create contract', () => {
-  const contracts: Contract[] = ['ts', 'rs'];
-  const template: Template = 'auction';
+const templatesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../templates');
+let temporaryDirectory: string;
+beforeEach(() => { temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'create-near-app-')); });
+afterEach(() => { fs.rmSync(temporaryDirectory, { recursive: true, force: true }); });
 
-  const ts = Date.now();
-  test.each(contracts)('%o', async (contract: Contract) => {
-    const projectName = `contract_${contract}`;
-    const rootDir = path.resolve(__dirname, '../templates/');
-    fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), { recursive: true });
-    const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
-    const projectPath = path.resolve(projectPathPrefix, projectName);
-    await createProject({
-      contract,
-      template,
-      frontend: 'none',
-      templatesDir: rootDir,
-      projectPath,
-    });
-    await new Promise<void>((resolve, reject) => {
-      const allContent: string[] = [];
-      dir.readFiles(projectPath,
-        { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store', '.github', '.git'] },
-        function (err, content, next) {
-          if (err) {
-            reject(err);
-          }
-          allContent.push(content as string);
-          next();
-        },
-        function (err, files) {
-          if (err) {
-            reject(err);
-          } else {
-            files.forEach((f, n) => {
-              const fileName: string = f.replace(projectPathPrefix, '').replace(/\//g, '--').replace(/\\/g, '--');
-              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName}`);
-            });
-            resolve();
-          }
-        });
-    });
-  });
-});
+const projects: UserConfig[] = [
+  { projectName: 'basic', contract: true, template: 'auction', install: false },
+  { projectName: 'advanced', contract: true, template: 'auction-adv', install: false },
+  { projectName: 'next', contract: false, frontend: 'next-app', install: false },
+  { projectName: 'vite', contract: false, frontend: 'vite-react', install: false },
+];
 
-describe('create frontend', () => {
-  const frontends: Frontend[] = ['next-app', 'next-page', 'vite-react'];
-  const template: Template = 'auction';
-
-  const ts = Date.now();
-  test.each(frontends)('%o', async (frontend: Frontend) => {
-    const projectName = `frontend_${frontend}`;
-    const rootDir = path.resolve(__dirname, '../templates/');
-    fs.mkdirSync(path.resolve(__dirname, `../_testrun/${ts}`), { recursive: true });
-    const projectPathPrefix = path.resolve(__dirname, `../_testrun/${ts}`);
-    const projectPath = path.resolve(projectPathPrefix, projectName);
-    await createProject({
-      contract: 'none',
-      template,
-      frontend: frontend,
-      templatesDir: rootDir,
-      projectPath,
-    });
-    await new Promise<void>((resolve, reject) => {
-      const allContent: string[] = [];
-      dir.readFiles(projectPath,
-        { exclude: ['node_modules', 'Cargo.lock', 'package-lock.json', 'yarn.lock', '.DS_Store'] },
-        function (err, content, next) {
-          if (err) {
-            reject(err);
-          }
-          allContent.push(content as string);
-          next();
-        },
-        function (err, files) {
-          if (err) {
-            reject(err);
-          } else {
-            files.forEach((f, n) => {
-              const fileName: string = f.replace(projectPathPrefix, '').replace(/\//g, '--').replace(/\\/g, '--');
-              expect([fileName, allContent[n]]).toMatchSnapshot(`${fileName}`);
-            });
-            resolve();
-          }
-        });
-    });
-  });
+test.each(projects)('scaffolds $projectName with only its selected template', async (config) => {
+  const projectPath = path.join(temporaryDirectory, config.projectName);
+  await createProject({ ...config, templatesDir, projectPath });
+  const files = fs.readdirSync(projectPath, { recursive: true }) as string[];
+  expect(files).toContain('README.md');
+  expect(files).not.toContain('rs');
+  expect(files).not.toContain('ts');
+  if (config.contract) {
+    expect(files).toContain('Cargo.toml');
+    expect(files).not.toContain('package.json');
+    const manifest = fs.readFileSync(path.join(projectPath, 'Cargo.toml'), 'utf8');
+    expect(manifest).toContain('near-sandbox');
+    expect(manifest).toContain('near-api');
+    expect(manifest).not.toContain('near-workspaces');
+    expect(files.includes(path.join('src', 'ext.rs'))).toBe(config.template === 'auction-adv');
+  } else {
+    expect(files).toContain('package.json');
+    expect(files).toContain(path.join('src', 'providers', 'near-provider.tsx'));
+    expect(files).not.toContain('Cargo.toml');
+    const manifest = JSON.parse(fs.readFileSync(path.join(projectPath, 'package.json'), 'utf8'));
+    expect(manifest.dependencies['@hot-labs/near-connect']).toBeDefined();
+    expect(manifest.dependencies['near-connect-hooks']).toBeUndefined();
+  }
 });

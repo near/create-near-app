@@ -1,204 +1,108 @@
-import {
-  App,
-  Contract,
-  CONTRACTS,
-  Template,
-  TEMPLATES,
-  Frontend,
-  FRONTENDS,
-  ProjectName,
-  UserConfig
-} from './types';
-import chalk from 'chalk';
+import { Template, TEMPLATES, Frontend, FRONTENDS, ProjectName, UserConfig } from './types';
+import chalkTemplate from 'chalk-template';
 import prompt, { PromptObject } from 'prompts';
-import { program } from 'commander';
+import { Command, Option } from 'commander';
 import * as show from './messages';
 import { trackUsage } from './tracking';
 import fs from 'fs';
+import path from 'path';
 
 export async function getUserArgs(): Promise<UserConfig> {
-  program
+  const program = new Command()
     .argument('[projectName]')
-    .option('--frontend [next-page|next-app|vite-react|none]')
-    .option('--contract [ts|rs|none]')
-    .option('--template [auction-adv|auction]')
-    .option('--install')
-    .addHelpText('after', 'You can create a frontend or a contract with tests');
+    .allowExcessArguments(false)
+    .addOption(new Option('--frontend <framework>', 'Create a frontend').choices(FRONTENDS))
+    .option('--contract', 'Create a Rust smart contract')
+    .addOption(new Option('--template <template>', 'Choose a Rust contract template').choices(TEMPLATES))
+    .option('--install', 'Install frontend dependencies')
+    .addHelpText('after', 'Create a Rust contract with --contract, or a frontend with --frontend next-app|vite-react.');
 
   program.parse();
-
-  const options = program.opts();
+  const { contract = false, frontend, template, install = false } = program.opts();
   const [projectName] = program.args;
-  const { contract, frontend, template, install } = options;
-  return { contract, frontend, template, projectName, install, error: undefined };
+  return { contract, frontend, template, projectName, install };
 }
 
 type Choices<T> = { title: string, description?: string, value: T }[];
 
-const appChoices: Choices<App> = [
-  { title: 'Web Application', description: 'A Web App that talks with Near contracts', value: 'gateway' },
-  {
-    title: 'Smart Contract', description: 'A smart contract to be deployed in the Near Blockchain', value: 'contract',
-  },
-];
-
 const templateChoices: Choices<Template> = [
-  { title: 'Auction', description: 'A simple smart contract where users bid using NEAR, ideal for beginners', value: 'auction' },
-  { title: 'Auction (with FT)', description: 'A more advanced contract where users bid using FT and the winner gets an NFT, for experienced users', value: 'auction-adv' },
-];
-
-const contractChoices: Choices<Contract> = [
-  { title: 'Rust (recommended)', description: 'A smart contract written in Rust', value: 'rs' },
-  { title: 'Typescript (experimental)', description: 'A smart contract written in typescript', value: 'ts' },
+  { title: 'Auction', description: 'Bid using NEAR, ideal for beginners', value: 'auction' },
+  { title: 'Auction (with FT)', description: 'Bid using fungible tokens to win an NFT', value: 'auction-adv' },
 ];
 
 const frontendChoices: Choices<Frontend> = [
-  { title: 'Vite (React)', description: 'A web-app built using Vite with React', value: 'vite-react' },
-  { title: 'NextJs (Classic)', description: 'A web-app built using Next.js Page Router', value: 'next-page' },
-  { title: 'NextJS (App Router)', description: 'A web-app built using Next.js new App Router', value: 'next-app' },
+  { title: 'Vite (React)', description: 'A React web application built with Vite', value: 'vite-react' },
+  { title: 'Next.js (App Router)', description: 'A React web application built with Next.js', value: 'next-app' },
 ];
 
-const appPrompt: PromptObject = {
-  type: 'select',
-  name: 'app',
-  message: 'What do you want to build?',
-  choices: appChoices,
-};
-
-const templatePrompt: PromptObject = {
-  type: 'select',
-  name: 'template',
-  message: 'Select a contract template',
-  choices: templateChoices,
-};
-
-const frontendPrompt: PromptObject = {
-  type: 'select',
-  name: 'frontend',
-  message: 'Select a framework for your frontend',
-  choices: frontendChoices,
-};
-
-const contractPrompt: PromptObject[] = [
-  {
-    type: 'select',
-    name: 'contract',
-    message: 'Select a language for your contract',
-    choices: contractChoices,
-  }
-];
-
-const namePrompts: PromptObject = {
+const namePrompt: PromptObject = {
   type: 'text',
   name: 'projectName',
   message: 'Name your project (we will create a directory with that name)',
   initial: 'near-template',
 };
 
-const npmPrompt: PromptObject = {
-  type: 'confirm',
-  name: 'install',
-  message: chalk`Run {bold {blue 'npm install'}} now?`,
-  initial: true,
-};
-
-const promptUser = async (prompts: PromptObject | PromptObject[]): Promise<prompt.Answers<string>> => {
-  // Prompt, and exit if user cancels
-  return prompt(prompts, { onCancel: () => process.exit(0) });
-};
+const promptUser = (questions: PromptObject | PromptObject[]) =>
+  prompt(questions, { onCancel: () => process.exit(0) });
 
 export async function getUserAnswers(): Promise<UserConfig> {
-  // Either the user wants a gateway or a contract
-  const { app } = await promptUser(appPrompt);
+  const { app } = await promptUser({
+    type: 'select', name: 'app', message: 'What do you want to build?',
+    choices: [
+      { title: 'Frontend', value: 'frontend' },
+      { title: 'Smart Contract', value: 'contract' },
+    ],
+  });
 
-  if (app === 'gateway') {
-    // If gateway, ask for the framework to use
-    const { frontend, projectName, install } = await promptUser([frontendPrompt, namePrompts, npmPrompt]);
-    return { frontend, contract: 'none', projectName, install, error: undefined };
-  } else {
-    // If platform is Window, return the error
-    if (process.platform === 'win32') {
-      return { frontend: 'none', contract: 'none', projectName: '', install: false, error: show.windowsWarning };
-    }
-
-    // If contract, ask for the template and language
-    const { template } = await promptUser(templatePrompt);
-    let { contract } = await promptUser(contractPrompt);
-
-    const { projectName } = await promptUser(namePrompts);
-    const install = contract === 'ts' ? (await promptUser(npmPrompt)).install as boolean : false;
-    return { frontend: 'none', contract, template, projectName, install, error: undefined };
+  if (app === 'contract') {
+    const { template, projectName } = await promptUser([
+      { type: 'select', name: 'template', message: 'Select a contract template', choices: templateChoices },
+      namePrompt,
+    ]);
+    return { contract: true, template, projectName, install: false };
   }
+
+  const { frontend, projectName, install } = await promptUser([
+    { type: 'select', name: 'frontend', message: 'Select a framework for your frontend', choices: frontendChoices },
+    namePrompt,
+    { type: 'confirm', name: 'install', message: chalkTemplate`Run {bold {blue 'npm install'}} now?`, initial: true },
+  ]);
+  return { contract: false, frontend, projectName, install };
 }
 
 export async function promptAndGetConfig(): Promise<{ config: UserConfig, projectPath: string } | void> {
-
-  // process cli args
   let args = await getUserArgs();
-
-  // If no args, prompt user
   if (!args.projectName) {
     show.welcome();
     args = await getUserAnswers();
   }
-
-  if (args.error) {
-    trackUsage('none', 'none');
-    return args.error();
-  }
-
-  // Homogenizing terminal args with prompt args
-  args.contract = args.contract || 'none';
-  args.frontend = args.frontend || 'none';
-
   if (!validateUserArgs(args)) return;
+  if (args.contract && process.platform === 'win32') return show.windowsWarning();
+  if (args.contract) args.template ??= 'auction';
 
-  // track user input
-  const { frontend, contract } = args;
-  trackUsage(frontend, contract);
-
-  let path = projectPath(args.projectName);
-
-  if (fs.existsSync(path)) {
-    return show.directoryExists(path);
+  void trackUsage(args.frontend, args.contract);
+  const destination = projectPath(args.projectName);
+  if (fs.existsSync(destination)) {
+    process.exitCode = 1;
+    return show.directoryExists(destination);
   }
-
-  return { config: args, projectPath: path };
+  return { config: args, projectPath: destination };
 }
 
-export const projectPath = (projectName: ProjectName) => `${process.cwd()}/${projectName}`;
+export const projectPath = (projectName: ProjectName) => path.resolve(projectName);
 
-const validateUserArgs = (args: UserConfig) => {
-
-  if (!FRONTENDS.includes(args.frontend)) {
-    show.argsError(`Invalid frontend type: ${args.frontend}`);
+export const validateUserArgs = (args: UserConfig): boolean => {
+  let error: string | undefined;
+  if (args.frontend && !FRONTENDS.includes(args.frontend)) error = `Invalid frontend type: ${args.frontend}`;
+  else if (!!args.contract === !!args.frontend) error = 'Please create a contract OR a frontend';
+  else if (args.template && !TEMPLATES.includes(args.template)) error = `Invalid template type: ${args.template}`;
+  else if (args.template && !args.contract) error = '--template requires --contract';
+  else if (args.install && args.contract) error = '--install is only available for frontends';
+  else if (!args.projectName) error = 'Please provide a project name';
+  if (error) {
+    show.argsError(error);
+    process.exitCode = 1;
     return false;
   }
-
-  if (!CONTRACTS.includes(args.contract)) {
-    show.argsError(`Invalid contract type: ${args.contract}`);
-    return false;
-  }
-
-  if (args.template && !TEMPLATES.includes(args.template)) {
-    show.argsError(`Invalid template type: ${args.template}`);
-    return false;
-  }
-
-  if (!args.projectName) {
-    show.argsError('Please provide a project name');
-    return false;
-  }
-
-  if ((args.contract === 'none') === (args.frontend === 'none')) {
-    show.argsError('Please create a contract OR a frontend');
-    return false;
-  }
-
-  if (args.contract !== 'none' && !args.template) {
-    show.argsError('Please specify a template for your contract');
-    return false;
-  }
-
   return true;
 };

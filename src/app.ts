@@ -1,65 +1,41 @@
 import path from 'path';
+import { readFileSync } from 'node:fs';
 import semver from 'semver';
-
 import { createProject, runDepsInstall } from './make';
-import { promptAndGetConfig, } from './user-input';
+import { promptAndGetConfig } from './user-input';
 import * as show from './messages';
 import { isCargoNearInstalled } from './utils';
 
 (async function () {
-
-  const supportedNodeVersion = require('../package.json').engines.node;
+  const supportedNodeVersion = JSON.parse(readFileSync(path.resolve(__dirname, '../package.json'), 'utf8')).engines.node;
   if (!semver.satisfies(process.version, supportedNodeVersion)) {
+    process.exitCode = 1;
     return show.unsupportedNodeVersion(supportedNodeVersion);
   }
 
-  const prompt = await promptAndGetConfig();
-  if (prompt === undefined) return;
+  const result = await promptAndGetConfig();
+  if (!result) return;
+  const { config, projectPath } = result;
+  const { projectName, contract, frontend, install } = config;
 
-  const {
-    config: {
-      projectName,
-      contract,
-      template,
-      frontend,
-      install,
-    },
-    projectPath,
-  } = prompt;
-
-  show.creatingApp();
-
-  let createSuccess;
   try {
-    createSuccess = await createProject({
-      contract,
-      template: template || 'auction',
-      frontend,
+    show.creatingApp();
+    await createProject({
+      ...config,
       templatesDir: path.resolve(__dirname, '../templates'),
       projectPath,
     });
-  } catch (e) {
-    console.error(e);
-    createSuccess = false;
-  }
-
-  let needsToInstallCargoNear = false;
-
-  if (contract === 'rs') {
-    show.checkingCargoNear();
-
-    let cargoNearInstalled = await isCargoNearInstalled();
-    if (!cargoNearInstalled) {
-      needsToInstallCargoNear = true;
-      show.cargoNearIsNotInstalled();
+    let needsCargoNear = false;
+    if (contract) {
+      show.checkingCargoNear();
+      needsCargoNear = !isCargoNearInstalled();
+      if (needsCargoNear) show.cargoNearIsNotInstalled();
     }
-  }
-
-
-  if (createSuccess) {
-    install && await runDepsInstall(projectPath);
-    show.setupSuccess(projectName, contract, frontend, install, needsToInstallCargoNear);
-  } else {
-    return show.setupFailed();
+    if (install) await runDepsInstall(projectPath);
+    show.setupSuccess(projectName, contract, frontend, install, needsCargoNear);
+  } catch (error) {
+    console.error(error);
+    process.exitCode = 1;
+    show.setupFailed();
   }
 })();

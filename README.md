@@ -1,114 +1,64 @@
 # Create NEAR App
 
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/nearprotocol/create-near-app) 
-
-Quickly build apps backed by the [NEAR](https://near.org) blockchain
-
+Scaffold a Rust smart contract or a React frontend for the [NEAR blockchain](https://near.org).
 
 ## Prerequisites
 
-Make sure you have a [current version of Node.js](https://nodejs.org) installed – we are targeting versions `16+` for JS contracts and `18+` for frontend/gateways.
+Install Node.js **22.22.2+, 24.15+, or 26+**. For contracts, install [Rust](https://rustup.rs) and [cargo-near](https://github.com/near/cargo-near). Windows contract developers should use WSL.
 
-Read about other [prerequisites](https://docs.near.org/build/smart-contracts/quickstart#prerequisites) in our docs.
+## Getting started
 
-## Getting Started
-
-To create a new NEAR project run this and follow interactive prompts:
-
-    npx create-near-app@latest
-
-Follow the instructions in the README.md in the project you just created! 🚀
-
-
-### Contracts
-You can create contracts written in:
-- `Javascript`
-- `Rust`
-
-:::
-We strongly recommend you to follow our [smart contract quickstart](https://docs.near.org/build/smart-contracts/quickstart) if you are new to NEAR contracts.
-:::
-
-For testing we use a sandboxed environment. You can write the tests in JavaScript or Rust.
-
-### WebApps
-
-You can create a web application in:
-
-- [Next (Pages Router)](https://nextjs.org/docs/pages/building-your-application/routing)
-- [Next (App Router)](https://nextjs.org/docs/app/building-your-application/routing)
-
-
-:::
-We strongly recommend you to follow our [web app quickstart](https://docs.near.org/build/web3-apps/quickstart) if you are new to NEAR WebApps.
-:::
-
-> Consider using `pnpm` to handle the frontend, since it is much faster than `npm` and `yarn`.
-
-## Using CLI arguments to run `create-near-app`
-
-This CLI supports arguments to skip interactive prompts:
-
-```shell
-npx create-near-app
-  <project-name>
-  --frontend next-app|next-page|none
-  --contract js|rs|none
-  --install
+```sh
+npx create-near-app@latest
 ```
 
-Use `--install` to automatically install dependencies from all `package.json` files.
+Choose one project type:
 
-When using arguments, all arguments are required, except for `--install`.
+- **Smart contract:** a basic auction using NEAR, or an advanced auction using fungible tokens with an NFT prize. Both use `near-sdk`, with local integration tests using `near-sandbox` and `near-api`.
+- **Frontend:** Next.js with App Router, or Vite with React. Both use TypeScript, NEAR Connect, and `near-api-js` to interact with the deployed Hello NEAR contract.
 
-## Getting Help
+Follow the generated project's README for build, testing, and deployment instructions. See the [contract quickstart](https://docs.near.org/build/smart-contracts/quickstart) or [frontend quickstart](https://docs.near.org/build/web3-apps/quickstart) to learn more.
 
-Check out our [documentation](https://docs.near.org) or chat with us on [Discord](http://near.chat). We'd love to hear from you!
+## CLI arguments
 
+Create a Rust contract (defaults to the basic auction):
 
-## Contributing to `create-near-app`
+```sh
+npx create-near-app@latest my-contract --contract
+npx create-near-app@latest my-auction --contract --template auction-adv
+```
 
-To make changes to `create-near-app` itself:
+Create a frontend:
 
-* clone the repository (Windows users, [use `git clone -c core.symlinks=true`](https://stackoverflow.com/a/42137273/249801))
-* in your terminal, enter one of the folders inside `templates`, such as `templates/frontend/next-app`
-* now you can run `pnpm install` to install dependencies and `pnpm run dev` to run the local development server, just like you can in a new app created with `create-near-app`
+```sh
+npx create-near-app@latest my-web-app --frontend next-app --install
+npx create-near-app@latest my-web-app --frontend vite-react --install
+```
 
+Choose exactly one of `--contract` or `--frontend`. `--template auction|auction-adv` applies only to contracts; `--install` runs `npm install` for a frontend.
 
-#### About commit messages
+Contract language arguments (`--contract rs`, `--contract ts`), `none` values, and the legacy `next-page` frontend are no longer supported. Use `--contract` for Rust and `--frontend next-app` for Next.js App Router.
 
-`create-near-app` uses semantic versioning and auto-generates nice release notes & a changelog all based off of the commits. We do this by enforcing [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). In general the pattern mostly looks like this:
+## Contributing
 
-    type(scope?): subject  #scope is optional; multiple scopes are supported (current delimiter options: "/", "\" and ",")
+```sh
+npm install
+npm test
+npm run lint
+```
 
-Real world examples can look like this:
+Package versions follow stable releases. TypeScript stays on 6.0 while the lint/test tools require it; the Next.js template uses ESLint 9 because its React lint plugins do not yet support ESLint 10. The scaffolder and Vite template use ESLint 10.
 
-    chore: run tests with GitHub Actions
+Templates live in `templates/contracts/auction`, `templates/contracts/auction-adv`, and `templates/frontend/{next-app,vite-react}`. Contract templates follow [auctions-tutorial](https://github.com/near-examples/auctions-tutorial); frontend wallet integration follows [hello-near-examples](https://github.com/near-examples/hello-near-examples).
 
-    fix(server): send cors headers
+Run `npm run test-e2e` to scaffold and test both contracts and build and lint both frontends. This requires the Rust toolchain and cargo-near, and downloads dependencies and the NEAR sandbox binary.
 
-    feat(blog): add comment section
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for changes. Maintainers with npm publish and GitHub repository access can publish with `npm run release` (requires `GITHUB_TOKEN`).
 
-If your change should show up in release notes as a feature, use `feat:`. If it should show up as a fix, use `fix:`. Otherwise, you probably want `refactor:` or `chore:`. [More info](https://github.com/conventional-changelog/commitlint/#what-is-commitlint)
+## Getting help
 
-
-#### Deploy `create-near-app`
-
-If you want to deploy a new version, you will need two prerequisites:
-
-1. Get publish-access to [the NPM package](https://www.npmjs.com/package/near-api-js)
-2. Get write-access to [the GitHub repository](https://github.com/near/near-api-js)
-3. Obtain a [personal access token](https://gitlab.com/profile/personal_access_tokens) (it only needs the "repo" scope).
-4. Make sure the token is [available as an environment variable](https://github.com/release-it/release-it/blob/master/docs/environment-variables.md) called `GITHUB_TOKEN`
-
-Then run one script:
-
-    npm run release
-
-Or just `release-it`
-
+Read the [documentation](https://docs.near.org) or join [Discord](https://near.chat).
 
 ## License
 
-This repository is distributed under the terms of both the MIT license and the Apache License (Version 2.0).
-See [LICENSE](LICENSE) and [LICENSE-APACHE](LICENSE-APACHE) for details.
+Distributed under the MIT and Apache 2.0 licenses. See [LICENSE](LICENSE) and [LICENSE-APACHE](LICENSE-APACHE).

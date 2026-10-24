@@ -1,8 +1,14 @@
 {
-  "include": ["."],
+  "extends": "../tsconfig.json",
+  "include": [
+    ".",
+    "../src"
+  ],
   "compilerOptions": {
-    "strict": false,
     "noEmit": true,
-    "esModuleInterop": true
+    "isolatedModules": true,
+    "rootDir": "..",
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
   }
 }

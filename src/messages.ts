@@ -1,6 +1,9 @@
 import chalk from 'chalk';
+import { makeTaggedTemplate } from 'chalk-template';
 import { trackingMessage } from './tracking';
-import { Contract, Frontend, FrontendMessage, ProjectName } from './types';
+import { Frontend, ProjectName } from './types';
+
+const chalkTemplate = makeTaggedTemplate(chalk);
 
 if (process.env.NEAR_NO_COLOR) {
   chalk.level = 0;
@@ -9,7 +12,7 @@ if (process.env.NEAR_NO_COLOR) {
 export const show = (...args: unknown[]) => console.log(...args);
 
 export const welcome = () =>
-  show(chalk`
+  show(chalkTemplate`
 {blue ======================================================}
 👋 {bold {green Welcome to Near!}} Learn more: https://docs.near.org/
 🔧 Let's get your project ready.
@@ -17,57 +20,41 @@ export const welcome = () =>
 (${trackingMessage})\n`);
 
 export const setupFailed = () =>
-  show(chalk`{bold {red ==========================================}}
+  show(chalkTemplate`{bold {red ==========================================}}
 {red ⛔️ There was a problem during the project setup}.
 Please refer to https://github.com/near/create-near-app README to troubleshoot.
 Notice: some platforms aren't supported (yet).
 {bold {red ==========================================}}`);
 
-const mapContractLanguage = (contract: Contract) => {
-  switch (contract) {
-    case 'ts':
-      return 'Typescript';
-    case 'rs':
-      return 'Rust';
-    default:
-      return '';
-  }
+export const successContractToText = (contract: boolean) =>
+  contract ? chalkTemplate`a smart contract in {bold Rust}` : '';
+
+const frontendTemplates: Record<Frontend, string> = {
+  'next-app': 'Next.js (App Router)',
+  'vite-react': 'Vite (React)',
 };
 
-export const successContractToText = (contract: Contract) =>
-  contract === 'none'
-    ? ''
-    : chalk`a smart contract in {bold ${mapContractLanguage(contract)}}`;
-
-const frontendTemplates: FrontendMessage = {
-  'next-page': 'NextJS (Classic)',
-  'next-app': 'NextJS (App Router)',
-  'vite-react': 'Vite React'
-};
-
-export const successFrontendToText = (frontend: Frontend) =>
-  frontend === 'none'
-    ? ''
-    : chalk`a web-app using ${frontendTemplates[frontend]}`;
+export const successFrontendToText = (frontend?: Frontend) =>
+  frontend ? chalkTemplate`a web-app using ${frontendTemplates[frontend]}` : '';
 
 export const setupSuccess = (
   projectName: ProjectName,
-  contract: Contract,
-  frontend: Frontend,
+  contract: boolean,
+  frontend: Frontend | undefined,
   install: boolean,
   needsToInstallCargoNear: boolean
 ) =>
-  show(chalk`
+  show(chalkTemplate`
 ✅ Success! Created '${projectName}', ${successContractToText(
   contract
 )}${successFrontendToText(frontend)}.
 ${
-  contract === 'rs'
-    ? chalk`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n`
+  contract
+    ? chalkTemplate`🦀 If you are new to Rust please visit {bold {green https://www.rust-lang.org }}\n`
     : ''
 }
 {bold {bgYellow {black Next steps}}}:
-${contractInstructions(projectName, contract, install, needsToInstallCargoNear)}${gatewayInstructions(
+${contractInstructions(projectName, contract, needsToInstallCargoNear)}${gatewayInstructions(
   projectName,
   frontend,
   install
@@ -75,63 +62,38 @@ ${contractInstructions(projectName, contract, install, needsToInstallCargoNear)}
 
 export const contractInstructions = (
   projectName: ProjectName,
-  contract: Contract,
-  install: boolean,
+  contract: boolean,
   needsToInstallCargoNear: boolean
 ) => {
-  if (contract === 'none') {
-    return '';
-  }
+  if (!contract) return '';
+  const installCargo = needsToInstallCargoNear
+    ? chalkTemplate`   - {inverse Install cargo-near}:
+         {blue https://github.com/near/cargo-near}
+`
+    : '';
+  return chalkTemplate`${installCargo}   - {inverse Navigate to your project}:
+         {blue cd {bold ${projectName}}}
+   - {inverse Build your contract}:
+         {blue {bold cargo near build non-reproducible-wasm}}
+   - {inverse Test your contract} in the Sandbox:
+         {blue {bold cargo test --locked}}
 
-  let message = '';
-
-  if (needsToInstallCargoNear) {
-    message += chalk`   - {inverse Install cargo-near}:
-         {blue Go to {bold https://github.com/near/cargo-near}}\n`;
-  }
-
-  message += chalk`   - {inverse Navigate to your project}:
-         {blue cd {bold ${projectName}}}\n`;
-
-  if (contract === 'ts' && !install) {
-    message += chalk`   - {inverse Install all dependencies}
-         {blue npm {bold install}}\n`;
-  }
-
-  message += chalk`   - {inverse Build your contract}:\n`;
-
-  if (contract === 'ts') {
-    message += chalk`         {blue npm {bold run build}}\n`;
-  } else {
-    message += chalk`         {blue {bold cargo near build}}\n`;
-  }
-
-  message += chalk`   - {inverse Test your contract} in the Sandbox:\n`;
-
-  if (contract === 'ts') {
-    message += chalk`         {blue npm {bold run test}}\n`;
-  } else {
-    message += chalk`         {blue {bold cargo test}}\n`;
-  }
-  
-  message += chalk`\n🧠 Read {bold {greenBright README.md}} to explore further`;
-
-  return message;
+🧠 Read {bold {greenBright README.md}} to explore further`;
 };
 
 export const gatewayInstructions = (
   projectName: ProjectName,
-  frontend: Frontend,
+  frontend: Frontend | undefined,
   install: boolean
 ) =>
-  frontend === 'none'
+  !frontend
     ? ''
-    : chalk`
+    : chalkTemplate`
    - {inverse Navigate to your project}:
          {blue cd {bold ${projectName}}}
 ${
   !install
-    ? chalk`   - {inverse Install all dependencies}
+    ? chalkTemplate`   - {inverse Install all dependencies}
          {blue npm {bold install}}`
     : 'Then:'
 }
@@ -139,35 +101,32 @@ ${
          {blue npm {bold run dev}}`;
 
 export const argsError = (msg: string) =>
-  show(chalk`{red Arguments error: {white ${msg}}}
+  show(chalkTemplate`{red Arguments error: {white ${msg}}}
 
 Run {blue npx create-near-app} without arguments, or use:
-npx create-near-app <projectName> [--frontend next-app|next-page] [--contract rs|ts|none]`);
+npx create-near-app <projectName> --contract [--template auction|auction-adv]
+npx create-near-app <projectName> --frontend next-app|vite-react [--install]`);
 
 export const unsupportedNodeVersion = (supported: string) =>
-  show(chalk`{red We support node.js version ${supported} or later}`);
+  show(chalkTemplate`{red We support node.js version ${supported} or later}`);
 
 export const windowsWarning = () =>
-  show(chalk`{red Please use Windows Subsystem for Linux (WSL) to develop smart contracts}
+  show(chalkTemplate`{red Please use Windows Subsystem for Linux (WSL) to develop smart contracts}
 {yellow Learn more here: https://docs.near.org/blog/getting-started-on-windows}
 `);
 
 export const directoryExists = (dirName: string) =>
-  show(chalk`{red This directory already exists! ${dirName}}`);
+  show(chalkTemplate`{red This directory already exists! ${dirName}}`);
 
-export const creatingApp = () => show(chalk`\n- Creating a new {bold NEAR dApp}...`);
+export const creatingApp = () => show(chalkTemplate`\n- Creating a new {bold NEAR dApp}...`);
 
 // Installing dependencies messages
 export const depsInstall = () =>
-  show(chalk`- Installing dependencies in a few folders, this might take a while...`);
+  show(chalkTemplate`- Installing frontend dependencies, this might take a while...`);
 
 export const depsInstallError = () =>
   show(chalk.red('Error installing NEAR project dependencies'));
 
-// Updating files messages
-export const updatingFiles = () => show(chalk`- Updating Cargo.toml and rust-toolchain.toml files from the remote source...`);
-export const updateFilesFailed = () => show(chalk`  {yellow There was a problem during the Cargo.toml and rust-toolchain.toml files remote updating. Check your internet connection.}\n`);
-
 // Checking cargo-near messages
-export const checkingCargoNear = () => show(chalk`- Checking if cargo-near extension is installed...`);
-export const cargoNearIsNotInstalled = () => show(chalk`  {bold {yellow Did not find cargo-near, please install it to build and deploy Rust contracts: https://github.com/near/cargo-near}}`);
+export const checkingCargoNear = () => show(chalkTemplate`- Checking if cargo-near extension is installed...`);
+export const cargoNearIsNotInstalled = () => show(chalkTemplate`  {bold {yellow Did not find cargo-near, please install it to build and deploy Rust contracts: https://github.com/near/cargo-near}}`);

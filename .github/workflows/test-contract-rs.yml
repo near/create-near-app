@@ -17,8 +17,8 @@ jobs:
     - name: Install modules
       run: npm install
     - name: Create Contract RS - ${{ matrix.template }}
-      run: npm run start -- test-app --frontend none --contract rs --template ${{ matrix.template }}
+      run: npm run start -- test-app --contract --template ${{ matrix.template }}
     - name: Install cargo-near
       run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/latest/download/cargo-near-installer.sh | sh
     - name: Run tests
-      run: cd test-app && cargo test
+      run: cd test-app && cargo test --locked

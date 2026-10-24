@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useNearWallet } from 'near-connect-hooks';
+import { useNearWallet } from '@/providers/near-provider';
 
 import NearLogo from '../../public/near-logo.svg';
 
@@ -11,7 +11,7 @@ export const Navigation = () => {
     if (signedAccountId) {
       signOut();
     } else {
-      signIn();
+      void signIn();
     }
   };
 

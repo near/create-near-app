@@ -3,30 +3,30 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=18"
+    "node": "^22.22.2 || >=24.0.0"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "bootstrap": "^5",
-    "bootstrap-icons": "^1.11.3",
-    "near-connect-hooks": "^1.0.2",
-    "next": "^15",
-    "react": "^18",
-    "react-dom": "^18"
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.2",
+    "next": "^16.4.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "@hot-labs/near-connect": "^0.11.4",
+    "function-call-key-plugin": "^2.1.0",
+    "near-api-js": "^7.4.0"
   },
   "devDependencies": {
-    "@types/node": "^24.7.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
-    "encoding": "^0.1.13",
-    "eslint": "^9",
-    "eslint-config-next": "^15",
-    "pino-pretty": "^11.2.2",
-    "typescript": "^5.9.3"
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.3",
+    "typescript": "^6.0.3"
   }
 }

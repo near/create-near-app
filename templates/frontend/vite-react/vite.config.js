@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [nodePolyfills(), react()],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': '/src',
-      buffer: 'buffer',
+      // near-api-js uses util.format when generating JSON validators.
+      util: 'util/',
     },
   },
 })

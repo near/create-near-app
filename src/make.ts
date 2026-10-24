@@ -1,40 +1,22 @@
 import spawn from 'cross-spawn';
 import fs from 'fs';
-import { ncp } from 'ncp';
 import path from 'path';
 import * as show from './messages';
-import { CreateContractParams, CreateGatewayParams } from './types';
+import { CreateProjectParams } from './types';
 
-export async function createProject({ contract, template, frontend, projectPath, templatesDir }: CreateContractParams & CreateGatewayParams): Promise<boolean> {
-  if (contract !== 'none') {
-    await createContract({ contract, template, projectPath, templatesDir });
-  } else if (frontend !== 'none') {
-    await createGateway({ frontend, projectPath, templatesDir });
-  }
-
-  return true;
-}
-
-async function createContract({ contract, template, projectPath, templatesDir }: CreateContractParams) {
-  await createContractFromTemplate({ contract, template, projectPath, templatesDir });
-}
-
-async function createContractFromTemplate({ contract, template, projectPath, templatesDir }: CreateContractParams) {
-  const sourceContractDir = path.resolve(templatesDir, 'contracts', template, contract);
+export async function createProject({ contract, template = 'auction', frontend, projectPath, templatesDir }: CreateProjectParams): Promise<void> {
+  if (!!contract === !!frontend) throw new Error('Choose a contract or a frontend');
+  const source = contract
+    ? path.resolve(templatesDir, 'contracts', template)
+    : path.resolve(templatesDir, 'frontend', frontend!);
   fs.mkdirSync(projectPath, { recursive: true });
-  await copyDir(sourceContractDir, projectPath);
+  await copyDir(source, projectPath);
 }
 
-async function createGateway({ frontend, projectPath, templatesDir }: CreateGatewayParams) {
-  const sourceFrontendDir = path.resolve(`${templatesDir}/frontend/${frontend}`);
-  fs.mkdirSync(projectPath, { recursive: true });
-  await copyDir(sourceFrontendDir, projectPath);
-}
-
-// Wrap `ncp` tool to wait for the copy to finish when using `await`
-export function copyDir(source: string, dest: string) {
-  return new Promise<void>((resolve, reject) => {
-    ncp(source, dest, {}, err => err ? reject(err) : resolve());
+export async function copyDir(source: string, dest: string) {
+  await fs.promises.cp(source, dest, {
+    recursive: true,
+    filter: (entry) => !['node_modules', 'target', '.next', 'dist', 'build', '.git'].includes(path.basename(entry)),
   });
 }
 
@@ -43,10 +25,10 @@ export async function runDepsInstall(projectPath: string) {
   await new Promise<void>((resolve, reject) => spawn('npm', ['install'], {
     cwd: projectPath,
     stdio: 'inherit',
-  }).on('close', (code: number) => {
+  }).on('error', reject).on('close', (code: number) => {
     if (code !== 0) {
       show.depsInstallError();
-      reject(code);
+      reject(new Error(`npm install exited with code ${code}`));
     } else {
       resolve();
     }

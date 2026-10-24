@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import {Contract, Frontend, TrackingEventPayload} from './types';
+import {Frontend, TrackingEventPayload} from './types';
 
 const POSTHOG_API_KEY = 'phc_95PGQnbyatmj2TBRPWYfhbHfqB6wgZj5QRL8WY9gW20';
 const POSTHOG_API_URL = 'https://eu.i.posthog.com/capture';
@@ -8,7 +8,7 @@ const POSTHOG_API_URL = 'https://eu.i.posthog.com/capture';
 export const trackingMessage = chalk.italic('Near collects anonymous information on the commands used. No personal information that could identify you is shared');
 
 // TODO: track different failures & install usage
-export const trackUsage = async (frontend: Frontend, contract: Contract) => {
+export const trackUsage = async (frontend: Frontend | undefined, contract: boolean) => {
   // prevents logging from CI
   if (process.env.NEAR_ENV === 'ci' || process.env.NODE_ENV === 'ci') {
     console.log('PostHog logging is skipped in CI env');
@@ -26,12 +26,12 @@ export const trackUsage = async (frontend: Frontend, contract: Contract) => {
     timestamp: new Date(),
   };
 
-  if (contract !== 'none') {
+  if (contract) {
     payload.event = 'contract';
-    payload.properties.language = contract;
+    payload.properties.language = 'rs';
   }
 
-  if (frontend !== 'none') {
+  if (frontend) {
     payload.event = 'frontend';
     payload.properties.framework = frontend;
   }
@@ -48,7 +48,7 @@ export const trackUsage = async (frontend: Frontend, contract: Contract) => {
       }),
       headers,
     });
-  } catch (e) {
+  } catch {
     console.error(
       '  Warning: problem while sending tracking data\n',
     );

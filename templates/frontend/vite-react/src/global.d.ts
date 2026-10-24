@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 // CSS module declarations
 declare module '*.module.css';
 declare module '*.module.scss';
